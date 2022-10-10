@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float speed = 5.0f;
     [SerializeField] private float gravity = -9.8f;
     [SerializeField] private float jumpSpeed = 10.0f;
+    [SerializeField] private float slideDownSpeed = 0.5f;
     private Vector3 velocity;
 
     [SerializeField] private float groundDistance = 0.4f;
@@ -40,22 +41,20 @@ public class PlayerMovement : MonoBehaviour
     private void OnDrawGizmos()
     {
         if (!drawGizmos) return;
-
-        Gizmos.DrawLine(transform.position, transform.forward * 4);
     }
 
     private void SetVerticalVelocity()
     {
-        isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+        if (velocity.y < -50.0f)
+        {
+            velocity.y = -50.0f;
+        }
+
+        GroundCheck();
 
         if (isGrounded && velocity.y < 0.0f)
         {
             velocity.y = 0.0f;
-        }
-
-        if (velocity.y < -50.0f)
-        {
-            velocity.y = -50.0f;
         }
 
         velocity.y += gravity * Time.deltaTime;
@@ -66,6 +65,28 @@ public class PlayerMovement : MonoBehaviour
             velocity.y = Mathf.Sqrt(jumpSpeed * -2 * gravity);
         }
 
-        Debug.Log("Velocity is " + velocity.y);
+        Debug.Log(velocity);
     }
+
+    private void GroundCheck()
+    {
+        isGrounded = false;
+
+        if (Physics.SphereCast(groundCheck.position, controller.radius, Vector3.down, out RaycastHit hit, groundDistance))
+        {
+            if (Vector3.Angle(transform.up, hit.normal) <= controller.slopeLimit)
+            {
+                isGrounded = true;
+            }
+            else
+            {
+                var slideDown = hit.normal * slideDownSpeed;
+                controller.Move(slideDown);
+            }
+        }
+    }
+
+    // Physics.CapsuleCast(GetCapsuleBottomHemisphere(), GetCapsuleTopHemisphere(m_Controller.height),
+    // m_Controller.radius, Vector3.down, out RaycastHit hit, chosenGroundCheckDistance, GroundCheckLayers,
+    // QueryTriggerInteraction.Ignore)
 }
