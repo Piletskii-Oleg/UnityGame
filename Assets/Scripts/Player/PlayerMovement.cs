@@ -27,12 +27,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        float deltaX = Input.GetAxis("Horizontal");
-        float deltaZ = Input.GetAxis("Vertical");
-
-        var movement = transform.right * deltaX + transform.forward * deltaZ;
+        var movement = GetGroundVelocity();
         movement = Vector3.ClampMagnitude(movement, speed);
-        movement = transform.TransformDirection(movement);
         controller.Move(speed * Time.deltaTime * movement);
 
         SetVerticalVelocity();
@@ -65,7 +61,16 @@ public class PlayerMovement : MonoBehaviour
             velocity.y = Mathf.Sqrt(jumpSpeed * -2 * gravity);
         }
 
-        Debug.Log(velocity);
+        // Debug.Log(velocity);
+    }
+
+    private Vector3 GetGroundVelocity()
+    {
+        float deltaX = Input.GetAxis("Horizontal");
+        float deltaZ = Input.GetAxis("Vertical");
+
+        var movement = transform.right * deltaX + transform.forward * deltaZ;
+        return transform.TransformDirection(movement);
     }
 
     private void GroundCheck()
@@ -85,8 +90,4 @@ public class PlayerMovement : MonoBehaviour
             }
         }
     }
-
-    // Physics.CapsuleCast(GetCapsuleBottomHemisphere(), GetCapsuleTopHemisphere(m_Controller.height),
-    // m_Controller.radius, Vector3.down, out RaycastHit hit, chosenGroundCheckDistance, GroundCheckLayers,
-    // QueryTriggerInteraction.Ignore)
 }
