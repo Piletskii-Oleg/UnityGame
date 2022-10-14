@@ -4,34 +4,42 @@ using UnityEngine;
 [AddComponentMenu("Control Input")]
 public class PlayerMovement : MonoBehaviour
 {
+    private PlayerInput playerInput;
+    private PlayerInput.OnFootActions onFoot;
     public bool drawGizmos = true;
 
     [SerializeField] private float speed = 5.0f;
     [SerializeField] private float gravity = -9.8f;
     [SerializeField] private float jumpSpeed = 10.0f;
     [SerializeField] private float slideDownSpeed = 0.5f;
+    private readonly float terminalVelocity = 50.0f;
     private Vector3 velocity;
 
     [SerializeField] private float groundDistance = 0.4f;
     [SerializeField] private Transform groundCheck;
     public bool isGrounded;
-    private LayerMask groundMask;
 
     private CharacterController controller;
 
-    private void Start()
+    private void Awake()
     {
-        groundMask = LayerMask.GetMask("Ground");
-        controller = GetComponent<CharacterController>();
+        playerInput = new PlayerInput();
+        onFoot = playerInput.OnFoot;
     }
 
-    private void Update()
+    private void OnEnable()
     {
-        var movement = GetGroundVelocity();
-        movement = Vector3.ClampMagnitude(movement, speed);
-        controller.Move(speed * Time.deltaTime * movement);
+        onFoot.Enable();
+    }
 
-        SetVerticalVelocity();
+    private void OnDisable()
+    {
+        onFoot.Disable();
+    }
+
+    private void Start()
+    {
+        controller = GetComponent<CharacterController>();
     }
 
     private void OnDrawGizmos()
@@ -39,41 +47,28 @@ public class PlayerMovement : MonoBehaviour
         if (!drawGizmos) return;
     }
 
-    private void SetVerticalVelocity()
+    public void ProcessMovement(Vector2 input)
     {
-        if (velocity.y < -50.0f)
-        {
-            velocity.y = -50.0f;
-        }
+        var moveDirection = new Vector3(input.x, 0, input.y);
+        controller.Move(speed * Time.deltaTime * transform.TransformDirection(moveDirection));
 
-        GroundCheck();
-
-        if (isGrounded && velocity.y < 0.0f)
-        {
-            velocity.y = 0.0f;
-        }
+        SetTerminalVelocity();
+        JumpCheckAndSlide();
+        OnGroundCheck();
 
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
+    }
 
-        if (Input.GetButtonDown("Jump") && isGrounded)
+    public void Jump()
+    {
+        if (isGrounded)
         {
             velocity.y = Mathf.Sqrt(jumpSpeed * -2 * gravity);
         }
-
-        // Debug.Log(velocity);
     }
 
-    private Vector3 GetGroundVelocity()
-    {
-        float deltaX = Input.GetAxis("Horizontal");
-        float deltaZ = Input.GetAxis("Vertical");
-
-        var movement = transform.right * deltaX + transform.forward * deltaZ;
-        return transform.TransformDirection(movement);
-    }
-
-    private void GroundCheck()
+    private void JumpCheckAndSlide()
     {
         isGrounded = false;
 
@@ -90,4 +85,10 @@ public class PlayerMovement : MonoBehaviour
             }
         }
     }
+
+    private void SetTerminalVelocity()
+        => velocity.y = (velocity.y < terminalVelocity) ? terminalVelocity : velocity.y;
+
+    private void OnGroundCheck()
+        => velocity.y = (velocity.y < -2.0f && controller.isGrounded) ? -2.0f : velocity.y;
 }

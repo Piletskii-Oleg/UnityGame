@@ -549,12 +549,11 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 335f209c38419ad4095ab1846f289a0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  direction: 1
   mouseSensitivity: 3
 --- !u!143 &963194231
 CharacterController:
@@ -586,6 +585,7 @@ GameObject:
   - component: {fileID: 1542204912}
   - component: {fileID: 1542204911}
   - component: {fileID: 1542204915}
+  - component: {fileID: 1542204920}
   - component: {fileID: 1542204917}
   - component: {fileID: 1542204916}
   - component: {fileID: 1542204918}
@@ -694,8 +694,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 335f209c38419ad4095ab1846f289a0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  direction: 0
-  mouseSensitivity: 3
+  mouseSensitivity: 30
 --- !u!114 &1542204917
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -746,7 +745,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dashSpeed: 30.89
   dashTime: 10.8
-  dashCooldown: 2
+--- !u!114 &1542204920
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1542204909}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eee5779cd9d48d24ca5a18abf6d0286f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1763349580
 GameObject:
   m_ObjectHideFlags: 0

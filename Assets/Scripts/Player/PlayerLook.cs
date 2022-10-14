@@ -1,41 +1,29 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerLook : MonoBehaviour
 {
-    private enum RotationAxes
-    {
-        Horizontal,
-        HorizontalAndVertical
-    };
-
-    [SerializeField] private RotationAxes direction;
-
     [SerializeField] private float mouseSensitivity = 0.5f;
+
+    private Camera cam;
 
     private float verticalRotation = 0f;
 
     private void Start()
     {
+        cam = GetComponentInChildren<Camera>();
         Cursor.lockState = CursorLockMode.Locked;
     }
 
-    private void Update()
+    public void ProcessLook(Vector2 input)
     {
-        var horizontalDelta = Input.GetAxis("Mouse X") * mouseSensitivity;
-        if (direction == RotationAxes.Horizontal)
-        {
-            transform.Rotate(0, horizontalDelta, 0);
-        }
-        else
-        {
-            var horizontalRotation = transform.localEulerAngles.y + horizontalDelta;
+        float mouseX = input.x;
+        float mouseY = input.y;
 
-            verticalRotation -= Input.GetAxis("Mouse Y") * mouseSensitivity;
-            verticalRotation = Mathf.Clamp(verticalRotation, -90f, 90f);
+        verticalRotation -= (mouseY * Time.deltaTime) * mouseSensitivity;
+        verticalRotation = Mathf.Clamp(verticalRotation, -90f, 90f);
 
-            transform.localEulerAngles = new Vector3(verticalRotation, horizontalRotation, 0);
-        }
+        cam.transform.localRotation = Quaternion.Euler(verticalRotation, 0, 0);
+
+        transform.Rotate((mouseX * Time.deltaTime) * mouseSensitivity * Vector3.up);
     }
 }
