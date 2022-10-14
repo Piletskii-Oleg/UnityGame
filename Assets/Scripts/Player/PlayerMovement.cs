@@ -12,7 +12,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float gravity = -9.8f;
     [SerializeField] private float jumpSpeed = 10.0f;
     [SerializeField] private float slideDownSpeed = 0.5f;
-    private readonly float terminalVelocity = 50.0f;
+    private readonly float terminalVelocity = -50.0f;
     private Vector3 velocity;
 
     [SerializeField] private float groundDistance = 0.4f;
