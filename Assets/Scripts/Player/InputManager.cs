@@ -7,6 +7,7 @@ public class InputManager : MonoBehaviour
 
     private PlayerMovement movement;
     private PlayerLook look;
+    private WeaponManager weaponManager;
 
     private void Awake()
     {
@@ -15,13 +16,18 @@ public class InputManager : MonoBehaviour
 
         movement = GetComponent<PlayerMovement>();
         look = GetComponent<PlayerLook>();
+        weaponManager = GetComponent<WeaponManager>();
 
         onFoot.Jump.performed += ctx => movement.Jump();
+
+        onFoot.ShootPrimary.performed += ctx => weaponManager.Shoot();
+        onFoot.Reload.performed += ctx => weaponManager.Reload();
     }
 
     private void FixedUpdate()
     {
-        movement.ProcessMovement(onFoot.Movement.ReadValue<Vector2>());
+        movement.ProcessHorizontalMovement(onFoot.Movement.ReadValue<Vector2>());
+        movement.ProcessVerticalMovement();
     }
 
     private void LateUpdate()

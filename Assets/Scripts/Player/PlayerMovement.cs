@@ -1,13 +1,8 @@
 using UnityEngine;
 
 [RequireComponent(typeof(CharacterController))]
-[AddComponentMenu("Control Input")]
 public class PlayerMovement : MonoBehaviour
 {
-    private PlayerInput playerInput;
-    private PlayerInput.OnFootActions onFoot;
-    public bool drawGizmos = true;
-
     [SerializeField] private float speed = 5.0f;
     [SerializeField] private float gravity = -9.8f;
     [SerializeField] private float jumpSpeed = 10.0f;
@@ -21,40 +16,22 @@ public class PlayerMovement : MonoBehaviour
 
     private CharacterController controller;
 
-    private void Awake()
-    {
-        playerInput = new PlayerInput();
-        onFoot = playerInput.OnFoot;
-    }
-
-    private void OnEnable()
-    {
-        onFoot.Enable();
-    }
-
-    private void OnDisable()
-    {
-        onFoot.Disable();
-    }
-
     private void Start()
     {
         controller = GetComponent<CharacterController>();
     }
 
-    private void OnDrawGizmos()
-    {
-        if (!drawGizmos) return;
-    }
-
-    public void ProcessMovement(Vector2 input)
+    public void ProcessHorizontalMovement(Vector2 input)
     {
         var moveDirection = new Vector3(input.x, 0, input.y);
         controller.Move(speed * Time.deltaTime * transform.TransformDirection(moveDirection));
+    }
 
-        SetTerminalVelocity();
-        JumpCheckAndSlide();
+    public void ProcessVerticalMovement()
+    {
+        TerminalVelocityCheck();
         OnGroundCheck();
+        JumpCheckAndSlide();
 
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
@@ -74,7 +51,8 @@ public class PlayerMovement : MonoBehaviour
 
         if (Physics.SphereCast(groundCheck.position, controller.radius, Vector3.down, out RaycastHit hit, groundDistance))
         {
-            if (Vector3.Angle(transform.up, hit.normal) <= controller.slopeLimit)
+            var angle = Vector3.Angle(transform.up, hit.normal);
+            if (angle <= controller.slopeLimit)
             {
                 isGrounded = true;
             }
@@ -86,9 +64,9 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void SetTerminalVelocity()
+    private void TerminalVelocityCheck()
         => velocity.y = (velocity.y < terminalVelocity) ? terminalVelocity : velocity.y;
 
     private void OnGroundCheck()
-        => velocity.y = (velocity.y < -2.0f && controller.isGrounded) ? -2.0f : velocity.y;
+        => velocity.y = (velocity.y < -2.0f && isGrounded) ? -2.0f : velocity.y;
 }
