@@ -18,10 +18,7 @@ public class InputManager : MonoBehaviour
         look = GetComponent<PlayerLook>();
         weaponManager = GetComponent<WeaponManager>();
 
-        onFoot.Jump.performed += ctx => movement.Jump();
-
-        onFoot.ShootPrimary.performed += ctx => weaponManager.Shoot();
-        onFoot.Reload.performed += ctx => weaponManager.Reload();
+        SubscribeToEvents();
     }
 
     private void FixedUpdate()
@@ -43,5 +40,13 @@ public class InputManager : MonoBehaviour
     private void OnDisable()
     {
         onFoot.Disable();
+    }
+
+    private void SubscribeToEvents()
+    {
+        onFoot.Jump.performed += _ => movement.Jump();
+
+        onFoot.ShootPrimary.performed += _ => weaponManager.Shoot();
+        onFoot.Reload.performed += _ => weaponManager.StartReload();
     }
 }
