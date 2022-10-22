@@ -55,22 +55,13 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""Noclip"",
-                    ""type"": ""Button"",
-                    ""id"": ""c3b8d5ac-e50f-4ea6-b9f2-f72fe1536747"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
                     ""name"": ""Shoot (Primary)"",
-                    ""type"": ""Button"",
+                    ""type"": ""Value"",
                     ""id"": ""ea092d22-3ef7-441d-bad0-579800b8d41e"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
-                    ""initialStateCheck"": false
+                    ""initialStateCheck"": true
                 },
                 {
                     ""name"": ""Reload"",
@@ -80,6 +71,15 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ChangeWeapon"",
+                    ""type"": ""Value"",
+                    ""id"": ""667bf473-059b-40e6-991a-763690617245"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -239,17 +239,6 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""45096b8a-f379-41c8-a1b7-f49c0fb809c3"",
-                    ""path"": ""<Keyboard>/v"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Noclip"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""23ec2c09-8a68-4084-ab7f-8d6d476d16ed"",
                     ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
@@ -269,6 +258,28 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""action"": ""Reload"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8059bfac-157d-4796-98d3-705e9a57581f"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale"",
+                    ""groups"": """",
+                    ""action"": ""ChangeWeapon"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c6653b20-fd8d-421b-b265-2fb388d2a400"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale(factor=2)"",
+                    ""groups"": """",
+                    ""action"": ""ChangeWeapon"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -280,9 +291,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         m_OnFoot_Movement = m_OnFoot.FindAction("Movement", throwIfNotFound: true);
         m_OnFoot_Jump = m_OnFoot.FindAction("Jump", throwIfNotFound: true);
         m_OnFoot_Look = m_OnFoot.FindAction("Look", throwIfNotFound: true);
-        m_OnFoot_Noclip = m_OnFoot.FindAction("Noclip", throwIfNotFound: true);
         m_OnFoot_ShootPrimary = m_OnFoot.FindAction("Shoot (Primary)", throwIfNotFound: true);
         m_OnFoot_Reload = m_OnFoot.FindAction("Reload", throwIfNotFound: true);
+        m_OnFoot_ChangeWeapon = m_OnFoot.FindAction("ChangeWeapon", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -345,9 +356,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
     private readonly InputAction m_OnFoot_Movement;
     private readonly InputAction m_OnFoot_Jump;
     private readonly InputAction m_OnFoot_Look;
-    private readonly InputAction m_OnFoot_Noclip;
     private readonly InputAction m_OnFoot_ShootPrimary;
     private readonly InputAction m_OnFoot_Reload;
+    private readonly InputAction m_OnFoot_ChangeWeapon;
     public struct OnFootActions
     {
         private @PlayerInput m_Wrapper;
@@ -355,9 +366,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         public InputAction @Movement => m_Wrapper.m_OnFoot_Movement;
         public InputAction @Jump => m_Wrapper.m_OnFoot_Jump;
         public InputAction @Look => m_Wrapper.m_OnFoot_Look;
-        public InputAction @Noclip => m_Wrapper.m_OnFoot_Noclip;
         public InputAction @ShootPrimary => m_Wrapper.m_OnFoot_ShootPrimary;
         public InputAction @Reload => m_Wrapper.m_OnFoot_Reload;
+        public InputAction @ChangeWeapon => m_Wrapper.m_OnFoot_ChangeWeapon;
         public InputActionMap Get() { return m_Wrapper.m_OnFoot; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -376,15 +387,15 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @Look.started -= m_Wrapper.m_OnFootActionsCallbackInterface.OnLook;
                 @Look.performed -= m_Wrapper.m_OnFootActionsCallbackInterface.OnLook;
                 @Look.canceled -= m_Wrapper.m_OnFootActionsCallbackInterface.OnLook;
-                @Noclip.started -= m_Wrapper.m_OnFootActionsCallbackInterface.OnNoclip;
-                @Noclip.performed -= m_Wrapper.m_OnFootActionsCallbackInterface.OnNoclip;
-                @Noclip.canceled -= m_Wrapper.m_OnFootActionsCallbackInterface.OnNoclip;
                 @ShootPrimary.started -= m_Wrapper.m_OnFootActionsCallbackInterface.OnShootPrimary;
                 @ShootPrimary.performed -= m_Wrapper.m_OnFootActionsCallbackInterface.OnShootPrimary;
                 @ShootPrimary.canceled -= m_Wrapper.m_OnFootActionsCallbackInterface.OnShootPrimary;
                 @Reload.started -= m_Wrapper.m_OnFootActionsCallbackInterface.OnReload;
                 @Reload.performed -= m_Wrapper.m_OnFootActionsCallbackInterface.OnReload;
                 @Reload.canceled -= m_Wrapper.m_OnFootActionsCallbackInterface.OnReload;
+                @ChangeWeapon.started -= m_Wrapper.m_OnFootActionsCallbackInterface.OnChangeWeapon;
+                @ChangeWeapon.performed -= m_Wrapper.m_OnFootActionsCallbackInterface.OnChangeWeapon;
+                @ChangeWeapon.canceled -= m_Wrapper.m_OnFootActionsCallbackInterface.OnChangeWeapon;
             }
             m_Wrapper.m_OnFootActionsCallbackInterface = instance;
             if (instance != null)
@@ -398,15 +409,15 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @Look.started += instance.OnLook;
                 @Look.performed += instance.OnLook;
                 @Look.canceled += instance.OnLook;
-                @Noclip.started += instance.OnNoclip;
-                @Noclip.performed += instance.OnNoclip;
-                @Noclip.canceled += instance.OnNoclip;
                 @ShootPrimary.started += instance.OnShootPrimary;
                 @ShootPrimary.performed += instance.OnShootPrimary;
                 @ShootPrimary.canceled += instance.OnShootPrimary;
                 @Reload.started += instance.OnReload;
                 @Reload.performed += instance.OnReload;
                 @Reload.canceled += instance.OnReload;
+                @ChangeWeapon.started += instance.OnChangeWeapon;
+                @ChangeWeapon.performed += instance.OnChangeWeapon;
+                @ChangeWeapon.canceled += instance.OnChangeWeapon;
             }
         }
     }
@@ -416,8 +427,8 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         void OnMovement(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
-        void OnNoclip(InputAction.CallbackContext context);
         void OnShootPrimary(InputAction.CallbackContext context);
         void OnReload(InputAction.CallbackContext context);
+        void OnChangeWeapon(InputAction.CallbackContext context);
     }
 }

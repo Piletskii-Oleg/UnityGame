@@ -33,22 +33,13 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Noclip",
-                    "type": "Button",
-                    "id": "c3b8d5ac-e50f-4ea6-b9f2-f72fe1536747",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "Shoot (Primary)",
-                    "type": "Button",
+                    "type": "Value",
                     "id": "ea092d22-3ef7-441d-bad0-579800b8d41e",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 },
                 {
                     "name": "Reload",
@@ -58,6 +49,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "ChangeWeapon",
+                    "type": "Value",
+                    "id": "667bf473-059b-40e6-991a-763690617245",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -217,17 +217,6 @@
                 },
                 {
                     "name": "",
-                    "id": "45096b8a-f379-41c8-a1b7-f49c0fb809c3",
-                    "path": "<Keyboard>/v",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Noclip",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "23ec2c09-8a68-4084-ab7f-8d6d476d16ed",
                     "path": "<Mouse>/leftButton",
                     "interactions": "",
@@ -245,6 +234,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "Reload",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8059bfac-157d-4796-98d3-705e9a57581f",
+                    "path": "<Keyboard>/1",
+                    "interactions": "",
+                    "processors": "Scale",
+                    "groups": "",
+                    "action": "ChangeWeapon",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c6653b20-fd8d-421b-b265-2fb388d2a400",
+                    "path": "<Keyboard>/2",
+                    "interactions": "",
+                    "processors": "Scale(factor=2)",
+                    "groups": "",
+                    "action": "ChangeWeapon",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
