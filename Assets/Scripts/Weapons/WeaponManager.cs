@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,6 +8,8 @@ public class WeaponManager : MonoBehaviour
 
     private int currentIndex;
     private Weapon currentWeapon;
+
+    private Coroutine fireCoroutine;
 
     public bool IsCurrentWeaponAutomatic()
         => currentWeapon.IsAutomatic;
@@ -28,7 +31,7 @@ public class WeaponManager : MonoBehaviour
             currentWeapon = weapons[currentIndex].GetComponent<Weapon>();
         }
     }
-     
+
     public void IncrementWeaponIndex()
     {
         currentIndex = (currentIndex + 1) % weapons.Count;
@@ -41,7 +44,26 @@ public class WeaponManager : MonoBehaviour
         currentWeapon = weapons[currentIndex].GetComponent<Weapon>();
     }
 
-    public void Shoot() => currentWeapon.Shoot();
+    public void StartFiring()
+    {
+        if (IsCurrentWeaponAutomatic())
+        {
+            fireCoroutine = StartCoroutine(currentWeapon.RapidFire());
+        }
+        else
+        {
+            currentWeapon.Shoot();
+        }
+    }
 
-    public void StartReload() => currentWeapon.StartReload();
+    public void StopFiring()
+    {
+        if (fireCoroutine != null)
+        {
+            StopCoroutine(fireCoroutine);
+        }
+    }
+
+    public void StartReload()
+        => currentWeapon.StartReload();
 }

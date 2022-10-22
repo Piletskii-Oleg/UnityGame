@@ -3,16 +3,16 @@ using UnityEngine;
 [RequireComponent(typeof(CharacterController))]
 public class PlayerMovement : MonoBehaviour
 {
+    private readonly float terminalVelocity = -50.0f;
     [SerializeField] private float speed = 5.0f;
     [SerializeField] private float gravity = -9.8f;
     [SerializeField] private float jumpSpeed = 10.0f;
     [SerializeField] private float slideDownSpeed = 0.5f;
-    private readonly float terminalVelocity = -50.0f;
     private Vector3 velocity;
 
     [SerializeField] private float groundDistance = 0.4f;
     [SerializeField] private Transform groundCheck;
-    public bool isGrounded;
+    private bool isGrounded;
 
     private CharacterController controller;
 

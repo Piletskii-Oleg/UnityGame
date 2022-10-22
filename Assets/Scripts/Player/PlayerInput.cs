@@ -55,10 +55,10 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""Shoot (Primary)"",
+                    ""name"": ""Shoot"",
                     ""type"": ""Value"",
                     ""id"": ""ea092d22-3ef7-441d-bad0-579800b8d41e"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
@@ -241,10 +241,10 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""23ec2c09-8a68-4084-ab7f-8d6d476d16ed"",
                     ""path"": ""<Mouse>/leftButton"",
-                    ""interactions"": """",
+                    ""interactions"": ""Press(behavior=2)"",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Shoot (Primary)"",
+                    ""action"": ""Shoot"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -291,7 +291,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         m_OnFoot_Movement = m_OnFoot.FindAction("Movement", throwIfNotFound: true);
         m_OnFoot_Jump = m_OnFoot.FindAction("Jump", throwIfNotFound: true);
         m_OnFoot_Look = m_OnFoot.FindAction("Look", throwIfNotFound: true);
-        m_OnFoot_ShootPrimary = m_OnFoot.FindAction("Shoot (Primary)", throwIfNotFound: true);
+        m_OnFoot_Shoot = m_OnFoot.FindAction("Shoot", throwIfNotFound: true);
         m_OnFoot_Reload = m_OnFoot.FindAction("Reload", throwIfNotFound: true);
         m_OnFoot_ChangeWeapon = m_OnFoot.FindAction("ChangeWeapon", throwIfNotFound: true);
     }
@@ -356,7 +356,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
     private readonly InputAction m_OnFoot_Movement;
     private readonly InputAction m_OnFoot_Jump;
     private readonly InputAction m_OnFoot_Look;
-    private readonly InputAction m_OnFoot_ShootPrimary;
+    private readonly InputAction m_OnFoot_Shoot;
     private readonly InputAction m_OnFoot_Reload;
     private readonly InputAction m_OnFoot_ChangeWeapon;
     public struct OnFootActions
@@ -366,7 +366,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         public InputAction @Movement => m_Wrapper.m_OnFoot_Movement;
         public InputAction @Jump => m_Wrapper.m_OnFoot_Jump;
         public InputAction @Look => m_Wrapper.m_OnFoot_Look;
-        public InputAction @ShootPrimary => m_Wrapper.m_OnFoot_ShootPrimary;
+        public InputAction @Shoot => m_Wrapper.m_OnFoot_Shoot;
         public InputAction @Reload => m_Wrapper.m_OnFoot_Reload;
         public InputAction @ChangeWeapon => m_Wrapper.m_OnFoot_ChangeWeapon;
         public InputActionMap Get() { return m_Wrapper.m_OnFoot; }
@@ -387,9 +387,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @Look.started -= m_Wrapper.m_OnFootActionsCallbackInterface.OnLook;
                 @Look.performed -= m_Wrapper.m_OnFootActionsCallbackInterface.OnLook;
                 @Look.canceled -= m_Wrapper.m_OnFootActionsCallbackInterface.OnLook;
-                @ShootPrimary.started -= m_Wrapper.m_OnFootActionsCallbackInterface.OnShootPrimary;
-                @ShootPrimary.performed -= m_Wrapper.m_OnFootActionsCallbackInterface.OnShootPrimary;
-                @ShootPrimary.canceled -= m_Wrapper.m_OnFootActionsCallbackInterface.OnShootPrimary;
+                @Shoot.started -= m_Wrapper.m_OnFootActionsCallbackInterface.OnShoot;
+                @Shoot.performed -= m_Wrapper.m_OnFootActionsCallbackInterface.OnShoot;
+                @Shoot.canceled -= m_Wrapper.m_OnFootActionsCallbackInterface.OnShoot;
                 @Reload.started -= m_Wrapper.m_OnFootActionsCallbackInterface.OnReload;
                 @Reload.performed -= m_Wrapper.m_OnFootActionsCallbackInterface.OnReload;
                 @Reload.canceled -= m_Wrapper.m_OnFootActionsCallbackInterface.OnReload;
@@ -409,9 +409,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @Look.started += instance.OnLook;
                 @Look.performed += instance.OnLook;
                 @Look.canceled += instance.OnLook;
-                @ShootPrimary.started += instance.OnShootPrimary;
-                @ShootPrimary.performed += instance.OnShootPrimary;
-                @ShootPrimary.canceled += instance.OnShootPrimary;
+                @Shoot.started += instance.OnShoot;
+                @Shoot.performed += instance.OnShoot;
+                @Shoot.canceled += instance.OnShoot;
                 @Reload.started += instance.OnReload;
                 @Reload.performed += instance.OnReload;
                 @Reload.canceled += instance.OnReload;
@@ -427,7 +427,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         void OnMovement(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
-        void OnShootPrimary(InputAction.CallbackContext context);
+        void OnShoot(InputAction.CallbackContext context);
         void OnReload(InputAction.CallbackContext context);
         void OnChangeWeapon(InputAction.CallbackContext context);
     }

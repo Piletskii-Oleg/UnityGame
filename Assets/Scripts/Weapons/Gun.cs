@@ -8,6 +8,9 @@ public class Gun : Weapon
 
     private float timeSinceLastShot;
 
+    private WaitForSeconds reloadWait;
+    private WaitForSeconds rapidFireWait;
+
     public override bool IsAutomatic => gunData.canAutoShoot;
 
     public override void Shoot()
@@ -36,11 +39,23 @@ public class Gun : Weapon
         }
     }
 
+    public override IEnumerator RapidFire()
+    {
+        if (CanShoot())
+        {
+            while (gunData.currentAmmo > 0)
+            {
+                Shoot();
+                yield return rapidFireWait;
+            }
+        }
+    }
+
     private IEnumerator Reload()
     {
         gunData.reloading = true;
 
-        yield return new WaitForSeconds(gunData.reloadTime);
+        yield return reloadWait;
 
         gunData.currentAmmo = gunData.ammoCapacity;
 
@@ -54,6 +69,9 @@ public class Gun : Weapon
     {
         timeSinceLastShot = 0f;
         gunData.currentAmmo = gunData.ammoCapacity;
+
+        reloadWait = new WaitForSeconds(gunData.reloadTime);
+        rapidFireWait = new WaitForSeconds(1f / gunData.fireRate);
     }
 
     private void Update()

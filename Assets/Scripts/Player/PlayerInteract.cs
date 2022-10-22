@@ -18,7 +18,6 @@ public class PlayerInteract : MonoBehaviour
         {
             if (hitInfo.collider.GetComponent<Interactable>() != null)
             {
-                
             }
         }
     }

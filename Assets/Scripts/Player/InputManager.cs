@@ -46,17 +46,11 @@ public class InputManager : MonoBehaviour
     {
         onFoot.Jump.performed += _ => movement.Jump();
 
-        SubscribeToShootPrimary();
+        onFoot.Shoot.started += _ => weaponManager.StartFiring();
+        onFoot.Shoot.canceled += _ => weaponManager.StopFiring();
+
         onFoot.Reload.performed += _ => weaponManager.StartReload();
 
         onFoot.ChangeWeapon.performed += _ => weaponManager.ChangeWeapon((int)onFoot.ChangeWeapon.ReadValue<float>());
-    }
-
-    private void SubscribeToShootPrimary()
-    {
-        onFoot.ShootPrimary.started += _ =>
-        {
-            weaponManager.Shoot();
-        };
     }
 }
