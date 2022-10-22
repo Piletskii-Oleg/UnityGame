@@ -8,6 +8,7 @@ public class InputManager : MonoBehaviour
     private PlayerMovement movement;
     private PlayerLook look;
     private WeaponManager weaponManager;
+    private Health health;
 
     private void Awake()
     {
@@ -17,6 +18,7 @@ public class InputManager : MonoBehaviour
         movement = GetComponent<PlayerMovement>();
         look = GetComponent<PlayerLook>();
         weaponManager = GetComponent<WeaponManager>();
+        health = GetComponent<Health>();
 
         SubscribeToEvents();
     }
@@ -52,5 +54,9 @@ public class InputManager : MonoBehaviour
         onFoot.Reload.performed += _ => weaponManager.StartReload();
 
         onFoot.ChangeWeapon.performed += _ => weaponManager.ChangeWeapon((int)onFoot.ChangeWeapon.ReadValue<float>());
+
+
+        onFoot.Jump.performed += ctx => health.TakeDamage(30);
+        onFoot.Reload.performed += ctx => health.Heal(30);
     }
 }
