@@ -7,6 +7,7 @@ public class HealthUI : MonoBehaviour
     [SerializeField] private HealthData healthData;
 
     [SerializeField] private float chipSpeed;
+
     private float timePassed;
 
     [SerializeField] private Image frontHealthBar;
