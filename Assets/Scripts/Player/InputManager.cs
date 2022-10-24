@@ -10,6 +10,8 @@ public class InputManager : MonoBehaviour
     private WeaponManager weaponManager;
     private Health health;
 
+    private bool isShooting;
+
     private void Awake()
     {
         playerInput = new PlayerInput();
@@ -27,6 +29,11 @@ public class InputManager : MonoBehaviour
     {
         movement.ProcessHorizontalMovement(onFoot.Movement.ReadValue<Vector2>());
         movement.ProcessVerticalMovement();
+
+        if (isShooting)
+        {
+            weaponManager.Shoot();
+        }
     }
 
     private void LateUpdate()
@@ -48,14 +55,14 @@ public class InputManager : MonoBehaviour
     {
         onFoot.Jump.performed += _ => movement.Jump();
 
-        onFoot.Shoot.started += _ => weaponManager.StartFiring();
-        onFoot.Shoot.canceled += _ => weaponManager.StopFiring();
+        onFoot.Shoot.started += _ => isShooting = true;
+        onFoot.Shoot.canceled += _ => isShooting = false;
 
         onFoot.Reload.performed += _ => weaponManager.StartReload();
 
         onFoot.ChangeWeapon.performed += _ => weaponManager.ChangeWeapon((int)onFoot.ChangeWeapon.ReadValue<float>());
 
-
+        // health debugging
         onFoot.Jump.performed += ctx => health.TakeDamage(30);
         onFoot.Reload.performed += ctx => health.Heal(30);
     }

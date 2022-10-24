@@ -1,16 +1,17 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class WeaponManager : MonoBehaviour
 {
     [SerializeField] private List<GameObject> weapons;
 
+    [SerializeField] private UnityEvent onChangeWeapon;
+
     public int CurrentIndex { get; private set; }
     private Weapon currentWeapon;
 
-    private Coroutine fireCoroutine;
-
-    private void Start()
+    private void Awake()
     {
         CurrentIndex = 0;
         currentWeapon = weapons[CurrentIndex].GetComponent<Weapon>();
@@ -25,6 +26,8 @@ public class WeaponManager : MonoBehaviour
             weapons[index].SetActive(true);
             CurrentIndex = index;
             currentWeapon = weapons[CurrentIndex].GetComponent<Weapon>();
+
+            onChangeWeapon.Invoke();
         }
     }
 
@@ -32,37 +35,21 @@ public class WeaponManager : MonoBehaviour
     {
         CurrentIndex = (CurrentIndex + 1) % weapons.Count;
         currentWeapon = weapons[CurrentIndex].GetComponent<Weapon>();
+
+        onChangeWeapon.Invoke();
     }
 
     public void DecrementWeaponIndex()
     {
         CurrentIndex = (CurrentIndex - 1) % weapons.Count;
         currentWeapon = weapons[CurrentIndex].GetComponent<Weapon>();
+
+        onChangeWeapon.Invoke();
     }
 
-    public void StartFiring()
-    {
-        if (IsCurrentWeaponAutomatic())
-        {
-            fireCoroutine = StartCoroutine(currentWeapon.RapidFire());
-        }
-        else
-        {
-            currentWeapon.Shoot();
-        }
-    }
-
-    public void StopFiring()
-    {
-        if (fireCoroutine != null)
-        {
-            StopCoroutine(fireCoroutine);
-        }
-    }
+    public void Shoot()
+        => currentWeapon.Shoot();
 
     public void StartReload()
         => currentWeapon.StartReload();
-
-    private bool IsCurrentWeaponAutomatic()
-        => currentWeapon.IsAutomatic;
 }

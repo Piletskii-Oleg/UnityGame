@@ -1,17 +1,18 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Gun : Weapon
 {
     [SerializeField] private GunData gunData;
     [SerializeField] private Transform cam;
 
+    [SerializeField] private UnityEvent onShoot;
+    [SerializeField] private UnityEvent onReload;
+
     private float timeSinceLastShot;
 
     private WaitForSeconds reloadWait;
-    private WaitForSeconds rapidFireWait;
-
-    public override bool IsAutomatic => gunData.canAutoShoot;
 
     public override void Shoot()
     {
@@ -29,6 +30,8 @@ public class Gun : Weapon
             gunData.currentAmmo--;
             timeSinceLastShot = 0;
         }
+
+        onShoot.Invoke();
     }
 
     public override void StartReload()
@@ -36,18 +39,6 @@ public class Gun : Weapon
         if (!gunData.reloading)
         {
             StartCoroutine(Reload());
-        }
-    }
-
-    public override IEnumerator RapidFire()
-    {
-        if (CanShoot())
-        {
-            while (gunData.currentAmmo > 0)
-            {
-                Shoot();
-                yield return rapidFireWait;
-            }
         }
     }
 
@@ -60,6 +51,8 @@ public class Gun : Weapon
         gunData.currentAmmo = gunData.ammoCapacity;
 
         gunData.reloading = false;
+
+        onReload.Invoke();
     }
 
     private void OnDisable()
@@ -71,7 +64,6 @@ public class Gun : Weapon
         gunData.currentAmmo = gunData.ammoCapacity;
 
         reloadWait = new WaitForSeconds(gunData.reloadTime);
-        rapidFireWait = new WaitForSeconds(1f / gunData.fireRate);
     }
 
     private void Update()

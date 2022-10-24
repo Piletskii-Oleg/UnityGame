@@ -8,12 +8,23 @@ public class AmmoUI : MonoBehaviour
     [SerializeField] private List<GunData> gunDataList;
     [SerializeField] private TextMeshProUGUI text;
 
-    private WeaponManager weaponManager;
+    [SerializeField] private WeaponManager weaponManager;
+
+    private int currentIndex;
 
     private void Awake()
     {
-        weaponManager = GetComponent<WeaponManager>();
+        currentIndex = weaponManager.CurrentIndex;
     }
 
-    
+    public void UpdateAmmo()
+    {
+        text.text = gunDataList[currentIndex].currentAmmo + " / " + gunDataList[currentIndex].ammoCapacity;
+    }
+
+    public void UpdateWeapon()
+    {
+        currentIndex = weaponManager.CurrentIndex;
+        UpdateAmmo();
+    }
 }
