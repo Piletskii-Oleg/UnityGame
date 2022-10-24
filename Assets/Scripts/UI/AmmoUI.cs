@@ -12,11 +12,6 @@ public class AmmoUI : MonoBehaviour
 
     private int currentIndex;
 
-    private void Awake()
-    {
-        currentIndex = weaponManager.CurrentIndex;
-    }
-
     public void UpdateAmmo()
     {
         text.text = gunDataList[currentIndex].currentAmmo + " / " + gunDataList[currentIndex].ammoCapacity;

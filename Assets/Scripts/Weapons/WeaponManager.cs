@@ -15,6 +15,7 @@ public class WeaponManager : MonoBehaviour
     {
         CurrentIndex = 0;
         currentWeapon = weapons[CurrentIndex].GetComponent<Weapon>();
+        onChangeWeapon.Invoke();
     }
 
     public void ChangeWeapon(int index)
