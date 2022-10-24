@@ -12,7 +12,19 @@ public class HealthUI : MonoBehaviour
     [SerializeField] private Image frontHealthBar;
     [SerializeField] private Image backHealthBar;
 
-    public IEnumerator UpdateHealthUI()
+    private Coroutine updateCoroutine;
+
+    public void UpdateUI()
+    {
+        if (updateCoroutine != null)
+        {
+            StopCoroutine(updateCoroutine);
+        }
+
+        updateCoroutine = StartCoroutine(UpdateHealthUI());
+    }
+
+    private IEnumerator UpdateHealthUI()
     {
         float fillFrontAtStart = frontHealthBar.fillAmount;
         float fillBackAtStart = backHealthBar.fillAmount;
