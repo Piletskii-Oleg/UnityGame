@@ -1,10 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Damageable : MonoBehaviour
 {
     private Health health;
+
+   
 
     private void Awake()
     {
@@ -16,6 +17,16 @@ public class Damageable : MonoBehaviour
         if (health)
         {
             health.TakeDamage(damage);
+            
+        }
+    }
+
+    public void Heal(float healAmount)
+    {
+        if (health)
+        {
+            health.Heal(healAmount);
+            
         }
     }
 }

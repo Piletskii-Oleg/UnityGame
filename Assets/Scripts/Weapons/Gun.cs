@@ -5,7 +5,7 @@ using UnityEngine.Events;
 public class Gun : Weapon
 {
     [SerializeField] private GunData gunData;
-    [SerializeField] private Transform cam;
+    [SerializeField] private GameObject bullet;
 
     [SerializeField] private UnityEvent onShoot;
     [SerializeField] private UnityEvent onReload;
@@ -18,15 +18,8 @@ public class Gun : Weapon
     {
         if (gunData.currentAmmo > 0 && CanShoot())
         {
-            if (Physics.Raycast(cam.position, cam.forward, out RaycastHit hitInfo, gunData.maxDistance))
-            {
-                var damageable = hitInfo.transform.GetComponent<Damageable>();
-                if (damageable)
-                {
-                    damageable.InflictDamage(gunData.damage);
-                }
-            }
-
+            var bulletAngle = Quaternion.Euler(-90 + transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, 0);
+            Instantiate(bullet, transform.position + transform.forward, bulletAngle);
             gunData.currentAmmo--;
             timeSinceLastShot = 0;
         }
@@ -66,10 +59,8 @@ public class Gun : Weapon
         reloadWait = new WaitForSeconds(gunData.reloadTime);
     }
 
-    private void Update()
-    {
-        timeSinceLastShot += Time.deltaTime;
-    }
+    private void FixedUpdate()
+        => timeSinceLastShot += Time.fixedDeltaTime;
 
     private bool CanShoot()
         => !gunData.reloading && timeSinceLastShot > (1f / gunData.fireRate);

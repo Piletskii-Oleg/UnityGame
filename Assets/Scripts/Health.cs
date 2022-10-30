@@ -4,34 +4,36 @@ using UnityEngine.Events;
 public class Health : MonoBehaviour
 {
     [SerializeField] private HealthData healthData;
+    private float currentHealth;
 
     [SerializeField] private UnityEvent onHealthChangedEvent;
     [SerializeField] private UnityEvent onDeathEvent;
 
     private void Start()
     {
-        healthData.currentHealth = healthData.maxHealth;
+        currentHealth = healthData.maxHealth;
     }
 
     public void TakeDamage(float damage)
     {
-        healthData.currentHealth -= damage;
+        currentHealth -= damage;
         onHealthChangedEvent.Invoke();
-        if (healthData.currentHealth < 0)
+
+        if (currentHealth < 0)
         {
-            healthData.currentHealth = 0;
+            currentHealth = 0;
             onDeathEvent.Invoke();
         }
 
-        Debug.Log("Taken damage! " + gameObject.name + " - " + healthData.currentHealth);
+        Debug.Log("Taken damage! " + gameObject.name + " - " + currentHealth);
     }
 
     public void Heal(float hp)
     {
-        healthData.currentHealth += hp;
-        if (healthData.currentHealth > healthData.maxHealth)
+        currentHealth += hp;
+        if (currentHealth > healthData.maxHealth)
         {
-            healthData.currentHealth = healthData.maxHealth;
+            currentHealth = healthData.maxHealth;
         }
 
         onHealthChangedEvent.Invoke();
