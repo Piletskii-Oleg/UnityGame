@@ -19,7 +19,5 @@ public class WeaponAnimator : MonoBehaviour
     }
 
     public void Zoom(bool zoomIn)
-    {
-        animator.SetBool("ZoomIn", zoomIn);
-    }
+        => animator.SetBool("ZoomIn", zoomIn);
 }

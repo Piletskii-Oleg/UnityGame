@@ -180,7 +180,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onTakeDamage:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 111919190}
+        m_TargetAssemblyTypeName: Health, Assembly-CSharp
+        m_MethodName: TakeDamage
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   onKill:
     m_PersistentCalls:
       m_Calls: []
@@ -286,7 +298,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mouseSensitivity: 10
-  zoomSensitivity: 0
 --- !u!114 &111919195
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1785,7 +1796,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4949253864546615136, guid: e4d96c0d937470249956320d4fea56f9, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4949253864546615137, guid: e4d96c0d937470249956320d4fea56f9, type: 3}
       propertyPath: m_RootOrder
@@ -1871,7 +1882,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7008670067349202826, guid: 6f293d6e41e1ed44da8bc0655dd61755, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7008670067349202827, guid: 6f293d6e41e1ed44da8bc0655dd61755, type: 3}
       propertyPath: m_RootOrder

@@ -13,7 +13,7 @@ public class WeaponManager : MonoBehaviour
 
     private void Awake()
     {
-        CurrentIndex = 0;
+        CurrentIndex = weapons.FindIndex(weapon => weapon.activeInHierarchy);
         currentWeapon = weapons[CurrentIndex].GetComponent<Weapon>();
         onChangeWeapon.Invoke();
     }
