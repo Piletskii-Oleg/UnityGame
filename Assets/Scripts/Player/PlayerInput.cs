@@ -80,6 +80,15 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Zoom"",
+                    ""type"": ""Button"",
+                    ""id"": ""fe6d7b37-8984-40a7-9b7b-8285531271a4"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -280,6 +289,17 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""action"": ""ChangeWeapon"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1b44794f-a329-47fc-9138-f64a79697641"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": ""Press(behavior=2)"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Zoom"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -294,6 +314,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         m_OnFoot_Shoot = m_OnFoot.FindAction("Shoot", throwIfNotFound: true);
         m_OnFoot_Reload = m_OnFoot.FindAction("Reload", throwIfNotFound: true);
         m_OnFoot_ChangeWeapon = m_OnFoot.FindAction("ChangeWeapon", throwIfNotFound: true);
+        m_OnFoot_Zoom = m_OnFoot.FindAction("Zoom", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -359,6 +380,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
     private readonly InputAction m_OnFoot_Shoot;
     private readonly InputAction m_OnFoot_Reload;
     private readonly InputAction m_OnFoot_ChangeWeapon;
+    private readonly InputAction m_OnFoot_Zoom;
     public struct OnFootActions
     {
         private @PlayerInput m_Wrapper;
@@ -369,6 +391,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         public InputAction @Shoot => m_Wrapper.m_OnFoot_Shoot;
         public InputAction @Reload => m_Wrapper.m_OnFoot_Reload;
         public InputAction @ChangeWeapon => m_Wrapper.m_OnFoot_ChangeWeapon;
+        public InputAction @Zoom => m_Wrapper.m_OnFoot_Zoom;
         public InputActionMap Get() { return m_Wrapper.m_OnFoot; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -396,6 +419,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @ChangeWeapon.started -= m_Wrapper.m_OnFootActionsCallbackInterface.OnChangeWeapon;
                 @ChangeWeapon.performed -= m_Wrapper.m_OnFootActionsCallbackInterface.OnChangeWeapon;
                 @ChangeWeapon.canceled -= m_Wrapper.m_OnFootActionsCallbackInterface.OnChangeWeapon;
+                @Zoom.started -= m_Wrapper.m_OnFootActionsCallbackInterface.OnZoom;
+                @Zoom.performed -= m_Wrapper.m_OnFootActionsCallbackInterface.OnZoom;
+                @Zoom.canceled -= m_Wrapper.m_OnFootActionsCallbackInterface.OnZoom;
             }
             m_Wrapper.m_OnFootActionsCallbackInterface = instance;
             if (instance != null)
@@ -418,6 +444,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @ChangeWeapon.started += instance.OnChangeWeapon;
                 @ChangeWeapon.performed += instance.OnChangeWeapon;
                 @ChangeWeapon.canceled += instance.OnChangeWeapon;
+                @Zoom.started += instance.OnZoom;
+                @Zoom.performed += instance.OnZoom;
+                @Zoom.canceled += instance.OnZoom;
             }
         }
     }
@@ -430,5 +459,6 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         void OnShoot(InputAction.CallbackContext context);
         void OnReload(InputAction.CallbackContext context);
         void OnChangeWeapon(InputAction.CallbackContext context);
+        void OnZoom(InputAction.CallbackContext context);
     }
 }

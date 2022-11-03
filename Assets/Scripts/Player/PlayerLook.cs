@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PlayerLook : MonoBehaviour
 {
-    [SerializeField] private float mouseSensitivity = 0.5f;
+    [SerializeField] private float mouseSensitivity;
 
     private Camera cam;
 

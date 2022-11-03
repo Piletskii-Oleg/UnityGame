@@ -18,8 +18,9 @@ public class Gun : Weapon
     {
         if (gunData.currentAmmo > 0 && CanShoot())
         {
-            var bulletAngle = Quaternion.Euler(-90 + transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, 0);
+            var bulletAngle = Quaternion.Euler(transform.rotation.eulerAngles.x - 90, transform.rotation.eulerAngles.y, 0);
             Instantiate(bullet, transform.position + transform.forward, bulletAngle);
+
             gunData.currentAmmo--;
             timeSinceLastShot = 0;
         }

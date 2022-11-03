@@ -8,7 +8,7 @@ public class InputManager : MonoBehaviour
     private PlayerMovement movement;
     private PlayerLook look;
     private WeaponManager weaponManager;
-    private Health health;
+    private WeaponZoom weaponZoom;
 
     private bool isShooting;
 
@@ -20,7 +20,7 @@ public class InputManager : MonoBehaviour
         movement = GetComponent<PlayerMovement>();
         look = GetComponent<PlayerLook>();
         weaponManager = GetComponent<WeaponManager>();
-        health = GetComponent<Health>();
+        weaponZoom = GetComponent<WeaponZoom>();
 
         SubscribeToEvents();
     }
@@ -62,8 +62,10 @@ public class InputManager : MonoBehaviour
 
         onFoot.ChangeWeapon.performed += _ => weaponManager.ChangeWeapon((int)onFoot.ChangeWeapon.ReadValue<float>());
 
+        onFoot.Zoom.started += _ => weaponZoom.Zoom(true);
+        onFoot.Zoom.canceled += _ => weaponZoom.Zoom(false);
         // health debugging
-        onFoot.Jump.performed += ctx => health.TakeDamage(30);
-        onFoot.Reload.performed += ctx => health.Heal(30);
+        // onFoot.Jump.performed += ctx => health.TakeDamage(30);
+        // onFoot.Reload.performed += ctx => health.Heal(30);
     }
 }
