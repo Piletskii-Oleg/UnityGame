@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// An input manager for a single-player game built using new Input System.
+/// </summary>
 public class InputManager : MonoBehaviour
 {
     private PlayerInput playerInput;

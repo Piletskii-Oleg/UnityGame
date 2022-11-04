@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
 
+/// <summary>
+/// An abstraction over <see cref="UnityEvent"/> that allows raising <see cref="UnityEvent"/> independently.
+/// </summary>
 public class GameEventListener : MonoBehaviour
 {
     [SerializeField]
@@ -11,6 +14,9 @@ public class GameEventListener : MonoBehaviour
     [Tooltip("Response to invoke when Game Event is raised.")]
     private UnityEvent response;
 
+    /// <summary>
+    /// Called when the attached <see cref="GameEvent"/> is raised.
+    /// </summary>
     public void OnEventRaised()
         => response.Invoke();
 

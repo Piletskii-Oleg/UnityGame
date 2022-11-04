@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// Class that processes keyboard input used for moving the player (used with <see cref="InputManager"/>)
+/// </summary>
 [RequireComponent(typeof(CharacterController))]
 public class PlayerMovement : MonoBehaviour
 {
@@ -15,18 +18,28 @@ public class PlayerMovement : MonoBehaviour
     private bool isGrounded;
 
     private CharacterController controller;
+    private Rigidbody rigidBody;
 
     private void Start()
     {
         controller = GetComponent<CharacterController>();
+        rigidBody = GetComponent<Rigidbody>();
     }
 
+    /// <summary>
+    /// Processes horizontal movement of the player character.
+    /// </summary>
+    /// <param name="input">WASD or other input from <see cref="InputManager"/>.</param>
     public void ProcessHorizontalMovement(Vector2 input)
     {
         var moveDirection = new Vector3(input.x, 0, input.y);
         controller.Move(speed * Time.deltaTime * transform.TransformDirection(moveDirection));
     }
 
+    /// <summary>
+    /// Processes vertical movement of the player character (falling and checking if the player is on ground and/or can jump).
+    /// Only relies on gravity.
+    /// </summary>
     public void ProcessVerticalMovement()
     {
         TerminalVelocityCheck();
@@ -37,6 +50,9 @@ public class PlayerMovement : MonoBehaviour
         controller.Move(velocity * Time.deltaTime);
     }
 
+    /// <summary>
+    /// Makes the player jump if they are on proper ground.
+    /// </summary>
     public void Jump()
     {
         if (isGrounded)

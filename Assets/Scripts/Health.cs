@@ -1,8 +1,12 @@
 using UnityEngine;
 using UnityEngine.Events;
 
+/// <summary>
+/// Health of an <see cref="Actor"/>.
+/// </summary>
 public class Health : MonoBehaviour
 {
+    [Tooltip("Scriptable object that stores health data.")]
     [SerializeField] private HealthData healthData;
 
     [SerializeField] private UnityEvent onHealthChangedEvent;
@@ -13,6 +17,10 @@ public class Health : MonoBehaviour
         healthData.currentHealth = healthData.maxHealth;
     }
 
+    /// <summary>
+    /// Used when the actor takes damage.
+    /// </summary>
+    /// <param name="damage">Damage taken.</param>
     public void TakeDamage(float damage)
     {
         healthData.currentHealth -= damage;
@@ -27,9 +35,13 @@ public class Health : MonoBehaviour
         Debug.Log("Taken damage! " + gameObject.name + " - " + healthData.currentHealth);
     }
 
-    public void Heal(float hp)
+    /// <summary>
+    /// Used when the <see cref="Actor"/> is healed.
+    /// </summary>
+    /// <param name="healAmount">Amount of health to recover.</param>
+    public void Heal(float healAmount)
     {
-        healthData.currentHealth += hp;
+        healthData.currentHealth += healAmount;
         if (healthData.currentHealth > healthData.maxHealth)
         {
             healthData.currentHealth = healthData.maxHealth;

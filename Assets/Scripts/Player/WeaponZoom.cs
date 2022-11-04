@@ -1,6 +1,11 @@
 using System.Collections;
 using UnityEngine;
 
+// put in WeaponManager.cs
+
+/// <summary>
+/// Processes zoom input.
+/// </summary>
 public class WeaponZoom : MonoBehaviour
 {
     private WeaponAnimator weaponAnimator;
@@ -19,6 +24,10 @@ public class WeaponZoom : MonoBehaviour
         weaponAnimator = GetComponentInChildren<WeaponAnimator>();
     }
 
+    /// <summary>
+    /// Zooms in or out with the weapon held by the player.
+    /// </summary>
+    /// <param name="zoomIn">True if the player zooms in and false otherwise.</param>
     public void Zoom(bool zoomIn)
     {
         if (zoomAnimationCoroutine != null)

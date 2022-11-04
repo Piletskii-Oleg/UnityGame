@@ -2,9 +2,14 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
+/// <summary>
+/// Class used for simple guns. Inherits from <see cref="Weapon"/>.
+/// </summary>
 public class Gun : Weapon
 {
+    [Tooltip("Scriptable Object with the gun data.")]
     [SerializeField] private GunData gunData;
+    [Tooltip("Bullet shot.")]
     [SerializeField] private GameObject bullet;
 
     [SerializeField] private UnityEvent onShoot;

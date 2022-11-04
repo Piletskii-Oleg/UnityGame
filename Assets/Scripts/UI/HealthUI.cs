@@ -2,6 +2,9 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// UI that shows player's health.
+/// </summary>
 public class HealthUI : MonoBehaviour
 {
     [SerializeField] private HealthData healthData;
@@ -15,6 +18,9 @@ public class HealthUI : MonoBehaviour
 
     private Coroutine updateCoroutine;
 
+    /// <summary>
+    /// Updates the health UI.
+    /// </summary>
     public void UpdateUI()
     {
         if (updateCoroutine != null)
