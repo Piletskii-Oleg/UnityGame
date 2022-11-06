@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// An input manager for a single-player game built using new Input System.
+/// </summary>
 public class InputManager : MonoBehaviour
 {
     private PlayerInput playerInput;
@@ -7,6 +10,10 @@ public class InputManager : MonoBehaviour
 
     private PlayerMovement movement;
     private PlayerLook look;
+    private WeaponManager weaponManager;
+    private WeaponZoom weaponZoom;
+
+    private bool isShooting;
 
     private void Awake()
     {
@@ -15,13 +22,21 @@ public class InputManager : MonoBehaviour
 
         movement = GetComponent<PlayerMovement>();
         look = GetComponent<PlayerLook>();
+        weaponManager = GetComponent<WeaponManager>();
+        weaponZoom = GetComponent<WeaponZoom>();
 
-        onFoot.Jump.performed += ctx => movement.Jump();
+        SubscribeToEvents();
     }
 
     private void FixedUpdate()
     {
-        movement.ProcessMovement(onFoot.Movement.ReadValue<Vector2>());
+        movement.ProcessHorizontalMovement(onFoot.Movement.ReadValue<Vector2>());
+        movement.ProcessVerticalMovement();
+
+        if (isShooting)
+        {
+            weaponManager.Shoot();
+        }
     }
 
     private void LateUpdate()
@@ -37,5 +52,23 @@ public class InputManager : MonoBehaviour
     private void OnDisable()
     {
         onFoot.Disable();
+    }
+
+    private void SubscribeToEvents()
+    {
+        onFoot.Jump.performed += _ => movement.Jump();
+
+        onFoot.Shoot.started += _ => isShooting = true;
+        onFoot.Shoot.canceled += _ => isShooting = false;
+
+        onFoot.Reload.performed += _ => weaponManager.StartReload();
+
+        onFoot.ChangeWeapon.performed += _ => weaponManager.ChangeWeapon((int)onFoot.ChangeWeapon.ReadValue<float>());
+
+        onFoot.Zoom.started += _ => weaponZoom.Zoom(true);
+        onFoot.Zoom.canceled += _ => weaponZoom.Zoom(false);
+        // health debugging
+        // onFoot.Jump.performed += ctx => health.TakeDamage(30);
+        // onFoot.Reload.performed += ctx => health.Heal(30);
     }
 }
