@@ -23,6 +23,7 @@ public class Actor : MonoBehaviour // abstract
     /// </summary>
     public void OnKill()
     {
+        onKill.Invoke();
         Destroy(gameObject);
     }
 }

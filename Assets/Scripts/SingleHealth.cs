@@ -2,11 +2,10 @@ using UnityEngine;
 using UnityEngine.Events;
 
 /// <summary>
-/// Health of an <see cref="Actor"/>.
+/// Class for a unique enemy <see cref="Actor"/> whose health is dependent on <see cref="HealthData"/>.
 /// </summary>
-public class Health : MonoBehaviour
+public class SingleHealth : MonoBehaviour
 {
-    [Tooltip("Scriptable object that stores health data.")]
     [SerializeField] private HealthData healthData;
 
     [SerializeField] private UnityEvent onHealthChangedEvent;
@@ -18,7 +17,7 @@ public class Health : MonoBehaviour
     }
 
     /// <summary>
-    /// Used when the actor takes damage.
+    /// Used when the <see cref="Actor"/> takes damage.
     /// </summary>
     /// <param name="damage">Damage taken.</param>
     public void TakeDamage(float damage)
@@ -39,9 +38,9 @@ public class Health : MonoBehaviour
     /// Used when the <see cref="Actor"/> is healed.
     /// </summary>
     /// <param name="healAmount">Amount of health to recover.</param>
-    public void Heal(float healAmount)
+    public void Heal(float hp)
     {
-        healthData.currentHealth += healAmount;
+        healthData.currentHealth += hp;
         if (healthData.currentHealth > healthData.maxHealth)
         {
             healthData.currentHealth = healthData.maxHealth;
