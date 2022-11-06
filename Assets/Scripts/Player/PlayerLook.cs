@@ -1,8 +1,11 @@
 using UnityEngine;
 
+/// <summary>
+/// Class that processes mouse input (used with <see cref="InputManager"/>)
+/// </summary>
 public class PlayerLook : MonoBehaviour
 {
-    [SerializeField] private float mouseSensitivity = 0.5f;
+    [SerializeField] private float mouseSensitivity;
 
     private Camera cam;
 
@@ -14,6 +17,10 @@ public class PlayerLook : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
     }
 
+    /// <summary>
+    /// Move the camera according to mouse input.
+    /// </summary>
+    /// <param name="input">Mouse input from <see cref="InputManager"/></param>
     public void ProcessLook(Vector2 input)
     {
         float mouseX = input.x;
