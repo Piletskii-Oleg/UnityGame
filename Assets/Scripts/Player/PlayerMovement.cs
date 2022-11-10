@@ -1,6 +1,9 @@
 using System.Collections;
 using UnityEngine;
 
+/// <summary>
+/// Class that processes keyboard input used for moving the player (used with <see cref="InputManager"/>)
+/// </summary>
 public class PlayerMovement : MonoBehaviour
 {
     [Header("Ground Check")]
@@ -36,20 +39,28 @@ public class PlayerMovement : MonoBehaviour
         currentSpeed = moveSpeed;
     }
 
+    /// <summary>
+    /// Processes horizontal movement of the player character.
+    /// </summary>
+    /// <param name="input">WASD or other input from <see cref="InputManager"/>.</param>
     public void ProcessHorizontalMovement(Vector2 input)
     {
         moveDirection = new Vector3(input.x, 0, input.y) * currentSpeed;
+        moveDirection = transform.TransformDirection(moveDirection);
 
         if (isGrounded)
         {
-            rigidBody.AddForce(transform.TransformDirection(moveDirection), ForceMode.VelocityChange);
+            rigidBody.AddForce(moveDirection, ForceMode.VelocityChange);
         }
         else
         {
-            rigidBody.AddForce(transform.TransformDirection(moveDirection * airMultiplier), ForceMode.VelocityChange);
+            rigidBody.AddForce(moveDirection * airMultiplier, ForceMode.VelocityChange);
         }
     }
 
+    /// <summary>
+    /// Checks if the player character is on ground and applies appropriate drag.
+    /// </summary>
     public void ProcessVerticalMovement()
     {
         IsGroundedCheck();
@@ -64,6 +75,9 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Makes the player character jump if it is on proper ground.
+    /// </summary>
     public void Jump()
     {
         if (isGrounded)
@@ -74,9 +88,15 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Makes player character run if it is on the ground.
+    /// </summary>
     public void StartRunning()
         => StartCoroutine(WaitTillLanded(runSpeed));
 
+    /// <summary>
+    /// Makes player character stop running if it is on the ground.
+    /// </summary>
     public void StopRunning()
         => StartCoroutine(WaitTillLanded(moveSpeed));
 
