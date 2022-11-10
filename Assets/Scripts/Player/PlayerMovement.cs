@@ -27,7 +27,7 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody rigidBody;
     private CapsuleCollider capsule;
 
-    private WaitForSeconds waitTillLanded = new WaitForSeconds(0.02f);
+    private readonly WaitForSeconds waitTillLanded = new (0.02f);
 
     private void Start()
     {
@@ -53,7 +53,7 @@ public class PlayerMovement : MonoBehaviour
     public void ProcessVerticalMovement()
     {
         IsGroundedCheck();
-
+        
         if (isGrounded)
         {
             rigidBody.drag = groundDrag;
@@ -66,9 +66,12 @@ public class PlayerMovement : MonoBehaviour
 
     public void Jump()
     {
-        rigidBody.velocity = new Vector3(rigidBody.velocity.x, 0, rigidBody.velocity.z);
+        if (isGrounded)
+        {
+            rigidBody.velocity = new Vector3(rigidBody.velocity.x, 0, rigidBody.velocity.z);
 
-        rigidBody.AddForce(transform.up * jumpForce, ForceMode.Impulse);
+            rigidBody.AddForce(transform.up * jumpForce, ForceMode.Impulse);
+        }
     }
 
     public void StartRunning()
