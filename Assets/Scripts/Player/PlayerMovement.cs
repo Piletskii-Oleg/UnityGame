@@ -11,7 +11,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float groundDistance;
     [SerializeField] private float slopeLimit;
 
-    [Header("Movement speed")]
+    [Header("Movement Speed")]
     [SerializeField] private float moveSpeed;
     [SerializeField] private float runSpeed;
     private float currentSpeed;
