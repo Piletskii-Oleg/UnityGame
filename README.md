@@ -13,3 +13,4 @@ Open the project's folder using Unity Editor 2021.3.12f1
 * Skybox Series Free by Avionx
 * Sci-Fi Styled Modular Pack by karboosx
 * Outdoor Ground Textures by A dog's life software
+* Crosshairs Plus by AssetBag

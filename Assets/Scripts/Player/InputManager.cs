@@ -30,13 +30,13 @@ public class InputManager : MonoBehaviour
 
     private void FixedUpdate()
     {
-        movement.ProcessHorizontalMovement(onFoot.Movement.ReadValue<Vector2>());
-        movement.ProcessVerticalMovement();
-
         if (isShooting)
         {
             weaponManager.Shoot();
         }
+
+        movement.ProcessHorizontalMovement(onFoot.Movement.ReadValue<Vector2>());
+        movement.ProcessVerticalMovement();
     }
 
     private void LateUpdate()
