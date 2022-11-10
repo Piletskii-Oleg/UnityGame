@@ -1,88 +1,118 @@
+using System.Collections;
 using UnityEngine;
 
-/// <summary>
-/// Class that processes keyboard input used for moving the player (used with <see cref="InputManager"/>)
-/// </summary>
-[RequireComponent(typeof(CharacterController))]
 public class PlayerMovement : MonoBehaviour
 {
-    private readonly float terminalVelocity = -50.0f;
-    [SerializeField] private float speed = 5.0f;
-    [SerializeField] private float gravity = -9.8f;
-    [SerializeField] private float jumpSpeed = 10.0f;
-    [SerializeField] private float slideDownSpeed = 0.5f;
-    private Vector3 velocity;
-
-    [SerializeField] private float groundDistance = 0.4f;
+    [Header("Ground Check")]
     [SerializeField] private Transform groundCheck;
+    [SerializeField] private float groundDistance;
+    [SerializeField] private float slopeLimit;
+
+    [Header("Movement speed")]
+    [SerializeField] private float moveSpeed;
+    [SerializeField] private float runSpeed;
+    private float currentSpeed;
+
+    [Header("Ground Drag")]
+    [SerializeField] private float groundDrag;
+
+    [Header("Jumping")]
+    [SerializeField] private float jumpForce;
+    [SerializeField] private float jumpCooldown;
+    [SerializeField] private float airMultiplier;
+
     private bool isGrounded;
 
-    private CharacterController controller;
+    private Vector3 moveDirection;
     private Rigidbody rigidBody;
+    private CapsuleCollider capsule;
+
+    private WaitForSeconds waitTillLanded = new WaitForSeconds(0.02f);
 
     private void Start()
     {
-        controller = GetComponent<CharacterController>();
         rigidBody = GetComponent<Rigidbody>();
+        capsule = GetComponent<CapsuleCollider>();
+        currentSpeed = moveSpeed;
     }
 
-    /// <summary>
-    /// Processes horizontal movement of the player character.
-    /// </summary>
-    /// <param name="input">WASD or other input from <see cref="InputManager"/>.</param>
     public void ProcessHorizontalMovement(Vector2 input)
     {
-        var moveDirection = new Vector3(input.x, 0, input.y);
-        controller.Move(speed * Time.deltaTime * transform.TransformDirection(moveDirection));
-    }
+        moveDirection = new Vector3(input.x, 0, input.y) * currentSpeed;
 
-    /// <summary>
-    /// Processes vertical movement of the player character (falling and checking if the player is on ground and/or can jump).
-    /// Only relies on gravity.
-    /// </summary>
-    public void ProcessVerticalMovement()
-    {
-        TerminalVelocityCheck();
-        OnGroundCheck();
-        JumpCheckAndSlide();
-
-        velocity.y += gravity * Time.deltaTime;
-        controller.Move(velocity * Time.deltaTime);
-    }
-
-    /// <summary>
-    /// Makes the player jump if they are on proper ground.
-    /// </summary>
-    public void Jump()
-    {
         if (isGrounded)
         {
-            velocity.y = Mathf.Sqrt(jumpSpeed * -2 * gravity);
+            rigidBody.AddForce(transform.TransformDirection(moveDirection), ForceMode.VelocityChange);
+        }
+        else
+        {
+            rigidBody.AddForce(transform.TransformDirection(moveDirection * airMultiplier), ForceMode.VelocityChange);
         }
     }
 
-    private void JumpCheckAndSlide()
+    public void ProcessVerticalMovement()
+    {
+        IsGroundedCheck();
+
+        if (isGrounded)
+        {
+            rigidBody.drag = groundDrag;
+        }
+        else
+        {
+            rigidBody.drag = 0;
+        }
+    }
+
+    public void Jump()
+    {
+        rigidBody.velocity = new Vector3(rigidBody.velocity.x, 0, rigidBody.velocity.z);
+
+        rigidBody.AddForce(transform.up * jumpForce, ForceMode.Impulse);
+    }
+
+    public void StartRunning()
+        => StartCoroutine(WaitTillLanded(runSpeed));
+
+    public void StopRunning()
+        => StartCoroutine(WaitTillLanded(moveSpeed));
+
+    private IEnumerator WaitTillLanded(float speed)
+    {
+        while (!isGrounded)
+        {
+            yield return waitTillLanded;
+        }
+
+        currentSpeed = speed;
+    }
+
+    private void LateUpdate()
+    {
+        LimitVelocity();
+    }
+
+    private void IsGroundedCheck()
     {
         isGrounded = false;
 
-        if (Physics.SphereCast(groundCheck.position, controller.radius, Vector3.down, out RaycastHit hit, groundDistance))
+        if (Physics.SphereCast(groundCheck.position, capsule.radius, Vector3.down, out RaycastHit hit, groundDistance))
         {
-            var angle = Vector3.Angle(transform.up, hit.normal);
-            if (angle <= controller.slopeLimit)
+            if (Vector3.Angle(transform.up, hit.normal) <= slopeLimit)
             {
                 isGrounded = true;
-            }
-            else
-            {
-                var slideDown = hit.normal * slideDownSpeed;
-                controller.Move(slideDown);
             }
         }
     }
 
-    private void TerminalVelocityCheck()
-        => velocity.y = (velocity.y < terminalVelocity) ? terminalVelocity : velocity.y;
+    private void LimitVelocity()
+    {
+        var flatVelocity = new Vector3(rigidBody.velocity.x, 0, rigidBody.velocity.z);
 
-    private void OnGroundCheck()
-        => velocity.y = (velocity.y < -2.0f && isGrounded) ? -2.0f : velocity.y;
+        if (flatVelocity.magnitude > currentSpeed)
+        {
+            var limitedVelocity = flatVelocity.normalized * currentSpeed;
+            rigidBody.velocity = new Vector3(limitedVelocity.x, rigidBody.velocity.y, limitedVelocity.z);
+        }
+    }
 }

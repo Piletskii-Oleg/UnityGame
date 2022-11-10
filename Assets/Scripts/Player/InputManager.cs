@@ -58,6 +58,9 @@ public class InputManager : MonoBehaviour
     {
         onFoot.Jump.performed += _ => movement.Jump();
 
+        onFoot.Run.started += _ => movement.StartRunning();
+        onFoot.Run.canceled += _ => movement.StopRunning();
+
         onFoot.Shoot.started += _ => isShooting = true;
         onFoot.Shoot.canceled += _ => isShooting = false;
 
