@@ -98,6 +98,15 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Interact"",
+                    ""type"": ""Button"",
+                    ""id"": ""ef59aa6a-4446-48e1-9db2-30fe37d4ab07"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -320,6 +329,17 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""action"": ""Run"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d57d67fb-447d-4833-adbb-d4d988d5ba3d"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -336,6 +356,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         m_OnFoot_ChangeWeapon = m_OnFoot.FindAction("ChangeWeapon", throwIfNotFound: true);
         m_OnFoot_Zoom = m_OnFoot.FindAction("Zoom", throwIfNotFound: true);
         m_OnFoot_Run = m_OnFoot.FindAction("Run", throwIfNotFound: true);
+        m_OnFoot_Interact = m_OnFoot.FindAction("Interact", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -403,6 +424,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
     private readonly InputAction m_OnFoot_ChangeWeapon;
     private readonly InputAction m_OnFoot_Zoom;
     private readonly InputAction m_OnFoot_Run;
+    private readonly InputAction m_OnFoot_Interact;
     public struct OnFootActions
     {
         private @PlayerInput m_Wrapper;
@@ -415,6 +437,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         public InputAction @ChangeWeapon => m_Wrapper.m_OnFoot_ChangeWeapon;
         public InputAction @Zoom => m_Wrapper.m_OnFoot_Zoom;
         public InputAction @Run => m_Wrapper.m_OnFoot_Run;
+        public InputAction @Interact => m_Wrapper.m_OnFoot_Interact;
         public InputActionMap Get() { return m_Wrapper.m_OnFoot; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -448,6 +471,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @Run.started -= m_Wrapper.m_OnFootActionsCallbackInterface.OnRun;
                 @Run.performed -= m_Wrapper.m_OnFootActionsCallbackInterface.OnRun;
                 @Run.canceled -= m_Wrapper.m_OnFootActionsCallbackInterface.OnRun;
+                @Interact.started -= m_Wrapper.m_OnFootActionsCallbackInterface.OnInteract;
+                @Interact.performed -= m_Wrapper.m_OnFootActionsCallbackInterface.OnInteract;
+                @Interact.canceled -= m_Wrapper.m_OnFootActionsCallbackInterface.OnInteract;
             }
             m_Wrapper.m_OnFootActionsCallbackInterface = instance;
             if (instance != null)
@@ -476,6 +502,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @Run.started += instance.OnRun;
                 @Run.performed += instance.OnRun;
                 @Run.canceled += instance.OnRun;
+                @Interact.started += instance.OnInteract;
+                @Interact.performed += instance.OnInteract;
+                @Interact.canceled += instance.OnInteract;
             }
         }
     }
@@ -490,5 +519,6 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         void OnChangeWeapon(InputAction.CallbackContext context);
         void OnZoom(InputAction.CallbackContext context);
         void OnRun(InputAction.CallbackContext context);
+        void OnInteract(InputAction.CallbackContext context);
     }
 }

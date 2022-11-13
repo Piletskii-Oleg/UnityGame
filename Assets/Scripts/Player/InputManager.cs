@@ -10,6 +10,7 @@ public class InputManager : MonoBehaviour
 
     private PlayerMovement movement;
     private PlayerLook look;
+    private PlayerInteract interact;
     private WeaponManager weaponManager;
     private WeaponZoom weaponZoom;
 
@@ -22,6 +23,7 @@ public class InputManager : MonoBehaviour
 
         movement = GetComponent<PlayerMovement>();
         look = GetComponent<PlayerLook>();
+        interact = GetComponent<PlayerInteract>();
         weaponManager = GetComponent<WeaponManager>();
         weaponZoom = GetComponent<WeaponZoom>();
 
@@ -70,6 +72,8 @@ public class InputManager : MonoBehaviour
 
         onFoot.Zoom.started += _ => weaponZoom.Zoom(true);
         onFoot.Zoom.canceled += _ => weaponZoom.Zoom(false);
+
+        onFoot.Interact.performed += _ => interact.Interact();
         // health debugging
         // onFoot.Jump.performed += ctx => health.TakeDamage(30);
         // onFoot.Reload.performed += ctx => health.Heal(30);

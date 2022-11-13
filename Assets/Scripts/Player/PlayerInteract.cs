@@ -4,20 +4,16 @@ public class PlayerInteract : MonoBehaviour
 {
     [SerializeField] private float rayDistance = 3.0f;
     [SerializeField] private LayerMask layerMask;
-    private Camera cam;
+    [SerializeField] private Camera cam;
 
-    private void Start()
-    {
-        cam = GetComponentInChildren<Camera>();
-    }
-
-    private void Update()
+    public void Interact()
     {
         var ray = new Ray(cam.transform.position, cam.transform.forward);
         if (Physics.Raycast(ray, out RaycastHit hitInfo, rayDistance, layerMask))
         {
-            if (hitInfo.collider.GetComponent<Interactable>() != null)
+            if (hitInfo.collider.TryGetComponent<Interactable>(out var interactable))
             {
+                interactable.BaseInteract();
             }
         }
     }
