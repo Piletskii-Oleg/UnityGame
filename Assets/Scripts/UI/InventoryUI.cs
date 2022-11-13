@@ -5,12 +5,7 @@ public class InventoryUI : MonoBehaviour
     [SerializeField] private InventoryManager manager;
     [SerializeField] private GameObject itemSlotPrefab;
 
-    private void Start()
-    {
-        manager.AddEvent(() => OnUpdateInventory());
-    }
-
-    private void OnUpdateInventory()
+    public void UpdateInventory()
     {
         foreach (Transform t in transform)
         {

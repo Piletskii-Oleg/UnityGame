@@ -54,7 +54,5 @@ public class InventoryManager : ScriptableObject
     }
 
     public void AddEvent(UnityAction action)
-    {
-        onInventoryChangedEvent.AddListener(action);
-    }
+        => onInventoryChangedEvent.AddListener(action);
 }

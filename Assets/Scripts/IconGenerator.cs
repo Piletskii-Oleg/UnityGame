@@ -26,6 +26,11 @@ public class IconGenerator : MonoBehaviour
 
     void TakeScreenshot(string path)
     {
+        if (cam == null)
+        {
+            cam = Camera.main;
+        }
+
         var renderTexture = new RenderTexture(256, 256, 24);
         cam.targetTexture = renderTexture;
 
