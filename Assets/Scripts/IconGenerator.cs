@@ -1,9 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using System.IO;
 using UnityEditor;
 using UnityEngine;
 
+/// <summary>
+/// Generates a screenshot-based sprite of an item (used on IconGeneratorScene).
+/// </summary>
 public class IconGenerator : MonoBehaviour
 {
     [SerializeField] private string prefix;

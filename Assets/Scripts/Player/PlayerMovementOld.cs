@@ -1,7 +1,7 @@
 using UnityEngine;
 
 /// <summary>
-/// Class that processes keyboard input used for moving the player (used with <see cref="InputManager"/>)
+/// (Deprecated) Class that processes keyboard input used for moving the player (used with <see cref="InputManager"/>).
 /// </summary>
 [RequireComponent(typeof(CharacterController))]
 public class PlayerMovementOld : MonoBehaviour

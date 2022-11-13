@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 
 /// <summary>
-/// Class that processes keyboard input used for moving the player (used with <see cref="InputManager"/>)
+/// Class that processes keyboard input used for moving the player (used with <see cref="InputManager"/>).
 /// </summary>
 public class PlayerMovement : MonoBehaviour
 {
