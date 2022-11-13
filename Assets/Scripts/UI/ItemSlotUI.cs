@@ -12,14 +12,17 @@ public class ItemSlotUI : MonoBehaviour
     [SerializeField] private GameObject stackBox;
     [SerializeField] private TextMeshProUGUI stackNumber;
 
+    [SerializeField] private InventoryItemData data;
+
     /// <summary>
     /// Sets information about the <see cref="InventoryItem"/> to the <see cref="ItemSlotUI"/>.
     /// </summary>
     /// <param name="item">An <see cref="InventoryItem"/> to set information about.</param>
     public void Set(InventoryItem item)
     {
-        itemSprite.sprite = item.Data.itemSprite;
-        label.text = item.Data.displayName;
+        data = item.Data;
+        itemSprite.sprite = data.itemSprite;
+        label.text = data.displayName;
         if (item.StackSize <= 1)
         {
             stackBox.SetActive(false);
@@ -27,5 +30,13 @@ public class ItemSlotUI : MonoBehaviour
         }
 
         stackNumber.text = item.StackSize.ToString();
+    }
+
+    public void OnClick()
+    {
+        if (data.canHandle)
+        {
+
+        }
     }
 }

@@ -7,25 +7,31 @@ public class InputManager : MonoBehaviour
 {
     private PlayerInput playerInput;
     private PlayerInput.OnFootActions onFoot;
+    private PlayerInput.UIActions uiActions;
 
     private PlayerMovement movement;
     private PlayerLook look;
+    private WeaponController weaponController;
     private PlayerInteract interact;
-    private WeaponManager weaponManager;
     private WeaponZoom weaponZoom;
 
+    [SerializeField] private InventoryUI inventoryUI;
+
     private bool isShooting;
+    
+    private bool isUsingUI = false;
 
     private void Awake()
     {
         playerInput = new PlayerInput();
         onFoot = playerInput.OnFoot;
+        uiActions = playerInput.UI;
 
         movement = GetComponent<PlayerMovement>();
         look = GetComponent<PlayerLook>();
+        weaponController = GetComponent<WeaponController>();
         interact = GetComponent<PlayerInteract>();
-        weaponManager = GetComponent<WeaponManager>();
-        weaponZoom = GetComponent<WeaponZoom>();
+        weaponZoom = GetComponentInChildren<WeaponZoom>();
 
         SubscribeToEvents();
     }
@@ -34,7 +40,7 @@ public class InputManager : MonoBehaviour
     {
         if (isShooting)
         {
-            weaponManager.Shoot();
+            weaponController.Shoot();
         }
 
         movement.ProcessHorizontalMovement(onFoot.Movement.ReadValue<Vector2>());
@@ -49,11 +55,13 @@ public class InputManager : MonoBehaviour
     private void OnEnable()
     {
         onFoot.Enable();
+        uiActions.Enable();
     }
 
     private void OnDisable()
     {
         onFoot.Disable();
+        uiActions.Disable();
     }
 
     private void SubscribeToEvents()
@@ -66,16 +74,35 @@ public class InputManager : MonoBehaviour
         onFoot.Shoot.started += _ => isShooting = true;
         onFoot.Shoot.canceled += _ => isShooting = false;
 
-        onFoot.Reload.performed += _ => weaponManager.StartReload();
+        onFoot.Reload.performed += _ => weaponController.StartReload();
 
-        onFoot.ChangeWeapon.performed += _ => weaponManager.ChangeWeapon((int)onFoot.ChangeWeapon.ReadValue<float>());
+        onFoot.ChangeWeapon.performed += _ => weaponController.ChangeWeapon((int)onFoot.ChangeWeapon.ReadValue<float>());
 
         onFoot.Zoom.started += _ => weaponZoom.Zoom(true);
         onFoot.Zoom.canceled += _ => weaponZoom.Zoom(false);
 
         onFoot.Interact.performed += _ => interact.Interact();
+
+        uiActions.OpenInventory.performed += _ =>  
+        {
+            inventoryUI.HandleInventory();
+            OnFootSwitch();
+        };
         // health debugging
         // onFoot.Jump.performed += ctx => health.TakeDamage(30);
         // onFoot.Reload.performed += ctx => health.Heal(30);
+    }
+
+    private void OnFootSwitch()
+    {
+        isUsingUI = !isUsingUI;
+        if (isUsingUI)
+        {
+            onFoot.Disable();
+        }
+        else
+        {
+            onFoot.Enable();
+        }
     }
 }

@@ -21,11 +21,19 @@ public class WeaponAnimator : MonoBehaviour
     /// </summary>
     /// <param name="zoomIn">True if the player zooms in and false otherwise.</param>
     public void Zoom(bool zoomIn)
-        => animator.SetBool("ZoomIn", zoomIn);
+    {
+        animator.SetBool("ZoomIn", zoomIn);
+    }
 
-    private void Start()
+    private void Awake()
     {
         animator = GetComponent<Animator>();
-        zoomClip = animator.runtimeAnimatorController.animationClips.First(clip => clip.name == "WeaponZoom");
+
+        zoomClip = animator.runtimeAnimatorController.animationClips.First(clip => clip.name.Contains("Zoom"));
+    }
+
+    private void OnDestroy()
+    {
+        animator = null;
     }
 }

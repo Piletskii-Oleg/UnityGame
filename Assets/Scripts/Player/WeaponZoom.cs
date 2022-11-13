@@ -8,9 +8,11 @@ using UnityEngine;
 /// </summary>
 public class WeaponZoom : MonoBehaviour
 {
-    private WeaponAnimator weaponAnimator;
+    [SerializeField] private WeaponManager weaponManager;
 
     [SerializeField] private float zoomInFOV;
+
+    private WeaponAnimator weaponAnimator;
 
     private float baseFOV;
     private Camera mainCamera;
@@ -21,7 +23,6 @@ public class WeaponZoom : MonoBehaviour
     {
         mainCamera = Camera.main;
         baseFOV = mainCamera.fieldOfView;
-        weaponAnimator = GetComponentInChildren<WeaponAnimator>();
     }
 
     /// <summary>
@@ -40,6 +41,11 @@ public class WeaponZoom : MonoBehaviour
 
     private IEnumerator ZoomAnimation(bool zoomIn)
     {
+        if (weaponAnimator == null)
+        {
+            weaponAnimator = GetComponentInChildren<WeaponAnimator>();
+        }
+
         weaponAnimator.Zoom(zoomIn);
 
         float animationTime = weaponAnimator.ZoomAnimationTime;

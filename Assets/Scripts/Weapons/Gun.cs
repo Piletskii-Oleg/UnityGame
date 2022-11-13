@@ -9,6 +9,7 @@ public class Gun : Weapon
 {
     [Tooltip("Scriptable Object with the gun data.")]
     [SerializeField] private GunData gunData;
+
     [Tooltip("Bullet shot.")]
     [SerializeField] private GameObject bullet;
 
@@ -57,10 +58,9 @@ public class Gun : Weapon
     private void OnDisable()
         => gunData.reloading = false;
 
-    private void Start()
+    private void Awake()
     {
         timeSinceLastShot = 0f;
-        gunData.currentAmmo = gunData.ammoCapacity;
 
         reloadWait = new WaitForSeconds(gunData.reloadTime);
     }

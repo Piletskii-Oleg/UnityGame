@@ -192,7 +192,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: bbd04348bcf88dc4d8984840f80df4ff, type: 2}
   - {fileID: 11400000, guid: 2f76d0ffa1a936a4abaa8f78021d941c, type: 2}
   text: {fileID: 4566381932736024065}
-  weaponManager: {fileID: 0}
+  weaponManager: {fileID: 11400000, guid: e89bbf54677811741bcf2548a831c9e1, type: 2}
 --- !u!114 &4566381933507406119
 MonoBehaviour:
   m_ObjectHideFlags: 0
