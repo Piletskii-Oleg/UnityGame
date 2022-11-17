@@ -8,13 +8,16 @@ using UnityEngine.Events;
 /// </summary>
 public class ItemSlotUI : MonoBehaviour
 {
+    [Header("UI information")]
     [SerializeField] private Image itemSprite;
     [SerializeField] private TextMeshProUGUI label;
     [SerializeField] private GameObject stackBox;
     [SerializeField] private TextMeshProUGUI stackNumber;
 
+    [Header("Item data")]
     [SerializeField] private InventoryItemData data;
 
+    [Header("Events")]
     [SerializeField] private UnityEvent<string> onItemChosen;
 
     /// <summary>

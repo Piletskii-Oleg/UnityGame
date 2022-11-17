@@ -23,4 +23,9 @@ public class PlayerInteract : MonoBehaviour
             }
         }
     }
+
+    private void Update()
+    {
+        Debug.DrawRay(cam.transform.position, cam.transform.forward * 10);
+    }
 }

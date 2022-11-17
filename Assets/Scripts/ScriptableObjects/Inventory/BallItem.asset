@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: BallItem
   m_EditorClassIdentifier: 
   displayName: Ball
-  position: {x: 0, y: 0, z: 0}
-  itemPrefab: {fileID: 0}
-  itemSprite: {fileID: 21300000, guid: a826d33d1c6e7a746b37f0afe83df4de, type: 3}
+  itemSprite: {fileID: 21300000, guid: d5a0f2f3b06bb9f42ac08548ba3c8a1a, type: 3}
+  canHandle: 0
+  maxAmount: 100
