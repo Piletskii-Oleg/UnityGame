@@ -7,7 +7,7 @@ using UnityEngine.Events;
 /// <typeparam name="T">Parameter type passed to the <see cref="BaseGameEvent{T}"/></typeparam>
 /// <typeparam name="TGameEvent">Game Event that you subscribe to.</typeparam>
 /// <typeparam name="TUnityEvent">Response to invoke when <see cref="BaseGameEvent{T}"/> is called.</typeparam>
-public class BaseGameEventListener<T, TGameEvent, TUnityEvent> : MonoBehaviour, IEventListener<T>
+public abstract class BaseGameEventListener<T, TGameEvent, TUnityEvent> : MonoBehaviour, IEventListener<T>
     where TGameEvent : BaseGameEvent<T>
     where TUnityEvent : UnityEvent<T>
 {

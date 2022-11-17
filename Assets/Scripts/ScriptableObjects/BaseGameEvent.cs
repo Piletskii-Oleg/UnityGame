@@ -7,7 +7,7 @@ using UnityEngine.Events;
 /// An abstraction over <see cref="UnityEvent"/> with one generic parameter <typeparamref name="T"/>
 /// that allows for multiple listeners using <see cref="BaseGameEventListener{T, TGameEvent, TUnityEvent}"/>.
 /// </summary>
-public class BaseGameEvent<T> : ScriptableObject
+public abstract class BaseGameEvent<T> : ScriptableObject
 {
     private readonly List<IEventListener<T>> listeners = new ();
 
