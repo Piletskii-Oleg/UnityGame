@@ -41,7 +41,7 @@ public class WeaponController : MonoBehaviour
 
         weaponManager.ChangeIndex(index);
 
-        var weapon = Instantiate(weaponManager.weapons[index]);
+        var weapon = Instantiate(weaponManager.Weapons[index]);
         currentWeapon = weapon.GetComponent<Weapon>();
         weapon.transform.SetParent(weaponHolder, false);
     }
@@ -50,11 +50,11 @@ public class WeaponController : MonoBehaviour
     /// Used to take the next weapon.
     /// </summary>
     public void IncrementWeaponIndex()
-        => weaponManager.ChangeIndex(weaponManager.CurrentIndex + 1 % weaponManager.weapons.Count);
+        => weaponManager.ChangeIndex(weaponManager.CurrentIndex + 1 % weaponManager.Weapons.Count);
 
     /// <summary>
     /// Used to take the previous weapon.
     /// </summary>
     public void DecrementWeaponIndex()
-    => weaponManager.ChangeIndex(weaponManager.CurrentIndex - 1 % weaponManager.weapons.Count);
+        => weaponManager.ChangeIndex(weaponManager.CurrentIndex - 1 % weaponManager.Weapons.Count);
 }

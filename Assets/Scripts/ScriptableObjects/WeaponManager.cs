@@ -8,7 +8,7 @@ using UnityEngine.Events;
 [CreateAssetMenu]
 public class WeaponManager : ScriptableObject
 {
-    public List<GameObject> weapons;
+    [field: SerializeField] public List<GameObject> Weapons { get; private set; }
 
     [SerializeField] private UnityEvent onChangeWeapon;
 
@@ -23,7 +23,7 @@ public class WeaponManager : ScriptableObject
     /// <param name="index">Index of the weapon in the list.</param>
     public void ChangeIndex(int index)
     {
-        if (index < weapons.Count && index >= 0)
+        if (index < Weapons.Count && index >= 0)
         {
             CurrentIndex = index;
 

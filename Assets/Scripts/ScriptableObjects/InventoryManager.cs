@@ -18,6 +18,21 @@ public class InventoryManager : ScriptableObject
     [field:SerializeField] public List<InventoryItem> Items { get; private set; } = new ();
 
     /// <summary>
+    /// Updates item dictionary so that its state persists between sessions.
+    /// Should be called when default <see cref="MonoBehaviour"/> Start is called.
+    /// </summary>
+    public void Start()
+    {
+        itemDictionary.Clear();
+        foreach (var item in Items)
+        {
+            itemDictionary.Add(item.Data, item);
+        }
+
+        onInventoryChangedEvent.Invoke();
+    }
+
+    /// <summary>
     /// Adds an item to the inventory using <paramref name="inventoryItemData"/>.
     /// </summary>
     /// <param name="inventoryItemData"><see cref="ScriptableObject"/> data that corresponds to the item.</param>

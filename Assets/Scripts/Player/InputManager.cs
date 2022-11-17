@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 /// <summary>
@@ -33,7 +34,8 @@ public class InputManager : MonoBehaviour
         interact = GetComponent<PlayerInteract>();
         weaponZoom = GetComponentInChildren<WeaponZoom>();
 
-        SubscribeToEvents();
+        SubscribeToEventsOnFoot();
+        SubscribeToEventsUIActions();
     }
 
     private void FixedUpdate()
@@ -64,7 +66,7 @@ public class InputManager : MonoBehaviour
         uiActions.Disable();
     }
 
-    private void SubscribeToEvents()
+    private void SubscribeToEventsOnFoot()
     {
         onFoot.Jump.performed += _ => movement.Jump();
 
@@ -82,15 +84,18 @@ public class InputManager : MonoBehaviour
         onFoot.Zoom.canceled += _ => weaponZoom.Zoom(false);
 
         onFoot.Interact.performed += _ => interact.Interact();
+        // health debugging
+        // onFoot.Jump.performed += ctx => health.TakeDamage(30);
+        // onFoot.Reload.performed += ctx => health.Heal(30);
+    }
 
-        uiActions.OpenInventory.performed += _ =>  
+    private void SubscribeToEventsUIActions()
+    {
+        uiActions.OpenInventory.performed += _ =>
         {
             inventoryUI.HandleInventory();
             OnFootSwitch();
         };
-        // health debugging
-        // onFoot.Jump.performed += ctx => health.TakeDamage(30);
-        // onFoot.Reload.performed += ctx => health.Heal(30);
     }
 
     private void OnFootSwitch()

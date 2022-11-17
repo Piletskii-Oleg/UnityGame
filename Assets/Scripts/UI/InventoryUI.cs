@@ -10,6 +10,7 @@ public class InventoryUI : MonoBehaviour
 
     [SerializeField] private GameObject itemSlotPrefab;
     [SerializeField] private Transform parentObject;
+    [SerializeField] private Transform bigInventory;
 
     private bool isInventoryClosed;
 
@@ -32,7 +33,7 @@ public class InventoryUI : MonoBehaviour
 
     private void OpenInventory()
     {
-        gameObject.SetActive(true);
+        bigInventory.gameObject.SetActive(true);
         Cursor.lockState = CursorLockMode.Confined;
 
         isInventoryClosed = false;
@@ -40,7 +41,7 @@ public class InventoryUI : MonoBehaviour
 
     private void CloseInventory()
     {
-        gameObject.SetActive(false);
+        bigInventory.gameObject.SetActive(false);
         Cursor.lockState = CursorLockMode.Locked;
 
         isInventoryClosed = true;
@@ -49,7 +50,7 @@ public class InventoryUI : MonoBehaviour
     /// <summary>
     /// Updates the player's <see cref="InventoryManager"/> UI.
     /// </summary>
-    public void UpdateInventory()
+    public void UpdateInventoryUI()
     {
         foreach (Transform t in parentObject)
         {
@@ -63,16 +64,11 @@ public class InventoryUI : MonoBehaviour
     {
         foreach (var item in manager.Items)
         {
-            AddInventorySlot(item);
+            var slotObject = Instantiate(itemSlotPrefab);
+            slotObject.transform.SetParent(parentObject, false);
+
+            var slot = slotObject.GetComponent<ItemSlotUI>();
+            slot.Set(item);
         }
-    }
-
-    private void AddInventorySlot(InventoryItem item)
-    {
-        var slotObject = Instantiate(itemSlotPrefab);
-        slotObject.transform.SetParent(parentObject, false);
-
-        var slot = slotObject.GetComponent<ItemSlotUI>();
-        slot.Set(item);
     }
 }
