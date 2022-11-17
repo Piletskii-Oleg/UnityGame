@@ -17,8 +17,10 @@ public class WeaponManager : ScriptableObject
     /// </summary>
     public int CurrentIndex { get; private set; }
 
+    public GameObject CurrentWeapon => Weapons[CurrentIndex];
+
     /// <summary>
-    /// Used to change the current index of the <see cref="weapons"/>.
+    /// Used to change the current index of the <see cref="Weapons"/>.
     /// </summary>
     /// <param name="index">Index of the weapon in the list.</param>
     public void ChangeIndex(int index)
@@ -29,5 +31,23 @@ public class WeaponManager : ScriptableObject
 
             onChangeWeapon.Invoke();
         }
+    }
+
+    /// <summary>
+    /// Used to change the current index of the <see cref="Weapons"/>.
+    /// Does nothing if <paramref name="name"/> is not found in the list.
+    /// </summary>
+    /// <param name="name">Name of the weapon in the list.</param>
+    public bool ChangeTo(string name)
+    {
+        var newIndex = Weapons.FindIndex(gameObject => gameObject.name == name);
+        if (newIndex != -1)
+        {
+            CurrentIndex = newIndex;
+            onChangeWeapon.Invoke();
+            return true;
+        }
+
+        return false;
     }
 }

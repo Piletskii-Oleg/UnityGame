@@ -41,9 +41,24 @@ public class WeaponController : MonoBehaviour
 
         weaponManager.ChangeIndex(index);
 
-        var weapon = Instantiate(weaponManager.Weapons[index]);
+        var weapon = Instantiate(weaponManager.CurrentWeapon);
         currentWeapon = weapon.GetComponent<Weapon>();
         weapon.transform.SetParent(weaponHolder, false);
+    }
+
+    public void ChangeWeapon(string name)
+    {
+        if (weaponManager.ChangeTo(name))
+        {
+            foreach (Transform t in weaponHolder)
+            {
+                Destroy(t.gameObject);
+            }
+
+            var weapon = Instantiate(weaponManager.CurrentWeapon);
+            currentWeapon = weapon.GetComponent<Weapon>();
+            weapon.transform.SetParent(weaponHolder, false);
+        }
     }
 
     /// <summary>

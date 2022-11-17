@@ -1,6 +1,7 @@
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 /// <summary>
 /// Item slot that stores a single <see cref="InventoryItem"/> in <see cref="InventoryUI"/>.
@@ -13,6 +14,8 @@ public class ItemSlotUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI stackNumber;
 
     [SerializeField] private InventoryItemData data;
+
+    [SerializeField] private UnityEvent<string> onItemChosen;
 
     /// <summary>
     /// Sets information about the <see cref="InventoryItem"/> to the <see cref="ItemSlotUI"/>.
@@ -36,7 +39,7 @@ public class ItemSlotUI : MonoBehaviour
     {
         if (data.canHandle)
         {
-
+            onItemChosen.Invoke(data.displayName);
         }
     }
 }

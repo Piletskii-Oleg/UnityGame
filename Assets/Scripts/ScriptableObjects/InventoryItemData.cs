@@ -8,8 +8,6 @@ public class InventoryItemData : ScriptableObject
 {
     [Tooltip("Name displayed on the inventory")]
     public string displayName;
-    
-    public Vector3 position;
 
     public GameObject itemPrefab;
 
