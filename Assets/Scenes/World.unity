@@ -2592,38 +2592,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1190868241}
     m_Modifications:
-    - target: {fileID: 5348490893866183353, guid: bf2fd90e54b3c5a43a14ef917b5ac739, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5348490893866183353, guid: bf2fd90e54b3c5a43a14ef917b5ac739, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5348490893866183353, guid: bf2fd90e54b3c5a43a14ef917b5ac739, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5348490893866183353, guid: bf2fd90e54b3c5a43a14ef917b5ac739, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 11400000, guid: 24c0e692b84f9eb44b7efeb69e90725b, type: 2}
-    - target: {fileID: 5348490893866183353, guid: bf2fd90e54b3c5a43a14ef917b5ac739, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5348490893866183353, guid: bf2fd90e54b3c5a43a14ef917b5ac739, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: Raise
-      objectReference: {fileID: 0}
-    - target: {fileID: 5348490893866183353, guid: bf2fd90e54b3c5a43a14ef917b5ac739, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: GameEvent, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 5348490893866183353, guid: bf2fd90e54b3c5a43a14ef917b5ac739, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
     - target: {fileID: 5939314542359602628, guid: bf2fd90e54b3c5a43a14ef917b5ac739, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -2711,34 +2679,6 @@ PrefabInstance:
     - target: {fileID: 5939314542359602631, guid: bf2fd90e54b3c5a43a14ef917b5ac739, type: 3}
       propertyPath: m_Name
       value: ItemSlot
-      objectReference: {fileID: 0}
-    - target: {fileID: 9160428671999654662, guid: bf2fd90e54b3c5a43a14ef917b5ac739, type: 3}
-      propertyPath: onItemChosen.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9160428671999654662, guid: bf2fd90e54b3c5a43a14ef917b5ac739, type: 3}
-      propertyPath: onItemChosen.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9160428671999654662, guid: bf2fd90e54b3c5a43a14ef917b5ac739, type: 3}
-      propertyPath: onItemChosen.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 11400000, guid: 4812893e25f3f08409ca745f84ba13c6, type: 2}
-    - target: {fileID: 9160428671999654662, guid: bf2fd90e54b3c5a43a14ef917b5ac739, type: 3}
-      propertyPath: onItemChosen.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 9160428671999654662, guid: bf2fd90e54b3c5a43a14ef917b5ac739, type: 3}
-      propertyPath: onItemChosen.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: Raise
-      objectReference: {fileID: 0}
-    - target: {fileID: 9160428671999654662, guid: bf2fd90e54b3c5a43a14ef917b5ac739, type: 3}
-      propertyPath: onItemChosen.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: BaseGameEvent`1[[System.String, mscorlib
-      objectReference: {fileID: 0}
-    - target: {fileID: 9160428671999654662, guid: bf2fd90e54b3c5a43a14ef917b5ac739, type: 3}
-      propertyPath: onItemChosen.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bf2fd90e54b3c5a43a14ef917b5ac739, type: 3}
