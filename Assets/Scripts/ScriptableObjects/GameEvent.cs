@@ -5,7 +5,7 @@ using UnityEngine.Events;
 /// <summary>
 /// An abstraction over <see cref="UnityEvent"/> that allows for multiple listeners using <see cref="GameEventListener"/>.
 /// </summary>
-[CreateAssetMenu]
+[CreateAssetMenu(fileName = "No type", menuName = "Game Event/No type")]
 public class GameEvent : ScriptableObject
 {
     private readonly List<GameEventListener> listeners = new ();

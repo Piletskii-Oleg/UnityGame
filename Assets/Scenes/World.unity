@@ -386,6 +386,7 @@ GameObject:
   - component: {fileID: 111919190}
   - component: {fileID: 111919188}
   - component: {fileID: 1252321243630478479}
+  - component: {fileID: 1252321243630478485}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -2713,27 +2714,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9160428671999654662, guid: bf2fd90e54b3c5a43a14ef917b5ac739, type: 3}
       propertyPath: onItemChosen.m_PersistentCalls.m_Calls.Array.size
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9160428671999654662, guid: bf2fd90e54b3c5a43a14ef917b5ac739, type: 3}
       propertyPath: onItemChosen.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9160428671999654662, guid: bf2fd90e54b3c5a43a14ef917b5ac739, type: 3}
       propertyPath: onItemChosen.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 11400000, guid: e89bbf54677811741bcf2548a831c9e1, type: 2}
+      objectReference: {fileID: 11400000, guid: 4812893e25f3f08409ca745f84ba13c6, type: 2}
     - target: {fileID: 9160428671999654662, guid: bf2fd90e54b3c5a43a14ef917b5ac739, type: 3}
       propertyPath: onItemChosen.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 9160428671999654662, guid: bf2fd90e54b3c5a43a14ef917b5ac739, type: 3}
       propertyPath: onItemChosen.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: 
+      value: Raise
       objectReference: {fileID: 0}
     - target: {fileID: 9160428671999654662, guid: bf2fd90e54b3c5a43a14ef917b5ac739, type: 3}
       propertyPath: onItemChosen.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: WeaponManager, Assembly-CSharp
+      value: BaseGameEvent`1[[System.String, mscorlib
       objectReference: {fileID: 0}
     - target: {fileID: 9160428671999654662, guid: bf2fd90e54b3c5a43a14ef917b5ac739, type: 3}
       propertyPath: onItemChosen.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
@@ -11150,6 +11151,34 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponManager: {fileID: 11400000, guid: e89bbf54677811741bcf2548a831c9e1, type: 2}
   weaponHolder: {fileID: 225934353}
+--- !u!114 &1252321243630478485
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 111919186}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d903ba4836217024c99869bde8315ad9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: 4812893e25f3f08409ca745f84ba13c6, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1252321243630478484}
+        m_TargetAssemblyTypeName: WeaponController, Assembly-CSharp
+        m_MethodName: ChangeWeapon
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1001 &1914008324351486217
 PrefabInstance:
   m_ObjectHideFlags: 0

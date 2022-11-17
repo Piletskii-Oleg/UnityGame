@@ -27,4 +27,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  <Items>k__BackingField: []
+  <Items>k__BackingField:
+  - <Data>k__BackingField: {fileID: 11400000, guid: b17aa45fc4b1c2f4980aad4044735aca, type: 2}
+    <StackSize>k__BackingField: 1
