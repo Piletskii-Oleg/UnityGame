@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class WeaponController : MonoBehaviour
@@ -11,20 +9,33 @@ public class WeaponController : MonoBehaviour
 
     private void Start()
     {
-        this.ChangeWeapon(1);
+        if (currentWeapon != null)
+        {
+            this.ChangeWeapon(1);
+        }
     }
 
     /// <summary>
     /// Makes the player shoot with the currently held weapon.
     /// </summary>
     public void Shoot()
-        => currentWeapon.Shoot();
+    {
+        if (currentWeapon != null)
+        {
+            currentWeapon.Shoot();
+        }
+    }
 
     /// <summary>
     /// Makes the player start reloading the currently held weapon.
     /// </summary>
     public void StartReload()
-        => currentWeapon.StartReload();
+    {
+        if (currentWeapon != null)
+        {
+            currentWeapon.StartReload();
+        }
+    }
 
     /// <summary>
     /// Used to change the currently held weapon.
@@ -34,16 +45,17 @@ public class WeaponController : MonoBehaviour
     {
         index--; // index parameter is a key from 1 to 9, hence we need to decrease it by 1 to get an actual index in the list.
 
-        foreach (Transform t in weaponHolder)
+        if (weaponManager.ChangeIndex(index))
         {
-            Destroy(t.gameObject);
+            foreach (Transform t in weaponHolder)
+            {
+                Destroy(t.gameObject);
+            }
+
+            var weapon = Instantiate(weaponManager.CurrentWeaponPrefab);
+            currentWeapon = weapon.GetComponent<Weapon>();
+            weapon.transform.SetParent(weaponHolder, false);
         }
-
-        weaponManager.ChangeIndex(index);
-
-        var weapon = Instantiate(weaponManager.CurrentWeapon);
-        currentWeapon = weapon.GetComponent<Weapon>();
-        weapon.transform.SetParent(weaponHolder, false);
     }
 
     public void ChangeWeapon(string name)
@@ -55,7 +67,7 @@ public class WeaponController : MonoBehaviour
                 Destroy(t.gameObject);
             }
 
-            var weapon = Instantiate(weaponManager.CurrentWeapon);
+            var weapon = Instantiate(weaponManager.CurrentWeaponPrefab);
             currentWeapon = weapon.GetComponent<Weapon>();
             weapon.transform.SetParent(weaponHolder, false);
         }
@@ -65,11 +77,30 @@ public class WeaponController : MonoBehaviour
     /// Used to take the next weapon.
     /// </summary>
     public void IncrementWeaponIndex()
-        => weaponManager.ChangeIndex(weaponManager.CurrentIndex + 1 % weaponManager.Weapons.Count);
+    {
+        if (weaponManager.CurrentIndex == weaponManager.WeaponCount - 1)
+        {
+            weaponManager.ChangeIndex(0);
+        }
+        else
+        {
+            weaponManager.ChangeIndex(weaponManager.CurrentIndex + 1);
+        }
+        
+    }
 
     /// <summary>
     /// Used to take the previous weapon.
     /// </summary>
     public void DecrementWeaponIndex()
-        => weaponManager.ChangeIndex(weaponManager.CurrentIndex - 1 % weaponManager.Weapons.Count);
+    {
+        if (weaponManager.CurrentIndex == 0)
+        {
+            weaponManager.ChangeIndex(weaponManager.WeaponCount - 1);
+        }
+        else
+        {
+            weaponManager.ChangeIndex(weaponManager.CurrentIndex - 1);
+        }
+    }
 }

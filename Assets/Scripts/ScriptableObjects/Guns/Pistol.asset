@@ -20,4 +20,5 @@ MonoBehaviour:
   ammoCapacity: 10
   fireRate: 2.5
   reloadTime: 1
+  gunPrefab: {fileID: 7008670067349202826, guid: 6f293d6e41e1ed44da8bc0655dd61755, type: 3}
   reloading: 0

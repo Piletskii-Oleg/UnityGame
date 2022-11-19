@@ -13,12 +13,11 @@ public class InventoryPickup : Interactable
     /// </summary>
     protected override void Interact()
     {
-        var stackSize = inventoryManager.GetItem(inventoryItemData).StackSize;
+        var stackSize = inventoryManager.GetStackSize(inventoryItemData);
 
         if (stackSize < inventoryItemData.maxAmount)
         {
             inventoryManager.Add(inventoryItemData);
-
             Destroy(gameObject);
         }
     }

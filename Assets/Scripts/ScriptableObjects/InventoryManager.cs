@@ -5,12 +5,13 @@ using UnityEngine.Events;
 /// <summary>
 /// Player's inventory manager.
 /// </summary>
-[CreateAssetMenu]
+[CreateAssetMenu(fileName = "Inventory Manager", menuName = "Managers/Inventory Manager")]
 public class InventoryManager : ScriptableObject
 {
     private readonly Dictionary<InventoryItemData, InventoryItem> itemDictionary = new ();
 
     [SerializeField] private UnityEvent onInventoryChangedEvent;
+    [SerializeField] private UnityEvent<string> onItemChosenEvent;
 
     /// <summary>
     /// Gets list of <see cref="InventoryItem"/> stored in the inventory.
@@ -47,6 +48,11 @@ public class InventoryManager : ScriptableObject
             var newItem = new InventoryItem(inventoryItemData);
             Items.Add(newItem);
             itemDictionary.Add(inventoryItemData, newItem);
+
+            if (inventoryItemData.canHandle)
+            {
+                onItemChosenEvent.Invoke(inventoryItemData.displayName);
+            }
         }
 
         onInventoryChangedEvent.Invoke();
@@ -82,11 +88,26 @@ public class InventoryManager : ScriptableObject
     /// </returns>
     public InventoryItem GetItem(InventoryItemData inventoryItemData)
     {
-        if (itemDictionary.TryGetValue(inventoryItemData, out var value))
+        if (itemDictionary.TryGetValue(inventoryItemData, out var inventoryItem))
         {
-            return value;
+            return inventoryItem;
         }
 
         return null;
+    }
+
+    /// <summary>
+    /// Gets stack size of <see cref="InventoryItem"/> stored in the inventory based on <paramref name="inventoryItemData"/>.
+    /// </summary>
+    /// <param name="inventoryItemData"><see cref="ScriptableObject"/> data that corresponds to the item.</param>
+    /// <returns>Amount of said item in the inventory.</returns>
+    public int GetStackSize(InventoryItemData inventoryItemData)
+    {
+        if (itemDictionary.TryGetValue(inventoryItemData, out var inventoryItem))
+        {
+            return inventoryItem.StackSize;
+        }
+
+        return 0;
     }
 }

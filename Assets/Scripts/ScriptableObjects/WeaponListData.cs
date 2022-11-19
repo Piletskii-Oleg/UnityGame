@@ -7,5 +7,5 @@ using UnityEngine;
 [CreateAssetMenu]
 public class WeaponListData : ScriptableObject
 {
-    public List<GameObject> weapons;
+    public List<GunData> weapons;
 }

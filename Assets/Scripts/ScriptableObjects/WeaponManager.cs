@@ -5,10 +5,12 @@ using UnityEngine.Events;
 /// <summary>
 /// Manages the weapons on the player.
 /// </summary>
-[CreateAssetMenu]
+[CreateAssetMenu(fileName = "Weapon Manager", menuName = "Managers/Weapon Manager")]
 public class WeaponManager : ScriptableObject
 {
-    [field: SerializeField] public List<GameObject> Weapons { get; private set; }
+    [SerializeField] private WeaponListData weaponsData;
+
+    [SerializeField] private List<GameObject> weapons;
 
     [SerializeField] private UnityEvent onChangeWeapon;
 
@@ -17,37 +19,50 @@ public class WeaponManager : ScriptableObject
     /// </summary>
     public int CurrentIndex { get; private set; }
 
-    public GameObject CurrentWeapon => Weapons[CurrentIndex];
+    public GameObject CurrentWeaponPrefab => weapons[CurrentIndex];
+
+    public GunData CurrentGunData => weaponsData.weapons[CurrentIndex];
+
+    public int WeaponCount => weapons.Count;
 
     /// <summary>
-    /// Used to change the current index of the <see cref="Weapons"/>.
+    /// Used to change the current index of the <see cref="weapons"/>.
     /// </summary>
     /// <param name="index">Index of the weapon in the list.</param>
-    public void ChangeIndex(int index)
+    public bool ChangeIndex(int index)
     {
-        if (index < Weapons.Count && index >= 0)
+        if (index < weapons.Count && index >= 0)
         {
             CurrentIndex = index;
 
             onChangeWeapon.Invoke();
-        }
-    }
 
-    /// <summary>
-    /// Used to change the current index of the <see cref="Weapons"/>.
-    /// Does nothing if <paramref name="name"/> is not found in the list.
-    /// </summary>
-    /// <param name="name">Name of the weapon in the list.</param>
-    public bool ChangeTo(string name)
-    {
-        var newIndex = Weapons.FindIndex(gameObject => gameObject.name == name);
-        if (newIndex != -1)
-        {
-            CurrentIndex = newIndex;
-            onChangeWeapon.Invoke();
             return true;
         }
 
         return false;
+    }
+
+    /// <summary>
+    /// Used to change the current index of the <see cref="weapons"/>.
+    /// Does nothing if <paramref name="name"/> is not found in the list.
+    /// </summary>
+    /// <param name="name">Name of the weapon in the list.</param>
+    public bool ChangeTo(string name) // completely breaks if order is not same as in weaponsData.weapons
+    {
+        var newIndex = weaponsData.weapons.FindIndex(gameObject => gameObject.name == name);
+        if (newIndex == -1)
+        {
+            return false;
+        }
+
+        if (!weapons.Contains(weaponsData.weapons[newIndex].gunPrefab))
+        {
+            weapons.Add(weaponsData.weapons[newIndex].gunPrefab);
+        }
+
+        CurrentIndex = newIndex;
+        onChangeWeapon.Invoke();
+        return true;
     }
 }

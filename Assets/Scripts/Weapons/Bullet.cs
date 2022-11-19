@@ -14,9 +14,16 @@ public class Bullet : MonoBehaviour
     [Tooltip("Max time that a bullet can exist for.")]
     [SerializeField] private float maxTime;
 
+    private Rigidbody rigidBody;
+
+    private void Start()
+    {
+        rigidBody = GetComponent<Rigidbody>();
+    }
+
     private void FixedUpdate()
     {
-        transform.Translate(-thrust * Time.fixedDeltaTime * transform.up, Space.World); // thrust is negative because otherwise bullet is shot at player and not forward.
+        rigidBody.AddForce(-thrust * Time.fixedDeltaTime * transform.up, ForceMode.VelocityChange); // thrust is negative because otherwise bullet is shot at player and not forward.
         timeSinceCreation += Time.fixedDeltaTime;
 
         if (timeSinceCreation > maxTime)

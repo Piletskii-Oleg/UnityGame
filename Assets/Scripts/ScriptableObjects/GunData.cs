@@ -23,6 +23,9 @@ public class GunData : ScriptableObject
     [Tooltip("Reload time of the gun measured in seconds.")]
     public float reloadTime;
 
+    [Header("Scene object")]
+    public GameObject gunPrefab;
+
     [HideInInspector]
     public bool reloading;
 }
