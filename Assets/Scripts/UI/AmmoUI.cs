@@ -1,29 +1,32 @@
-using System.Collections.Generic;
-using UnityEngine;
+using ScriptableObjects.Guns;
 using TMPro;
+using UnityEngine;
 
-/// <summary>
-/// UI that shows player's ammo.
-/// </summary>
-public class AmmoUI : MonoBehaviour
+namespace UI
 {
-    [SerializeField] private TextMeshProUGUI text;
-
-    [SerializeField] private WeaponManager weaponManager;
-
     /// <summary>
-    /// Updates ammo counter on the UI.
+    /// UI that shows player's ammo.
     /// </summary>
-    public void UpdateAmmo()
+    public class AmmoUI : MonoBehaviour
     {
-        text.text = weaponManager.CurrentGunData.currentAmmo + " / " + weaponManager.CurrentGunData.ammoCapacity;
-    }
+        [SerializeField] private TextMeshProUGUI text;
 
-    /// <summary>
-    /// Updates ammo counter on the UI when the weapon is changed.
-    /// </summary>
-    public void UpdateWeapon()
-    {
-        UpdateAmmo();
+        [SerializeField] private WeaponManager weaponManager;
+
+        /// <summary>
+        /// Updates ammo counter on the UI.
+        /// </summary>
+        public void UpdateAmmo()
+        {
+            text.text = weaponManager.CurrentGunData.currentAmmo + " / " + weaponManager.CurrentGunData.ammoCapacity;
+        }
+
+        /// <summary>
+        /// Updates ammo counter on the UI when the weapon is changed.
+        /// </summary>
+        public void UpdateWeapon()
+        {
+            UpdateAmmo();
+        }
     }
 }

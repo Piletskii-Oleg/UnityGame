@@ -1,14 +1,18 @@
+using ScriptableObjects.Inventory;
 using UnityEngine;
 
-/// <summary>
-/// Helper class for player's <see cref="InventoryManager"/>.
-/// </summary>
-public class Inventory : MonoBehaviour
+namespace Player
 {
-    [SerializeField] private InventoryManager inventoryManager;
-
-    private void Start()
+    /// <summary>
+    /// Helper class for player's <see cref="InventoryManager"/>.
+    /// </summary>
+    public class Inventory : MonoBehaviour
     {
-        inventoryManager.Start();
+        [SerializeField] private InventoryManager inventoryManager;
+
+        private void Start()
+        {
+            inventoryManager.Start();
+        }
     }
 }

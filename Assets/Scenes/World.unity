@@ -1353,7 +1353,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3ccf9a2601408c4c9be1e05dd33795d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  promptMessage: E to pick up
   inventoryManager: {fileID: 11400000, guid: 96eacc446dde72e4994671b6b1edd0b1, type: 2}
   inventoryItemData: {fileID: 11400000, guid: 8133ebe1e2c15fa40be4c7bb574b57e3, type: 2}
 --- !u!135 &293867358
@@ -2091,7 +2090,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3ccf9a2601408c4c9be1e05dd33795d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  promptMessage: E to pick up
   inventoryManager: {fileID: 11400000, guid: 96eacc446dde72e4994671b6b1edd0b1, type: 2}
   inventoryItemData: {fileID: 11400000, guid: 8133ebe1e2c15fa40be4c7bb574b57e3, type: 2}
 --- !u!135 &562224765
@@ -4815,7 +4813,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3065ccd3570b2544c88db2b628cdef30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  promptMessage: 
 --- !u!4 &804318567 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 402842, guid: 20a37f90760425a44ad7a8650eecc7b7, type: 3}
@@ -12285,7 +12282,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3ccf9a2601408c4c9be1e05dd33795d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  promptMessage: E to pick up
   inventoryManager: {fileID: 11400000, guid: 96eacc446dde72e4994671b6b1edd0b1, type: 2}
   inventoryItemData: {fileID: 11400000, guid: 8133ebe1e2c15fa40be4c7bb574b57e3, type: 2}
 --- !u!135 &2004117859
@@ -13159,7 +13155,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68014968e6139a24aaec153db92c626a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponManager: {fileID: 11400000, guid: e89bbf54677811741bcf2548a831c9e1, type: 2}
   zoomInFOV: 40
 --- !u!114 &1252321243630478480
 MonoBehaviour:
@@ -13180,7 +13175,6 @@ MonoBehaviour:
   runSpeed: 7
   groundDrag: 2
   jumpForce: 6
-  jumpCooldown: 1
   airMultiplier: 1.1
 --- !u!54 &1252321243630478481
 Rigidbody:
@@ -13685,7 +13679,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3ccf9a2601408c4c9be1e05dd33795d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  promptMessage: E to pick up
   inventoryManager: {fileID: 11400000, guid: 96eacc446dde72e4994671b6b1edd0b1, type: 2}
   inventoryItemData: {fileID: 11400000, guid: e76d9089b9799b946855f053fa1507e3, type: 2}
 --- !u!1 &7008670067568945090

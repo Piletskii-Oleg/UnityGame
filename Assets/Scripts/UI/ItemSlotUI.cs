@@ -1,48 +1,52 @@
+using ScriptableObjects.Inventory;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
-/// <summary>
-/// Item slot that stores a single <see cref="InventoryItem"/> in <see cref="InventoryUI"/>.
-/// </summary>
-public class ItemSlotUI : MonoBehaviour
+namespace UI
 {
-    [Header("UI information")]
-    [SerializeField] private Image itemSprite;
-    [SerializeField] private TextMeshProUGUI label;
-    [SerializeField] private GameObject stackBox;
-    [SerializeField] private TextMeshProUGUI stackNumber;
-
-    [Header("Item data")]
-    [SerializeField] private InventoryItemData data;
-
-    [Header("Events")]
-    [SerializeField] private UnityEvent<string> onItemChosen;
-
     /// <summary>
-    /// Sets information about the <see cref="InventoryItem"/> to the <see cref="ItemSlotUI"/>.
+    /// Item slot that stores a single <see cref="InventoryItem"/> in <see cref="InventoryUI"/>.
     /// </summary>
-    /// <param name="item">An <see cref="InventoryItem"/> to set information about.</param>
-    public void Set(InventoryItem item)
+    public class ItemSlotUI : MonoBehaviour
     {
-        data = item.Data;
-        itemSprite.sprite = data.itemSprite;
-        label.text = data.displayName;
-        if (item.StackSize <= 1)
+        [Header("UI information")]
+        [SerializeField] private Image itemSprite;
+        [SerializeField] private TextMeshProUGUI label;
+        [SerializeField] private GameObject stackBox;
+        [SerializeField] private TextMeshProUGUI stackNumber;
+
+        [Header("Item data")]
+        [SerializeField] private InventoryItemData data;
+
+        [Header("Events")]
+        [SerializeField] private UnityEvent<string> onItemChosen;
+
+        /// <summary>
+        /// Sets information about the <see cref="InventoryItem"/> to the <see cref="ItemSlotUI"/>.
+        /// </summary>
+        /// <param name="item">An <see cref="InventoryItem"/> to set information about.</param>
+        public void Set(InventoryItem item)
         {
-            stackBox.SetActive(false);
-            return;
+            data = item.Data;
+            itemSprite.sprite = data.itemSprite;
+            label.text = data.displayName;
+            if (item.StackSize <= 1)
+            {
+                stackBox.SetActive(false);
+                return;
+            }
+
+            stackNumber.text = item.StackSize.ToString();
         }
 
-        stackNumber.text = item.StackSize.ToString();
-    }
-
-    public void OnClick()
-    {
-        if (data.canHandle)
+        public void OnClick()
         {
-            onItemChosen.Invoke(data.displayName);
+            if (data.canHandle)
+            {
+                onItemChosen.Invoke(data.displayName);
+            }
         }
     }
 }

@@ -1,4 +1,5 @@
 using System;
+using ScriptableObjects.Inventory;
 using UnityEngine;
 
 /// <summary>

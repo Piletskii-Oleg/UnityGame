@@ -1,22 +1,26 @@
-using UnityEngine;
+using ScriptableObjects.GameEvents;
 using UnityEditor;
+using UnityEngine;
 
-/// <summary>
-/// Changes the editor UI of <see cref="BaseGameEvent{T}"/> scriptable objects.
-/// </summary>
-[CustomEditor(typeof(BaseGameEvent<string>), editorForChildClasses: true)]
-public class StringGameEventEditor : Editor
+namespace ScriptableObjects.Editor
 {
-    public override void OnInspectorGUI()
+    /// <summary>
+    /// Changes the editor UI of <see cref="BaseGameEvent{T}"/> scriptable objects.
+    /// </summary>
+    [CustomEditor(typeof(BaseGameEvent<string>), editorForChildClasses: true)]
+    public class StringGameEventEditor : UnityEditor.Editor
     {
-        base.OnInspectorGUI();
-
-        GUI.enabled = Application.isPlaying;
-
-        var gameEvent = target as GameEvent;
-        if (GUILayout.Button("Raise"))
+        public override void OnInspectorGUI()
         {
-            gameEvent.Raise();
+            base.OnInspectorGUI();
+
+            GUI.enabled = Application.isPlaying;
+
+            var gameEvent = target as GameEvent;
+            if (GUILayout.Button("Raise"))
+            {
+                gameEvent.Raise();
+            }
         }
     }
 }

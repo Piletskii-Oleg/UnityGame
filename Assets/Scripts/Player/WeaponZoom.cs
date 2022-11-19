@@ -1,66 +1,76 @@
 using System.Collections;
 using UnityEngine;
 
-// put in WeaponManager.cs
-
-/// <summary>
-/// Processes zoom input.
-/// </summary>
-public class WeaponZoom : MonoBehaviour
+namespace Player
 {
-    [SerializeField] private WeaponManager weaponManager;
-
-    [SerializeField] private float zoomInFOV;
-
-    private WeaponAnimator weaponAnimator;
-
-    private float baseFOV;
-    private Camera mainCamera;
-
-    private Coroutine zoomAnimationCoroutine;
-
-    private void Start()
-    {
-        mainCamera = Camera.main;
-        baseFOV = mainCamera.fieldOfView;
-    }
-
     /// <summary>
-    /// Zooms in or out with the weapon held by the player.
+    /// Processes zoom input.
     /// </summary>
-    /// <param name="zoomIn">True if the player zooms in and false otherwise.</param>
-    public void Zoom(bool zoomIn)
+    public class WeaponZoom : MonoBehaviour
     {
-        if (zoomAnimationCoroutine != null)
+        [SerializeField] private float zoomInFOV;
+
+        private WeaponAnimator weaponAnimator;
+
+        private float animationTime;
+        private float baseFOV;
+        private Camera mainCamera;
+
+        private Coroutine zoomAnimationCoroutine;
+
+        private void Start()
         {
-            StopCoroutine(zoomAnimationCoroutine);
+            mainCamera = Camera.main;
+            if (mainCamera != null)
+            {
+                baseFOV = mainCamera.fieldOfView;
+            }
         }
 
-        zoomAnimationCoroutine = StartCoroutine(ZoomAnimation(zoomIn));
-    }
-
-    private IEnumerator ZoomAnimation(bool zoomIn)
-    {
-        if (weaponAnimator == null)
+        /// <summary>
+        /// Zooms in or out with the weapon held by the player.
+        /// </summary>
+        /// <param name="zoomIn">True if the player zooms in and false otherwise.</param>
+        public void Zoom(bool zoomIn)
         {
-            weaponAnimator = GetComponentInChildren<WeaponAnimator>();
+            if (zoomAnimationCoroutine != null)
+            {
+                StopCoroutine(zoomAnimationCoroutine);
+            }
+
+            zoomAnimationCoroutine = StartCoroutine(ZoomAnimation(zoomIn));
         }
 
-        weaponAnimator.Zoom(zoomIn);
-
-        float animationTime = weaponAnimator.ZoomAnimationTime;
-        float elapsed = 0f;
-
-        float startFOV = mainCamera.fieldOfView;
-        float endFOV = zoomIn ? zoomInFOV : baseFOV;
-
-        while (elapsed < animationTime)
+        private IEnumerator ZoomAnimation(bool zoomIn)
         {
-            var currentFOV = Mathf.Lerp(startFOV, endFOV, elapsed / animationTime);
-            mainCamera.fieldOfView = currentFOV;
+            if (weaponAnimator == null)
+            {
+                weaponAnimator = GetComponentInChildren<WeaponAnimator>();
+            }
 
-            elapsed += Time.fixedDeltaTime;
-            yield return null;
+            if (weaponAnimator != null)
+            {
+                weaponAnimator.Zoom(zoomIn);
+                animationTime = weaponAnimator.ZoomAnimationTime;
+            }
+            else
+            {
+                animationTime = 1f;
+            }
+
+            float elapsed = 0f;
+
+            float startFOV = mainCamera.fieldOfView;
+            float endFOV = zoomIn ? zoomInFOV : baseFOV;
+
+            while (elapsed < animationTime)
+            {
+                var currentFOV = Mathf.Lerp(startFOV, endFOV, elapsed / animationTime);
+                mainCamera.fieldOfView = currentFOV;
+
+                elapsed += Time.fixedDeltaTime;
+                yield return null;
+            }
         }
     }
 }

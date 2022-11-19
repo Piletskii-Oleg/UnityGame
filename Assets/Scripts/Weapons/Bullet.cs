@@ -1,44 +1,48 @@
+using Shared;
 using UnityEngine;
 
-/// <summary>
-/// Class used for bullets shot by weapons.
-/// </summary>
-public class Bullet : MonoBehaviour
+namespace Weapons
 {
-    [Tooltip("Speed with which bullet is shot.")]
-    [SerializeField] private float thrust;
-    [Tooltip("Damage that bullet deals.")]
-    [SerializeField] private int damage;
-
-    private float timeSinceCreation;
-    [Tooltip("Max time that a bullet can exist for.")]
-    [SerializeField] private float maxTime;
-
-    private Rigidbody rigidBody;
-
-    private void Start()
+    /// <summary>
+    /// Class used for bullets shot by weapons.
+    /// </summary>
+    public class Bullet : MonoBehaviour
     {
-        rigidBody = GetComponent<Rigidbody>();
-    }
+        [Tooltip("Speed with which bullet is shot.")]
+        [SerializeField] private float thrust;
+        [Tooltip("Damage that bullet deals.")]
+        [SerializeField] private int damage;
 
-    private void FixedUpdate()
-    {
-        rigidBody.AddForce(-thrust * Time.fixedDeltaTime * transform.up, ForceMode.VelocityChange); // thrust is negative because otherwise bullet is shot at player and not forward.
-        timeSinceCreation += Time.fixedDeltaTime;
+        private float timeSinceCreation;
+        [Tooltip("Max time that a bullet can exist for.")]
+        [SerializeField] private float maxTime;
 
-        if (timeSinceCreation > maxTime)
+        private Rigidbody rigidBody;
+
+        private void Start()
         {
+            rigidBody = GetComponent<Rigidbody>();
+        }
+
+        private void FixedUpdate()
+        {
+            rigidBody.AddForce(-thrust * Time.fixedDeltaTime * transform.up, ForceMode.VelocityChange); // thrust is negative because otherwise bullet is shot at player and not forward.
+            timeSinceCreation += Time.fixedDeltaTime;
+
+            if (timeSinceCreation > maxTime)
+            {
+                Destroy(gameObject);
+            }
+        }
+
+        private void OnCollisionEnter(Collision collision)
+        {
+            if (collision.gameObject.TryGetComponent<Actor>(out var actor))
+            {
+                actor.OnTakeDamage(damage);
+            }
+
             Destroy(gameObject);
         }
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.TryGetComponent<Actor>(out var actor))
-        {
-            actor.OnTakeDamage(damage);
-        }
-
-        Destroy(gameObject);
     }
 }

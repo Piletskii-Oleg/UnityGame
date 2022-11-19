@@ -3,6 +3,7 @@ using UnityEngine;
 public class DoorTrigger : MonoBehaviour
 {
     private Animator animator;
+    private static readonly int CharacterNearby = Animator.StringToHash("character_nearby");
 
     private void Start()
         => animator = GetComponentInParent<Animator>();
@@ -11,10 +12,10 @@ public class DoorTrigger : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            animator.SetBool("character_nearby", true);
+            animator.SetBool(CharacterNearby, true);
         }
     }
 
     private void OnTriggerExit(Collider other)
-        => animator.SetBool("character_nearby", false);
+        => animator.SetBool(CharacterNearby, false);
 }
