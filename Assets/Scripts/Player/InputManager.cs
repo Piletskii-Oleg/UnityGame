@@ -42,11 +42,6 @@ namespace Player
 
         private void FixedUpdate()
         {
-            if (isShooting)
-            {
-                weaponController.Shoot();
-            }
-
             movement.ProcessHorizontalMovement(onFoot.Movement.ReadValue<Vector2>());
             movement.ProcessVerticalMovement();
         }
@@ -75,8 +70,8 @@ namespace Player
             onFoot.Run.started += _ => movement.StartRunning();
             onFoot.Run.canceled += _ => movement.StopRunning();
 
-            onFoot.Shoot.started += _ => isShooting = true;
-            onFoot.Shoot.canceled += _ => isShooting = false;
+            onFoot.Shoot.started += _ => weaponController.StartShooting();
+            onFoot.Shoot.canceled += _ => weaponController.StopShooting();
 
             onFoot.Reload.performed += _ => weaponController.StartReload();
 

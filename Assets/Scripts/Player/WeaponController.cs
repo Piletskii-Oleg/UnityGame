@@ -1,3 +1,4 @@
+using System.Collections;
 using ScriptableObjects.Guns;
 using UnityEngine;
 using Weapons;
@@ -10,6 +11,10 @@ namespace Player
         [SerializeField] private Transform weaponHolder;
 
         private Weapon currentWeapon;
+        
+        private Coroutine shootRepeatedlyCoroutine;
+        private bool isShooting;
+        private WaitForSeconds fireDelay;
 
         private void Start()
         {
@@ -20,13 +25,36 @@ namespace Player
         }
 
         /// <summary>
-        /// Makes the player shoot with the currently held weapon.
+        /// Makes the player shoot (or start shooting if the weapon is automatic) with the currently held weapon.
         /// </summary>
-        public void Shoot()
+        public void StartShooting()
         {
-            if (currentWeapon != null)
+            if (currentWeapon == null)
+            {
+                return;
+            }
+            
+            if (weaponManager.CurrentGunData.canAutoShoot)
+            {
+                isShooting = true;
+
+                shootRepeatedlyCoroutine = StartCoroutine(ShootRepeatedly());
+            }
+            else
             {
                 currentWeapon.Shoot();
+            }
+        }
+
+        /// <summary>
+        /// Makes the player stop shooting if the weapon is automatic with the currently held weapon.
+        /// </summary>
+        public void StopShooting()
+        {
+            isShooting = false;
+            if (shootRepeatedlyCoroutine != null)
+            {
+                StopCoroutine(shootRepeatedlyCoroutine);
             }
         }
 
@@ -72,6 +100,8 @@ namespace Player
 
                 var weapon = Instantiate(weaponManager.CurrentWeaponPrefab, weaponHolder, false);
                 currentWeapon = weapon.GetComponent<Weapon>();
+                
+                fireDelay = new WaitForSeconds(1 / weaponManager.CurrentGunData.fireRate);
             }
         }
 
@@ -89,6 +119,7 @@ namespace Player
                 weaponManager.ChangeIndex(weaponManager.CurrentIndex + 1);
             }
         
+            fireDelay = new WaitForSeconds(1 / weaponManager.CurrentGunData.fireRate);
         }
 
         /// <summary>
@@ -103,6 +134,18 @@ namespace Player
             else
             {
                 weaponManager.ChangeIndex(weaponManager.CurrentIndex - 1);
+            }
+            
+            fireDelay = new WaitForSeconds(1 / weaponManager.CurrentGunData.fireRate);
+        }
+        
+        private IEnumerator ShootRepeatedly()
+        {
+            while (isShooting)
+            {
+                currentWeapon.Shoot();
+
+                yield return fireDelay;
             }
         }
     }

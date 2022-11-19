@@ -16,7 +16,6 @@ namespace Player
 
         [Header("Movement Speed")]
         [SerializeField] private float moveSpeed;
-
         [SerializeField] private float runSpeed;
         private float currentSpeed;
 
@@ -32,8 +31,6 @@ namespace Player
         private Vector3 moveDirection;
         private Rigidbody rigidBody;
         private CapsuleCollider capsule;
-
-        private readonly WaitForSeconds waitTillLanded = new(0.02f);
 
         private void Start()
         {
@@ -109,7 +106,7 @@ namespace Player
         {
             while (!isGrounded)
             {
-                yield return waitTillLanded;
+                yield return new WaitForFixedUpdate();
             }
 
             currentSpeed = speed;

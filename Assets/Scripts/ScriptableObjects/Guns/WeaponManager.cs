@@ -31,6 +31,9 @@ namespace ScriptableObjects.Guns
         /// </summary>
         public GunData CurrentGunData => weaponsData.weapons.Find(data => data.name == CurrentWeaponPrefab.name);
 
+        /// <summary>
+        /// Gets amount of weapons currently held by the player.
+        /// </summary>
         public int WeaponCount => weapons.Count;
 
         /// <summary>
