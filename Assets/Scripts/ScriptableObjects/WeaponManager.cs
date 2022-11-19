@@ -21,7 +21,7 @@ public class WeaponManager : ScriptableObject
 
     public GameObject CurrentWeaponPrefab => weapons[CurrentIndex];
 
-    public GunData CurrentGunData => weaponsData.weapons[CurrentIndex];
+    public GunData CurrentGunData => weaponsData.weapons.Find(data => data.name == CurrentWeaponPrefab.name);
 
     public int WeaponCount => weapons.Count;
 
@@ -61,7 +61,7 @@ public class WeaponManager : ScriptableObject
             weapons.Add(weaponsData.weapons[newIndex].gunPrefab);
         }
 
-        CurrentIndex = newIndex;
+        CurrentIndex = weapons.IndexOf(weaponsData.weapons[newIndex].gunPrefab);
         onChangeWeapon.Invoke();
         return true;
     }

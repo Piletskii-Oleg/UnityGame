@@ -288,6 +288,17 @@
                 },
                 {
                     "name": "",
+                    "id": "9a787339-85be-4a2b-b9dc-53add2459b89",
+                    "path": "<Keyboard>/3",
+                    "interactions": "",
+                    "processors": "Scale(factor=3)",
+                    "groups": "",
+                    "action": "ChangeWeapon",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "1b44794f-a329-47fc-9138-f64a79697641",
                     "path": "<Mouse>/rightButton",
                     "interactions": "Press(behavior=2)",
