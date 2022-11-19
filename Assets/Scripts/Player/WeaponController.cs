@@ -86,6 +86,8 @@ namespace Player
 
                 var weapon = Instantiate(weaponManager.CurrentWeaponPrefab, weaponHolder, false);
                 currentWeapon = weapon.GetComponent<Weapon>();
+                
+                fireDelay = new WaitForSeconds(1f / weaponManager.CurrentGunData.fireRate);
             }
         }
 
@@ -101,7 +103,7 @@ namespace Player
                 var weapon = Instantiate(weaponManager.CurrentWeaponPrefab, weaponHolder, false);
                 currentWeapon = weapon.GetComponent<Weapon>();
                 
-                fireDelay = new WaitForSeconds(1 / weaponManager.CurrentGunData.fireRate);
+                fireDelay = new WaitForSeconds(1f / weaponManager.CurrentGunData.fireRate);
             }
         }
 
@@ -119,7 +121,7 @@ namespace Player
                 weaponManager.ChangeIndex(weaponManager.CurrentIndex + 1);
             }
         
-            fireDelay = new WaitForSeconds(1 / weaponManager.CurrentGunData.fireRate);
+            fireDelay = new WaitForSeconds(1f / weaponManager.CurrentGunData.fireRate);
         }
 
         /// <summary>
@@ -136,7 +138,7 @@ namespace Player
                 weaponManager.ChangeIndex(weaponManager.CurrentIndex - 1);
             }
             
-            fireDelay = new WaitForSeconds(1 / weaponManager.CurrentGunData.fireRate);
+            fireDelay = new WaitForSeconds(1f / weaponManager.CurrentGunData.fireRate);
         }
         
         private IEnumerator ShootRepeatedly()

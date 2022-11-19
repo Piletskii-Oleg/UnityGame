@@ -19,19 +19,16 @@ namespace Weapons
         [SerializeField] private UnityEvent onShoot;
         [SerializeField] private UnityEvent onReload;
 
-        private float timeSinceLastShot;
-
         private WaitForSeconds reloadWait;
 
         public override void Shoot()
         {
-            if (gunData.currentAmmo > 0 && CanShoot())
+            if (gunData.currentAmmo > 0 && !gunData.reloading)
             {
                 var bulletAngle = Quaternion.Euler(transform.rotation.eulerAngles.x - 90, transform.rotation.eulerAngles.y, 0);
                 Instantiate(bullet, transform.position + transform.forward, bulletAngle);
 
                 gunData.currentAmmo--;
-                timeSinceLastShot = 0;
             }
 
             onShoot.Invoke();
@@ -62,16 +59,6 @@ namespace Weapons
             => gunData.reloading = false;
 
         private void Awake()
-        {
-            timeSinceLastShot = 0f;
-
-            reloadWait = new WaitForSeconds(gunData.reloadTime);
-        }
-
-        private void FixedUpdate()
-            => timeSinceLastShot += Time.fixedDeltaTime;
-
-        private bool CanShoot()
-            => !gunData.reloading && timeSinceLastShot > (1f / gunData.fireRate);
+            => reloadWait = new WaitForSeconds(gunData.reloadTime);
     }
 }
