@@ -15,12 +15,18 @@ public class WeaponManager : ScriptableObject
     [SerializeField] private UnityEvent onChangeWeapon;
 
     /// <summary>
-    /// Index of the weapon currently held by the player.
+    /// Gets index of the weapon currently held by the player.
     /// </summary>
     public int CurrentIndex { get; private set; }
 
+    /// <summary>
+    /// Gets <see cref="GameObject"/> prefab of the weapon currently held by the player.
+    /// </summary>
     public GameObject CurrentWeaponPrefab => weapons[CurrentIndex];
 
+    /// <summary>
+    /// Gets <see cref="GunData"/> of the weapon currently held by the player.
+    /// </summary>
     public GunData CurrentGunData => weaponsData.weapons.Find(data => data.name == CurrentWeaponPrefab.name);
 
     public int WeaponCount => weapons.Count;

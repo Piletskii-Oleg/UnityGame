@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: PlayerWeaponManager
   m_EditorClassIdentifier: 
   weaponsData: {fileID: 11400000, guid: 4cdff23c2d5603e48ac530fad9c2785f, type: 2}
-  weapons: []
+  weapons:
+  - {fileID: 7008670067349202826, guid: 6f293d6e41e1ed44da8bc0655dd61755, type: 3}
+  - {fileID: 4949253864546615136, guid: e4d96c0d937470249956320d4fea56f9, type: 3}
   onChangeWeapon:
     m_PersistentCalls:
       m_Calls:
