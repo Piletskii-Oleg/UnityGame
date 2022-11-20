@@ -1,3 +1,4 @@
+using Shared.ScriptableObjects;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -10,14 +11,18 @@ namespace Shared
     {
         [SerializeField] private UnityEvent<float> onTakeDamage;
         [SerializeField] private UnityEvent onKill;
+        [SerializeField] private ActorAffiliation affiliation;
 
         /// <summary>
         /// Used when the actor takes damage.
         /// </summary>
         /// <param name="damage">Damage taken.</param>
-        public void OnTakeDamage(float damage)
+        public void OnTakeDamage(float damage, ActorAffiliation affiliation)
         {
-            onTakeDamage.Invoke(damage);
+            if (this.affiliation != affiliation)
+            {
+                onTakeDamage.Invoke(damage);
+            }
         }
 
         /// <summary>

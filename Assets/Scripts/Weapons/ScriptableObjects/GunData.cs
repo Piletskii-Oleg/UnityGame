@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace ScriptableObjects.Guns
+namespace Weapons.ScriptableObjects
 {
     /// <summary>
     /// Base data for guns held by an entity in the world.

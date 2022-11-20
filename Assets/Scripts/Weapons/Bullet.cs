@@ -1,4 +1,5 @@
 using Shared;
+using Shared.ScriptableObjects;
 using UnityEngine;
 
 namespace Weapons
@@ -10,8 +11,13 @@ namespace Weapons
     {
         [Tooltip("Speed with which bullet is shot.")]
         [SerializeField] private float thrust;
+        
         [Tooltip("Damage that bullet deals.")]
         [SerializeField] private int damage;
+
+        [Tooltip("Affiliation of the actor who shot the bullet")]
+        [SerializeField]
+        private ActorAffiliation affiliation;
 
         private float timeSinceCreation;
         [Tooltip("Max time that a bullet can exist for.")]
@@ -39,7 +45,7 @@ namespace Weapons
         {
             if (collision.gameObject.TryGetComponent<Actor>(out var actor))
             {
-                actor.OnTakeDamage(damage);
+                actor.OnTakeDamage(damage, affiliation);
             }
 
             Destroy(gameObject);

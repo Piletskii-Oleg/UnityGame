@@ -1,7 +1,7 @@
 using System.Collections;
-using ScriptableObjects.Guns;
 using UnityEngine;
 using Weapons;
+using Weapons.ScriptableObjects;
 
 namespace Player
 {

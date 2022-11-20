@@ -96,9 +96,9 @@ namespace Player
         {
             if (isGrounded || !CanMove)
             {
-                /*var velocity = rigidBody.velocity;
+                var velocity = rigidBody.velocity;
                 velocity = new Vector3(velocity.x, 0, velocity.z);
-                rigidBody.velocity = velocity;*/
+                rigidBody.velocity = velocity;
 
                 rigidBody.AddForce(transform.up * jumpForce, ForceMode.Impulse);
 

@@ -1,9 +1,8 @@
 using System.Collections.Generic;
-using EventListeners;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace ScriptableObjects.GameEvents
+namespace EventListeners.GameEvents
 {
     /// <summary>
     /// An abstraction over <see cref="UnityEvent"/> that allows for multiple listeners using <see cref="GameEventListener"/>.

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace ScriptableObjects.Guns
+namespace Weapons.ScriptableObjects
 {
     /// <summary>
     /// Data for all the weapons held by an entity in the world.

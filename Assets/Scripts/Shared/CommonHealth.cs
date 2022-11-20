@@ -1,3 +1,4 @@
+using Shared.ScriptableObjects;
 using UnityEngine;
 using UnityEngine.Events;
 

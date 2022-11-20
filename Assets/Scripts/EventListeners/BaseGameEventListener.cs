@@ -1,4 +1,4 @@
-using ScriptableObjects.GameEvents;
+using EventListeners.GameEvents;
 using UnityEngine;
 using UnityEngine.Events;
 

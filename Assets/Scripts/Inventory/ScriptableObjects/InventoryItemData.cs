@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace ScriptableObjects.Inventory
+namespace Inventory.ScriptableObjects
 {
     /// <summary>
     /// Stores information about an inventory item.

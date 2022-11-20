@@ -1,4 +1,4 @@
-using ScriptableObjects.Inventory;
+using Inventory.ScriptableObjects;
 using UnityEngine;
 
 namespace Interactable

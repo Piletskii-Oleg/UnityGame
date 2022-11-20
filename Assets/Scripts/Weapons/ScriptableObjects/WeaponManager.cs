@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace ScriptableObjects.Guns
+namespace Weapons.ScriptableObjects
 {
     /// <summary>
     /// Manages the weapons on the player.

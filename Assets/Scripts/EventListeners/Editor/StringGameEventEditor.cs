@@ -1,14 +1,14 @@
-using ScriptableObjects.GameEvents;
+using EventListeners.GameEvents;
 using UnityEditor;
 using UnityEngine;
 
-namespace ScriptableObjects.Editor
+namespace EventListeners.Editor
 {
     /// <summary>
-    /// Changes the editor UI of <see cref="GameEvent"/> scriptable objects.
+    /// Changes the editor UI of <see cref="BaseGameEvent{T}"/> scriptable objects.
     /// </summary>
-    [CustomEditor(typeof(GameEvent), editorForChildClasses: true)]
-    public class GameEventEditor : UnityEditor.Editor
+    [CustomEditor(typeof(BaseGameEvent<string>), editorForChildClasses: true)]
+    public class StringGameEventEditor : UnityEditor.Editor
     {
         public override void OnInspectorGUI()
         {

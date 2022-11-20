@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace ScriptableObjects.GameEvents
+namespace EventListeners.GameEvents
 {
     /// <inheritdoc/>
     [CreateAssetMenu(fileName = "string", menuName = "Game Event/string")]

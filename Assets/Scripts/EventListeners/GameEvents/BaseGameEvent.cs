@@ -3,7 +3,7 @@ using EventListeners;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace ScriptableObjects.GameEvents
+namespace EventListeners.GameEvents
 {
     /// <summary>
     /// An abstraction over <see cref="UnityEvent"/> with one generic parameter <typeparamref name="T"/>

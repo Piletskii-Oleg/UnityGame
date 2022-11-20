@@ -1,7 +1,8 @@
 ﻿using System.Collections;
 using Player;
-using ScriptableObjects.Guns;
 using UnityEngine;
+using UnityEngine.Events;
+using Weapons.ScriptableObjects;
 
 namespace Weapons
 {
@@ -9,6 +10,8 @@ namespace Weapons
     {
         [Header("Gun Info")]
         [SerializeField] private GunData gunData;
+        [SerializeField] private UnityEvent onShoot;
+        [SerializeField] private UnityEvent onReload;
         
         private PlayerMovement playerMovement;
         
@@ -30,6 +33,7 @@ namespace Weapons
             cam = Camera.main.transform;
             grappleDelayWait = new WaitForSeconds(grappleDelay);
             lineRenderer = GetComponent<LineRenderer>();
+            lineRenderer.enabled = false;
             
             playerMovement = GetComponentInParent<PlayerMovement>();
         }

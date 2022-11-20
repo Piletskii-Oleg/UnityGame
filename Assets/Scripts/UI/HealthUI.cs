@@ -1,4 +1,5 @@
 using System.Collections;
+using Shared.ScriptableObjects;
 using UnityEngine;
 using UnityEngine.UI;
 

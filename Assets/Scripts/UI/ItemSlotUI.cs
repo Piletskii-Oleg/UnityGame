@@ -1,4 +1,5 @@
-using ScriptableObjects.Inventory;
+using Inventory;
+using Inventory.ScriptableObjects;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;

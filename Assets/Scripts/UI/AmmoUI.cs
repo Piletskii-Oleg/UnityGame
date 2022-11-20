@@ -1,6 +1,6 @@
-using ScriptableObjects.Guns;
 using TMPro;
 using UnityEngine;
+using Weapons.ScriptableObjects;
 
 namespace UI
 {
