@@ -1,5 +1,5 @@
 # How to open
-Open the project's folder using Unity Editor 2021.3.12f1
+Open the project's folder using Unity Editor 2021.3.13f1
 
 # Used assets
 ## Unity Technologies
