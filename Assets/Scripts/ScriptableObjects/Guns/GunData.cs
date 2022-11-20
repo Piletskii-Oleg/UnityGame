@@ -9,7 +9,7 @@ namespace ScriptableObjects.Guns
     public class GunData : ScriptableObject
     {
         [Header("Info")]
-        public new string name;
+        public string showName;
 
         [Header("Shooting")]
         public float damage;

@@ -32,11 +32,14 @@ namespace Player
         private Rigidbody rigidBody;
         private CapsuleCollider capsule;
 
+        private WaitForFixedUpdate waitForFixedUpdate;
+
         private void Start()
         {
             rigidBody = GetComponent<Rigidbody>();
             capsule = GetComponent<CapsuleCollider>();
             currentSpeed = moveSpeed;
+            waitForFixedUpdate = new WaitForFixedUpdate();
         }
 
         /// <summary>
@@ -102,11 +105,33 @@ namespace Player
         public void StopRunning()
             => StartCoroutine(WaitTillLanded(moveSpeed));
 
+        /// <summary>
+        /// Makes the player character jump to the <paramref name="targetPosition"/>
+        /// with the max height of the jump being <paramref name="trajectoryHeight"/>.
+        /// </summary>
+        /// <param name="targetPosition">The position player character has to jump to.</param>
+        /// <param name="trajectoryHeight">Maximum height of the trajectory.</param>
+        public void JumpToPosition(Vector3 targetPosition, float trajectoryHeight)
+            => rigidBody.velocity = CalculateJumpVelocity(transform.position, targetPosition, trajectoryHeight);
+
+        private Vector3 CalculateJumpVelocity(Vector3 startPoint, Vector3 endPoint, float trajectoryHeight)
+        {
+            float gravity = Physics.gravity.y;
+            float displacementY = endPoint.y - startPoint.y;
+            var displacementXZ = new Vector3(endPoint.x - startPoint.x, 0, endPoint.z - startPoint.z);
+
+            var velocityY = Vector3.up * Mathf.Sqrt(-2 * gravity * trajectoryHeight);
+            var velocityXZ = displacementXZ / (Mathf.Sqrt(-2 * trajectoryHeight / gravity) +
+                             Mathf.Sqrt(2 * (displacementY - trajectoryHeight) / gravity));
+
+            return velocityXZ + velocityY;
+        }
+
         private IEnumerator WaitTillLanded(float speed)
         {
             while (!isGrounded)
             {
-                yield return new WaitForFixedUpdate();
+                yield return waitForFixedUpdate;
             }
 
             currentSpeed = speed;
