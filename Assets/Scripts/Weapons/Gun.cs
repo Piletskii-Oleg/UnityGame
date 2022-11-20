@@ -21,9 +21,11 @@ namespace Weapons
 
         private WaitForSeconds reloadWait;
 
+        private bool reloading;
+
         public void Shoot()
         {
-            if (gunData.currentAmmo > 0 && !gunData.reloading)
+            if (gunData.currentAmmo > 0 && !reloading)
             {
                 var bulletAngle = Quaternion.Euler(transform.rotation.eulerAngles.x - 90, transform.rotation.eulerAngles.y, 0);
                 Instantiate(bullet, transform.position + transform.forward, bulletAngle);
@@ -36,7 +38,7 @@ namespace Weapons
 
         public void StartReload()
         {
-            if (!gunData.reloading)
+            if (!reloading)
             {
                 StartCoroutine(Reload());
             }
@@ -44,19 +46,19 @@ namespace Weapons
 
         private IEnumerator Reload()
         {
-            gunData.reloading = true;
+            reloading = true;
 
             yield return reloadWait;
 
             gunData.currentAmmo = gunData.ammoCapacity;
 
-            gunData.reloading = false;
+            reloading = false;
 
             onReload.Invoke();
         }
 
         private void OnDisable()
-            => gunData.reloading = false;
+            => reloading = false;
 
         private void Awake()
             => reloadWait = new WaitForSeconds(gunData.reloadTime);
