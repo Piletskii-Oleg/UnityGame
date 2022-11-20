@@ -10,7 +10,7 @@ namespace Player
         [SerializeField] private WeaponManager weaponManager;
         [SerializeField] private Transform weaponHolder;
 
-        private Weapon currentWeapon;
+        private IWeapon currentWeapon;
         
         private Coroutine shootRepeatedlyCoroutine;
         private bool isShooting;
@@ -79,15 +79,7 @@ namespace Player
 
             if (weaponManager.ChangeIndex(index))
             {
-                foreach (Transform t in weaponHolder)
-                {
-                    Destroy(t.gameObject);
-                }
-
-                var weapon = Instantiate(weaponManager.CurrentWeaponPrefab, weaponHolder, false);
-                currentWeapon = weapon.GetComponent<Weapon>();
-                
-                fireDelay = new WaitForSeconds(1f / weaponManager.CurrentGunData.fireRate);
+                InstantiateWeapon();
             }
         }
 
@@ -95,15 +87,7 @@ namespace Player
         {
             if (weaponManager.ChangeTo(weaponName))
             {
-                foreach (Transform t in weaponHolder)
-                {
-                    Destroy(t.gameObject);
-                }
-
-                var weapon = Instantiate(weaponManager.CurrentWeaponPrefab, weaponHolder, false);
-                currentWeapon = weapon.GetComponent<Weapon>();
-                
-                fireDelay = new WaitForSeconds(1f / weaponManager.CurrentGunData.fireRate);
+                InstantiateWeapon();
             }
         }
 
@@ -149,6 +133,19 @@ namespace Player
 
                 yield return fireDelay;
             }
+        }
+        
+        private void InstantiateWeapon()
+        {
+            foreach (Transform t in weaponHolder)
+            {
+                Destroy(t.gameObject);
+            }
+
+            var weapon = Instantiate(weaponManager.CurrentWeaponPrefab, weaponHolder, false);
+            currentWeapon = weapon.GetComponent<IWeapon>();
+
+            fireDelay = new WaitForSeconds(1f / weaponManager.CurrentGunData.fireRate);
         }
     }
 }

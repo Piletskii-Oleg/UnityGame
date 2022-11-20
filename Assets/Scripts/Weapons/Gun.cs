@@ -8,7 +8,7 @@ namespace Weapons
     /// <summary>
     /// Class used for simple guns. Inherits from <see cref="Weapon"/>.
     /// </summary>
-    public class Gun : Weapon
+    public class Gun : MonoBehaviour, IWeapon
     {
         [Tooltip("Scriptable Object with the gun data.")]
         [SerializeField] private GunData gunData;
@@ -21,7 +21,7 @@ namespace Weapons
 
         private WaitForSeconds reloadWait;
 
-        public override void Shoot()
+        public void Shoot()
         {
             if (gunData.currentAmmo > 0 && !gunData.reloading)
             {
@@ -34,7 +34,7 @@ namespace Weapons
             onShoot.Invoke();
         }
 
-        public override void StartReload()
+        public void StartReload()
         {
             if (!gunData.reloading)
             {

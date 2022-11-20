@@ -1,20 +1,18 @@
-using UnityEngine;
-
 namespace Weapons
 {
     /// <summary>
-    /// Abstract class for all weapons.
+    /// Interface for all weapons.
     /// </summary>
-    public abstract class Weapon : MonoBehaviour
+    public interface IWeapon
     {
         /// <summary>
         /// Method that is called when weapon shoots.
         /// </summary>
-        public abstract void Shoot();
+        void Shoot();
 
         /// <summary>
         /// Method called when weapon has to reload.
         /// </summary>
-        public abstract void StartReload();
+        void StartReload();
     }
 }
