@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using Player;
 using ScriptableObjects.Guns;
 using UnityEngine;
 
 namespace Weapons
 {
-    public class GrappleGun : MonoBehaviour, IWeapon
+    public class GrappleGunJump : MonoBehaviour, IWeapon, IGrappleGun
     {
         [Header("Gun Info")]
         [SerializeField] private GunData gunData;
@@ -16,6 +15,7 @@ namespace Weapons
         [SerializeField] private float maxDistance;
         [SerializeField] private float grappleDelay;
         [SerializeField] private Transform gunTipTransform;
+        [SerializeField] private float verticalOvershoot;
         private LineRenderer lineRenderer;
 
         [Header("Cooldown")]
@@ -27,10 +27,8 @@ namespace Weapons
         private float cooldownTimer;
         private bool isGrappling;
 
-        private WaitForSeconds grappleDelayWait;
+        private WaitForSeconds grappleShootDelayWait;
         private Coroutine startGrappleCoroutine;
-        private Coroutine stopGrappleCoroutine;
-        private Coroutine executeGrappleCoroutine;
 
         private void Start()
         {
@@ -43,7 +41,7 @@ namespace Weapons
                 camTransform = cam.transform;
             }
 
-            grappleDelayWait = new WaitForSeconds(grappleDelay);
+            grappleShootDelayWait = new WaitForSeconds(grappleDelay);
         }
 
         private void FixedUpdate()
@@ -64,17 +62,21 @@ namespace Weapons
 
         public void Shoot()
         {
+            if (startGrappleCoroutine != null)
+            {
+                StopCoroutine(startGrappleCoroutine);
+            }
+            
             startGrappleCoroutine = StartCoroutine(StartGrapple());
         }
 
         public void StartReload()
         {
-            throw new NotImplementedException();
         }
 
         public IEnumerator StartGrapple()
         {
-            if (cooldownTimer > 0)
+            if (cooldownTimer > 0 || isGrappling)
             {
                 yield break;
             }
@@ -84,7 +86,7 @@ namespace Weapons
             {
                 grapplingPoint = hit.point;
 
-                yield return grappleDelayWait;
+                yield return grappleShootDelayWait;
                 
                 lineRenderer.enabled = true;
                 lineRenderer.SetPosition(1, grapplingPoint);
@@ -104,7 +106,7 @@ namespace Weapons
 
         public IEnumerator StopGrapple()
         {
-            yield return grappleDelayWait;
+            yield return grappleShootDelayWait;
             
             isGrappling = false;
 
@@ -117,8 +119,21 @@ namespace Weapons
 
         public IEnumerator ExecuteGrapple()
         {
-            playerMovement.JumpToPosition(grapplingPoint, 10f);
-
+            var playerLowestPoint = new Vector3(transform.position.x, transform.position.y - 1f, transform.position.z);
+            var relativeGrappleHeight = grapplingPoint.y - playerLowestPoint.y;
+            if (relativeGrappleHeight < 0)
+            {
+                StartCoroutine(playerMovement.JumpToPosition(grapplingPoint, verticalOvershoot));
+                yield return new WaitForSeconds(1f);
+            }
+            else
+            {
+               StartCoroutine(playerMovement.JumpToPosition(grapplingPoint, relativeGrappleHeight + verticalOvershoot));
+               yield return new WaitForSeconds(1f);
+            }
+            
+            
+            
             yield return StopGrapple();
         }
     }

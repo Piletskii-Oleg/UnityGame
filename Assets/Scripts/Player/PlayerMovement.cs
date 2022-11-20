@@ -1,5 +1,7 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Animations;
 
 namespace Player
 {
@@ -33,12 +35,18 @@ namespace Player
         private CapsuleCollider capsule;
 
         private WaitForFixedUpdate waitForFixedUpdate;
+        private Coroutine pullToPosition;
+        
+        public bool CanMove { get; private set; }
 
         private void Start()
         {
             rigidBody = GetComponent<Rigidbody>();
             capsule = GetComponent<CapsuleCollider>();
+            
             currentSpeed = moveSpeed;
+            CanMove = true;
+            
             waitForFixedUpdate = new WaitForFixedUpdate();
         }
 
@@ -48,16 +56,19 @@ namespace Player
         /// <param name="input">WASD or other input from <see cref="InputManager"/>.</param>
         public void ProcessHorizontalMovement(Vector2 input)
         {
-            moveDirection = new Vector3(input.x, 0, input.y) * currentSpeed;
-            moveDirection = transform.TransformDirection(moveDirection);
+            if (CanMove)
+            {
+                moveDirection = new Vector3(input.x, 0, input.y) * currentSpeed;
+                moveDirection = transform.TransformDirection(moveDirection);
 
-            if (isGrounded)
-            {
-                rigidBody.AddForce(moveDirection, ForceMode.VelocityChange);
-            }
-            else
-            {
-                rigidBody.AddForce(moveDirection * airMultiplier, ForceMode.VelocityChange);
+                if (isGrounded)
+                {
+                    rigidBody.AddForce(moveDirection, ForceMode.VelocityChange);
+                }
+                else
+                {
+                    rigidBody.AddForce(moveDirection * airMultiplier, ForceMode.VelocityChange);
+                }
             }
         }
 
@@ -83,13 +94,20 @@ namespace Player
         /// </summary>
         public void Jump()
         {
-            if (isGrounded)
+            if (isGrounded || !CanMove)
             {
-                var velocity = rigidBody.velocity;
+                /*var velocity = rigidBody.velocity;
                 velocity = new Vector3(velocity.x, 0, velocity.z);
-                rigidBody.velocity = velocity;
+                rigidBody.velocity = velocity;*/
 
                 rigidBody.AddForce(transform.up * jumpForce, ForceMode.Impulse);
+
+                if (pullToPosition != null)
+                {
+                    StopCoroutine(pullToPosition);
+                    CanMove = true;
+                    rigidBody.useGravity = true;
+                }
             }
         }
 
@@ -105,26 +123,79 @@ namespace Player
         public void StopRunning()
             => StartCoroutine(WaitTillLanded(moveSpeed));
 
+        public void PullTo(Vector3 pullTarget, float pullSpeed)
+        {
+            if (pullToPosition != null)
+            {
+                StopCoroutine(pullToPosition);
+            }
+            
+            pullToPosition = StartCoroutine(PullToPosition(pullTarget, pullSpeed));
+        }
+
+        private IEnumerator PullToPosition(Vector3 pullTarget, float pullSpeed)
+        {
+            CanMove = false;
+            rigidBody.useGravity = false;
+
+            var source = transform.position;
+            var target = new Vector3(pullTarget.x, pullTarget.y + 1, pullTarget.z);
+            
+            var direction = (target - source).normalized * pullSpeed;
+
+            var timePassed = 0f;
+            var pullTime = Vector3.Distance(source, target) / pullSpeed;
+            while (timePassed < pullTime)
+            {
+                rigidBody.velocity = direction;
+                timePassed += Time.fixedDeltaTime;
+                yield return waitForFixedUpdate;
+            }
+
+            CanMove = true;
+            rigidBody.useGravity = true;
+        }
+
         /// <summary>
         /// Makes the player character jump to the <paramref name="targetPosition"/>
         /// with the max height of the jump being <paramref name="trajectoryHeight"/>.
         /// </summary>
         /// <param name="targetPosition">The position player character has to jump to.</param>
         /// <param name="trajectoryHeight">Maximum height of the trajectory.</param>
-        public void JumpToPosition(Vector3 targetPosition, float trajectoryHeight)
-            => rigidBody.velocity = CalculateJumpVelocity(transform.position, targetPosition, trajectoryHeight);
+        public IEnumerator JumpToPosition(Vector3 targetPosition, float trajectoryHeight)
+        {
+            CanMove = false;
+            
+            rigidBody.AddForce(CalculateJumpVelocity(transform.position, targetPosition, trajectoryHeight), ForceMode.VelocityChange);
+
+            yield return new WaitForSeconds(CalculateJumpTime(transform.position, targetPosition, trajectoryHeight));
+
+            CanMove = true;
+        }
 
         private Vector3 CalculateJumpVelocity(Vector3 startPoint, Vector3 endPoint, float trajectoryHeight)
         {
-            float gravity = Physics.gravity.y;
-            float displacementY = endPoint.y - startPoint.y;
+            var gravity = Physics.gravity.y;
+            var displacementY = endPoint.y - startPoint.y;
             var displacementXZ = new Vector3(endPoint.x - startPoint.x, 0, endPoint.z - startPoint.z);
 
             var velocityY = Vector3.up * Mathf.Sqrt(-2 * gravity * trajectoryHeight);
             var velocityXZ = displacementXZ / (Mathf.Sqrt(-2 * trajectoryHeight / gravity) +
-                             Mathf.Sqrt(2 * (displacementY - trajectoryHeight) / gravity));
+                             Mathf.Sqrt(-2 * Mathf.Abs(displacementY - trajectoryHeight) / gravity));
 
             return velocityXZ + velocityY;
+        }
+
+        private float CalculateJumpTime(Vector3 startPoint, Vector3 endPoint, float trajectoryHeight)
+        {
+            var gravity = Physics.gravity.y;
+            var displacementY = endPoint.y - startPoint.y;
+            var displacementXZ = new Vector3(endPoint.x - startPoint.x, 0, endPoint.z - startPoint.z);
+            
+            var velocityXZ = displacementXZ / (Mathf.Sqrt(-2 * trajectoryHeight / gravity) +
+                                               Mathf.Sqrt(-2 * Mathf.Abs(displacementY - trajectoryHeight) / gravity));
+
+            return displacementXZ.magnitude / velocityXZ.magnitude;
         }
 
         private IEnumerator WaitTillLanded(float speed)
@@ -158,13 +229,16 @@ namespace Player
 
         private void LimitVelocity()
         {
-            var velocity = rigidBody.velocity;
-            var flatVelocity = new Vector3(velocity.x, 0, velocity.z);
-
-            if (flatVelocity.magnitude > currentSpeed)
+            if (CanMove)
             {
-                var limitedVelocity = flatVelocity.normalized * currentSpeed;
-                rigidBody.velocity = new Vector3(limitedVelocity.x, rigidBody.velocity.y, limitedVelocity.z);
+                var velocity = rigidBody.velocity;
+                var flatVelocity = new Vector3(velocity.x, 0, velocity.z);
+
+                if (flatVelocity.magnitude > currentSpeed)
+                {
+                    var limitedVelocity = flatVelocity.normalized * currentSpeed;
+                    rigidBody.velocity = new Vector3(limitedVelocity.x, rigidBody.velocity.y, limitedVelocity.z);
+                }
             }
         }
     }
