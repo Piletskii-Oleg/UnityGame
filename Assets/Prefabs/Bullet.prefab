@@ -130,4 +130,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   thrust: 800
   damage: 7
+  affiliation: {fileID: 11400000, guid: 651805666d24202448b2be0d66239556, type: 2}
   maxTime: 10

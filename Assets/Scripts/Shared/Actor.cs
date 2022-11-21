@@ -19,7 +19,7 @@ namespace Shared
         /// <param name="damage">Damage taken.</param>
         public void OnTakeDamage(float damage, ActorAffiliation affiliation)
         {
-            if (this.affiliation != affiliation)
+            if (this.affiliation.enemyFractions.Contains(affiliation))
             {
                 onTakeDamage.Invoke(damage);
             }

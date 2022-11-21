@@ -13,7 +13,8 @@ namespace Player
         private IWeapon currentWeapon;
         
         private Coroutine shootRepeatedlyCoroutine;
-        private bool isShooting;
+        private bool isShootingRepeatedly;
+        private bool hasShotOnce;
         private WaitForSeconds fireDelay;
 
         private void Start()
@@ -33,17 +34,31 @@ namespace Player
             {
                 return;
             }
-            
+
             if (weaponManager.CurrentGunData.canAutoShoot)
             {
-                isShooting = true;
-
+                isShootingRepeatedly = true;
+                
                 shootRepeatedlyCoroutine = StartCoroutine(ShootRepeatedly());
             }
             else
             {
-                currentWeapon.Shoot();
+                if (!hasShotOnce)
+                {
+                    StartCoroutine(ShootOnce());
+                }
             }
+        }
+
+        private IEnumerator ShootOnce()
+        {
+            hasShotOnce = true;
+
+            currentWeapon.Shoot();
+            
+            yield return fireDelay;
+
+            hasShotOnce = false;
         }
 
         /// <summary>
@@ -51,10 +66,10 @@ namespace Player
         /// </summary>
         public void StopShooting()
         {
-            isShooting = false;
             if (shootRepeatedlyCoroutine != null)
             {
                 StopCoroutine(shootRepeatedlyCoroutine);
+                isShootingRepeatedly = false;
             }
         }
 
@@ -94,7 +109,7 @@ namespace Player
         /// <summary>
         /// Used to take the next weapon.
         /// </summary>
-        public void IncrementWeaponIndex()
+        public void IncrementWeaponIndex() // change to ChangeWeapon()
         {
             if (weaponManager.CurrentIndex == weaponManager.WeaponCount - 1)
             {
@@ -105,13 +120,13 @@ namespace Player
                 weaponManager.ChangeIndex(weaponManager.CurrentIndex + 1);
             }
         
-            fireDelay = new WaitForSeconds(1f / weaponManager.CurrentGunData.fireRate);
+            fireDelay = new WaitForSeconds(60f / weaponManager.CurrentGunData.fireRate);
         }
 
         /// <summary>
         /// Used to take the previous weapon.
         /// </summary>
-        public void DecrementWeaponIndex()
+        public void DecrementWeaponIndex() // change to ChangeWeapon()
         {
             if (weaponManager.CurrentIndex == 0)
             {
@@ -122,15 +137,15 @@ namespace Player
                 weaponManager.ChangeIndex(weaponManager.CurrentIndex - 1);
             }
             
-            fireDelay = new WaitForSeconds(1f / weaponManager.CurrentGunData.fireRate);
+            fireDelay = new WaitForSeconds(60f / weaponManager.CurrentGunData.fireRate);
         }
         
         private IEnumerator ShootRepeatedly()
         {
-            while (isShooting)
+            while (isShootingRepeatedly)
             {
                 currentWeapon.Shoot();
-
+                
                 yield return fireDelay;
             }
         }
@@ -145,7 +160,10 @@ namespace Player
             var weapon = Instantiate(weaponManager.CurrentWeaponPrefab, weaponHolder, false);
             currentWeapon = weapon.GetComponent<IWeapon>();
 
-            fireDelay = new WaitForSeconds(1f / weaponManager.CurrentGunData.fireRate);
+            fireDelay = new WaitForSeconds(60f / weaponManager.CurrentGunData.fireRate);
+
+            isShootingRepeatedly = false;
+            hasShotOnce = false;
         }
     }
 }

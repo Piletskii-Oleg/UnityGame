@@ -12,13 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7144a1b992746314eb1cf729446c6878, type: 3}
   m_Name: SMG
   m_EditorClassIdentifier: 
-  name: SMG
+  showName: SMG
   damage: 7
   maxDistance: 40
   canAutoShoot: 1
-  currentAmmo: 0
+  currentAmmo: 8
   ammoCapacity: 40
-  fireRate: 10
+  fireRate: 420
   reloadTime: 1.5
   gunPrefab: {fileID: 4949253864546615136, guid: e4d96c0d937470249956320d4fea56f9, type: 3}
-  reloading: 0

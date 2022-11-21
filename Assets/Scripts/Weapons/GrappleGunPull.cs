@@ -12,6 +12,7 @@ namespace Weapons
         [SerializeField] private GunData gunData;
         [SerializeField] private UnityEvent onShoot;
         [SerializeField] private UnityEvent onReload;
+        private bool reloading;
         
         private PlayerMovement playerMovement;
         
@@ -48,12 +49,17 @@ namespace Weapons
 
         public void Shoot()
         {
-            if (startGrappleCoroutine != null)
+            if (gunData.currentAmmo > 0 && !reloading)
             {
-                StopCoroutine(startGrappleCoroutine);
+                if (startGrappleCoroutine != null)
+                {
+                    StopCoroutine(startGrappleCoroutine);
+                }
+
+                startGrappleCoroutine = StartCoroutine(StartGrapple());
+
+                onShoot.Invoke();
             }
-            
-            startGrappleCoroutine = StartCoroutine(StartGrapple());
         }
 
         public void StartReload()

@@ -31,9 +31,9 @@ namespace Weapons
                 Instantiate(bullet, transform.position + transform.forward, bulletAngle);
 
                 gunData.currentAmmo--;
+                
+                onShoot.Invoke();
             }
-
-            onShoot.Invoke();
         }
 
         public void StartReload()

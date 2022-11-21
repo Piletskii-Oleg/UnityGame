@@ -12,13 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7144a1b992746314eb1cf729446c6878, type: 3}
   m_Name: Pistol
   m_EditorClassIdentifier: 
-  name: Pistol
+  showName: Pistol
   damage: 10
   maxDistance: 20
   canAutoShoot: 0
-  currentAmmo: 10
+  currentAmmo: 0
   ammoCapacity: 10
-  fireRate: 2.5
+  fireRate: 120
   reloadTime: 1
   gunPrefab: {fileID: 7008670067349202826, guid: 6f293d6e41e1ed44da8bc0655dd61755, type: 3}
-  reloading: 0

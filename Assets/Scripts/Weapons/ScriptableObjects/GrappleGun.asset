@@ -18,6 +18,6 @@ MonoBehaviour:
   canAutoShoot: 0
   currentAmmo: 3
   ammoCapacity: 3
-  fireRate: 10
+  fireRate: 15
   reloadTime: 10
   gunPrefab: {fileID: 5240370350804615422, guid: 3a65ddf5df14ec142b1edabd6f35098b, type: 3}

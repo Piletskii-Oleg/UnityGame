@@ -17,16 +17,12 @@ namespace UI
         /// Updates ammo counter on the UI.
         /// </summary>
         public void UpdateAmmo()
-        {
-            text.text = weaponManager.CurrentGunData.currentAmmo + " / " + weaponManager.CurrentGunData.ammoCapacity;
-        }
+            => text.text = $"{weaponManager.CurrentGunData.currentAmmo} / {weaponManager.CurrentGunData.ammoCapacity}";
 
         /// <summary>
         /// Updates ammo counter on the UI when the weapon is changed.
         /// </summary>
         public void UpdateWeapon()
-        {
-            UpdateAmmo();
-        }
+            => UpdateAmmo();
     }
 }

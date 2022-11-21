@@ -243,8 +243,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gunData: {fileID: 11400000, guid: 9914abf8621a5ea43ac64d310fb218bb, type: 2}
-  maxDistance: 49.53
-  grappleDelay: 0.08
+  onShoot:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 11400000, guid: 41915b76b94156f458ac0323b95a966c, type: 2}
+        m_TargetAssemblyTypeName: EventListeners.GameEvents.GameEvent, Assembly-CSharp
+        m_MethodName: Raise
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onReload:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 11400000, guid: 41915b76b94156f458ac0323b95a966c, type: 2}
+        m_TargetAssemblyTypeName: EventListeners.GameEvents.GameEvent, Assembly-CSharp
+        m_MethodName: Raise
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  grappleDelay: 0.1
   gunTip: {fileID: 3959647884140587458}
   pullSpeed: 15
 --- !u!120 &3522188424027165507
