@@ -17,7 +17,8 @@ namespace Weapons
         [SerializeField] private GameObject bullet;
 
         [SerializeField] private UnityEvent onShoot;
-        [SerializeField] private UnityEvent onReload;
+        [SerializeField] private UnityEvent onReloadStarted;
+        [SerializeField] private UnityEvent onReloadFinished;
 
         private WaitForSeconds reloadWait;
 
@@ -46,6 +47,8 @@ namespace Weapons
 
         private IEnumerator Reload()
         {
+            onReloadStarted.Invoke();
+            
             reloading = true;
 
             yield return reloadWait;
@@ -54,7 +57,7 @@ namespace Weapons
 
             reloading = false;
 
-            onReload.Invoke();
+            onReloadFinished.Invoke();
         }
 
         private void OnDisable()

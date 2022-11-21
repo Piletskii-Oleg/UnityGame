@@ -258,10 +258,25 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  onReload:
+  onReloadStarted:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 11400000, guid: 41915b76b94156f458ac0323b95a966c, type: 2}
+      - m_Target: {fileID: 11400000, guid: 1e9a1ee011ecd094ebe96101ac100621, type: 2}
+        m_TargetAssemblyTypeName: EventListeners.GameEvents.GameEvent, Assembly-CSharp
+        m_MethodName: Raise
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onReloadFinished:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 11400000, guid: 5c84bf67d33acd1479a1be6e6c716714, type: 2}
         m_TargetAssemblyTypeName: EventListeners.GameEvents.GameEvent, Assembly-CSharp
         m_MethodName: Raise
         m_Mode: 1

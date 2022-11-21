@@ -332,7 +332,7 @@ GameObject:
   - component: {fileID: 8768662800845269266}
   - component: {fileID: 8768662800845269267}
   m_Layer: 0
-  m_Name: Sphere
+  m_Name: SphereEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -490,6 +490,7 @@ MonoBehaviour:
   onKill:
     m_PersistentCalls:
       m_Calls: []
+  affiliation: {fileID: 11400000, guid: f5d430323eed37e4fb27c737d000aaa3, type: 2}
 --- !u!1 &8768662800931772213
 GameObject:
   m_ObjectHideFlags: 0

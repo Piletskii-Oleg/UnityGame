@@ -147,6 +147,7 @@ GameObject:
   - component: {fileID: 4566381933507406117}
   - component: {fileID: 4566381933507406119}
   - component: {fileID: 4566381933507406118}
+  - component: {fileID: 4074935946344871952}
   m_Layer: 5
   m_Name: AmmoBar
   m_TagString: Untagged
@@ -188,9 +189,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2976fd918095004e9ec1c06f6043dce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gunDataList:
-  - {fileID: 11400000, guid: bbd04348bcf88dc4d8984840f80df4ff, type: 2}
-  - {fileID: 11400000, guid: 2f76d0ffa1a936a4abaa8f78021d941c, type: 2}
   text: {fileID: 4566381932736024065}
   weaponManager: {fileID: 11400000, guid: e89bbf54677811741bcf2548a831c9e1, type: 2}
 --- !u!114 &4566381933507406119
@@ -240,6 +238,34 @@ MonoBehaviour:
       - m_Target: {fileID: 4566381933507406117}
         m_TargetAssemblyTypeName: AmmoUI, Assembly-CSharp
         m_MethodName: UpdateWeapon
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &4074935946344871952
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4566381933507406115}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2438166054fae9447beaa32edf8ea98f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: 5c84bf67d33acd1479a1be6e6c716714, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4566381933507406117}
+        m_TargetAssemblyTypeName: UI.AmmoUI, Assembly-CSharp
+        m_MethodName: UpdateAmmo
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

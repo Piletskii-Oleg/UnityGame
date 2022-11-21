@@ -11,7 +11,8 @@ namespace Weapons
         [Header("Gun Info")]
         [SerializeField] private GunData gunData;
         [SerializeField] private UnityEvent onShoot;
-        [SerializeField] private UnityEvent onReload;
+        [SerializeField] private UnityEvent onReloadStarted;
+        [SerializeField] private UnityEvent onReloadFinished;
         private bool reloading;
         
         private PlayerMovement playerMovement;
@@ -27,12 +28,14 @@ namespace Weapons
 
         private Coroutine startGrappleCoroutine;
         private WaitForSeconds grappleDelayWait;
+        private WaitForSeconds reloadWait;
         private Transform cam;
 
         private void Start()
         {
             cam = Camera.main.transform;
             grappleDelayWait = new WaitForSeconds(grappleDelay);
+            reloadWait = new WaitForSeconds(gunData.reloadTime);
             lineRenderer = GetComponent<LineRenderer>();
             lineRenderer.enabled = false;
             
@@ -56,6 +59,7 @@ namespace Weapons
                     StopCoroutine(startGrappleCoroutine);
                 }
 
+                gunData.currentAmmo--;
                 startGrappleCoroutine = StartCoroutine(StartGrapple());
 
                 onShoot.Invoke();
@@ -64,6 +68,25 @@ namespace Weapons
 
         public void StartReload()
         {
+            if (!reloading)
+            {
+                StartCoroutine(Reload());
+            }
+        }
+
+        private IEnumerator Reload()
+        {
+            onReloadStarted.Invoke();
+            
+            reloading = true;
+
+            yield return reloadWait;
+
+            gunData.currentAmmo = gunData.ammoCapacity;
+
+            reloading = false;
+
+            onReloadFinished.Invoke();
         }
 
         public IEnumerator StartGrapple()
