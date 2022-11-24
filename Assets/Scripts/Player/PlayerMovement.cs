@@ -1,4 +1,6 @@
 using System.Collections;
+using DataPersistence;
+using DataPersistence.GameDataFiles;
 using UnityEngine;
 
 namespace Player
@@ -6,7 +8,7 @@ namespace Player
     /// <summary>
     /// Class that processes keyboard input used for moving the player (used with <see cref="InputManager"/>).
     /// </summary>
-    public class PlayerMovement : MonoBehaviour
+    public class PlayerMovement : MonoBehaviour, IDataPersistence
     {
         [Header("Ground Check")] 
         [SerializeField] private Transform groundCheck;
@@ -121,6 +123,18 @@ namespace Player
         public void StopRunning()
             => StartCoroutine(WaitTillLanded(moveSpeed));
 
+        public void OnSave(GameData data)
+        {
+            data.playerPosition = rigidBody.transform.position;
+            data.playerRotation = rigidBody.transform.rotation;
+        }
+        
+        public void OnLoad(GameData data)
+        {
+            rigidBody.transform.position = data.playerPosition;
+            rigidBody.transform.rotation = data.playerRotation;
+        }
+        
         public void PullTo(Vector3 pullTarget, float pullSpeed)
         {
             if (pullToPosition != null)

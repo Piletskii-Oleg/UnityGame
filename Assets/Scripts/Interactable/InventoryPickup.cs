@@ -8,6 +8,7 @@ namespace Interactable
     /// </summary>
     public class InventoryPickup : MonoBehaviour, IInteractable
     {
+        [SerializeField] private string promptMessage;
         [SerializeField] private InventoryManager inventoryManager;
         [SerializeField] private InventoryItemData inventoryItemData;
 
@@ -24,5 +25,8 @@ namespace Interactable
                 Destroy(gameObject);
             }
         }
+
+        public string GetPromptMessage()
+            => promptMessage;
     }
 }

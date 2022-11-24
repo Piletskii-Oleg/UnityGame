@@ -1,4 +1,5 @@
 using System.Collections;
+using DataPersistence.GameDataFiles;
 using UnityEngine;
 using Weapons;
 using Weapons.ScriptableObjects;
@@ -18,12 +19,7 @@ namespace Player
         private WaitForSeconds fireDelay;
 
         private void Start()
-        {
-            if (currentWeapon != null)
-            {
-                this.ChangeWeapon(1);
-            }
-        }
+            => this.ChangeWeapon(weaponManager.CurrentIndex);
 
         /// <summary>
         /// Makes the player shoot (or start shooting if the weapon is automatic) with the currently held weapon.
@@ -139,6 +135,9 @@ namespace Player
             
             fireDelay = new WaitForSeconds(60f / weaponManager.CurrentGunData.fireRate);
         }
+
+        public void OnLoad(GameData data)
+            => this.ChangeWeapon(data.currentWeaponIndex + 1);
         
         private IEnumerator ShootRepeatedly()
         {

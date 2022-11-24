@@ -9,29 +9,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab9908c22f417db48bfecaad1e70b1d8, type: 3}
-  m_Name: Player Inventory Manager
+  m_Script: {fileID: 11500000, guid: b0e583f8ea7041ea89302a261700d1de, type: 3}
+  m_Name: DataPersistenceManager
   m_EditorClassIdentifier: 
-  onInventoryChangedEvent:
+  fileName: gamedata.json
+  dataManagers:
+  - {fileID: 11400000, guid: 96eacc446dde72e4994671b6b1edd0b1, type: 2}
+  - {fileID: 11400000, guid: e89bbf54677811741bcf2548a831c9e1, type: 2}
+  onSaveGame:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 11400000, guid: 0be77638517163240b2654642d3ec729, type: 2}
-        m_TargetAssemblyTypeName: GameEvent, Assembly-CSharp
-        m_MethodName: Raise
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  onItemChosenEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 11400000, guid: 4812893e25f3f08409ca745f84ba13c6, type: 2}
-        m_TargetAssemblyTypeName: BaseGameEvent`1[[System.String, mscorlib
+      - m_Target: {fileID: 11400000, guid: cc19049e177c7cf43aba47186a1c2f9d, type: 2}
+        m_TargetAssemblyTypeName: EventListeners.GameEvents.BaseGameEvent`1[[DataPersistence.GameDataFiles.GameData,
+          Assembly-CSharp
         m_MethodName: Raise
         m_Mode: 0
         m_Arguments:
@@ -42,6 +32,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  <Items>k__BackingField:
-  - <Data>k__BackingField: {fileID: 11400000, guid: 8133ebe1e2c15fa40be4c7bb574b57e3, type: 2}
-    <StackSize>k__BackingField: 3
+  onLoadGame:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 11400000, guid: 1c6c9fda971aa03449b7b3862d44c4cd, type: 2}
+        m_TargetAssemblyTypeName: EventListeners.GameEvents.BaseGameEvent`1[[DataPersistence.GameDataFiles.GameData,
+          Assembly-CSharp
+        m_MethodName: Raise
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2

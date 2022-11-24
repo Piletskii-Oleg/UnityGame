@@ -1,5 +1,6 @@
 using UnityEngine;
 using Interactable;
+using UnityEngine.Events;
 
 namespace Player
 {
@@ -11,6 +12,9 @@ namespace Player
         [SerializeField] private float rayDistance = 3.0f;
         [SerializeField] private LayerMask layerMask;
         [SerializeField] private Camera cam;
+
+        [SerializeField] private UnityEvent<string> onSeeInteractable;
+        [SerializeField] private UnityEvent onLookAwayFromInteractable;
 
         /// <summary>
         /// Called when the player wants to interact with something.
@@ -29,7 +33,18 @@ namespace Player
 
         private void Update()
         {
-            Debug.DrawRay(cam.transform.position, cam.transform.forward * 10);
+            var ray = new Ray(cam.transform.position, cam.transform.forward);
+            if (Physics.Raycast(ray, out RaycastHit hitInfo, rayDistance, layerMask))
+            {
+                if (hitInfo.collider.TryGetComponent<IInteractable>(out var interactable))
+                {
+                    onSeeInteractable.Invoke(interactable.GetPromptMessage());
+                }
+            }
+            else
+            {
+                onLookAwayFromInteractable.Invoke();
+            }
         }
     }
 }

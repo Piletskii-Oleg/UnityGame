@@ -1,3 +1,5 @@
+using DataPersistence;
+using DataPersistence.GameDataFiles;
 using UnityEngine;
 
 namespace Player
@@ -5,7 +7,7 @@ namespace Player
     /// <summary>
     /// Class that processes mouse input (used with <see cref="InputManager"/>)
     /// </summary>
-    public class PlayerLook : MonoBehaviour
+    public class PlayerLook : MonoBehaviour, IDataPersistence
     {
         [SerializeField] private float mouseSensitivity;
 
@@ -35,5 +37,11 @@ namespace Player
 
             transform.Rotate((mouseX * Time.deltaTime) * mouseSensitivity * Vector3.up);
         }
+
+        public void OnSave(GameData data)
+            => data.cameraRotation = cam.transform.rotation;
+
+        public void OnLoad(GameData data)
+            => cam.transform.rotation = data.cameraRotation;
     }
 }

@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using DataPersistence;
+using DataPersistence.GameDataFiles;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -8,11 +10,11 @@ namespace Weapons.ScriptableObjects
     /// Manages the weapons on the player.
     /// </summary>
     [CreateAssetMenu(fileName = "Weapon Manager", menuName = "Managers/Weapon Manager")]
-    public class WeaponManager : ScriptableObject
+    public class WeaponManager : DataManager
     {
         [SerializeField] private WeaponListData weaponsData;
 
-        [SerializeField] private List<GameObject> weapons;
+        [SerializeField] private List<GunItem> weapons;
 
         [SerializeField] private UnityEvent onChangeWeapon;
 
@@ -24,12 +26,12 @@ namespace Weapons.ScriptableObjects
         /// <summary>
         /// Gets <see cref="GameObject"/> prefab of the weapon currently held by the player.
         /// </summary>
-        public GameObject CurrentWeaponPrefab => weapons[CurrentIndex];
+        public GameObject CurrentWeaponPrefab => weapons[CurrentIndex].Data.gunPrefab;
 
         /// <summary>
         /// Gets <see cref="GunData"/> of the weapon currently held by the player.
         /// </summary>
-        public GunData CurrentGunData => weaponsData.weapons.Find(data => data.name == CurrentWeaponPrefab.name);
+        public GunData CurrentGunData => weapons[CurrentIndex].Data;
 
         /// <summary>
         /// Gets amount of weapons currently held by the player.
@@ -42,7 +44,7 @@ namespace Weapons.ScriptableObjects
         /// <param name="index">Index of the weapon in the list.</param>
         public bool ChangeIndex(int index)
         {
-            if (index < weapons.Count && index >= 0)
+            if (index < weapons.Count && index >= 0 && weapons[index].IsObtained)
             {
                 CurrentIndex = index;
 
@@ -56,25 +58,37 @@ namespace Weapons.ScriptableObjects
 
         /// <summary>
         /// Used to change the current index of the <see cref="weapons"/>.
-        /// Does nothing if <paramref name="weaponName"/> is not found in the list.
+        /// Does nothing if <paramref name="weaponName"/> is not found on the list.
         /// </summary>
         /// <param name="weaponName">Name of the weapon in the list.</param>
-        public bool ChangeTo(string weaponName) // completely breaks if order is not same as in weaponsData.weapons
+        public bool ChangeTo(string weaponName) // makes weapon selectable, maybe fix?
         {
-            var newIndex = weaponsData.weapons.FindIndex(gameObject => gameObject.name == weaponName);
+            var newIndex = weapons.FindIndex(item => item.Data.showName == weaponName);
             if (newIndex == -1)
             {
                 return false;
             }
 
-            if (!weapons.Contains(weaponsData.weapons[newIndex].gunPrefab))
+            if (!weapons[newIndex].IsObtained)
             {
-                weapons.Add(weaponsData.weapons[newIndex].gunPrefab);
+                weapons[newIndex].ObtainItem();
             }
 
-            CurrentIndex = weapons.IndexOf(weaponsData.weapons[newIndex].gunPrefab);
+            CurrentIndex = newIndex;
             onChangeWeapon.Invoke();
             return true;
+        }
+
+        public override void SaveData(GameData data)
+        {
+            data.storedWeapons = weapons;
+            data.currentWeaponIndex = CurrentIndex;
+        }
+
+        public override void LoadData(GameData data)
+        {
+            weapons = data.storedWeapons;
+            CurrentIndex = data.currentWeaponIndex;
         }
     }
 }

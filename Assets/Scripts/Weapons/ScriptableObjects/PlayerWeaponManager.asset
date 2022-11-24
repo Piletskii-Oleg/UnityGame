@@ -14,9 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponsData: {fileID: 11400000, guid: 4cdff23c2d5603e48ac530fad9c2785f, type: 2}
   weapons:
-  - {fileID: 7008670067349202826, guid: 6f293d6e41e1ed44da8bc0655dd61755, type: 3}
-  - {fileID: 4949253864546615136, guid: e4d96c0d937470249956320d4fea56f9, type: 3}
-  - {fileID: 5240370350804615422, guid: 3a65ddf5df14ec142b1edabd6f35098b, type: 3}
+  - <Data>k__BackingField: {fileID: 11400000, guid: bbd04348bcf88dc4d8984840f80df4ff, type: 2}
+    <IsObtained>k__BackingField: 1
+  - <Data>k__BackingField: {fileID: 11400000, guid: 2f76d0ffa1a936a4abaa8f78021d941c, type: 2}
+    <IsObtained>k__BackingField: 0
+  - <Data>k__BackingField: {fileID: 11400000, guid: 9914abf8621a5ea43ac64d310fb218bb, type: 2}
+    <IsObtained>k__BackingField: 1
   onChangeWeapon:
     m_PersistentCalls:
       m_Calls:

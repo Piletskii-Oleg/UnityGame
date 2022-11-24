@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using DataPersistence;
+using DataPersistence.GameDataFiles;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -8,7 +10,7 @@ namespace Inventory.ScriptableObjects
     /// Player's inventory manager.
     /// </summary>
     [CreateAssetMenu(fileName = "Inventory Manager", menuName = "Managers/Inventory Manager")]
-    public class InventoryManager : ScriptableObject
+    public class InventoryManager : DataManager
     {
         private readonly Dictionary<InventoryItemData, InventoryItem> itemDictionary = new ();
 
@@ -21,10 +23,9 @@ namespace Inventory.ScriptableObjects
         [field:SerializeField] public List<InventoryItem> Items { get; private set; } = new ();
 
         /// <summary>
-        /// Updates item dictionary so that its state persists between sessions.
-        /// Should be called when default <see cref="MonoBehaviour"/> Start is called.
+        /// Updates item dictionary so that its contents are same as <see cref="Items"/>.
         /// </summary>
-        public void Start()
+        public void UpdateItemsList()
         {
             itemDictionary.Clear();
             foreach (var item in Items)
@@ -111,6 +112,15 @@ namespace Inventory.ScriptableObjects
             }
 
             return 0;
+        }
+
+        public override void SaveData(GameData data)
+            => data.storedItems = Items;
+
+        public override void LoadData(GameData data)
+        {
+            Items = data.storedItems;
+            this.UpdateItemsList();
         }
     }
 }
