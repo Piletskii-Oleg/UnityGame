@@ -11,6 +11,7 @@ namespace Shared
     {
         [SerializeField] private UnityEvent<float> onTakeDamage;
         [SerializeField] private UnityEvent onKill;
+        
         [SerializeField] private ActorAffiliation affiliation;
 
         /// <summary>

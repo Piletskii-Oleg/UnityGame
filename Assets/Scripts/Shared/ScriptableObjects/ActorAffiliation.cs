@@ -3,6 +3,9 @@ using UnityEngine;
 
 namespace Shared.ScriptableObjects
 {
+    /// <summary>
+    /// Data for the affiliation of an <see cref="Actor"/>.
+    /// </summary>
     [CreateAssetMenu(fileName = "Actor Affiliation")]
     public class ActorAffiliation : ScriptableObject
     {

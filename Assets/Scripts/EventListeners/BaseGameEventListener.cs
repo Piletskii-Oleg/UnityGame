@@ -14,11 +14,11 @@ namespace EventListeners
         where TGameEvent : BaseGameEvent<T>
         where TUnityEvent : UnityEvent<T>
     {
-        [SerializeField] [Tooltip("Event to register with.")]
-        private TGameEvent gameEvent;
+        [Tooltip("Event to register with.")]
+        [SerializeField] private TGameEvent gameEvent;
 
-        [SerializeField] [Tooltip("Response to invoke when Game Event is raised.")]
-        private TUnityEvent response;
+        [Tooltip("Response to invoke when Game Event is raised.")]
+        [SerializeField] private TUnityEvent response;
 
         /// <summary>
         /// Called when the attached <see cref="BaseGameEvent{T}"/> is raised.

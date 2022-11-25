@@ -14,3 +14,4 @@ Open the project's folder using Unity Editor 2021.3.13f1
 * Sci-Fi Styled Modular Pack by karboosx
 * Outdoor Ground Textures by A dog's life software
 * Crosshairs Plus by AssetBag
+* Scifi-Gun by Life Hacker

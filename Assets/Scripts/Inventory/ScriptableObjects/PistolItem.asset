@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: PistolItem
   m_EditorClassIdentifier: 
   displayName: Pistol
-  itemSprite: {fileID: 21300000, guid: a826d33d1c6e7a746b37f0afe83df4de, type: 3}
+  itemSprite: {fileID: 21300000, guid: aa8e1762c8356844086594b6ac8477c3, type: 3}
   canHandle: 1
   maxAmount: 1

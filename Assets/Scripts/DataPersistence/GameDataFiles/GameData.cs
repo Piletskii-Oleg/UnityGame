@@ -6,6 +6,9 @@ using Weapons;
 
 namespace DataPersistence.GameDataFiles
 {
+    /// <summary>
+    /// C# class that contains all data that should be saved or loaded.
+    /// </summary>
     [Serializable]
     public class GameData
     {
@@ -19,6 +22,9 @@ namespace DataPersistence.GameDataFiles
 
         public Quaternion cameraRotation;
         
+        /// <summary>
+        /// Initializes new instance of <see cref="GameData"/> class.
+        /// </summary>
         public GameData()
         {
             storedItems = new();

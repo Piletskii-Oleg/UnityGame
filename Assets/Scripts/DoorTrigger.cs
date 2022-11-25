@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// Class for a door that opens when the player gets close.
+/// </summary>
 public class DoorTrigger : MonoBehaviour
 {
     private Animator animator;

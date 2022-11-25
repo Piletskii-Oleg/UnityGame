@@ -45,3 +45,5 @@ MonoBehaviour:
   <Items>k__BackingField:
   - <Data>k__BackingField: {fileID: 11400000, guid: 8133ebe1e2c15fa40be4c7bb574b57e3, type: 2}
     <StackSize>k__BackingField: 3
+  - <Data>k__BackingField: {fileID: 11400000, guid: e76d9089b9799b946855f053fa1507e3, type: 2}
+    <StackSize>k__BackingField: 1

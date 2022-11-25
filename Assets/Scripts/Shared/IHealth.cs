@@ -1,5 +1,8 @@
 ﻿namespace Shared
 {
+    /// <summary>
+    /// Interface for health of an actor.
+    /// </summary>
     public interface IHealth
     {
         /// <summary>

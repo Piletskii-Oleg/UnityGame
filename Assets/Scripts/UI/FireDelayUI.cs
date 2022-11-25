@@ -6,6 +6,9 @@ using Weapons.ScriptableObjects;
 
 namespace UI
 {
+    /// <summary>
+    /// UI that shows fire delay using a slider.
+    /// </summary>
     public class FireDelayUI : MonoBehaviour
     {
         [SerializeField] private WeaponManager weaponManager;
@@ -16,9 +19,15 @@ namespace UI
         private void Start()
             => waitForFixedUpdate = new WaitForFixedUpdate();
 
+        /// <summary>
+        /// Called when another gun is taken.
+        /// </summary>
         public void UpdateBar()
             => slider.gameObject.SetActive(!weaponManager.CurrentGunData.canAutoShoot);
 
+        /// <summary>
+        /// Slowly fills the bar after a gun shot.
+        /// </summary>
         public void FillBar()
         {
             slider.value = 0;

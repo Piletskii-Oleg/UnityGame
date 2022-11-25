@@ -6,7 +6,10 @@ using Weapons.ScriptableObjects;
 
 namespace Weapons
 {
-    public class GrappleGunPull : MonoBehaviour, IWeapon, IGrappleGun
+    /// <summary>
+    /// Implementation of a grappling gun that pulls the player to the destination point.
+    /// </summary>
+    public class GrappleGunPull : MonoBehaviour, IWeapon
     {
         [Header("Gun Info")]
         [SerializeField] private GunData gunData;
@@ -89,7 +92,7 @@ namespace Weapons
             onReloadFinished.Invoke();
         }
 
-        public IEnumerator StartGrapple()
+        private IEnumerator StartGrapple()
         {
             if (Physics.Raycast(cam.position, cam.forward, out var hit, gunData.maxDistance))
             {
@@ -109,24 +112,20 @@ namespace Weapons
 
                 yield return grappleDelayWait;
 
-                yield return StartCoroutine(StopGrapple());
+                StopGrapple();
             }
         }
 
-        public IEnumerator StopGrapple()
-        {
-            lineRenderer.enabled = false;
+        private void StopGrapple()
+            => lineRenderer.enabled = false;
 
-            yield break;
-        }
-
-        public IEnumerator ExecuteGrapple()
+        private IEnumerator ExecuteGrapple()
         {
             playerMovement.PullTo(grapplingPoint, pullSpeed);
 
             yield return new WaitWhile(() => !playerMovement.CanMove);
             
-            yield return StopGrapple();
+            StopGrapple();
         }
     }
 }

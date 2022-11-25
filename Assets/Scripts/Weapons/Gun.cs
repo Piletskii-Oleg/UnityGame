@@ -6,7 +6,7 @@ using Weapons.ScriptableObjects;
 namespace Weapons
 {
     /// <summary>
-    /// Class used for simple guns. Inherits from <see cref="Weapon"/>.
+    /// Class used for simple guns. Inherits from <see cref="IWeapon"/>.
     /// </summary>
     public class Gun : MonoBehaviour, IWeapon
     {

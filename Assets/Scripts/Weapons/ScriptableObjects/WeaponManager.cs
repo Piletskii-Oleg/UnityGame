@@ -12,8 +12,6 @@ namespace Weapons.ScriptableObjects
     [CreateAssetMenu(fileName = "Weapon Manager", menuName = "Managers/Weapon Manager")]
     public class WeaponManager : DataManager
     {
-        [SerializeField] private WeaponListData weaponsData;
-
         [SerializeField] private List<GunItem> weapons;
 
         [SerializeField] private UnityEvent onChangeWeapon;

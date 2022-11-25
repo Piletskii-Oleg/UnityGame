@@ -4,8 +4,18 @@ using DataPersistence.GameDataFiles;
 
 namespace DataPersistence
 {
+    /// <summary>
+    /// Helper class to save data to a file and load from it.
+    /// </summary>
     public static class FileDataHandler
     {
+        /// <summary>
+        /// Loads <see cref="GameData"/> from a file.
+        /// </summary>
+        /// <param name="directory">Directory in which file is contained.</param>
+        /// <param name="dataFileName">Name of the save file.</param>
+        /// <returns><see cref="GameData"/> with all the data loaded from the file.</returns>
+        /// <exception cref="FileNotFoundException">Throws if file was not found.</exception>
         public static GameData Load(string directory, string dataFileName)
         {
             var fullPath = Path.Combine(directory, dataFileName);
@@ -21,6 +31,12 @@ namespace DataPersistence
             return JsonUtility.FromJson<GameData>(dataToLoad);
         }
 
+        /// <summary>
+        /// Saves <see cref="GameData"/> to a file.
+        /// </summary>
+        /// <param name="data"><see cref="GameData"/> to save.</param>
+        /// <param name="directory">Directory in which file is to be contained.</param>
+        /// <param name="dataFileName">Name of the save file.</param>
         public static void Save(GameData data, string directory, string dataFileName)
         {
             var fullPath = Path.Combine(directory, dataFileName);
