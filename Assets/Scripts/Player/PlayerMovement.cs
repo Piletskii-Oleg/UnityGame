@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using DataPersistence;
 using DataPersistence.GameDataFiles;
@@ -50,6 +51,11 @@ namespace Player
             waitForFixedUpdate = new WaitForFixedUpdate();
         }
 
+        private void FixedUpdate()
+        {
+            ProcessVerticalMovement();
+        }
+
         /// <summary>
         /// Processes horizontal movement of the player character.
         /// </summary>
@@ -75,7 +81,7 @@ namespace Player
         /// <summary>
         /// Checks if the player character is on ground and applies appropriate drag.
         /// </summary>
-        public void ProcessVerticalMovement()
+        private void ProcessVerticalMovement()
         {
             IsGroundedCheck();
 

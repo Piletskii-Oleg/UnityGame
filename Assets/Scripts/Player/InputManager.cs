@@ -19,6 +19,7 @@ namespace Player
         private WeaponZoom weaponZoom;
 
         [SerializeField] private InventoryUI inventoryUI;
+        [SerializeField] private PauseMenuUI pauseMenuUI;
 
         private bool isShooting;
 
@@ -40,10 +41,9 @@ namespace Player
             SubscribeToEventsUIActions();
         }
 
-        private void FixedUpdate()
+        private void Update()
         {
             movement.ProcessHorizontalMovement(onFoot.Movement.ReadValue<Vector2>());
-            movement.ProcessVerticalMovement();
         }
 
         private void LateUpdate()
@@ -92,6 +92,12 @@ namespace Player
             uiActions.OpenInventory.performed += _ =>
             {
                 inventoryUI.HandleInventory();
+                OnFootSwitch();
+            };
+            
+            uiActions.Pause.performed += _ =>
+            {
+                pauseMenuUI.HandlePauseMenu();
                 OnFootSwitch();
             };
         }
