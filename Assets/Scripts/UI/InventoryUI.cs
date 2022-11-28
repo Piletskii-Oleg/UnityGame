@@ -1,6 +1,5 @@
 using Inventory.ScriptableObjects;
 using UnityEngine;
-using UnityEngine.Events;
 
 namespace UI
 {

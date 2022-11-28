@@ -7,7 +7,7 @@ namespace EventListeners.GameEvents
     /// <summary>
     /// An abstraction over <see cref="UnityEvent"/> that allows for multiple listeners using <see cref="GameEventListener"/>.
     /// </summary>
-    [CreateAssetMenu(fileName = "No type", menuName = "Game Event/No type")]
+    [CreateAssetMenu(fileName = "No type", menuName = "Game Event/No Type", order = 0)]
     public class GameEvent : ScriptableObject
     {
         private readonly List<GameEventListener> listeners = new ();

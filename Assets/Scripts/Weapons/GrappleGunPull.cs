@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using Player;
 using UnityEngine;
 using UnityEngine.Events;
@@ -19,6 +20,8 @@ namespace Weapons
         private bool reloading;
         
         private PlayerMovement playerMovement;
+
+        private AudioSource audioSource;
         
         [Header("Grappling")]
         [SerializeField] private float grappleDelay;
@@ -29,6 +32,9 @@ namespace Weapons
         [Header("Pulling")]
         [SerializeField] private float pullSpeed;
 
+        [Header("Pull Events")]
+        [SerializeField] private UnityEvent onStopPulling;
+
         private Coroutine startGrappleCoroutine;
         private WaitForSeconds grappleDelayWait;
         private WaitForSeconds reloadWait;
@@ -37,10 +43,14 @@ namespace Weapons
         private void Start()
         {
             cam = Camera.main.transform;
-            grappleDelayWait = new WaitForSeconds(grappleDelay);
-            reloadWait = new WaitForSeconds(gunData.reloadTime);
+            
             lineRenderer = GetComponent<LineRenderer>();
             lineRenderer.enabled = false;
+            
+            grappleDelayWait = new WaitForSeconds(grappleDelay);
+            reloadWait = new WaitForSeconds(gunData.reloadTime);
+
+            audioSource = GetComponent<AudioSource>();
             
             playerMovement = GetComponentInParent<PlayerMovement>();
         }
@@ -94,6 +104,8 @@ namespace Weapons
 
         private IEnumerator StartGrapple()
         {
+            audioSource.Play();
+            
             if (Physics.Raycast(cam.position, cam.forward, out var hit, gunData.maxDistance))
             {
                 grapplingPoint = hit.point;
@@ -117,7 +129,10 @@ namespace Weapons
         }
 
         private void StopGrapple()
-            => lineRenderer.enabled = false;
+        {
+            lineRenderer.enabled = false;
+            onStopPulling.Invoke();
+        }
 
         private IEnumerator ExecuteGrapple()
         {
@@ -125,6 +140,11 @@ namespace Weapons
 
             yield return new WaitWhile(() => !playerMovement.CanMove);
             
+            StopGrapple();
+        }
+
+        private void OnDestroy()
+        {
             StopGrapple();
         }
     }

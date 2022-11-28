@@ -16,8 +16,8 @@ MonoBehaviour:
   damage: 10
   maxDistance: 20
   canAutoShoot: 0
-  currentAmmo: 0
+  currentAmmo: 7
   ammoCapacity: 10
   fireRate: 120
-  reloadTime: 1
+  reloadTime: 0.8
   gunPrefab: {fileID: 7008670067349202826, guid: 6f293d6e41e1ed44da8bc0655dd61755, type: 3}

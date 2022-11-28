@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using DataPersistence;
 using DataPersistence.GameDataFiles;
@@ -141,6 +140,11 @@ namespace Player
             rigidBody.transform.rotation = data.playerRotation;
         }
         
+        /// <summary>
+        /// Makes the player character be pulled to <paramref name="pullTarget"/> with <paramref name="pullSpeed"/> speed.
+        /// </summary>
+        /// <param name="pullTarget">Position in the world which the player character is pulled to.</param>
+        /// <param name="pullSpeed">Speed at which the player character is pulled.</param>
         public void PullTo(Vector3 pullTarget, float pullSpeed)
         {
             if (pullToPosition != null)
@@ -149,6 +153,19 @@ namespace Player
             }
             
             pullToPosition = StartCoroutine(PullToPosition(pullTarget, pullSpeed));
+        }
+
+        /// <summary>
+        /// Stops the player from pulling to position.
+        /// </summary>
+        public void StopPulling()
+        {
+            if (pullToPosition != null)
+            {
+                StopCoroutine(pullToPosition);
+                CanMove = true;
+                rigidBody.useGravity = true;
+            }
         }
 
         private IEnumerator PullToPosition(Vector3 pullTarget, float pullSpeed)

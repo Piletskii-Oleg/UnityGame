@@ -8,7 +8,7 @@ namespace DataPersistence
     /// <summary>
     /// Scriptable object that manages saving and loading from file.
     /// </summary>
-    [CreateAssetMenu(fileName = "DataPersistenceManager", menuName = "Managers/Data Persistence Manager", order = 0)]
+    [CreateAssetMenu(fileName = "DataPersistenceManager", menuName = "Managers/Data Persistence Manager")]
     public class DataPersistenceManager : ScriptableObject
     {
         [Tooltip("File name to save or load from.")]
