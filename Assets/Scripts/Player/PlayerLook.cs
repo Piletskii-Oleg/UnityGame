@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Player
 {
     /// <summary>
-    /// Class that processes mouse input (used with <see cref="InputManager"/>)
+    /// Class that processes mouse input (used with <see cref="InputController"/>)
     /// </summary>
     public class PlayerLook : MonoBehaviour, IDataPersistence
     {
@@ -24,18 +24,18 @@ namespace Player
         /// <summary>
         /// Move the camera according to mouse input.
         /// </summary>
-        /// <param name="input">Mouse input from <see cref="InputManager"/></param>
+        /// <param name="input">Mouse input from <see cref="InputController"/></param>
         public void ProcessLook(Vector2 input)
         {
             float mouseX = input.x;
             float mouseY = input.y;
 
-            verticalRotation -= (mouseY * Time.deltaTime) * mouseSensitivity;
+            verticalRotation -= mouseY * mouseSensitivity;
             verticalRotation = Mathf.Clamp(verticalRotation, -90f, 90f);
 
             cam.transform.localRotation = Quaternion.Euler(verticalRotation, 0, 0);
 
-            transform.Rotate((mouseX * Time.deltaTime) * mouseSensitivity * Vector3.up);
+            transform.Rotate(mouseX * mouseSensitivity * Vector3.up);
         }
 
         public void OnSave(GameData data)

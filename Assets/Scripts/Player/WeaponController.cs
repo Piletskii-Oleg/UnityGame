@@ -15,11 +15,12 @@ namespace Player
         
         private Coroutine shootRepeatedlyCoroutine;
         private bool isShootingRepeatedly;
-        private bool hasShotOnce;
         private WaitForSeconds fireDelay;
 
         private void Start()
-            => this.ChangeWeapon(weaponManager.CurrentIndex);
+        {
+            this.ChangeWeapon(weaponManager.CurrentIndex);
+        }
 
         /// <summary>
         /// Makes the player shoot (or start shooting if the weapon is automatic) with the currently held weapon.
@@ -39,7 +40,7 @@ namespace Player
             }
             else
             {
-                if (!hasShotOnce)
+                if (!weaponManager.CurrentGunItem.HasShot)
                 {
                     StartCoroutine(ShootOnce());
                 }
@@ -48,13 +49,15 @@ namespace Player
 
         private IEnumerator ShootOnce()
         {
-            hasShotOnce = true;
+            var item = weaponManager.CurrentGunItem;
+            
+            item.HasShot = true;
 
             currentWeapon.Shoot();
             
             yield return fireDelay;
 
-            hasShotOnce = false;
+            item.HasShot = false;
         }
 
         /// <summary>
@@ -162,7 +165,6 @@ namespace Player
             fireDelay = new WaitForSeconds(60f / weaponManager.CurrentGunData.fireRate);
 
             isShootingRepeatedly = false;
-            hasShotOnce = false;
         }
     }
 }

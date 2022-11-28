@@ -1,5 +1,6 @@
 using Inventory.ScriptableObjects;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace UI
 {
@@ -8,28 +9,25 @@ namespace UI
     /// </summary>
     public class InventoryUI : MonoBehaviour
     {
+        [Header("Inventory Manager")]
         [SerializeField] private InventoryManager manager;
 
+        [Header("On-Scene Objects")]
         [SerializeField] private GameObject itemSlotPrefab;
         [SerializeField] private Transform parentObject;
         [SerializeField] private Transform bigInventory;
 
-        private bool isInventoryClosed;
-
-        private void Start()
-        {
-            isInventoryClosed = true;
-        }
+        private bool isInventoryOpen;
 
         public void HandleInventory()
         {
-            if (isInventoryClosed)
+            if (isInventoryOpen)
             {
-                OpenInventory();
+                CloseInventory();
             }
             else
             {
-                CloseInventory();
+                OpenInventory();
             }
         }
 
@@ -38,7 +36,7 @@ namespace UI
             bigInventory.gameObject.SetActive(true);
             Cursor.lockState = CursorLockMode.Confined;
 
-            isInventoryClosed = false;
+            isInventoryOpen = true;
         }
 
         private void CloseInventory()
@@ -46,7 +44,7 @@ namespace UI
             bigInventory.gameObject.SetActive(false);
             Cursor.lockState = CursorLockMode.Locked;
 
-            isInventoryClosed = true;
+            isInventoryOpen = false;
         }
 
         /// <summary>

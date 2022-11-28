@@ -4,9 +4,9 @@ using UnityEngine;
 namespace Player
 {
     /// <summary>
-    /// An input manager for a single-player game built using new Input System.
+    /// An input controller for a single-player game built using new Input System.
     /// </summary>
-    public class InputManager : MonoBehaviour
+    public class InputController : MonoBehaviour
     {
         private PlayerInput playerInput;
         private PlayerInput.OnFootActions onFoot;
@@ -20,8 +20,6 @@ namespace Player
 
         [SerializeField] private InventoryUI inventoryUI;
         [SerializeField] private PauseMenuUI pauseMenuUI;
-
-        private bool isShooting;
 
         private bool isUsingUI;
 
@@ -41,7 +39,7 @@ namespace Player
             SubscribeToEventsUIActions();
         }
 
-        private void Update()
+        private void FixedUpdate()
         {
             movement.ProcessHorizontalMovement(onFoot.Movement.ReadValue<Vector2>());
         }
@@ -82,9 +80,6 @@ namespace Player
             onFoot.Zoom.canceled += _ => weaponZoom.Zoom(false);
 
             onFoot.Interact.performed += _ => interact.Interact();
-            // health debugging
-            // onFoot.Jump.performed += ctx => health.TakeDamage(30);
-            // onFoot.Reload.performed += ctx => health.Heal(30);
         }
 
         private void SubscribeToEventsUIActions()
@@ -102,7 +97,7 @@ namespace Player
             };
         }
 
-        private void OnFootSwitch()
+        public void OnFootSwitch()
         {
             isUsingUI = !isUsingUI;
             if (isUsingUI)

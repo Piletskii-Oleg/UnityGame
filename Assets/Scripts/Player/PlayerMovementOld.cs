@@ -3,7 +3,7 @@ using UnityEngine;
 namespace Player
 {
     /// <summary>
-    /// (Deprecated) Class that processes keyboard input used for moving the player (used with <see cref="InputManager"/>).
+    /// (Deprecated) Class that processes keyboard input used for moving the player (used with <see cref="InputController"/>).
     /// </summary>
     [RequireComponent(typeof(CharacterController))]
     public class PlayerMovementOld : MonoBehaviour
@@ -29,7 +29,7 @@ namespace Player
         /// <summary>
         /// Processes horizontal movement of the player character.
         /// </summary>
-        /// <param name="input">WASD or other input from <see cref="InputManager"/>.</param>
+        /// <param name="input">WASD or other input from <see cref="InputController"/>.</param>
         public void ProcessHorizontalMovement(Vector2 input)
         {
             var moveDirection = new Vector3(input.x, 0, input.y);

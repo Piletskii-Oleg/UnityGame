@@ -7,7 +7,7 @@ using UnityEngine;
 namespace Player
 {
     /// <summary>
-    /// Class that processes keyboard input used for moving the player (used with <see cref="InputManager"/>).
+    /// Class that processes keyboard input used for moving the player (used with <see cref="InputController"/>).
     /// </summary>
     public class PlayerMovement : MonoBehaviour, IDataPersistence
     {
@@ -59,7 +59,7 @@ namespace Player
         /// <summary>
         /// Processes horizontal movement of the player character.
         /// </summary>
-        /// <param name="input">WASD or other input from <see cref="InputManager"/>.</param>
+        /// <param name="input">WASD or other input from <see cref="InputController"/>.</param>
         public void ProcessHorizontalMovement(Vector2 input)
         {
             if (CanMove)

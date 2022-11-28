@@ -19,8 +19,11 @@ namespace Weapons
         /// Gets value indicating whether player has this weapon or not.
         /// </summary>
         [field:SerializeField] public bool IsObtained { get; private set; }
-        
-        public bool IsReloading { get; private set; } // unused
+
+        /// <summary>
+        /// Gets value indicating whether a gun has shot and appropriate time between shots has not yet passed.
+        /// </summary>
+        [field:SerializeField] public bool HasShot { get; set; }
 
         /// <summary>
         /// Initializes new instance of an <see cref="GunItem"/> class.

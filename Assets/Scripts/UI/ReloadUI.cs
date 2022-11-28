@@ -17,28 +17,34 @@ namespace UI
         private WaitForFixedUpdate waitForFixedUpdate;
 
         private void Start()
-            => waitForFixedUpdate = new WaitForFixedUpdate();
+        {
+            waitForFixedUpdate = new WaitForFixedUpdate();
+        }
 
         /// <summary>
         /// Called when the gun is reloaded.
         /// </summary>
         public void OnReload()
-            => StartCoroutine(FillReloadBar());
+        {
+            StartCoroutine(FillReloadBar());
+        }
 
         /// <summary>
         /// Called when the current gun is changed.
         /// </summary>
         public void OnChangeWeapon()
-            => slider.value = 1;
+        {
+            slider.value = 1;
+        }
 
         private IEnumerator FillReloadBar()
         {
             slider.gameObject.SetActive(true);
             slider.value = 0;
-            
+
             while (slider.value < 1)
             {
-                slider.value += Time.fixedDeltaTime / weaponManager.CurrentGunData.reloadTime;
+                slider.value += Time.deltaTime / weaponManager.CurrentGunData.reloadTime;
                 yield return waitForFixedUpdate;
             }
 

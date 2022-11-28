@@ -22,14 +22,19 @@ namespace Weapons.ScriptableObjects
         public int CurrentIndex { get; private set; }
 
         /// <summary>
-        /// Gets <see cref="GameObject"/> prefab of the weapon currently held by the player.
+        /// Gets <see cref="GunItem"/> that contains the <see cref="GunData"/> of the weapon currently held by the player.
         /// </summary>
-        public GameObject CurrentWeaponPrefab => weapons[CurrentIndex].Data.gunPrefab;
-
+        public GunItem CurrentGunItem => weapons[CurrentIndex];
+        
         /// <summary>
         /// Gets <see cref="GunData"/> of the weapon currently held by the player.
         /// </summary>
         public GunData CurrentGunData => weapons[CurrentIndex].Data;
+        
+        /// <summary>
+        /// Gets <see cref="GameObject"/> prefab of the weapon currently held by the player.
+        /// </summary>
+        public GameObject CurrentWeaponPrefab => weapons[CurrentIndex].Data.gunPrefab;
 
         /// <summary>
         /// Gets amount of weapons currently held by the player.

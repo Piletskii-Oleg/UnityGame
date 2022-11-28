@@ -38,7 +38,7 @@ namespace UI
         {
             while (slider.value < 1)
             {
-                slider.value += Time.fixedDeltaTime * weaponManager.CurrentGunData.fireRate / 60f;
+                slider.value += Time.deltaTime * weaponManager.CurrentGunData.fireRate / 60f;
                 yield return waitForFixedUpdate;
             }
         }

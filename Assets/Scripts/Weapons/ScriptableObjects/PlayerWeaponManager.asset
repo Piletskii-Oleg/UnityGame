@@ -12,14 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1386a59eb7d5be54585133faeec57b09, type: 3}
   m_Name: PlayerWeaponManager
   m_EditorClassIdentifier: 
-  weaponsData: {fileID: 11400000, guid: 4cdff23c2d5603e48ac530fad9c2785f, type: 2}
   weapons:
   - <Data>k__BackingField: {fileID: 11400000, guid: bbd04348bcf88dc4d8984840f80df4ff, type: 2}
     <IsObtained>k__BackingField: 1
+    <HasShot>k__BackingField: 0
   - <Data>k__BackingField: {fileID: 11400000, guid: 2f76d0ffa1a936a4abaa8f78021d941c, type: 2}
     <IsObtained>k__BackingField: 0
+    <HasShot>k__BackingField: 0
   - <Data>k__BackingField: {fileID: 11400000, guid: 9914abf8621a5ea43ac64d310fb218bb, type: 2}
     <IsObtained>k__BackingField: 1
+    <HasShot>k__BackingField: 0
   onChangeWeapon:
     m_PersistentCalls:
       m_Calls:
