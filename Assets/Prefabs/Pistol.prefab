@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5523278664388135763}
   - component: {fileID: 2982492229458837256}
   - component: {fileID: 7205628483689600418}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pistol
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -240,7 +240,7 @@ GameObject:
   - component: {fileID: 1600686544321171863}
   - component: {fileID: 8880175233317626787}
   - component: {fileID: 8482485202647002641}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
