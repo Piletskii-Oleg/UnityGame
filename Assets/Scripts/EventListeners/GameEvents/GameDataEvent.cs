@@ -1,4 +1,4 @@
-﻿using DataPersistence.GameDataFiles;
+﻿using DataPersistence.DataFiles;
 using UnityEngine;
 
 namespace EventListeners.GameEvents

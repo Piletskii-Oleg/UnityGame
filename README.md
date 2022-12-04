@@ -15,6 +15,7 @@ Open the project's folder using Unity Editor 2021.3.13f1
 * Crosshairs Plus by AssetBag
 * Sci-Fi Handgun by Life Hacker
 * Technology Menu UI by SlimUI
+* 3D Modern Menu UI by SlimUI
 * Free Orchestral Music Pack by Joe Gallagher
 * Free Sound Effects Pack by Olivier Girardot
 * Sci-fi Guns SFX Pack by Mikael Vanninen

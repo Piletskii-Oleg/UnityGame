@@ -1,15 +1,18 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Sound;
 using UnityEngine;
 using UnityEngine.Events;
 using Weapons.ScriptableObjects;
+using Random = UnityEngine.Random;
 
 namespace Weapons
 {
     /// <summary>
     /// Class used for simple guns. Inherits from <see cref="IWeapon"/>.
     /// </summary>
-    public class Gun : MonoBehaviour, IWeapon
+    public class Gun : MonoBehaviour, IWeapon, IVolume
     {
         [Header("Gun Data")]
         [Tooltip("Scriptable Object with the gun data.")]
@@ -56,6 +59,9 @@ namespace Weapons
                 StartCoroutine(Reload());
             }
         }
+
+        public void ChangeVolume(float volume)
+            => audioSource.volume = volume;
 
         private IEnumerator Reload()
         {

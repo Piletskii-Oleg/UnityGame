@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using Player;
+using Sound;
 using UnityEngine;
 using UnityEngine.Events;
 using Weapons.ScriptableObjects;
@@ -10,7 +11,7 @@ namespace Weapons
     /// <summary>
     /// Implementation of a grappling gun that pulls the player to the destination point.
     /// </summary>
-    public class GrappleGunPull : MonoBehaviour, IWeapon
+    public class GrappleGunPull : MonoBehaviour, IWeapon, IVolume
     {
         [Header("Gun Info")]
         [SerializeField] private GunData gunData;
@@ -40,7 +41,7 @@ namespace Weapons
         private WaitForSeconds reloadWait;
         private Transform cam;
 
-        private void Start()
+        private void Awake()
         {
             cam = Camera.main.transform;
             
@@ -78,6 +79,9 @@ namespace Weapons
                 onShoot.Invoke();
             }
         }
+
+        public void ChangeVolume(float volume)
+            => audioSource.volume = volume;
 
         public void StartReload()
         {

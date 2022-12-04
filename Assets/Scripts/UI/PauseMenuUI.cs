@@ -37,5 +37,8 @@ namespace UI
 
             isMenuOpen = false;
         }
+
+        public void Quit()
+            => Application.Quit();
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
+using DataPersistence.DataFiles;
 using UnityEngine;
-using DataPersistence.GameDataFiles;
 using UnityEngine.Events;
 
 namespace DataPersistence
@@ -19,6 +19,7 @@ namespace DataPersistence
         [Tooltip("Managers that deal with data that should be saved or loaded.")]
         [SerializeField] private List<DataManager> dataManagers;
 
+        [Header("GameData Events")]
         [SerializeField] private UnityEvent<GameData> onSaveGame;
         [SerializeField] private UnityEvent<GameData> onLoadGame;
         
@@ -44,7 +45,7 @@ namespace DataPersistence
         /// </summary>
         public void LoadGame()
         {
-            gameData = FileDataHandler.Load(Application.persistentDataPath, fileName);
+            gameData = FileDataHandler.Load<GameData>(Application.persistentDataPath, fileName) as GameData;
             
             foreach (var obj in dataManagers)
             {
@@ -52,6 +53,12 @@ namespace DataPersistence
             }
 
             onLoadGame.Invoke(gameData); // for MonoBehaviours
+        }
+
+        public void NewGame()
+        {
+            gameData = new GameData();
+            SaveGame();
         }
     }
 }

@@ -1,5 +1,6 @@
+using System;
 using DataPersistence;
-using DataPersistence.GameDataFiles;
+using DataPersistence.DataFiles;
 using UnityEngine;
 
 namespace Player
@@ -7,7 +8,7 @@ namespace Player
     /// <summary>
     /// Class that processes mouse input (used with <see cref="InputController"/>)
     /// </summary>
-    public class PlayerLook : MonoBehaviour, IDataPersistence
+    public class PlayerLook : MonoBehaviour, IGameDataPersistence, IOptionsDataPersistence
     {
         [SerializeField] private float mouseSensitivity;
 
@@ -15,9 +16,13 @@ namespace Player
 
         private float verticalRotation;
 
-        private void Start()
+        private void Awake()
         {
             cam = GetComponentInChildren<Camera>();
+        }
+
+        private void Start()
+        {
             Cursor.lockState = CursorLockMode.Locked;
         }
 
@@ -27,8 +32,8 @@ namespace Player
         /// <param name="input">Mouse input from <see cref="InputController"/></param>
         public void ProcessLook(Vector2 input)
         {
-            float mouseX = input.x;
-            float mouseY = input.y;
+            var mouseX = input.x;
+            var mouseY = input.y;
 
             verticalRotation -= mouseY * mouseSensitivity;
             verticalRotation = Mathf.Clamp(verticalRotation, -90f, 90f);
@@ -43,5 +48,15 @@ namespace Player
 
         public void OnLoad(GameData data)
             => cam.transform.rotation = data.cameraRotation;
+
+        public void SaveOptionsToFile(OptionsData data)
+        {
+            data.mouseSensitivity = mouseSensitivity;
+        }
+
+        public void LoadOptionsFromFile(OptionsData data)
+        {
+            mouseSensitivity = data.mouseSensitivity;
+        }
     }
 }

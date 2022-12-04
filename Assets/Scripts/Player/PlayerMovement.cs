@@ -1,6 +1,7 @@
+using System;
 using System.Collections;
 using DataPersistence;
-using DataPersistence.GameDataFiles;
+using DataPersistence.DataFiles;
 using UnityEngine;
 
 namespace Player
@@ -8,7 +9,7 @@ namespace Player
     /// <summary>
     /// Class that processes keyboard input used for moving the player (used with <see cref="InputController"/>).
     /// </summary>
-    public class PlayerMovement : MonoBehaviour, IDataPersistence
+    public class PlayerMovement : MonoBehaviour, IGameDataPersistence
     {
         [Header("Ground Check")] 
         [SerializeField] private Transform groundCheck;
@@ -39,9 +40,13 @@ namespace Player
         
         public bool CanMove { get; private set; }
 
-        private void Start()
+        private void Awake()
         {
             rigidBody = GetComponent<Rigidbody>();
+        }
+
+        private void Start()
+        {
             capsule = GetComponent<CapsuleCollider>();
             
             currentSpeed = moveSpeed;
@@ -130,14 +135,17 @@ namespace Player
 
         public void OnSave(GameData data)
         {
-            data.playerPosition = rigidBody.transform.position;
-            data.playerRotation = rigidBody.transform.rotation;
+            var rigidBodyTransform = rigidBody.transform;
+            data.playerPosition = rigidBodyTransform.position;
+            data.playerRotation = rigidBodyTransform.rotation;
+            data.playerVelocity = rigidBody.velocity;
         }
         
         public void OnLoad(GameData data)
         {
             rigidBody.transform.position = data.playerPosition;
             rigidBody.transform.rotation = data.playerRotation;
+            rigidBody.velocity = data.playerVelocity;
         }
         
         /// <summary>

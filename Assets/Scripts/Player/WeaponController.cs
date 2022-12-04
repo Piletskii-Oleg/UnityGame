@@ -1,5 +1,6 @@
 using System.Collections;
-using DataPersistence.GameDataFiles;
+using DataPersistence;
+using DataPersistence.DataFiles;
 using UnityEngine;
 using Weapons;
 using Weapons.ScriptableObjects;

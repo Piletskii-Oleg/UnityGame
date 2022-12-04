@@ -993,6 +993,7 @@ GameObject:
   - component: {fileID: 222315783}
   - component: {fileID: 222315784}
   - component: {fileID: 222315785}
+  - component: {fileID: 222315786}
   m_Layer: 0
   m_Name: BGMController
   m_TagString: Untagged
@@ -1124,6 +1125,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   manager: {fileID: 11400000, guid: 7223651e7996ed34881561188b2fe158, type: 2}
+--- !u!114 &222315786
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 222315782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6764f96c2cb4b6284ac7bb56a75bd50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dataManager: {fileID: 11400000, guid: b95eb12bd5ac9704a87bb9861742978a, type: 2}
+  optionsManager: {fileID: 11400000, guid: 53b4588eed76ae84f9c69d8c5b25c606, type: 2}
 --- !u!1 &225934352
 GameObject:
   m_ObjectHideFlags: 0
@@ -2826,6 +2841,7 @@ GameObject:
   - component: {fileID: 604661547}
   - component: {fileID: 604661548}
   - component: {fileID: 604661549}
+  - component: {fileID: 604661550}
   m_Layer: 0
   m_Name: EventListeners
   m_TagString: Untagged
@@ -3016,6 +3032,34 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: Player.PlayerMovement, Assembly-CSharp
         m_MethodName: StopPulling
         m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &604661550
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 604661542}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 964ed114c69c470ea2640c0a9e9b39d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: 50ad52febfebf5e4787bab11c0cac773, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 111919194}
+        m_TargetAssemblyTypeName: Player.PlayerLook, Assembly-CSharp
+        m_MethodName: LoadOptionsFromFile
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
