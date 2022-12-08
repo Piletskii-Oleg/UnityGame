@@ -3,10 +3,26 @@ using UnityEngine;
 
 namespace DataPersistence
 {
-    public abstract class OptionsDataManager : ScriptableObject
+    [CreateAssetMenu(menuName = "Managers/Options Data Manager")]
+    public class OptionsDataManager : BaseDataManager<OptionsData, DataManager<OptionsData>>
     {
-        public abstract void SaveOptions(OptionsData data);
-        
-        public abstract void LoadOptions(OptionsData data);
+        [field: SerializeField] public float MouseSensitivity { get; set; }
+
+        public override void Save()
+        {
+            data.mouseSensitivity = MouseSensitivity;
+            
+            base.Save();
+        }
+
+        public override void Load()
+        {
+            base.Load();
+
+            MouseSensitivity = data.mouseSensitivity;
+        }
+
+        public void SetMouseSensitivity(string sensitivity)
+            => MouseSensitivity = float.Parse(sensitivity);
     }
 }

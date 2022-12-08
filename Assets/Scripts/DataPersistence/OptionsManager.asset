@@ -12,13 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 245c4a0b162045cfbe9427b8d59a58e7, type: 3}
   m_Name: OptionsManager
   m_EditorClassIdentifier: 
-  <OptionsData>k__BackingField:
-    musicVolume: 0
-    soundVolume: 0
-    mouseSensitivity: 0
   dataManagers:
   - {fileID: 11400000, guid: 7223651e7996ed34881561188b2fe158, type: 2}
-  onSaveOptions:
+  fileName: options.json
+  onSaveGame:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 11400000, guid: 44967c7d63be66c449692ef33bb29052, type: 2}
@@ -34,7 +31,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  onLoadOptions:
+  onLoadGame:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 11400000, guid: 50ad52febfebf5e4787bab11c0cac773, type: 2}
@@ -50,3 +47,4 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  <MouseSensitivity>k__BackingField: 4234234

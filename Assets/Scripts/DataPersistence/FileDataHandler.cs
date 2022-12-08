@@ -1,5 +1,4 @@
 ﻿using System.IO;
-using DataPersistence.DataFiles;
 using UnityEngine;
 
 namespace DataPersistence
@@ -10,13 +9,13 @@ namespace DataPersistence
     public static class FileDataHandler
     {
         /// <summary>
-        /// Loads <see cref="GameData"/> from a file.
+        /// Loads <see cref="TData"/> from a file.
         /// </summary>
         /// <param name="directory">Directory in which file is contained.</param>
         /// <param name="dataFileName">Name of the save file.</param>
-        /// <returns><see cref="GameData"/> with all the data loaded from the file.</returns>
+        /// <returns>Data with all the data loaded from the file.</returns>
         /// <exception cref="FileNotFoundException">Throws if file was not found.</exception>
-        public static object Load<T>(string directory, string dataFileName)
+        public static object Load<TData>(string directory, string dataFileName)
         {
             var fullPath = Path.Combine(directory, dataFileName);
             if (!File.Exists(fullPath))
@@ -28,13 +27,13 @@ namespace DataPersistence
             using var reader = new StreamReader(stream);
             var dataToLoad = reader.ReadToEnd();
 
-            return JsonUtility.FromJson<T>(dataToLoad);
+            return JsonUtility.FromJson<TData>(dataToLoad);
         }
 
         /// <summary>
-        /// Saves <see cref="GameData"/> to a file.
+        /// Saves data to a file.
         /// </summary>
-        /// <param name="data"><see cref="GameData"/> to save.</param>
+        /// <param name="data">Data to save.</param>
         /// <param name="directory">Directory in which file is to be contained.</param>
         /// <param name="dataFileName">Name of the save file.</param>
         public static void Save(object data, string directory, string dataFileName)

@@ -10,17 +10,19 @@ namespace Inventory.ScriptableObjects
     /// Player's inventory manager.
     /// </summary>
     [CreateAssetMenu(fileName = "Inventory Manager", menuName = "Managers/Inventory Manager")]
-    public class InventoryManager : DataManager
+    public class InventoryManager : DataManager<GameData>
     {
         private readonly Dictionary<InventoryItemData, InventoryItem> itemDictionary = new ();
 
         [SerializeField] private UnityEvent onInventoryChangedEvent;
         [SerializeField] private UnityEvent<string> onItemChosenEvent;
-
+        
+        [SerializeField] private List<InventoryItem> items = new ();
+        
         /// <summary>
-        /// Gets list of <see cref="InventoryItem"/> stored in the inventory.
+        /// Gets read-only copy of the list list of <see cref="InventoryItem"/> stored in the inventory.
         /// </summary>
-        [field:SerializeField] public List<InventoryItem> Items { get; private set; } = new ();
+        public IReadOnlyList<InventoryItem> Items => items;
 
         /// <summary>
         /// Updates item dictionary so that its contents are same as <see cref="Items"/>.
@@ -49,7 +51,7 @@ namespace Inventory.ScriptableObjects
             else
             {
                 var newItem = new InventoryItem(inventoryItemData);
-                Items.Add(newItem);
+                items.Add(newItem);
                 itemDictionary.Add(inventoryItemData, newItem);
 
                 if (inventoryItemData.canHandle)
@@ -73,7 +75,7 @@ namespace Inventory.ScriptableObjects
 
                 if (value.StackSize == 0)
                 {
-                    Items.Remove(value);
+                    items.Remove(value);
                     itemDictionary.Remove(inventoryItemData);
                 }
 
@@ -115,11 +117,11 @@ namespace Inventory.ScriptableObjects
         }
 
         public override void SaveData(GameData data)
-            => data.storedItems = Items;
+            => data.storedItems = items;
 
         public override void LoadData(GameData data)
         {
-            Items = data.storedItems;
+            items = data.storedItems;
             this.UpdateItemsList();
         }
     }

@@ -10,7 +10,7 @@ namespace Weapons.ScriptableObjects
     /// Manages the weapons on the player.
     /// </summary>
     [CreateAssetMenu(fileName = "Weapon Manager", menuName = "Managers/Weapon Manager")]
-    public class WeaponManager : DataManager
+    public class WeaponManager : DataManager<GameData>
     {
         [SerializeField] private List<GunItem> weapons;
 
@@ -84,6 +84,7 @@ namespace Weapons.ScriptableObjects
 
         public override void SaveData(GameData data)
         {
+            data = data as GameData;
             data.storedWeapons = weapons;
             data.currentWeaponIndex = CurrentIndex;
         }

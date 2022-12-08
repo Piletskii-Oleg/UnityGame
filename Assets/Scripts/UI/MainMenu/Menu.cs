@@ -2,17 +2,18 @@
 using DataPersistence;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 namespace UI.MainMenu
 {
     public class Menu : MonoBehaviour
     {
-        [SerializeField] private DataPersistenceManager dataManager;
-        [SerializeField] private OptionsManager optionsManager;
+        [FormerlySerializedAs("dataManager")] [SerializeField] private GameDataManager gameDataManager;
+        [FormerlySerializedAs("optionsManager")] [SerializeField] private OptionsDataManager optionsDataManager;
         
         public void StartNewGame()
         {
-            dataManager.NewGame();
+           // gameDataManager.NewGame();
             SceneManager.LoadScene("World");
         }
 
@@ -23,7 +24,7 @@ namespace UI.MainMenu
 
         private void OnEnable()
         {
-            optionsManager.LoadOptions();
+            optionsDataManager.Load();
         }
     }
 }

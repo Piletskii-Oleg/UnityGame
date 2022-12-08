@@ -1,11 +1,12 @@
 ﻿using DataPersistence;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 public class SceneController : MonoBehaviour
 {
-    [SerializeField] private DataPersistenceManager dataManager;
-    [SerializeField] private OptionsManager optionsManager;
+    [FormerlySerializedAs("dataManager")] [SerializeField] private GameDataManager gameDataManager;
+    [FormerlySerializedAs("optionsManager")] [SerializeField] private OptionsDataManager optionsDataManager;
 
     private void OnEnable()
     {
@@ -19,8 +20,8 @@ public class SceneController : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        optionsManager.LoadOptions();
-        dataManager.LoadGame();
+        optionsDataManager.Load();
+        gameDataManager.Load();
         SceneManager.SetActiveScene(scene);
     }
 }

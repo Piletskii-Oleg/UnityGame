@@ -1,16 +1,18 @@
-using System;
 using DataPersistence;
 using DataPersistence.DataFiles;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Player
 {
     /// <summary>
     /// Class that processes mouse input (used with <see cref="InputController"/>)
     /// </summary>
-    public class PlayerLook : MonoBehaviour, IGameDataPersistence, IOptionsDataPersistence
+    public class PlayerLook : MonoBehaviour, IDataPersistence<OptionsData>, IDataPersistence<GameData>
     {
-        [SerializeField] private float mouseSensitivity;
+        [FormerlySerializedAs("options")]
+        [SerializeField] private OptionsDataManager optionsData;
+        private float sensitivity;
 
         private Camera cam;
 
@@ -18,6 +20,7 @@ namespace Player
 
         private void Awake()
         {
+            sensitivity = optionsData.MouseSensitivity;
             cam = GetComponentInChildren<Camera>();
         }
 
@@ -35,12 +38,12 @@ namespace Player
             var mouseX = input.x;
             var mouseY = input.y;
 
-            verticalRotation -= mouseY * mouseSensitivity;
+            verticalRotation -= mouseY * sensitivity;
             verticalRotation = Mathf.Clamp(verticalRotation, -90f, 90f);
 
             cam.transform.localRotation = Quaternion.Euler(verticalRotation, 0, 0);
 
-            transform.Rotate(mouseX * mouseSensitivity * Vector3.up);
+            transform.Rotate(mouseX * sensitivity * Vector3.up);
         }
 
         public void OnSave(GameData data)
@@ -49,14 +52,14 @@ namespace Player
         public void OnLoad(GameData data)
             => cam.transform.rotation = data.cameraRotation;
 
-        public void SaveOptionsToFile(OptionsData data)
+        public void OnSave(OptionsData data)
         {
-            data.mouseSensitivity = mouseSensitivity;
+            data.mouseSensitivity = sensitivity;
         }
 
-        public void LoadOptionsFromFile(OptionsData data)
+        public void OnLoad(OptionsData data)
         {
-            mouseSensitivity = data.mouseSensitivity;
+            sensitivity = data.mouseSensitivity;
         }
     }
 }

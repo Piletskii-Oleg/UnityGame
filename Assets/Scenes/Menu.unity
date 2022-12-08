@@ -867,8 +867,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76d4f414618948af9424bd5ef8e0c2c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dataManager: {fileID: 11400000, guid: b95eb12bd5ac9704a87bb9861742978a, type: 2}
-  optionsManager: {fileID: 11400000, guid: 53b4588eed76ae84f9c69d8c5b25c606, type: 2}
+  gameDataManager: {fileID: 11400000, guid: b95eb12bd5ac9704a87bb9861742978a, type: 2}
+  optionsDataManager: {fileID: 11400000, guid: 53b4588eed76ae84f9c69d8c5b25c606, type: 2}
 --- !u!1 &419617273
 GameObject:
   m_ObjectHideFlags: 0
@@ -1836,7 +1836,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f65974e4d3124843b0f228d1e1ffe7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  manager: {fileID: 11400000, guid: 53b4588eed76ae84f9c69d8c5b25c606, type: 2}
+  musicManager: {fileID: 11400000, guid: 7223651e7996ed34881561188b2fe158, type: 2}
+  optionsDataManager: {fileID: 11400000, guid: 53b4588eed76ae84f9c69d8c5b25c606, type: 2}
   musicSlider: {fileID: 2107322793}
   soundSlider: {fileID: 1308239930}
   sensitivityPlaceholder: {fileID: 1536406567}
@@ -3200,8 +3201,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 11400000, guid: 53b4588eed76ae84f9c69d8c5b25c606, type: 2}
-        m_TargetAssemblyTypeName: DataPersistence.OptionsManager, Assembly-CSharp
-        m_MethodName: SaveOptions
+        m_TargetAssemblyTypeName: DataPersistence.OptionsDataManager, Assembly-CSharp
+        m_MethodName: Save
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

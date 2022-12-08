@@ -9,7 +9,7 @@ namespace Sound
     /// Stores and manages information about music and sound effects.
     /// </summary>
     [CreateAssetMenu(fileName = "Music Manager", menuName = "Managers/Music Manager")]
-    public class MusicManager : OptionsDataManager
+    public class MusicManager : DataManager<OptionsData>
     {
         [field: Range(0, 1f)]
         [field:SerializeField] public float MusicVolume { get; set; }
@@ -19,13 +19,13 @@ namespace Sound
 
         [SerializeField] private UnityEvent<float> onSoundVolumeChanged;
         
-        public override void LoadOptions(OptionsData data)
+        public override void LoadData(OptionsData data)
         {
             MusicVolume = data.musicVolume;
             SoundVolume = data.soundVolume;
         }
 
-        public override void SaveOptions(OptionsData data)
+        public override void SaveData(OptionsData data)
         {
             data.musicVolume = MusicVolume;
             data.soundVolume = SoundVolume;

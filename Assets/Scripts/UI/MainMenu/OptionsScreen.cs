@@ -1,14 +1,18 @@
 using DataPersistence;
+using DataPersistence.DataFiles;
+using Sound;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace UI.MainMenu
 {
     public class OptionsScreen : MonoBehaviour
     {
-        [Header("Options Manager")]
-        [SerializeField] private OptionsManager manager;
+        [Header("Managers")]
+        [SerializeField] private MusicManager musicManager;
+        [FormerlySerializedAs("optionsManager")] [SerializeField] private OptionsDataManager optionsDataManager;
     
         [Header("Music and Sound")]
         [SerializeField] private Slider musicSlider;
@@ -19,10 +23,10 @@ namespace UI.MainMenu
 
         private void OnEnable()
         {
-            musicSlider.value = manager.OptionsData.musicVolume;
-            soundSlider.value = manager.OptionsData.soundVolume;
+            musicSlider.value = musicManager.MusicVolume;
+            soundSlider.value = musicManager.SoundVolume;
         
-            sensitivityPlaceholder.GetComponent<TextMeshProUGUI>().text = manager.OptionsData.mouseSensitivity.ToString();
+            sensitivityPlaceholder.GetComponent<TextMeshProUGUI>().text = optionsDataManager.MouseSensitivity.ToString();
         }
     }
 }

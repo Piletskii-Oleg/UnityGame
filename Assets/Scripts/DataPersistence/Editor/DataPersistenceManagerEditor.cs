@@ -4,13 +4,13 @@ using UnityEngine;
 namespace DataPersistence.Editor
 {
     /// <summary>
-    /// Creates custom inspector for <see cref="DataPersistenceManager"/>.
+    /// Creates custom inspector for <see cref="GameDataManager"/>.
     /// </summary>
-    [CustomEditor(typeof(DataPersistenceManager), editorForChildClasses: false)]
+    [CustomEditor(typeof(GameDataManager), editorForChildClasses: false)]
     public class DataPersistenceManagerEditor : UnityEditor.Editor
     {
         /// <summary>
-        /// Adds Save and Load buttons that call the respective methods from <see cref="DataPersistenceManager"/>.
+        /// Adds Save and Load buttons that call the respective methods from <see cref="GameDataManager"/>.
         /// </summary>
         public override void OnInspectorGUI()
         {
@@ -18,15 +18,15 @@ namespace DataPersistence.Editor
 
             GUI.enabled = Application.isPlaying;
 
-            var manager = target as DataPersistenceManager;
+            var manager = target as GameDataManager;
             if (GUILayout.Button("Save"))
             {
-                manager.SaveGame();
+                manager.Save();
             }
 
             if (GUILayout.Button("Load"))
             {
-                manager.LoadGame();
+                manager.Load();
             }
         }
     }

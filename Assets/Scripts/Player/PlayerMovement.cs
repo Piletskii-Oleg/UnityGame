@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using DataPersistence;
 using DataPersistence.DataFiles;
@@ -9,7 +8,7 @@ namespace Player
     /// <summary>
     /// Class that processes keyboard input used for moving the player (used with <see cref="InputController"/>).
     /// </summary>
-    public class PlayerMovement : MonoBehaviour, IGameDataPersistence
+    public class PlayerMovement : MonoBehaviour, IDataPersistence<GameData>
     {
         [Header("Ground Check")] 
         [SerializeField] private Transform groundCheck;
