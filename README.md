@@ -1,8 +1,8 @@
 # How to open
-1. Download last version of Unity Editor
+1. Download latest version of Unity Editor
 2. Open the project's folder using Unity Editor
 3. Wait for the project to load
-4. 
+4. Press File > Build and Run
 
 # Used assets
 ## Unity Technologies
