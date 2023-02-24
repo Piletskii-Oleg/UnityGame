@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using DataPersistence;
 using DataPersistence.DataFiles;
@@ -15,6 +16,8 @@ namespace Weapons.ScriptableObjects
         [SerializeField] private List<GunItem> weapons;
 
         [SerializeField] private UnityEvent onChangeWeapon;
+
+        [SerializeField] private WeaponDataList allWeaponsData;
 
         /// <summary>
         /// Gets index of the weapon currently held by the player.
@@ -84,14 +87,19 @@ namespace Weapons.ScriptableObjects
 
         public override void SaveData(GameData data)
         {
-            data = data as GameData;
-            data.storedWeapons = weapons;
             data.currentWeaponIndex = CurrentIndex;
+            data.storedWeapons = weapons;
         }
 
         public override void LoadData(GameData data)
         {
             weapons = data.storedWeapons;
+            foreach (var item in weapons)
+            {
+                var foundData = allWeaponsData.weapons.Find(value => value.showName == item.Name);
+                item.SetData(foundData);
+            }
+            
             CurrentIndex = data.currentWeaponIndex;
         }
     }

@@ -10,6 +10,8 @@ namespace Inventory
     [Serializable]
     public class InventoryItem
     {
+        [field:SerializeField] public string Name { get; private set; }
+        
         [field:SerializeField] public InventoryItemData Data { get; private set; }
 
         [field: SerializeField] public int StackSize { get; private set; }
@@ -21,7 +23,13 @@ namespace Inventory
         public InventoryItem(InventoryItemData data)
         {
             Data = data;
+            Name = data.name;
             AddToStack();
+        }
+        
+        public void SetData(InventoryItemData data)
+        {
+            this.Data = data;
         }
 
         /// <summary>

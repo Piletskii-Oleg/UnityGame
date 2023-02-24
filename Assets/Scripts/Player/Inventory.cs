@@ -12,7 +12,7 @@ namespace Player
 
         private void Start()
         {
-            // inventoryManager.UpdateItemsList();
+         //   inventoryManager.UpdateItemsList();
         }
     }
 }

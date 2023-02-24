@@ -15,7 +15,7 @@ namespace DataPersistence
         /// <param name="dataFileName">Name of the save file.</param>
         /// <returns>Data with all the data loaded from the file.</returns>
         /// <exception cref="FileNotFoundException">Throws if file was not found.</exception>
-        public static object Load<TData>(string directory, string dataFileName)
+        public static TData Load<TData>(string directory, string dataFileName)
         {
             var fullPath = Path.Combine(directory, dataFileName);
             if (!File.Exists(fullPath))
@@ -36,7 +36,7 @@ namespace DataPersistence
         /// <param name="data">Data to save.</param>
         /// <param name="directory">Directory in which file is to be contained.</param>
         /// <param name="dataFileName">Name of the save file.</param>
-        public static void Save(object data, string directory, string dataFileName)
+        public static void Save<TData>(TData data, string directory, string dataFileName)
         {
             var fullPath = Path.Combine(directory, dataFileName);
 

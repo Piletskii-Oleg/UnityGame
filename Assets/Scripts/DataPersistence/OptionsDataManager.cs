@@ -10,7 +10,7 @@ namespace DataPersistence
 
         public override void Save()
         {
-            data.mouseSensitivity = MouseSensitivity;
+            storedData.mouseSensitivity = MouseSensitivity;
             
             base.Save();
         }
@@ -19,7 +19,7 @@ namespace DataPersistence
         {
             base.Load();
 
-            MouseSensitivity = data.mouseSensitivity;
+            MouseSensitivity = storedData.mouseSensitivity;
         }
 
         public void SetMouseSensitivity(string sensitivity)

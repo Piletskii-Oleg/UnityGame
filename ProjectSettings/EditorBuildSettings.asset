@@ -15,4 +15,5 @@ EditorBuildSettings:
     path: Assets/Scenes/IconGenerationScene.unity
     guid: 153c3ba9e815dbd439f6183533f5146f
   m_configObjects:
+    com.unity.addressableassets: {fileID: 11400000, guid: ce23ec2dccf55b64fbc736c90d7940ef, type: 2}
     com.unity.input.settings: {fileID: 11400000, guid: 3d2d83c695899c0479369a47828914af, type: 2}

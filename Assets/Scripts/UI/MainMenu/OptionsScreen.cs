@@ -12,7 +12,8 @@ namespace UI.MainMenu
     {
         [Header("Managers")]
         [SerializeField] private MusicManager musicManager;
-        [FormerlySerializedAs("optionsManager")] [SerializeField] private OptionsDataManager optionsDataManager;
+        [FormerlySerializedAs("optionsManager")]
+        [SerializeField] private OptionsDataManager optionsDataManager;
     
         [Header("Music and Sound")]
         [SerializeField] private Slider musicSlider;

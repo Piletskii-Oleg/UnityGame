@@ -11,7 +11,7 @@ namespace DataPersistence
     {
         public void NewGame()
         {
-            data = new GameData();
+            storedData = new GameData();
             Save();
         }
     }

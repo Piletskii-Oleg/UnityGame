@@ -10,11 +10,13 @@ namespace Weapons
     [Serializable]
     public class GunItem
     {
+        [field:SerializeField] public string Name { get; private set; }
+        
         /// <summary>
         /// Stores <see cref="GunData"/> of a gun.
         /// </summary>
         [field:SerializeField] public GunData Data { get; private set; }
-        
+
         /// <summary>
         /// Gets value indicating whether player has this weapon or not.
         /// </summary>
@@ -32,6 +34,12 @@ namespace Weapons
         public GunItem(GunData data)
         {
             Data = data;
+            Name = data.name;
+        }
+
+        public void SetData(GunData data)
+        {
+            this.Data = data;
         }
 
         /// <summary>

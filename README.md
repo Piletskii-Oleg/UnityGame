@@ -1,5 +1,8 @@
 # How to open
-Open the project's folder using Unity Editor 2021.3.13f1
+1. Download last version of Unity Editor
+2. Open the project's folder using Unity Editor
+3. Wait for the project to load
+4. 
 
 # Used assets
 ## Unity Technologies

@@ -10,7 +10,7 @@ namespace Weapons
     /// <summary>
     /// Implementation of a grappling gun that pulls the player to the destination point.
     /// </summary>
-    public class GrappleGunPull : MonoBehaviour, IWeapon, IVolume
+    public class GrapplingGun : MonoBehaviour, IWeapon, IVolume
     {
         [Header("Gun Info")]
         [SerializeField] private GunData gunData;

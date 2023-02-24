@@ -18,6 +18,8 @@ namespace Inventory.ScriptableObjects
         [SerializeField] private UnityEvent<string> onItemChosenEvent;
         
         [SerializeField] private List<InventoryItem> items = new ();
+
+        [SerializeField] private InventoryItemDataList allItemsList;
         
         /// <summary>
         /// Gets read-only copy of the list list of <see cref="InventoryItem"/> stored in the inventory.
@@ -122,6 +124,12 @@ namespace Inventory.ScriptableObjects
         public override void LoadData(GameData data)
         {
             items = data.storedItems;
+            foreach (var item in items)
+            {
+                var foundData = allItemsList.itemsList.Find(value => value.displayName == item.Name);
+                item.SetData(foundData);
+            }
+            
             this.UpdateItemsList();
         }
     }

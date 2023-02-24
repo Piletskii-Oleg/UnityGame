@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using DataPersistence.DataFiles;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -9,13 +8,13 @@ namespace DataPersistence
         where TManager : DataManager<TData>
         where TData : class
     {
-        [Tooltip("Managers that deal with data that should be saved or loaded.")]
+        [Tooltip("Managers that deal with storedData that should be saved or loaded.")]
         [SerializeField] protected List<TManager> dataManagers;
 
         [Tooltip("Name of the file where info is saved")]
         [SerializeField] protected string fileName;
         
-        protected TData data;
+        protected TData storedData;
         
         [Header("Events")]
         [SerializeField] protected UnityEvent<TData> onSaveGame;
@@ -27,30 +26,30 @@ namespace DataPersistence
         /// </summary>
         public virtual void Save()
         {
-            onSaveGame.Invoke(data); // for MonoBehaviours
+            onSaveGame.Invoke(storedData); // for MonoBehaviours
             
             foreach (var obj in dataManagers)
             {
-                obj.SaveData(data);
+                obj.SaveData(storedData);
             }
 
-            FileDataHandler.Save(data, Application.persistentDataPath, fileName);
+            FileDataHandler.Save(storedData, Application.persistentDataPath, fileName);
         }
         
         /// <summary>
         /// Invokes OnLoadGame event on all <see cref="MonoBehaviour"/>s it is attached to
-        /// and loads data to all <see cref="DataManager{TData}"/>.
+        /// and loads stored data to all <see cref="DataManager{TData}"/>.
         /// </summary>
         public virtual void Load()
         {
-            data = FileDataHandler.Load<TData>(Application.persistentDataPath, fileName) as TData;
+            storedData = FileDataHandler.Load<TData>(Application.persistentDataPath, fileName);
             
             foreach (var obj in dataManagers)
             {
-                obj.LoadData(data);
+                obj.LoadData(storedData);
             }
 
-            onLoadGame.Invoke(data); // for MonoBehaviours
+            onLoadGame.Invoke(storedData); // for MonoBehaviours
         }
     }
 }

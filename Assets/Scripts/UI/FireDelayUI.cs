@@ -31,10 +31,10 @@ namespace UI
         public void FillBar()
         {
             slider.value = 0;
-            StartCoroutine(FillBarByTime());
+            StartCoroutine(FillDelayBar());
         }
 
-        private IEnumerator FillBarByTime()
+        private IEnumerator FillDelayBar()
         {
             while (slider.value < 1)
             {
