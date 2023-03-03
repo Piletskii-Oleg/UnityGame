@@ -10,8 +10,9 @@ namespace Player
     /// </summary>
     public class PlayerLook : MonoBehaviour, IDataPersistence<OptionsData>, IDataPersistence<GameData>
     {
-        [FormerlySerializedAs("options")]
-        [SerializeField] private OptionsDataManager optionsData;
+        [FormerlySerializedAs("options")] [SerializeField]
+        private OptionsDataManager optionsData;
+
         private float sensitivity;
 
         private Camera cam;
@@ -53,13 +54,9 @@ namespace Player
             => cam.transform.rotation = data.cameraRotation;
 
         public void OnSave(OptionsData data)
-        {
-            data.mouseSensitivity = sensitivity;
-        }
+            => data.mouseSensitivity = sensitivity;
 
         public void OnLoad(OptionsData data)
-        {
-            sensitivity = data.mouseSensitivity;
-        }
+            => sensitivity = data.mouseSensitivity;
     }
 }

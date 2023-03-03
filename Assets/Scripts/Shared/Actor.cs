@@ -18,9 +18,10 @@ namespace Shared
         /// Used when the actor takes damage.
         /// </summary>
         /// <param name="damage">Damage taken.</param>
-        public void OnTakeDamage(float damage, ActorAffiliation affiliation)
+        /// <param name="actorAffiliation">Actor that tries to inflict damage.</param>
+        public void OnTakeDamage(float damage, ActorAffiliation actorAffiliation)
         {
-            if (this.affiliation.enemyFractions.Contains(affiliation))
+            if (this.affiliation.enemyFractions.Contains(actorAffiliation))
             {
                 onTakeDamage.Invoke(damage);
             }
