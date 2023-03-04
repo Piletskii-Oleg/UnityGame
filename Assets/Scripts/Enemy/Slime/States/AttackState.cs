@@ -1,9 +1,11 @@
-﻿namespace Enemy.Slime.States
+﻿using UnityEngine;
+
+namespace Enemy.Slime.States
 {
     public class AttackState : BaseState
     {
-        public AttackState(Slime actor, SlimeStateMachine stateMachine)
-            : base(actor, stateMachine)
+        public AttackState(Slime actor, SlimeStateMachine stateMachine, Texture stateFace)
+            : base(actor, stateMachine, stateFace)
         {
         }
 

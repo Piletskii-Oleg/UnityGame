@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17c31a93f53945548deba87f62da08da, type: 3}
   m_Name: SlimeFaces
   m_EditorClassIdentifier: 
-  idleFace: {fileID: 0}
-  walkFace: {fileID: 0}
-  jumpFace: {fileID: 0}
-  attackFace: {fileID: 0}
-  damageFace: {fileID: 0}
+  idleFace: {fileID: 2800000, guid: 2e0e5994249a31640bf4045362e1333e, type: 3}
+  jumpFace: {fileID: 2800000, guid: f261f5e5642a122459949a398033d017, type: 3}
+  walkFace: {fileID: 2800000, guid: a199070e943674e4fb723dd5bfedfa91, type: 3}
+  attackFace: {fileID: 2800000, guid: 782203f93d5b797459a22445a1f1299d, type: 3}
+  damageFace: {fileID: 2800000, guid: b05ea8b41aaa2f240ac3a19fd77afbc7, type: 3}

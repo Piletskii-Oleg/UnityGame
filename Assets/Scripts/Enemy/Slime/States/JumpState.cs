@@ -7,19 +7,20 @@ namespace Enemy.Slime.States
         private static readonly int jumpAnimationHash = Animator.StringToHash("Jump");
 
         private bool isJumping;
-        
+
+        public JumpState(Slime actor, SlimeStateMachine stateMachine, Texture stateFace)
+            : base(actor, stateMachine, stateFace)
+        {
+        }
+
         private void Jump()
         {
             actor.TriggerAnimation(jumpAnimationHash);
         }
 
-        public JumpState(Slime actor, SlimeStateMachine stateMachine)
-            : base(actor, stateMachine)
-        {
-        }
-
         public override void Enter()
         {
+            base.Enter();
             isJumping = true;
             Jump();
         }

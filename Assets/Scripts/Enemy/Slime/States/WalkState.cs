@@ -9,8 +9,8 @@ namespace Enemy.Slime.States
         private int currentWaypointIndex;
         private Transform[] waypoints;
 
-        public WalkState(Slime actor, SlimeStateMachine stateMachine, Transform[] waypoints)
-            : base(actor, stateMachine)
+        public WalkState(Slime actor, SlimeStateMachine stateMachine, Texture stateFace, Transform[] waypoints)
+            : base(actor, stateMachine, stateFace)
         {
             this.waypoints = waypoints;
             currentWaypointIndex = 0;
@@ -18,6 +18,7 @@ namespace Enemy.Slime.States
 
         public override void Enter()
         {
+            base.Enter();
             currentWaypointIndex = (currentWaypointIndex + 1) % waypoints.Length;
             StartWalking();
         }

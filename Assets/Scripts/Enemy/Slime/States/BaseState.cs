@@ -1,17 +1,24 @@
-﻿namespace Enemy.Slime.States
+﻿using UnityEngine;
+
+namespace Enemy.Slime.States
 {
     public abstract class BaseState
     {
+        protected Texture stateFace;
         protected Slime actor;
         protected SlimeStateMachine stateMachine;
 
-        protected BaseState(Slime actor, SlimeStateMachine stateMachine)
+        protected BaseState(Slime actor, SlimeStateMachine stateMachine, Texture stateFace)
         {
             this.actor = actor;
             this.stateMachine = stateMachine;
+            this.stateFace = stateFace;
         }
 
-        public abstract void Enter();
+        public virtual void Enter()
+        {
+            actor.SetFace(stateFace);
+        }
 
         public abstract void Tick();
         

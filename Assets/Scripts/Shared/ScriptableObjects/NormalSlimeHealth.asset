@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 502f1688d8e7e86438e596217c5a169e, type: 3}
   m_Name: NormalSlimeHealth
   m_EditorClassIdentifier: 
-  name: 
-  maxHealth: 0
-  currentHealth: 0
+  name: NormalSlime
+  maxHealth: 60
+  currentHealth: 60
   isInvincible: 0
   criticalHealthRatio: 0

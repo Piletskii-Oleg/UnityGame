@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Linq;
 using Enemy.Slime.States;
 using Shared;
 using Shared.ScriptableObjects;
@@ -10,12 +11,18 @@ namespace Enemy.Slime
 {
     public class Slime : Actor
     {
+        private static readonly int mainTex = Shader.PropertyToID("_MainTex");
+        
         private NavMeshAgent agent;
         private Animator animator;
+        private AnimationClip[] animationClips;
         private SlimeStateMachine stateMachine;
-        private SlimeFacesList facesList;
+        private Material faceMaterial;
 
+        [SerializeField] private GameObject slimeModel;
+        [SerializeField] private SlimeFacesList facesList;
         [SerializeField] private Transform[] waypoints;
+        
 
         public IdleState IdleState { get; private set; }
 
@@ -26,20 +33,23 @@ namespace Enemy.Slime
         public AttackState AttackState { get; private set; }
 
         public NavMeshAgent Agent => agent;
+        
         public Animator Animator => animator;
 
         private void Start()
         {
             agent = GetComponent<NavMeshAgent>();
             animator = GetComponent<Animator>();
+            animationClips = animator.runtimeAnimatorController.animationClips;
+            faceMaterial = slimeModel.GetComponent<Renderer>().materials[1];
 
             stateMachine = new SlimeStateMachine(facesList);
             
-            IdleState = new IdleState(this, stateMachine);
-            WalkState = new WalkState(this, stateMachine, waypoints);
-            DamagedState = new DamagedState(this, stateMachine);
-            AttackState = new AttackState(this, stateMachine);
-            
+            IdleState = new IdleState(this, stateMachine, facesList.idleFace);
+            WalkState = new WalkState(this, stateMachine, facesList.walkFace, waypoints);
+            DamagedState = new DamagedState(this, stateMachine, facesList.damageFace);
+            AttackState = new AttackState(this, stateMachine, facesList.attackFace);
+
             stateMachine.Initialize(this.IdleState);
         }
 
@@ -50,9 +60,7 @@ namespace Enemy.Slime
         }
 
         private void Update()
-        {
-            stateMachine.CurrentState.Tick();
-        }
+            => stateMachine.CurrentState.Tick();
 
         public void SetAnimationValue(int animationHash, float value)
             => animator.SetFloat(animationHash, value);
@@ -65,6 +73,9 @@ namespace Enemy.Slime
 
         public void TriggerAnimation(int animationHash)
             => animator.SetTrigger(animationHash);
+        
+        public void SetFace(Texture texture)
+            => faceMaterial.SetTexture(mainTex, texture);
 
         private void OnAnimatorMove()
         {

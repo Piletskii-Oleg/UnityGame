@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   friendlyFractions:
   - {fileID: 11400000}
-  enemyFractions: []
+  enemyFractions:
+  - {fileID: 11400000, guid: 0f2dfe323f3b2b04888eb71b899885e4, type: 2}
   neutralFractions: []

@@ -16,13 +16,14 @@ namespace Enemy.Slime.States
 
         private bool isAggroed;
         
-        public IdleState(Slime actor, SlimeStateMachine stateMachine)
-            : base(actor, stateMachine)
+        public IdleState(Slime actor, SlimeStateMachine stateMachine, Texture stateFace)
+            : base(actor, stateMachine, stateFace)
         {
         }
 
         public override void Enter()
         {
+            base.Enter();
             Stop();
             timeLimit = Random.Range(minIdleTime, maxIdleTime);
             timePassed = 0f;
