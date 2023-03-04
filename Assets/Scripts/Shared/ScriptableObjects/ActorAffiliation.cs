@@ -6,7 +6,7 @@ namespace Shared.ScriptableObjects
     /// <summary>
     /// Data for the affiliation of an <see cref="Actor"/>.
     /// </summary>
-    [CreateAssetMenu(fileName = "Actor Affiliation")]
+    [CreateAssetMenu(menuName = "Actor/Affiliation")]
     public class ActorAffiliation : ScriptableObject
     {
         [Tooltip("Actors that are friendly to this actor.")]

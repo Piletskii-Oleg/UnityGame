@@ -5,7 +5,7 @@ namespace Shared.ScriptableObjects
     /// <summary>
     /// Data for health of an entity in the world.
     /// </summary>
-    [CreateAssetMenu(fileName = "Health")]
+    [CreateAssetMenu(menuName = "Data/Health Data")]
     public class HealthData : ScriptableObject
     {
         [Header("Info")]

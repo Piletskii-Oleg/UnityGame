@@ -19,7 +19,7 @@ namespace Shared
         /// </summary>
         /// <param name="damage">Damage taken.</param>
         /// <param name="actorAffiliation">Actor that tries to inflict damage.</param>
-        public void OnTakeDamage(float damage, ActorAffiliation actorAffiliation)
+        public virtual void OnTakeDamage(float damage, ActorAffiliation actorAffiliation)
         {
             if (this.affiliation.enemyFractions.Contains(actorAffiliation))
             {

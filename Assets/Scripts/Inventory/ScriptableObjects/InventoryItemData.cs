@@ -5,7 +5,7 @@ namespace Inventory.ScriptableObjects
     /// <summary>
     /// Stores information about an inventory item.
     /// </summary>
-    [CreateAssetMenu]
+    [CreateAssetMenu(menuName = "Data/Inventory Item Data")]
     public class InventoryItemData : ScriptableObject
     {
         [Tooltip("Name displayed on the inventory")]

@@ -6,12 +6,15 @@ namespace Enemy.Slime.States
     public class IdleState : BaseState
     {
         private static readonly int speedAnimationHash = Animator.StringToHash("Speed");
+        private static readonly int doStep = Animator.StringToHash("DoStep");
 
         private float timePassed;
         private float timeLimit;
         
-        private float minIdleTime = 0.3f;
-        private float maxIdleTime = 5f;
+        private readonly float minIdleTime = 0.3f;
+        private readonly float maxIdleTime = 5f;
+
+        private bool isAggroed;
         
         public IdleState(Slime actor, SlimeStateMachine stateMachine)
             : base(actor, stateMachine)
@@ -41,8 +44,8 @@ namespace Enemy.Slime.States
         
         private void Stop()
         {
-            actor.StopAnimation(speedAnimationHash);
-            //actor.Agent.isStopped = true;
+            actor.SetAnimationValue(doStep, false);
+            actor.Agent.isStopped = true;
         }
     }
 }

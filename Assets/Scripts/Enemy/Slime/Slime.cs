@@ -2,6 +2,7 @@
 using System.Collections;
 using Enemy.Slime.States;
 using Shared;
+using Shared.ScriptableObjects;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -11,16 +12,18 @@ namespace Enemy.Slime
     {
         private NavMeshAgent agent;
         private Animator animator;
-
         private SlimeStateMachine stateMachine;
+        private SlimeFacesList facesList;
 
         [SerializeField] private Transform[] waypoints;
 
         public IdleState IdleState { get; private set; }
-        
-        public JumpState JumpState { get; private set; }
 
         public WalkState WalkState { get; private set; }
+        
+        public DamagedState DamagedState { get; private set; }
+        
+        public AttackState AttackState { get; private set; }
 
         public NavMeshAgent Agent => agent;
         public Animator Animator => animator;
@@ -30,13 +33,20 @@ namespace Enemy.Slime
             agent = GetComponent<NavMeshAgent>();
             animator = GetComponent<Animator>();
 
-            stateMachine = new SlimeStateMachine();
+            stateMachine = new SlimeStateMachine(facesList);
             
             IdleState = new IdleState(this, stateMachine);
-            JumpState = new JumpState(this, stateMachine);
             WalkState = new WalkState(this, stateMachine, waypoints);
+            DamagedState = new DamagedState(this, stateMachine);
+            AttackState = new AttackState(this, stateMachine);
             
             stateMachine.Initialize(this.IdleState);
+        }
+
+        public override void OnTakeDamage(float damage, ActorAffiliation actorAffiliation)
+        {
+            base.OnTakeDamage(damage, actorAffiliation);
+            stateMachine.ChangeState(DamagedState);
         }
 
         private void Update()
@@ -47,23 +57,15 @@ namespace Enemy.Slime
         public void SetAnimationValue(int animationHash, float value)
             => animator.SetFloat(animationHash, value);
 
+        public void SetAnimationValue(int animationHash, bool value)
+            => animator.SetBool(animationHash, value);
+
+        public void SetAnimationValue(int animationHash, int value)
+            => animator.SetInteger(animationHash, value);
+
         public void TriggerAnimation(int animationHash)
             => animator.SetTrigger(animationHash);
 
-        public void StopAnimation(int animationHash)
-        {
-            var info = animator.GetCurrentAnimatorStateInfo(0);
-            SetAnimationValue(animationHash, 0);
-            agent.isStopped = true;
-        }
-
-        private IEnumerator WaitTillAnimationIsComplete(AnimatorStateInfo info, int animationHash)
-        {
-            yield return null;
-
-
-        }
-        
         private void OnAnimatorMove()
         {
             var position = animator.rootPosition;

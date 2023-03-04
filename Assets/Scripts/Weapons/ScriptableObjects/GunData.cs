@@ -5,7 +5,7 @@ namespace Weapons.ScriptableObjects
     /// <summary>
     /// Base data for guns held by an entity in the world.
     /// </summary>
-    [CreateAssetMenu(fileName = "Gun")]
+    [CreateAssetMenu(menuName = "Data/Gun Data")]
     public class GunData : ScriptableObject
     {
         [Header("Info")]
