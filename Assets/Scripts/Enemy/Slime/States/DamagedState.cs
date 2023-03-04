@@ -1,8 +1,10 @@
-﻿using System.Linq;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Enemy.Slime.States
 {
+    /// <summary>
+    /// State that corresponds to the slime being damaged.
+    /// </summary>
     public class DamagedState : BaseState
     {
         private static readonly int damageAnimationHash = Animator.StringToHash("Damage");
@@ -11,6 +13,12 @@ namespace Enemy.Slime.States
         private float timePassed;
         private float animationTime = 1f;
 
+        /// <summary>
+        /// Initializes new instance of <see cref="DamagedState"/> class.
+        /// </summary>
+        /// <param name="actor">Actor that references this state.</param>
+        /// <param name="stateMachine">State machine that will use with this state.</param>
+        /// <param name="stateFace">Slime face that corresponds to this state.</param>
         public DamagedState(Slime actor, SlimeStateMachine stateMachine, Texture stateFace)
             : base(actor, stateMachine, stateFace)
         {

@@ -1,8 +1,10 @@
-﻿using System.Threading;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Enemy.Slime.States
 {
+    /// <summary>
+    /// Slime that corresponds to the slime being idle.
+    /// </summary>
     public class IdleState : BaseState
     {
         private static readonly int speedAnimationHash = Animator.StringToHash("Speed");
@@ -16,6 +18,12 @@ namespace Enemy.Slime.States
 
         private bool isAggroed;
         
+        /// <summary>
+        /// Initializes new instance of <see cref="IdleState"/> class.
+        /// </summary>
+        /// <param name="actor">Actor that references this state.</param>
+        /// <param name="stateMachine">State machine that will use with this state.</param>
+        /// <param name="stateFace">Slime face that corresponds to this state.</param>
         public IdleState(Slime actor, SlimeStateMachine stateMachine, Texture stateFace)
             : base(actor, stateMachine, stateFace)
         {
@@ -43,6 +51,9 @@ namespace Enemy.Slime.States
             
         }
         
+        /// <summary>
+        /// Stops the movement of the slime.
+        /// </summary>
         private void Stop()
         {
             actor.SetAnimationValue(doStep, false);
