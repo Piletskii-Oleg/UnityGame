@@ -21,7 +21,7 @@ namespace Enemy.Slime
 
         [SerializeField] private GameObject slimeModel;
         [SerializeField] private SlimeFacesList facesList;
-        [SerializeField] private Transform[] waypoints;
+        [SerializeField] private SlimeArea slimeArea;
         
 
         public IdleState IdleState { get; private set; }
@@ -46,7 +46,7 @@ namespace Enemy.Slime
             stateMachine = new SlimeStateMachine(facesList);
             
             IdleState = new IdleState(this, stateMachine, facesList.idleFace);
-            WalkState = new WalkState(this, stateMachine, facesList.walkFace, waypoints);
+            WalkState = new WalkState(this, stateMachine, facesList.walkFace, slimeArea);
             DamagedState = new DamagedState(this, stateMachine, facesList.damageFace);
             AttackState = new AttackState(this, stateMachine, facesList.attackFace);
 

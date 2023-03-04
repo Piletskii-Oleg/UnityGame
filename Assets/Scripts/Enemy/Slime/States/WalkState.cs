@@ -6,20 +6,19 @@ namespace Enemy.Slime.States
     {
         private static readonly int doStep = Animator.StringToHash("DoStep");
         
-        private int currentWaypointIndex;
-        private Transform[] waypoints;
+        private SlimeArea slimeArea;
+        private Vector3 destination;
 
-        public WalkState(Slime actor, SlimeStateMachine stateMachine, Texture stateFace, Transform[] waypoints)
+        public WalkState(Slime actor, SlimeStateMachine stateMachine, Texture stateFace, SlimeArea slimeArea)
             : base(actor, stateMachine, stateFace)
         {
-            this.waypoints = waypoints;
-            currentWaypointIndex = 0;
+            this.slimeArea = slimeArea;
         }
 
         public override void Enter()
         {
             base.Enter();
-            currentWaypointIndex = (currentWaypointIndex + 1) % waypoints.Length;
+            destination = slimeArea.GetNewPosition();
             StartWalking();
         }
 
@@ -40,7 +39,7 @@ namespace Enemy.Slime.States
         private void StartWalking()
         {
             actor.SetAnimationValue(doStep, true);
-            actor.Agent.SetDestination(waypoints[currentWaypointIndex].position);
+            actor.Agent.SetDestination(destination);
             actor.Agent.isStopped = false;
         }
     }

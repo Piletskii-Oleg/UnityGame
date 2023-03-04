@@ -3982,6 +3982,18 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1320028350, guid: 54275488c8f60844cbdab896c0bcb82a, type: 3}
+      propertyPath: facesList
+      value: 
+      objectReference: {fileID: 11400000, guid: bbeeefc44e9c6e64cafa7d65885e69ed, type: 2}
+    - target: {fileID: 1320028350, guid: 54275488c8f60844cbdab896c0bcb82a, type: 3}
+      propertyPath: slimeArea
+      value: 
+      objectReference: {fileID: 1322306005}
+    - target: {fileID: 1320028350, guid: 54275488c8f60844cbdab896c0bcb82a, type: 3}
+      propertyPath: slimeModel
+      value: 
+      objectReference: {fileID: 1892828294}
+    - target: {fileID: 1320028350, guid: 54275488c8f60844cbdab896c0bcb82a, type: 3}
       propertyPath: waypoints.Array.data[0]
       value: 
       objectReference: {fileID: 234006243}
@@ -11004,8 +11016,9 @@ GameObject:
   - component: {fileID: 1322306003}
   - component: {fileID: 1322306002}
   - component: {fileID: 1322306001}
+  - component: {fileID: 1322306005}
   m_Layer: 0
-  m_Name: Cube (1)
+  m_Name: SlimeAreaCenter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11082,13 +11095,26 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1322306000}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 283.82, y: 0.77, z: 393.8}
+  m_LocalPosition: {x: 283.82, y: -0.66, z: 393.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1322306005
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1322306000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 495cb34e56dc4027a12a374cd3f89a1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  radius: 30
 --- !u!1001 &1330524280
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13362,6 +13388,11 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 463376, guid: e15828603e27c5e42b39860e4f55da70, type: 3}
   m_PrefabInstance: {fileID: 656501549}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1892828294 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3499832422396715309, guid: 54275488c8f60844cbdab896c0bcb82a, type: 3}
+  m_PrefabInstance: {fileID: 726834738}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1903515132
 GameObject:
