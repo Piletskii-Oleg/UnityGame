@@ -11,7 +11,9 @@ namespace Enemy.Slime.States
         private static readonly int damageType = Animator.StringToHash("DamageType");
 
         private float timePassed;
-        private float animationTime = 1f;
+        private float waitingTime = 1f;
+
+        private readonly SlimeType slimeType;
 
         /// <summary>
         /// Initializes new instance of <see cref="DamagedState"/> class.
@@ -22,6 +24,7 @@ namespace Enemy.Slime.States
         public DamagedState(Slime actor, SlimeStateMachine stateMachine, Texture stateFace)
             : base(actor, stateMachine, stateFace)
         {
+            slimeType = actor.SlimeType;
         }
         
         public override void Enter()
@@ -29,7 +32,7 @@ namespace Enemy.Slime.States
             base.Enter();
 
             timePassed = 0;
-            animationTime = Random.Range(0.3f, 0.7f);
+            waitingTime = Random.Range(0.3f, 0.7f);
             
             actor.TriggerAnimation(damageAnimationHash);
             actor.SetAnimationValue(damageType, Random.Range(0, 2));
@@ -37,10 +40,22 @@ namespace Enemy.Slime.States
 
         public override void Tick()
         {
-            timePassed += Time.deltaTime;
-            if (timePassed > animationTime)
+            actor.transform.LookAt(actor.LastHitPosition);
+            switch (slimeType)
             {
-                stateMachine.ChangeState(actor.IdleState);
+                case SlimeType.Neutral:
+                    stateMachine.ChangeState(actor.AttackState);
+                    break;
+                case SlimeType.Passive:
+                {
+                    timePassed += Time.deltaTime;
+                    if (timePassed > waitingTime)
+                    {
+                        stateMachine.ChangeState(actor.IdleState);
+                    }
+
+                    break;
+                }
             }
         }
 

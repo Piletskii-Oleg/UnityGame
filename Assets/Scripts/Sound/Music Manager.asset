@@ -12,5 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 798a8505c07a437aad18f70e8017e860, type: 3}
   m_Name: Music Manager
   m_EditorClassIdentifier: 
-  <MusicVolume>k__BackingField: 0.54
-  <SoundVolume>k__BackingField: 0.53
+  <MusicVolume>k__BackingField: 0
+  <SoundVolume>k__BackingField: 0.7904492
+  onSoundVolumeChanged:
+    m_PersistentCalls:
+      m_Calls: []

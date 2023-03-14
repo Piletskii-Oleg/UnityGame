@@ -1,4 +1,5 @@
-﻿using Enemy.Slime.States;
+﻿using System.Collections;
+using Enemy.Slime.States;
 using Shared;
 using Shared.ScriptableObjects;
 using UnityEngine;
@@ -11,13 +12,17 @@ namespace Enemy.Slime
     /// </summary>
     public class Slime : Actor
     {
+        private static readonly int doStep = Animator.StringToHash("DoStep");
         private static readonly int mainTex = Shader.PropertyToID("_MainTex");
         
         private NavMeshAgent agent;
         private Animator animator;
-        private AnimationClip[] animationClips;
         private SlimeStateMachine stateMachine;
         private Material faceMaterial;
+        
+        private Transform slimeTransform;
+
+        public Vector3 LastHitPosition { get; private set; }
 
         [Tooltip("GameObject that contains the slime model")]
         [SerializeField] private GameObject slimeModel;
@@ -25,6 +30,9 @@ namespace Enemy.Slime
         [SerializeField] private SlimeFacesList facesList;
         [Tooltip("An object around which slime can roam freely")]
         [SerializeField] private SlimeArea slimeArea;
+
+        [Tooltip("Is the slime passive, neutral or aggressive towards player?")]
+        [field: SerializeField] public SlimeType SlimeType { get; private set; }
 
         /// <summary>
         /// Idle state of the slime.
@@ -47,18 +55,17 @@ namespace Enemy.Slime
         public AttackState AttackState { get; private set; }
 
         public NavMeshAgent Agent => agent;
-        
-        public Animator Animator => animator;
 
         private void Start()
         {
             agent = GetComponent<NavMeshAgent>();
             animator = GetComponent<Animator>();
-            animationClips = animator.runtimeAnimatorController.animationClips;
             faceMaterial = slimeModel.GetComponent<Renderer>().materials[1];
 
+            slimeTransform = GetComponent<Transform>();
+
             stateMachine = new SlimeStateMachine(facesList);
-            
+
             IdleState = new IdleState(this, stateMachine, facesList.idleFace);
             WalkState = new WalkState(this, stateMachine, facesList.walkFace, slimeArea);
             DamagedState = new DamagedState(this, stateMachine, facesList.damageFace);
@@ -67,9 +74,10 @@ namespace Enemy.Slime
             stateMachine.Initialize(this.IdleState);
         }
 
-        public override void OnTakeDamage(float damage, ActorAffiliation actorAffiliation)
+        public override void OnTakeDamage(float damage, ActorAffiliation actorAffiliation, Vector3 hitPosition)
         {
-            base.OnTakeDamage(damage, actorAffiliation);
+            base.OnTakeDamage(damage, actorAffiliation, hitPosition);
+            LastHitPosition = hitPosition;
             stateMachine.ChangeState(DamagedState);
         }
 
@@ -113,13 +121,42 @@ namespace Enemy.Slime
         /// <param name="texture">Face to set.</param>
         public void SetFace(Texture texture)
             => faceMaterial.SetTexture(mainTex, texture);
+        
+        public void IdleForPeriod(float period, BaseState idleState, BaseState state)
+            => StartCoroutine(IdleForPeriodCoroutine(period, idleState, state));
+
+        private IEnumerator IdleForPeriodCoroutine(float period, BaseState idleState, BaseState state)
+        {
+            stateMachine.ChangeState(idleState);
+            yield return new WaitForSeconds(period);
+            stateMachine.ChangeState(state);
+        }
 
         private void OnAnimatorMove()
         {
             var position = animator.rootPosition;
             position.y = agent.nextPosition.y;
-            transform.position = position;
-            agent.nextPosition = transform.position;
+            slimeTransform.position = position;
+            agent.nextPosition = slimeTransform.position;
+        }
+
+        /// <summary>
+        /// Activates the walk animation and makes slime move towards its next destination.
+        /// </summary>
+        public void WalkToDestination(Vector3 destination)
+        {
+            SetAnimationValue(doStep, true);
+            Agent.SetDestination(destination);
+            Agent.isStopped = false;
+        }
+
+        /// <summary>
+        /// Stops the movement of the slime.
+        /// </summary>
+        public void Stop()
+        {
+            SetAnimationValue(doStep, false);
+            Agent.isStopped = true;
         }
     }
 }

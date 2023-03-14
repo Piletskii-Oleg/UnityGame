@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a19d40b11bc40eba8d1f20514275fa3, type: 3}
   m_Name: PlayerAffiliation
   m_EditorClassIdentifier: 
-  friendlyFractions:
-  - {fileID: 11400000}
+  friendlyFractions: []
   enemyFractions:
   - {fileID: 11400000, guid: 0f2dfe323f3b2b04888eb71b899885e4, type: 2}
   neutralFractions: []

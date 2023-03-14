@@ -9,8 +9,10 @@ namespace Enemy.Slime.States
     {
         private static readonly int doStep = Animator.StringToHash("DoStep");
         
-        private SlimeArea slimeArea;
-        private Vector3 destination;
+        private readonly SlimeArea slimeArea;
+
+        private readonly float minIdleTime = 0.3f;
+        private readonly float maxIdleTime = 5f;
 
         /// <summary>
         /// Initializes new instance of <see cref="WalkState"/> class.
@@ -28,32 +30,22 @@ namespace Enemy.Slime.States
         public override void Enter()
         {
             base.Enter();
-            destination = slimeArea.GetNewPosition();
-            StartWalking();
+            var destination = slimeArea.GetNewPosition();
+            actor.WalkToDestination(destination);
         }
 
         public override void Tick()
         {
             if (actor.Agent.remainingDistance < actor.Agent.stoppingDistance)
             {
-                actor.Animator.SetBool(doStep, false);
-                stateMachine.ChangeState(actor.IdleState);
+                float timeLimit = Random.Range(minIdleTime, maxIdleTime);
+                actor.IdleForPeriod(timeLimit, actor.IdleState, this);
             }
         }
 
         public override void Exit()
         {
             actor.SetAnimationValue(doStep, false);
-        }
-        
-        /// <summary>
-        /// Activates the walk animation and makes slime move towards its next destination.
-        /// </summary>
-        private void StartWalking()
-        {
-            actor.SetAnimationValue(doStep, true);
-            actor.Agent.SetDestination(destination);
-            actor.Agent.isStopped = false;
         }
     }
 }

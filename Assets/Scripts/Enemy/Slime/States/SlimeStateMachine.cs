@@ -33,7 +33,7 @@
             CurrentState = startingState;
             startingState.Enter();
         }
-        
+
         /// <summary>
         /// Changes state of the <see cref="SlimeStateMachine"/> to <paramref name="newState"/>.
         /// </summary>
@@ -41,9 +41,9 @@
         public void ChangeState(BaseState newState)
         {
             CurrentState.Exit();
-            
+
             CurrentState = newState;
-            
+
             newState.Enter();
         }
     }

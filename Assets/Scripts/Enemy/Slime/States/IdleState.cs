@@ -7,17 +7,9 @@ namespace Enemy.Slime.States
     /// </summary>
     public class IdleState : BaseState
     {
-        private static readonly int speedAnimationHash = Animator.StringToHash("Speed");
-        private static readonly int doStep = Animator.StringToHash("DoStep");
-
         private float timePassed;
         private float timeLimit;
-        
-        private readonly float minIdleTime = 0.3f;
-        private readonly float maxIdleTime = 5f;
 
-        private bool isAggroed;
-        
         /// <summary>
         /// Initializes new instance of <see cref="IdleState"/> class.
         /// </summary>
@@ -32,9 +24,9 @@ namespace Enemy.Slime.States
         public override void Enter()
         {
             base.Enter();
-            Stop();
-            timeLimit = Random.Range(minIdleTime, maxIdleTime);
-            timePassed = 0f;
+            actor.Stop();
+
+            timeLimit = Random.Range(0.6f, 1.3f); // min value should be less than period in actor.IdleForPeriod(float period,...)
         }
 
         public override void Tick()
@@ -49,15 +41,6 @@ namespace Enemy.Slime.States
         public override void Exit()
         {
             
-        }
-        
-        /// <summary>
-        /// Stops the movement of the slime.
-        /// </summary>
-        private void Stop()
-        {
-            actor.SetAnimationValue(doStep, false);
-            actor.Agent.isStopped = true;
         }
     }
 }
