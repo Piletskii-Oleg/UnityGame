@@ -24,15 +24,30 @@ namespace Enemy.Slime
 
         public Vector3 LastHitPosition { get; private set; }
 
+        [Header("General information")]
         [Tooltip("GameObject that contains the slime model")]
         [SerializeField] private GameObject slimeModel;
         [Tooltip("Scriptable object that contains all slime faces")]
         [SerializeField] private SlimeFacesList facesList;
         [Tooltip("An object around which slime can roam freely")]
         [SerializeField] private SlimeArea slimeArea;
-
         [Tooltip("Is the slime passive, neutral or aggressive towards player?")]
         [field: SerializeField] public SlimeType SlimeType { get; private set; }
+
+        [Header("Attack State")]
+        [Tooltip("Radius of a circle in which slime will look for the player")]
+        [SerializeField] private float lookRadius;
+        [Tooltip("Time that should pass until slime looks for the player again")]
+        [SerializeField] private float followTimeTact;
+        [Tooltip("Amount of times that slime will try to look for a player")]
+        [SerializeField] private int timesPlayerIsSearched;
+        [SerializeField] private float damage;
+        
+        [Header("Damaged State")]
+        [Tooltip("Amount of time which slime stays in damaged state for")]
+        [SerializeField] [Range(0.0f, 3.0f)] private float waitingTime;
+        [Tooltip("Player character's transform (to follow them if attacked)")]
+        [SerializeField] private Transform playerTransform;
 
         /// <summary>
         /// Idle state of the slime.
@@ -68,8 +83,8 @@ namespace Enemy.Slime
 
             IdleState = new IdleState(this, stateMachine, facesList.idleFace);
             WalkState = new WalkState(this, stateMachine, facesList.walkFace, slimeArea);
-            DamagedState = new DamagedState(this, stateMachine, facesList.damageFace);
-            AttackState = new AttackState(this, stateMachine, facesList.attackFace);
+            DamagedState = new DamagedState(this, stateMachine, facesList.damageFace, waitingTime, playerTransform);
+            AttackState = new AttackState(this, stateMachine, facesList.attackFace, lookRadius, followTimeTact, timesPlayerIsSearched);
 
             stateMachine.Initialize(this.IdleState);
         }
@@ -124,6 +139,19 @@ namespace Enemy.Slime
         
         public void IdleForPeriod(float period, BaseState idleState, BaseState state)
             => StartCoroutine(IdleForPeriodCoroutine(period, idleState, state));
+
+        private void OnCollisionEnter(Collision collision)
+        {
+            if (stateMachine.CurrentState != AttackState)
+            {
+                return;
+            }
+            
+            if (collision.gameObject.TryGetComponent<Actor>(out var actor))
+            {
+                actor.OnTakeDamage(damage, affiliation);
+            }
+        }
 
         private IEnumerator IdleForPeriodCoroutine(float period, BaseState idleState, BaseState state)
         {

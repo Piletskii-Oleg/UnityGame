@@ -11,9 +11,11 @@ namespace Enemy.Slime.States
         private static readonly int damageType = Animator.StringToHash("DamageType");
 
         private float timePassed;
-        private float waitingTime = 1f;
+        private float waitingTime;
 
         private readonly SlimeType slimeType;
+
+        private readonly Transform transformToFollow; // delete?
 
         /// <summary>
         /// Initializes new instance of <see cref="DamagedState"/> class.
@@ -21,10 +23,14 @@ namespace Enemy.Slime.States
         /// <param name="actor">Actor that references this state.</param>
         /// <param name="stateMachine">State machine that will use with this state.</param>
         /// <param name="stateFace">Slime face that corresponds to this state.</param>
-        public DamagedState(Slime actor, SlimeStateMachine stateMachine, Texture stateFace)
+        /// <param name="waitingTime">Amount of time which slime stays in damaged state for.</param>
+        /// <param name="transformToFollow">Transform to follow them if attacked.</param>
+        public DamagedState(Slime actor, SlimeStateMachine stateMachine, Texture stateFace, float waitingTime, Transform transformToFollow)
             : base(actor, stateMachine, stateFace)
         {
             slimeType = actor.SlimeType;
+            this.waitingTime = waitingTime;
+            this.transformToFollow = transformToFollow;
         }
         
         public override void Enter()
@@ -32,30 +38,22 @@ namespace Enemy.Slime.States
             base.Enter();
 
             timePassed = 0;
-            waitingTime = Random.Range(0.3f, 0.7f);
-            
+
             actor.TriggerAnimation(damageAnimationHash);
             actor.SetAnimationValue(damageType, Random.Range(0, 2));
+
+            if (slimeType is SlimeType.Neutral)
+            {
+                stateMachine.ChangeState(actor.AttackState);
+            }
         }
 
         public override void Tick()
         {
-            actor.transform.LookAt(actor.LastHitPosition);
-            switch (slimeType)
+            timePassed += Time.deltaTime;
+            if (timePassed > waitingTime)
             {
-                case SlimeType.Neutral:
-                    stateMachine.ChangeState(actor.AttackState);
-                    break;
-                case SlimeType.Passive:
-                {
-                    timePassed += Time.deltaTime;
-                    if (timePassed > waitingTime)
-                    {
-                        stateMachine.ChangeState(actor.IdleState);
-                    }
-
-                    break;
-                }
+                stateMachine.ChangeState(actor.IdleState);
             }
         }
 

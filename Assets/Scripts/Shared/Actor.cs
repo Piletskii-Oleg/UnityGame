@@ -9,10 +9,12 @@ namespace Shared
     /// </summary>
     public class Actor : MonoBehaviour // abstract
     {
+        [Header("Events")]
         [SerializeField] private UnityEvent<float> onTakeDamage;
         [SerializeField] private UnityEvent onKill;
         
-        [SerializeField] private ActorAffiliation affiliation;
+        [Header("Affiliation")]
+        [SerializeField] protected ActorAffiliation affiliation;
 
         /// <summary>
         /// Used when the actor takes damage.

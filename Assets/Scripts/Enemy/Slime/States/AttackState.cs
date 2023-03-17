@@ -9,26 +9,32 @@ namespace Enemy.Slime.States
     {
         private static readonly int attack = Animator.StringToHash("Attack");
 
-        private float lookRadius = 10f;
+        private float lookRadius;
         private readonly LayerMask playerMask = 1 << LayerMask.NameToLayer("Player");
         private readonly Collider[] playerInRange = new Collider[1];
         private Vector3 playerPosition;
 
         private float timePassed;
-        private float followTimeTact = 1f;
+        private float followTimeTact;
 
         private int timesPlayerIsNotFound;
-        private readonly int maxTimesPlayerIsNotFound = 3;
-        
+        private readonly int timesPlayerIsSearched;
+
         /// <summary>
         /// Initializes new instance of <see cref="AttackState"/> class.
         /// </summary>
         /// <param name="actor">Actor that references this state.</param>
         /// <param name="stateMachine">State machine that will use with this state.</param>
         /// <param name="stateFace">Slime face that corresponds to this state.</param>
-        public AttackState(Slime actor, SlimeStateMachine stateMachine, Texture stateFace)
+        /// <param name="lookRadius">Radius of a circle in which slime will look for the player.</param>
+        /// <param name="followTimeTact">Time that should pass until slime looks for the player again.</param>
+        /// <param name="timesPlayerIsSearched">Amount of times that slime will try to look for a player.</param>
+        public AttackState(Slime actor, SlimeStateMachine stateMachine, Texture stateFace, float lookRadius, float followTimeTact, int timesPlayerIsSearched)
             : base(actor, stateMachine, stateFace)
         {
+            this.lookRadius = lookRadius;
+            this.followTimeTact = followTimeTact;
+            this.timesPlayerIsSearched = timesPlayerIsSearched;
         }
 
         public override void Enter()
@@ -65,7 +71,7 @@ namespace Enemy.Slime.States
                 timesPlayerIsNotFound++;
             }
 
-            if (timesPlayerIsNotFound > maxTimesPlayerIsNotFound)
+            if (timesPlayerIsNotFound > timesPlayerIsSearched)
             {
                 actor.IdleForPeriod(0.3f, actor.IdleState, actor.WalkState);
             }
@@ -82,12 +88,13 @@ namespace Enemy.Slime.States
         private bool LookForPlayer()
         {
             int found = Physics.OverlapSphereNonAlloc(actor.transform.position, lookRadius, playerInRange, playerMask);
-            if (found == 1)
+            bool isFound = found == 1;
+            if (isFound)
             {
                 playerPosition = playerInRange[0].transform.position;
             }
             
-            return found == 1;
+            return isFound;
         }
 
         private void Attack()
