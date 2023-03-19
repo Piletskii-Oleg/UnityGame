@@ -3900,10 +3900,6 @@ PrefabInstance:
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1320028350, guid: 54275488c8f60844cbdab896c0bcb82a, type: 3}
-      propertyPath: facesList
-      value: 
-      objectReference: {fileID: 11400000, guid: bbeeefc44e9c6e64cafa7d65885e69ed, type: 2}
-    - target: {fileID: 1320028350, guid: 54275488c8f60844cbdab896c0bcb82a, type: 3}
       propertyPath: lookAngle
       value: 120
       objectReference: {fileID: 0}
@@ -3919,10 +3915,6 @@ PrefabInstance:
       propertyPath: lookRadius
       value: 12
       objectReference: {fileID: 0}
-    - target: {fileID: 1320028350, guid: 54275488c8f60844cbdab896c0bcb82a, type: 3}
-      propertyPath: slimeModel
-      value: 
-      objectReference: {fileID: 1892828294}
     - target: {fileID: 1320028350, guid: 54275488c8f60844cbdab896c0bcb82a, type: 3}
       propertyPath: waitingTime
       value: 1.39
@@ -13496,11 +13488,6 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 463376, guid: e15828603e27c5e42b39860e4f55da70, type: 3}
   m_PrefabInstance: {fileID: 656501549}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1892828294 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3499832422396715309, guid: 54275488c8f60844cbdab896c0bcb82a, type: 3}
-  m_PrefabInstance: {fileID: 726834738}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1903515132
 GameObject:

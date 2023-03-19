@@ -53,7 +53,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6705402075998324148, guid: d941199d4a58fcb45adc75ea8e37c42c, type: 3}
       propertyPath: m_Name
-      value: Slime_01
+      value: Slime_01 Variant
       objectReference: {fileID: 0}
     - target: {fileID: 7625824445407367461, guid: d941199d4a58fcb45adc75ea8e37c42c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -97,6 +97,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d941199d4a58fcb45adc75ea8e37c42c, type: 3}
+--- !u!1 &3499832422396715309 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2669671996729381096, guid: d941199d4a58fcb45adc75ea8e37c42c, type: 3}
+  m_PrefabInstance: {fileID: 1557528051569734085}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &5229572157944181873 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6705402075998324148, guid: d941199d4a58fcb45adc75ea8e37c42c, type: 3}
@@ -176,9 +181,17 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   affiliation: {fileID: 11400000, guid: 0f2dfe323f3b2b04888eb71b899885e4, type: 2}
-  waypoints:
-  - {fileID: 0}
-  - {fileID: 0}
+  slimeModel: {fileID: 3499832422396715309}
+  facesList: {fileID: 11400000, guid: bbeeefc44e9c6e64cafa7d65885e69ed, type: 2}
+  slimeArea: {fileID: 0}
+  <SlimeType>k__BackingField: 0
+  lookRadius: 0
+  lookAngle: 0
+  followTimeTact: 0
+  timesPlayerIsSearched: 0
+  damage: 0
+  waitingTime: 0
+  playerTransform: {fileID: 0}
 --- !u!114 &1320028352
 MonoBehaviour:
   m_ObjectHideFlags: 0
