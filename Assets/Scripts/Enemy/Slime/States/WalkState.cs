@@ -36,6 +36,11 @@ namespace Enemy.Slime.States
 
         public override void Tick()
         {
+            if (actor.SlimeType is SlimeType.Aggressive && actor.LookForPlayerInSegment())
+            {
+                stateMachine.ChangeState(actor.AttackState);
+            }
+            
             if (actor.Agent.remainingDistance < actor.Agent.stoppingDistance)
             {
                 float timeLimit = Random.Range(minIdleTime, maxIdleTime);

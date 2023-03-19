@@ -8,14 +8,9 @@ namespace Enemy.Slime.States
     public class AttackState : BaseState
     {
         private static readonly int attack = Animator.StringToHash("Attack");
-
-        private float lookRadius;
-        private readonly LayerMask playerMask = 1 << LayerMask.NameToLayer("Player");
-        private readonly Collider[] playerInRange = new Collider[1];
-        private Vector3 playerPosition;
-
+        
         private float timePassed;
-        private float followTimeTact;
+        private readonly float followTimeTact;
 
         private int timesPlayerIsNotFound;
         private readonly int timesPlayerIsSearched;
@@ -29,10 +24,9 @@ namespace Enemy.Slime.States
         /// <param name="lookRadius">Radius of a circle in which slime will look for the player.</param>
         /// <param name="followTimeTact">Time that should pass until slime looks for the player again.</param>
         /// <param name="timesPlayerIsSearched">Amount of times that slime will try to look for a player.</param>
-        public AttackState(Slime actor, SlimeStateMachine stateMachine, Texture stateFace, float lookRadius, float followTimeTact, int timesPlayerIsSearched)
+        public AttackState(Slime actor, SlimeStateMachine stateMachine, Texture stateFace, float followTimeTact, int timesPlayerIsSearched)
             : base(actor, stateMachine, stateFace)
         {
-            this.lookRadius = lookRadius;
             this.followTimeTact = followTimeTact;
             this.timesPlayerIsSearched = timesPlayerIsSearched;
         }
@@ -60,11 +54,14 @@ namespace Enemy.Slime.States
             }
         }
 
+        /// <summary>
+        /// Forces recalculation of player's position and the consequent behavior of the slime.
+        /// </summary>
         private void UpdateTact()
         {
-            if (LookForPlayer())
+            if (actor.LookForPlayer())
             {
-                actor.WalkToDestination(playerPosition);
+                actor.WalkToDestination(actor.PlayerPosition);
             }
             else
             {
@@ -80,23 +77,10 @@ namespace Enemy.Slime.States
         public override void Exit()
         {
         }
-        
-        /// <summary>
-        /// Searches for a player in a sphere area around it. Returns true if player is found and false otherwise.
-        /// </summary>
-        /// <returns>True if player is found and false otherwise.</returns>
-        private bool LookForPlayer()
-        {
-            int found = Physics.OverlapSphereNonAlloc(actor.transform.position, lookRadius, playerInRange, playerMask);
-            bool isFound = found == 1;
-            if (isFound)
-            {
-                playerPosition = playerInRange[0].transform.position;
-            }
-            
-            return isFound;
-        }
 
+        /// <summary>
+        /// Makes slime attack the player.
+        /// </summary>
         private void Attack()
         {
             actor.TriggerAnimation(attack);

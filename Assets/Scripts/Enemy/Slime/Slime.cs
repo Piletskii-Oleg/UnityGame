@@ -15,6 +15,9 @@ namespace Enemy.Slime
         private static readonly int doStep = Animator.StringToHash("DoStep");
         private static readonly int mainTex = Shader.PropertyToID("_MainTex");
         
+        private LayerMask playerMask;
+        private Collider[] playerInRange;
+
         private NavMeshAgent agent;
         private Animator animator;
         private SlimeStateMachine stateMachine;
@@ -33,10 +36,17 @@ namespace Enemy.Slime
         [SerializeField] private SlimeArea slimeArea;
         [Tooltip("Is the slime passive, neutral or aggressive towards player?")]
         [field: SerializeField] public SlimeType SlimeType { get; private set; }
+        
+        /// <summary>
+        /// Position of the player calculated using <see cref="LookForPlayer"/> method.
+        /// </summary>
+        public Vector3 PlayerPosition { get; private set; }
 
         [Header("Attack State")]
         [Tooltip("Radius of a circle in which slime will look for the player")]
         [SerializeField] private float lookRadius;
+        [Tooltip("Angle of a segment of a circle in which slime can see the player")]
+        [SerializeField] private float lookAngle;
         [Tooltip("Time that should pass until slime looks for the player again")]
         [SerializeField] private float followTimeTact;
         [Tooltip("Amount of times that slime will try to look for a player")]
@@ -73,6 +83,9 @@ namespace Enemy.Slime
 
         private void Start()
         {
+            playerMask = 1 << LayerMask.NameToLayer("Player");
+            playerInRange = new Collider[1];
+            
             agent = GetComponent<NavMeshAgent>();
             animator = GetComponent<Animator>();
             faceMaterial = slimeModel.GetComponent<Renderer>().materials[1];
@@ -80,11 +93,10 @@ namespace Enemy.Slime
             slimeTransform = GetComponent<Transform>();
 
             stateMachine = new SlimeStateMachine(facesList);
-
             IdleState = new IdleState(this, stateMachine, facesList.idleFace);
             WalkState = new WalkState(this, stateMachine, facesList.walkFace, slimeArea);
             DamagedState = new DamagedState(this, stateMachine, facesList.damageFace, waitingTime, playerTransform);
-            AttackState = new AttackState(this, stateMachine, facesList.attackFace, lookRadius, followTimeTact, timesPlayerIsSearched);
+            AttackState = new AttackState(this, stateMachine, facesList.attackFace, followTimeTact, timesPlayerIsSearched);
 
             stateMachine.Initialize(this.IdleState);
         }
@@ -137,6 +149,13 @@ namespace Enemy.Slime
         public void SetFace(Texture texture)
             => faceMaterial.SetTexture(mainTex, texture);
         
+        /// <summary>
+        /// Changes slime's state to the <paramref name="idleState"/> for a <paramref name="period"/> seconds
+        /// and then changes it to <paramref name="state"/>.
+        /// </summary>
+        /// <param name="period">Time in seconds for which slime should idle.</param>
+        /// <param name="idleState">Slime's idle state.</param>
+        /// <param name="state">New state, activated after <paramref name="period"/> seconds.</param>
         public void IdleForPeriod(float period, BaseState idleState, BaseState state)
             => StartCoroutine(IdleForPeriodCoroutine(period, idleState, state));
 
@@ -157,7 +176,10 @@ namespace Enemy.Slime
         {
             stateMachine.ChangeState(idleState);
             yield return new WaitForSeconds(period);
-            stateMachine.ChangeState(state);
+            if (stateMachine.CurrentState == idleState)
+            {
+                stateMachine.ChangeState(state);
+            }
         }
 
         private void OnAnimatorMove()
@@ -185,6 +207,39 @@ namespace Enemy.Slime
         {
             SetAnimationValue(doStep, false);
             Agent.isStopped = true;
+        }
+
+        /// <summary>
+        /// Searches for a player in a sphere area around it. Returns true if player is found and false otherwise.
+        /// </summary>
+        /// <returns>True if player is found and false otherwise.</returns>
+        public bool LookForPlayer()
+        {
+            int found = Physics.OverlapSphereNonAlloc(transform.position, lookRadius, playerInRange, playerMask);
+            bool isFound = found == 1;
+            if (isFound)
+            {
+                PlayerPosition = playerInRange[0].transform.position;
+            }
+            
+            return isFound;
+        }
+
+        /// <summary>
+        /// Searches for a player in a sphere around it and limits its view to a segment with angle <see cref="lookAngle"/>.
+        /// Returns true if player is found and false otherwise.
+        /// </summary>
+        /// <returns>True if player is found and false otherwise.</returns>
+        public bool LookForPlayerInSegment()
+        {
+            if (!LookForPlayer())
+            {
+                return false;
+            }
+
+            var position = slimeTransform.position;
+            var directionToTarget = (position - PlayerPosition).normalized;
+            return (Vector3.Angle(position, directionToTarget) < lookAngle / 2);
         }
     }
 }

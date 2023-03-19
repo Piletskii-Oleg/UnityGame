@@ -11,7 +11,7 @@ namespace Enemy.Slime.States
         private static readonly int damageType = Animator.StringToHash("DamageType");
 
         private float timePassed;
-        private float waitingTime;
+        private readonly float waitingTime;
 
         private readonly SlimeType slimeType;
 
@@ -42,7 +42,7 @@ namespace Enemy.Slime.States
             actor.TriggerAnimation(damageAnimationHash);
             actor.SetAnimationValue(damageType, Random.Range(0, 2));
 
-            if (slimeType is SlimeType.Neutral)
+            if (slimeType is SlimeType.Neutral or SlimeType.Aggressive)
             {
                 stateMachine.ChangeState(actor.AttackState);
             }
