@@ -23,7 +23,7 @@ namespace Enemy.Slime.States
         /// <param name="stateFace">Slime face that corresponds to this state.</param>
         /// <param name="followTimeTact">Time that should pass until slime looks for the player again.</param>
         /// <param name="timesPlayerIsSearched">Amount of times that slime will try to look for a player.</param>
-        public AttackState(Slime slime, SlimeStateMachine stateMachine, Texture stateFace, float followTimeTact, int timesPlayerIsSearched)
+        public AttackState(Slime slime, BaseStateMachine stateMachine, Texture stateFace, float followTimeTact, int timesPlayerIsSearched)
             : base(slime, stateMachine, stateFace)
         {
             this.followTimeTact = followTimeTact;

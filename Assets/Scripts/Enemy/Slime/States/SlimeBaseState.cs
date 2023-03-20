@@ -9,9 +9,9 @@ namespace Enemy.Slime.States
     {
         private readonly Texture stateFace;
         protected readonly Slime slime;
-        protected readonly SlimeStateMachine stateMachine;
+        protected readonly BaseStateMachine stateMachine;
 
-        protected SlimeBaseState(Slime slime, SlimeStateMachine stateMachine, Texture stateFace)
+        protected SlimeBaseState(Slime slime, BaseStateMachine stateMachine, Texture stateFace)
         {
             this.slime = slime;
             this.stateMachine = stateMachine;

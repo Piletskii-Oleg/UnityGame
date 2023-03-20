@@ -15,8 +15,6 @@ namespace Enemy.Slime
         private static readonly int mainTex = Shader.PropertyToID("_MainTex");
 
         private Material faceMaterial;
-        
-        private SlimeStateMachine stateMachine;
 
         public Vector3 LastHitPosition { get; private set; }
         
@@ -52,6 +50,9 @@ namespace Enemy.Slime
 
         [Tooltip("Player character's transform (to follow them if attacked)")]
         [SerializeField] private Transform playerTransform;
+        
+        [Tooltip("Is the actor passive, neutral or aggressive towards player?")]
+        [field: SerializeField] public SlimeType SlimeType { get; private set; }
 
         public NavMeshAgent Agent => agent;
 
@@ -64,7 +65,7 @@ namespace Enemy.Slime
             animator = GetComponent<Animator>();
             faceMaterial = slimeModel.GetComponent<Renderer>().materials[1];
 
-            stateMachine = new SlimeStateMachine(facesList);
+            stateMachine = new BaseStateMachine();
             IdleState = new IdleState(this, stateMachine, facesList.idleFace);
             WalkState = new WalkState(this, stateMachine, facesList.walkFace, slimeArea);
             DamagedState = new DamagedState(this, stateMachine, facesList.damageFace, waitingTime, playerTransform);
@@ -89,16 +90,6 @@ namespace Enemy.Slime
         /// <param name="texture">Face to set.</param>
         public void SetFace(Texture texture)
             => faceMaterial.SetTexture(mainTex, texture);
-        
-        /// <summary>
-        /// Changes slime's state to the <paramref name="idleState"/> for a <paramref name="period"/> seconds
-        /// and then changes it to <paramref name="state"/>.
-        /// </summary>
-        /// <param name="period">Time in seconds for which slime should idle.</param>
-        /// <param name="idleState">Slime's idle state.</param>
-        /// <param name="state">New state, activated after <paramref name="period"/> seconds.</param>
-        public void IdleForPeriod(float period, SlimeBaseState idleState, SlimeBaseState state)
-            => StartCoroutine(IdleForPeriodCoroutine(period, idleState, state));
 
         private void OnCollisionEnter(Collision collision)
         {
@@ -113,14 +104,6 @@ namespace Enemy.Slime
             }
         }
 
-        private IEnumerator IdleForPeriodCoroutine(float period, SlimeBaseState idleState, SlimeBaseState state)
-        {
-            stateMachine.ChangeState(idleState);
-            yield return new WaitForSeconds(period);
-            if (stateMachine.CurrentState == idleState)
-            {
-                stateMachine.ChangeState(state);
-            }
-        }
+
     }
 }

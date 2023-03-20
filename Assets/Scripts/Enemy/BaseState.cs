@@ -1,15 +1,10 @@
-﻿using Shared;
-
-namespace Enemy.Slime.States
+﻿namespace Enemy
 {
     /// <summary>
     /// Base state of an actor from which all other inherit.
     /// </summary>
     public abstract class BaseState
     {
-        protected Actor actor;
-        protected BaseStateMachine stateMachine;
-        
         /// <summary>
         /// Called when actor enters the state.
         /// </summary>

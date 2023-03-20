@@ -21,7 +21,7 @@ namespace Enemy.Slime.States
         /// <param name="stateMachine">State machine that will use with this state.</param>
         /// <param name="stateFace">Slime face that corresponds to this state.</param>
         /// <param name="slimeArea">Area in which slime can walk.</param>
-        public WalkState(Slime slime, SlimeStateMachine stateMachine, Texture stateFace, SlimeArea slimeArea)
+        public WalkState(Slime slime, BaseStateMachine stateMachine, Texture stateFace, SlimeArea slimeArea)
             : base(slime, stateMachine, stateFace)
         {
             this.slimeArea = slimeArea;

@@ -1,5 +1,4 @@
-﻿using Enemy.Slime;
-using Enemy.Slime.States;
+﻿using System.Collections;
 using Shared;
 using UnityEngine;
 using UnityEngine.AI;
@@ -10,6 +9,8 @@ namespace Enemy
     {
         private static readonly int doStep = Animator.StringToHash("DoStep");
         
+        protected BaseStateMachine stateMachine;
+        
         protected LayerMask playerMask;
         protected Collider[] playerInRange;
         
@@ -17,34 +18,30 @@ namespace Enemy
         protected Animator animator;
 
         [Header("Attack State")]
-        [Tooltip("Radius of a circle in which actor will look for the player")]
+        [Tooltip("Radius of a circle in which enemy will look for the player")]
         [SerializeField] private float lookRadius;
 
-        [Tooltip("Angle of a segment of a circle in which actor can see the player")]
+        [Tooltip("Angle of a segment of a circle in which enemy can see the player")]
         [SerializeField] private float lookAngle;
 
-        [Tooltip("Time that should pass until actor looks for the player again")]
-        [SerializeField]
-        protected float followTimeTact;
+        [Tooltip("Time that should pass until enemy looks for the player again")]
+        [SerializeField] protected float followTimeTact;
 
-        [Tooltip("Amount of times that actor will try to look for a player")]
-        [SerializeField]
-        protected int timesPlayerIsSearched;
+        [Tooltip("Amount of times that enemy will try to look for a player")]
+        [SerializeField] protected int timesPlayerIsSearched;
 
+        [Tooltip("Damage dealt by that enemy")]
         [SerializeField] protected float damage;
 
         [Header("Damaged State")]
         [Tooltip("Amount of time which actor stays in damaged state for")]
         [SerializeField] [Range(0.0f, 3.0f)]
         protected float waitingTime;
-
-        [Tooltip("Is the actor passive, neutral or aggressive towards player?")]
-        [field: SerializeField] public SlimeType SlimeType { get; private set; }
-
+        
         /// <summary>
         /// Position of the player calculated using <see cref="LookForPlayer"/> method.
         /// </summary>
-        public Vector3 PlayerPosition { get; protected set; }
+        public Vector3 PlayerPosition { get; private set; }
 
         /// <summary>
         /// Sets a value of an animation variable.
@@ -81,8 +78,11 @@ namespace Enemy
         {
             var position = animator.rootPosition;
             position.y = agent.nextPosition.y;
-            transform.position = position;
-            agent.nextPosition = transform.position;
+            
+            var enemyTransform = transform;
+            
+            enemyTransform.position = position;
+            agent.nextPosition = enemyTransform.position;
         }
 
         /// <summary>
@@ -135,6 +135,26 @@ namespace Enemy
             var position = transform.position;
             var directionToTarget = (position - PlayerPosition).normalized;
             return (Vector3.Angle(position, directionToTarget) < lookAngle / 2);
+        }
+        
+        /// <summary>
+        /// Changes slime's state to the <paramref name="idleState"/> for a <paramref name="period"/> seconds
+        /// and then changes it to <paramref name="state"/>.
+        /// </summary>
+        /// <param name="period">Time in seconds for which slime should idle.</param>
+        /// <param name="idleState">Slime's idle state.</param>
+        /// <param name="state">New state, activated after <paramref name="period"/> seconds.</param>
+        public void IdleForPeriod(float period, BaseState idleState, BaseState state)
+            => StartCoroutine(IdleForPeriodCoroutine(period, idleState, state));
+        
+        private IEnumerator IdleForPeriodCoroutine(float period, BaseState idleState, BaseState state)
+        {
+            stateMachine.ChangeState(idleState);
+            yield return new WaitForSeconds(period);
+            if (stateMachine.CurrentState == idleState)
+            {
+                stateMachine.ChangeState(state);
+            }
         }
     }
 }

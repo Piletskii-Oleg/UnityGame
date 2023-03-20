@@ -16,7 +16,7 @@ namespace Enemy.Slime.States
         /// <param name="slime">Actor that references this state.</param>
         /// <param name="stateMachine">State machine that will use with this state.</param>
         /// <param name="stateFace">Slime face that corresponds to this state.</param>
-        public IdleState(Slime slime, SlimeStateMachine stateMachine, Texture stateFace)
+        public IdleState(Slime slime, BaseStateMachine stateMachine, Texture stateFace)
             : base(slime, stateMachine, stateFace)
         {
         }

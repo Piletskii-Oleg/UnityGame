@@ -25,7 +25,7 @@ namespace Enemy.Slime.States
         /// <param name="stateFace">Slime face that corresponds to this state.</param>
         /// <param name="waitingTime">Amount of time which slime stays in damaged state for.</param>
         /// <param name="transformToFollow">Transform to follow them if attacked.</param>
-        public DamagedState(Slime slime, SlimeStateMachine stateMachine, Texture stateFace, float waitingTime, Transform transformToFollow)
+        public DamagedState(Slime slime, BaseStateMachine stateMachine, Texture stateFace, float waitingTime, Transform transformToFollow)
             : base(slime, stateMachine, stateFace)
         {
             slimeType = slime.SlimeType;
