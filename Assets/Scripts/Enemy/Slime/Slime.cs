@@ -4,6 +4,7 @@ using Shared;
 using Shared.ScriptableObjects;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Serialization;
 
 namespace Enemy.Slime
 {
@@ -42,9 +43,10 @@ namespace Enemy.Slime
         [Tooltip("GameObject that contains the actor model")]
         [SerializeField]
         private GameObject slimeModel;
+        [FormerlySerializedAs("slimeArea")]
         [Tooltip("An object around which actor can roam freely")]
         [SerializeField]
-        private SlimeArea slimeArea;
+        private CircleArea circleArea;
         [Tooltip("Scriptable object that contains all slime faces")]
         [SerializeField] private SlimeFacesList facesList;
 
@@ -65,9 +67,9 @@ namespace Enemy.Slime
             animator = GetComponent<Animator>();
             faceMaterial = slimeModel.GetComponent<Renderer>().materials[1];
 
-            stateMachine = new BaseStateMachine();
+            stateMachine = new SlimeStateMachine();
             IdleState = new IdleState(this, stateMachine, facesList.idleFace);
-            WalkState = new WalkState(this, stateMachine, facesList.walkFace, slimeArea);
+            WalkState = new WalkState(this, stateMachine, facesList.walkFace, circleArea);
             DamagedState = new DamagedState(this, stateMachine, facesList.damageFace, waitingTime, playerTransform);
             AttackState = new AttackState(this, stateMachine, facesList.attackFace, followTimeTact, timesPlayerIsSearched);
 
@@ -103,7 +105,16 @@ namespace Enemy.Slime
                 actor.OnTakeDamage(damage, affiliation);
             }
         }
-
-
+        
+        private void OnAnimatorMove()
+        {
+            var position = animator.rootPosition;
+            position.y = agent.nextPosition.y;
+            
+            var enemyTransform = transform;
+            
+            enemyTransform.position = position;
+            agent.nextPosition = enemyTransform.position;
+        }
     }
 }

@@ -14,7 +14,7 @@
 
         public override void Tick()
         {
-            throw new System.NotImplementedException();
+            
         }
 
         public override void Exit()

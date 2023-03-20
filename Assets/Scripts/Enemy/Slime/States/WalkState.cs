@@ -9,7 +9,7 @@ namespace Enemy.Slime.States
     {
         private static readonly int doStep = Animator.StringToHash("DoStep");
         
-        private readonly SlimeArea slimeArea;
+        private readonly CircleArea circleArea;
 
         private readonly float minIdleTime = 0.3f;
         private readonly float maxIdleTime = 5f;
@@ -20,17 +20,17 @@ namespace Enemy.Slime.States
         /// <param name="slime">Actor that references this state.</param>
         /// <param name="stateMachine">State machine that will use with this state.</param>
         /// <param name="stateFace">Slime face that corresponds to this state.</param>
-        /// <param name="slimeArea">Area in which slime can walk.</param>
-        public WalkState(Slime slime, BaseStateMachine stateMachine, Texture stateFace, SlimeArea slimeArea)
+        /// <param name="circleArea">Area in which slime can walk.</param>
+        public WalkState(Slime slime, BaseStateMachine stateMachine, Texture stateFace, CircleArea circleArea)
             : base(slime, stateMachine, stateFace)
         {
-            this.slimeArea = slimeArea;
+            this.circleArea = circleArea;
         }
 
         public override void Enter()
         {
             base.Enter();
-            var destination = slimeArea.GetNewPosition();
+            var destination = circleArea.GetNewPosition();
             slime.WalkToDestination(destination);
         }
 

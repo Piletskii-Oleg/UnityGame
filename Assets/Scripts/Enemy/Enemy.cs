@@ -74,17 +74,6 @@ namespace Enemy
         public void TriggerAnimation(int animationHash)
             => animator.SetTrigger(animationHash);
 
-        protected void OnAnimatorMove()
-        {
-            var position = animator.rootPosition;
-            position.y = agent.nextPosition.y;
-            
-            var enemyTransform = transform;
-            
-            enemyTransform.position = position;
-            agent.nextPosition = enemyTransform.position;
-        }
-
         /// <summary>
         /// Activates the walk animation and makes actor move towards its next destination.
         /// </summary>
@@ -100,7 +89,7 @@ namespace Enemy
         /// </summary>
         public void Stop()
         {
-            SetAnimationValue(Slime.Slime.doStep, false);
+            SetAnimationValue(doStep, false);
             agent.isStopped = true;
         }
 

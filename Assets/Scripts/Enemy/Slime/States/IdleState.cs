@@ -34,6 +34,7 @@ namespace Enemy.Slime.States
             timePassed += Time.deltaTime;
             if (timePassed > timeLimit)
             {
+                timePassed = 0;
                 stateMachine.ChangeState(slime.WalkState);
             }
         }

@@ -1,4 +1,5 @@
-﻿using Enemy.Spider.States;
+﻿using System;
+using Enemy.Spider.States;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -6,10 +7,12 @@ namespace Enemy.Spider
 {
     public class Spider : Enemy
     {
+        [SerializeField] private CircleArea area;
+        
         /// <summary>
         /// Idle state of the slime.
         /// </summary>
-        public IdleState IdleState { get; protected set; }
+        public IdleState IdleState { get; protected set; } 
 
         /// <summary>
         /// Walk state of the slime.
@@ -38,11 +41,14 @@ namespace Enemy.Spider
 
             stateMachine = new SpiderStateMachine();
             IdleState = new IdleState(this, stateMachine);
-            WalkState = new WalkState(this, stateMachine);
+            WalkState = new WalkState(this, stateMachine, area);
             DamagedState = new DamagedState(this, stateMachine);
             AttackState = new AttackState(this, stateMachine);
 
             stateMachine.Initialize(this.IdleState);
         }
+
+        private void Update()
+            => stateMachine.CurrentState.Tick();
     }
 }
