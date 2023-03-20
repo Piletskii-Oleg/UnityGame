@@ -5,7 +5,7 @@ namespace Enemy.Slime.States
     /// <summary>
     /// State that corresponds to slime walking towards a destination.
     /// </summary>
-    public class WalkState : BaseState
+    public class WalkState : SlimeBaseState
     {
         private static readonly int doStep = Animator.StringToHash("DoStep");
         
@@ -17,12 +17,12 @@ namespace Enemy.Slime.States
         /// <summary>
         /// Initializes new instance of <see cref="WalkState"/> class.
         /// </summary>
-        /// <param name="actor">Actor that references this state.</param>
+        /// <param name="slime">Actor that references this state.</param>
         /// <param name="stateMachine">State machine that will use with this state.</param>
         /// <param name="stateFace">Slime face that corresponds to this state.</param>
         /// <param name="slimeArea">Area in which slime can walk.</param>
-        public WalkState(Slime actor, SlimeStateMachine stateMachine, Texture stateFace, SlimeArea slimeArea)
-            : base(actor, stateMachine, stateFace)
+        public WalkState(Slime slime, SlimeStateMachine stateMachine, Texture stateFace, SlimeArea slimeArea)
+            : base(slime, stateMachine, stateFace)
         {
             this.slimeArea = slimeArea;
         }
@@ -31,26 +31,26 @@ namespace Enemy.Slime.States
         {
             base.Enter();
             var destination = slimeArea.GetNewPosition();
-            actor.WalkToDestination(destination);
+            slime.WalkToDestination(destination);
         }
 
         public override void Tick()
         {
-            if (actor.SlimeType is SlimeType.Aggressive && actor.LookForPlayerInSegment())
+            if (slime.SlimeType is SlimeType.Aggressive && slime.LookForPlayerInSegment())
             {
-                stateMachine.ChangeState(actor.AttackState);
+                stateMachine.ChangeState(slime.AttackState);
             }
             
-            if (actor.Agent.remainingDistance < actor.Agent.stoppingDistance)
+            if (slime.Agent.remainingDistance < slime.Agent.stoppingDistance)
             {
                 float timeLimit = Random.Range(minIdleTime, maxIdleTime);
-                actor.IdleForPeriod(timeLimit, actor.IdleState, this);
+                slime.IdleForPeriod(timeLimit, slime.IdleState, this);
             }
         }
 
         public override void Exit()
         {
-            actor.SetAnimationValue(doStep, false);
+            slime.SetAnimationValue(doStep, false);
         }
     }
 }

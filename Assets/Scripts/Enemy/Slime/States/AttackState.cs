@@ -5,7 +5,7 @@ namespace Enemy.Slime.States
     /// <summary>
     /// State that corresponds to the slime attacking the player.
     /// </summary>
-    public class AttackState : BaseState
+    public class AttackState : SlimeBaseState
     {
         private static readonly int attack = Animator.StringToHash("Attack");
         
@@ -18,14 +18,13 @@ namespace Enemy.Slime.States
         /// <summary>
         /// Initializes new instance of <see cref="AttackState"/> class.
         /// </summary>
-        /// <param name="actor">Actor that references this state.</param>
+        /// <param name="slime">Actor that references this state.</param>
         /// <param name="stateMachine">State machine that will use with this state.</param>
         /// <param name="stateFace">Slime face that corresponds to this state.</param>
-        /// <param name="lookRadius">Radius of a circle in which slime will look for the player.</param>
         /// <param name="followTimeTact">Time that should pass until slime looks for the player again.</param>
         /// <param name="timesPlayerIsSearched">Amount of times that slime will try to look for a player.</param>
-        public AttackState(Slime actor, SlimeStateMachine stateMachine, Texture stateFace, float followTimeTact, int timesPlayerIsSearched)
-            : base(actor, stateMachine, stateFace)
+        public AttackState(Slime slime, SlimeStateMachine stateMachine, Texture stateFace, float followTimeTact, int timesPlayerIsSearched)
+            : base(slime, stateMachine, stateFace)
         {
             this.followTimeTact = followTimeTact;
             this.timesPlayerIsSearched = timesPlayerIsSearched;
@@ -46,10 +45,10 @@ namespace Enemy.Slime.States
                 UpdateTact();
             }
 
-            if (actor.Agent.remainingDistance < actor.Agent.stoppingDistance)
+            if (slime.Agent.remainingDistance < slime.Agent.stoppingDistance)
             {
                 Attack();
-                actor.Stop();
+                slime.Stop();
                 timePassed = followTimeTact;
             }
         }
@@ -59,9 +58,9 @@ namespace Enemy.Slime.States
         /// </summary>
         private void UpdateTact()
         {
-            if (actor.LookForPlayer())
+            if (slime.LookForPlayer())
             {
-                actor.WalkToDestination(actor.PlayerPosition);
+                slime.WalkToDestination(slime.PlayerPosition);
             }
             else
             {
@@ -70,7 +69,7 @@ namespace Enemy.Slime.States
 
             if (timesPlayerIsNotFound > timesPlayerIsSearched)
             {
-                actor.IdleForPeriod(0.3f, actor.IdleState, actor.WalkState);
+                slime.IdleForPeriod(0.3f, slime.IdleState, slime.WalkState);
             }
         }
 
@@ -83,7 +82,7 @@ namespace Enemy.Slime.States
         /// </summary>
         private void Attack()
         {
-            actor.TriggerAnimation(attack);
+            slime.TriggerAnimation(attack);
         }
     }
 }

@@ -15,17 +15,6 @@ namespace Enemy
         
         protected NavMeshAgent agent;
         protected Animator animator;
-        
-        protected SlimeStateMachine stateMachine;
-
-        [Header("General information")]
-        [Tooltip("GameObject that contains the actor model")]
-        [SerializeField]
-        protected GameObject slimeModel;
-
-        [Tooltip("An object around which actor can roam freely")]
-        [SerializeField]
-        protected SlimeArea slimeArea;
 
         [Header("Attack State")]
         [Tooltip("Radius of a circle in which actor will look for the player")]
@@ -58,26 +47,6 @@ namespace Enemy
         public Vector3 PlayerPosition { get; protected set; }
 
         /// <summary>
-        /// Idle state of the actor.
-        /// </summary>
-        public IdleState IdleState { get; protected set; }
-
-        /// <summary>
-        /// Walk state of the actor.
-        /// </summary>
-        public WalkState WalkState { get; protected set; }
-
-        /// <summary>
-        /// Damaged state of the actor.
-        /// </summary>
-        public DamagedState DamagedState { get; protected set; }
-
-        /// <summary>
-        /// Attack state of the actor.
-        /// </summary>
-        public AttackState AttackState { get; protected set; }
-
-        /// <summary>
         /// Sets a value of an animation variable.
         /// </summary>
         /// <param name="animationHash">Hash that corresponds to some animation variable.</param>
@@ -108,7 +77,7 @@ namespace Enemy
         public void TriggerAnimation(int animationHash)
             => animator.SetTrigger(animationHash);
 
-        private void OnAnimatorMove()
+        protected void OnAnimatorMove()
         {
             var position = animator.rootPosition;
             position.y = agent.nextPosition.y;

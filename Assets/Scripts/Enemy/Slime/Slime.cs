@@ -15,10 +15,38 @@ namespace Enemy.Slime
         private static readonly int mainTex = Shader.PropertyToID("_MainTex");
 
         private Material faceMaterial;
+        
+        private SlimeStateMachine stateMachine;
 
         public Vector3 LastHitPosition { get; private set; }
+        
+        /// <summary>
+        /// Idle state of the slime.
+        /// </summary>
+        public IdleState IdleState { get; protected set; }
+
+        /// <summary>
+        /// Walk state of the slime.
+        /// </summary>
+        public WalkState WalkState { get; protected set; }
+
+        /// <summary>
+        /// Damaged state of the slime.
+        /// </summary>
+        public DamagedState DamagedState { get; protected set; }
+
+        /// <summary>
+        /// Attack state of the slime.
+        /// </summary>
+        public AttackState AttackState { get; protected set; }
 
         [Header("Slime Information")]
+        [Tooltip("GameObject that contains the actor model")]
+        [SerializeField]
+        private GameObject slimeModel;
+        [Tooltip("An object around which actor can roam freely")]
+        [SerializeField]
+        private SlimeArea slimeArea;
         [Tooltip("Scriptable object that contains all slime faces")]
         [SerializeField] private SlimeFacesList facesList;
 
@@ -69,7 +97,7 @@ namespace Enemy.Slime
         /// <param name="period">Time in seconds for which slime should idle.</param>
         /// <param name="idleState">Slime's idle state.</param>
         /// <param name="state">New state, activated after <paramref name="period"/> seconds.</param>
-        public void IdleForPeriod(float period, BaseState idleState, BaseState state)
+        public void IdleForPeriod(float period, SlimeBaseState idleState, SlimeBaseState state)
             => StartCoroutine(IdleForPeriodCoroutine(period, idleState, state));
 
         private void OnCollisionEnter(Collision collision)
@@ -85,7 +113,7 @@ namespace Enemy.Slime
             }
         }
 
-        private IEnumerator IdleForPeriodCoroutine(float period, BaseState idleState, BaseState state)
+        private IEnumerator IdleForPeriodCoroutine(float period, SlimeBaseState idleState, SlimeBaseState state)
         {
             stateMachine.ChangeState(idleState);
             yield return new WaitForSeconds(period);

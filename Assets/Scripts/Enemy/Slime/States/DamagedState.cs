@@ -5,7 +5,7 @@ namespace Enemy.Slime.States
     /// <summary>
     /// State that corresponds to the slime being damaged.
     /// </summary>
-    public class DamagedState : BaseState
+    public class DamagedState : SlimeBaseState
     {
         private static readonly int damageAnimationHash = Animator.StringToHash("Damage");
         private static readonly int damageType = Animator.StringToHash("DamageType");
@@ -20,15 +20,15 @@ namespace Enemy.Slime.States
         /// <summary>
         /// Initializes new instance of <see cref="DamagedState"/> class.
         /// </summary>
-        /// <param name="actor">Actor that references this state.</param>
+        /// <param name="slime">Actor that references this state.</param>
         /// <param name="stateMachine">State machine that will use with this state.</param>
         /// <param name="stateFace">Slime face that corresponds to this state.</param>
         /// <param name="waitingTime">Amount of time which slime stays in damaged state for.</param>
         /// <param name="transformToFollow">Transform to follow them if attacked.</param>
-        public DamagedState(Slime actor, SlimeStateMachine stateMachine, Texture stateFace, float waitingTime, Transform transformToFollow)
-            : base(actor, stateMachine, stateFace)
+        public DamagedState(Slime slime, SlimeStateMachine stateMachine, Texture stateFace, float waitingTime, Transform transformToFollow)
+            : base(slime, stateMachine, stateFace)
         {
-            slimeType = actor.SlimeType;
+            slimeType = slime.SlimeType;
             this.waitingTime = waitingTime;
             this.transformToFollow = transformToFollow;
         }
@@ -39,12 +39,12 @@ namespace Enemy.Slime.States
 
             timePassed = 0;
 
-            actor.TriggerAnimation(damageAnimationHash);
-            actor.SetAnimationValue(damageType, Random.Range(0, 2));
+            slime.TriggerAnimation(damageAnimationHash);
+            slime.SetAnimationValue(damageType, Random.Range(0, 3));
 
             if (slimeType is SlimeType.Neutral or SlimeType.Aggressive)
             {
-                stateMachine.ChangeState(actor.AttackState);
+                stateMachine.ChangeState(slime.AttackState);
             }
         }
 
@@ -53,7 +53,7 @@ namespace Enemy.Slime.States
             timePassed += Time.deltaTime;
             if (timePassed > waitingTime)
             {
-                stateMachine.ChangeState(actor.IdleState);
+                stateMachine.ChangeState(slime.IdleState);
             }
         }
 

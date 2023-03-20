@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+﻿using Shared;
 
 namespace Enemy.Slime.States
 {
@@ -7,30 +7,19 @@ namespace Enemy.Slime.States
     /// </summary>
     public abstract class BaseState
     {
-        private readonly Texture stateFace;
-        protected readonly Slime actor;
-        protected readonly SlimeStateMachine stateMachine;
-
-        protected BaseState(Slime actor, SlimeStateMachine stateMachine, Texture stateFace)
-        {
-            this.actor = actor;
-            this.stateMachine = stateMachine;
-            this.stateFace = stateFace;
-        }
-
+        protected Actor actor;
+        protected BaseStateMachine stateMachine;
+        
         /// <summary>
         /// Called when actor enters the state.
         /// </summary>
-        public virtual void Enter()
-        {
-            actor.SetFace(stateFace);
-        }
+        public abstract void Enter();
 
         /// <summary>
         /// Called every frame when actor is in the state.
         /// </summary>
         public abstract void Tick();
-        
+
         /// <summary>
         /// Called when actor leaves the state.
         /// </summary>

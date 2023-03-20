@@ -5,7 +5,7 @@ namespace Enemy.Slime.States
     /// <summary>
     /// State that corresponds to the slime jumping.
     /// </summary>
-    public class JumpState : BaseState
+    public class JumpState : SlimeBaseState
     {
         private static readonly int jumpAnimationHash = Animator.StringToHash("Jump");
 
@@ -14,11 +14,11 @@ namespace Enemy.Slime.States
         /// <summary>
         /// Initializes new instance of <see cref="JumpState"/> class.
         /// </summary>
-        /// <param name="actor">Actor that references this state.</param>
+        /// <param name="slime">Actor that references this state.</param>
         /// <param name="stateMachine">State machine that will use with this state.</param>
         /// <param name="stateFace">Slime face that corresponds to this state.</param>
-        public JumpState(Slime actor, SlimeStateMachine stateMachine, Texture stateFace)
-            : base(actor, stateMachine, stateFace)
+        public JumpState(Slime slime, SlimeStateMachine stateMachine, Texture stateFace)
+            : base(slime, stateMachine, stateFace)
         {
         }
 
@@ -27,7 +27,7 @@ namespace Enemy.Slime.States
         /// </summary>
         private void Jump()
         {
-            actor.TriggerAnimation(jumpAnimationHash);
+            slime.TriggerAnimation(jumpAnimationHash);
         }
 
         public override void Enter()
@@ -44,7 +44,7 @@ namespace Enemy.Slime.States
         public override void Exit()
         {
             isJumping = false;
-            stateMachine.ChangeState(actor.IdleState);
+            stateMachine.ChangeState(slime.IdleState);
         }
     }
 }
