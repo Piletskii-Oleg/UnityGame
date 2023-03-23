@@ -46,7 +46,7 @@ namespace Shared
         /// <summary>
         /// Used when the actor is killed.
         /// </summary>
-        public void OnKill()
+        public virtual void OnKill()
         {
             onKill.Invoke();
         }
