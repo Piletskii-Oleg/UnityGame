@@ -15,8 +15,6 @@ namespace Enemy.Slime.States
 
         private readonly SlimeType slimeType;
 
-        private readonly Transform transformToFollow; // delete?
-
         /// <summary>
         /// Initializes new instance of <see cref="DamagedState"/> class.
         /// </summary>
@@ -24,13 +22,11 @@ namespace Enemy.Slime.States
         /// <param name="stateMachine">State machine that will use with this state.</param>
         /// <param name="stateFace">Slime face that corresponds to this state.</param>
         /// <param name="waitingTime">Amount of time which slime stays in damaged state for.</param>
-        /// <param name="transformToFollow">Transform to follow them if attacked.</param>
-        public DamagedState(Slime slime, BaseStateMachine stateMachine, Texture stateFace, float waitingTime, Transform transformToFollow)
+        public DamagedState(Slime slime, BaseStateMachine stateMachine, Texture stateFace, float waitingTime)
             : base(slime, stateMachine, stateFace)
         {
             slimeType = slime.SlimeType;
             this.waitingTime = waitingTime;
-            this.transformToFollow = transformToFollow;
         }
         
         public override void Enter()
@@ -59,7 +55,6 @@ namespace Enemy.Slime.States
 
         public override void Exit()
         {
-            
         }
     }
 }

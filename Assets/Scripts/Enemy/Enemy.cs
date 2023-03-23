@@ -43,6 +43,9 @@ namespace Enemy
         /// </summary>
         public Vector3 PlayerPosition { get; private set; }
 
+        private void Update()
+            => stateMachine.CurrentState.Tick();
+        
         /// <summary>
         /// Sets a value of an animation variable.
         /// </summary>

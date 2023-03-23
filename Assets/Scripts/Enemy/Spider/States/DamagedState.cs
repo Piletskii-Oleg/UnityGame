@@ -1,7 +1,11 @@
-﻿namespace Enemy.Spider.States
+﻿using UnityEngine;
+
+namespace Enemy.Spider.States
 {
     public class DamagedState : SpiderBaseState
     {
+        private static readonly int damageAnimationHash = Animator.StringToHash("Damage");
+        
         public DamagedState(Spider spider, BaseStateMachine stateMachine)
             : base(spider, stateMachine)
         {
@@ -9,17 +13,17 @@
 
         public override void Enter()
         {
-            throw new System.NotImplementedException();
+            spider.TriggerAnimation(damageAnimationHash);
+
+            stateMachine.ChangeState(spider.AttackState);
         }
 
         public override void Tick()
         {
-            throw new System.NotImplementedException();
         }
 
         public override void Exit()
         {
-            throw new System.NotImplementedException();
         }
     }
 }

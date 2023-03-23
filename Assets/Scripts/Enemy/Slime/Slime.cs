@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using Enemy.Slime.States;
+﻿using Enemy.Slime.States;
 using Shared;
 using Shared.ScriptableObjects;
 using UnityEngine;
@@ -17,43 +16,36 @@ namespace Enemy.Slime
 
         private Material faceMaterial;
 
-        public Vector3 LastHitPosition { get; private set; }
-        
         /// <summary>
         /// Idle state of the slime.
         /// </summary>
-        public IdleState IdleState { get; protected set; }
+        public IdleState IdleState { get; private set; }
 
         /// <summary>
         /// Walk state of the slime.
         /// </summary>
-        public WalkState WalkState { get; protected set; }
+        public WalkState WalkState { get; private set; }
 
         /// <summary>
         /// Damaged state of the slime.
         /// </summary>
-        public DamagedState DamagedState { get; protected set; }
+        public DamagedState DamagedState { get; private set; }
 
         /// <summary>
         /// Attack state of the slime.
         /// </summary>
-        public AttackState AttackState { get; protected set; }
+        public AttackState AttackState { get; private set; }
 
         [Header("Slime Information")]
         [Tooltip("GameObject that contains the actor model")]
-        [SerializeField]
-        private GameObject slimeModel;
+        [SerializeField] private GameObject slimeModel;
         [FormerlySerializedAs("slimeArea")]
         [Tooltip("An object around which actor can roam freely")]
-        [SerializeField]
-        private CircleArea circleArea;
+        [SerializeField] private CircleArea circleArea;
         [Tooltip("Scriptable object that contains all slime faces")]
         [SerializeField] private SlimeFacesList facesList;
 
-        [Tooltip("Player character's transform (to follow them if attacked)")]
-        [SerializeField] private Transform playerTransform;
-        
-        [Tooltip("Is the actor passive, neutral or aggressive towards player?")]
+        [Tooltip("Is the slime passive, neutral or aggressive towards player?")]
         [field: SerializeField] public SlimeType SlimeType { get; private set; }
 
         public NavMeshAgent Agent => agent;
@@ -70,21 +62,17 @@ namespace Enemy.Slime
             stateMachine = new SlimeStateMachine();
             IdleState = new IdleState(this, stateMachine, facesList.idleFace);
             WalkState = new WalkState(this, stateMachine, facesList.walkFace, circleArea);
-            DamagedState = new DamagedState(this, stateMachine, facesList.damageFace, waitingTime, playerTransform);
+            DamagedState = new DamagedState(this, stateMachine, facesList.damageFace, waitingTime);
             AttackState = new AttackState(this, stateMachine, facesList.attackFace, followTimeTact, timesPlayerIsSearched);
 
             stateMachine.Initialize(this.IdleState);
         }
 
-        public override void OnTakeDamage(float damage, ActorAffiliation actorAffiliation, Vector3 hitPosition)
+        public override void OnTakeDamage(float damage, ActorAffiliation actorAffiliation)
         {
-            base.OnTakeDamage(damage, actorAffiliation, hitPosition);
-            LastHitPosition = hitPosition;
+            base.OnTakeDamage(damage, actorAffiliation);
             stateMachine.ChangeState(DamagedState);
         }
-
-        private void Update()
-            => stateMachine.CurrentState.Tick();
 
         /// <summary>
         /// Changes face of the slime to the given one.

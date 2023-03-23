@@ -25,11 +25,11 @@ namespace Enemy.Spider.States
 
         public override void Tick()
         {
-            // if (spider.LookForPlayerInSegment())
-            // {
-            //     stateMachine.ChangeState(spider.AttackState);
-            // }
-            
+            if (spider.LookForPlayerInSegment())
+            {
+                stateMachine.ChangeState(spider.AttackState);
+            }
+
             if (spider.Agent.remainingDistance < spider.Agent.stoppingDistance)
             {
                 float timeLimit = Random.Range(minIdleTime, maxIdleTime);
