@@ -12,6 +12,9 @@ namespace Enemy.Spider.States
         private int timesPlayerIsNotFound;
         private readonly int timesPlayerIsSearched;
 
+        private readonly float walkSpeed;
+        private readonly float runSpeed;
+
         public bool HasAttacked { get; private set; }
 
         /// <summary>
@@ -21,16 +24,20 @@ namespace Enemy.Spider.States
         /// <param name="stateMachine">State machine that will use with this state.</param>
         /// <param name="followTimeTact">Time that should pass until spider looks for the player again.</param>
         /// <param name="timesPlayerIsSearched">Amount of times that spider will try to look for a player.</param>
-        public AttackState(Spider spider, BaseStateMachine stateMachine, float followTimeTact, int timesPlayerIsSearched)
+        /// <param name="walkSpeed">Speed with which the spider walks around.</param>
+        /// <param name="runSpeed">Speed with which the spider follows the player.</param>
+        public AttackState(Spider spider, BaseStateMachine stateMachine, float followTimeTact,
+            int timesPlayerIsSearched, float walkSpeed, float runSpeed)
             : base(spider, stateMachine)
         {
             this.followTimeTact = followTimeTact;
             this.timesPlayerIsSearched = timesPlayerIsSearched;
+            this.walkSpeed = walkSpeed;
+            this.runSpeed = runSpeed;
         }
 
         public override void Enter()
         {
-            timesPlayerIsNotFound = 0;
             UpdateTact();
         }
 
@@ -45,7 +52,6 @@ namespace Enemy.Spider.States
             if (spider.Agent.remainingDistance < spider.Agent.stoppingDistance)
             {
                 Attack();
-                spider.Stop();
                 UpdateTact();
             }
         }
@@ -55,9 +61,8 @@ namespace Enemy.Spider.States
         /// </summary>
         private void UpdateTact()
         {
-            timePassed = 0f;
-            HasAttacked = false;
-            
+            ResetValues();
+
             if (spider.LookForPlayer())
             {
                 spider.WalkToDestination(spider.PlayerPosition);
@@ -73,8 +78,17 @@ namespace Enemy.Spider.States
             }
         }
 
+        private void ResetValues()
+        {
+            timePassed = 0f;
+            HasAttacked = false;
+            spider.Agent.speed = runSpeed;
+            timesPlayerIsNotFound = 0;
+        }
+
         public override void Exit()
         {
+            spider.Agent.speed = walkSpeed;
         }
 
         /// <summary>
@@ -82,7 +96,10 @@ namespace Enemy.Spider.States
         /// </summary>
         private void Attack()
         {
+            spider.Stop();
+
             spider.TriggerAnimation(attack);
+            
             HasAttacked = true;
         }
     }

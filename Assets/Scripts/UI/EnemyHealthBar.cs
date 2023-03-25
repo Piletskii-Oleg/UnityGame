@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace UI
@@ -9,6 +10,14 @@ namespace UI
         
         [SerializeField] private Slider slider;
         [SerializeField] [Range(0f, 75f)] private float maxDistance;
+
+        private void Start()
+        {
+            if (!playerTransform)
+            {
+                playerTransform = GameObject.FindWithTag("Player").transform; // :(
+            }
+        }
 
         private void Update()
         {

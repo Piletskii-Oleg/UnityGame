@@ -7,7 +7,7 @@
     {
         protected readonly Spider spider;
         protected readonly BaseStateMachine stateMachine;
-
+        
         protected SpiderBaseState(Spider spider, BaseStateMachine stateMachine)
         {
             this.spider = spider;
