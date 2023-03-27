@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using Enemy.Spider.States;
-using Player.ScriptableObjects;
 using Shared;
 using Shared.ScriptableObjects;
 using UnityEngine;
@@ -19,9 +18,7 @@ namespace Enemy.Spider
         [SerializeField] private CircleArea area;
         
         [Tooltip("Time after which the spider disappears (applies after death)")]
-        [SerializeField] private float timeUntilDisappearing; 
-        [Tooltip("Radius in which spider will roam around trying to find the player.")]
-        [SerializeField] private float searchRadius;
+        [SerializeField] private float timeUntilDisappearing;
 
         /// <summary>
         /// Idle state of the spider.
@@ -66,9 +63,19 @@ namespace Enemy.Spider
         public override void OnTakeDamage(float damage, ActorAffiliation actorAffiliation)
         {
             base.OnTakeDamage(damage, actorAffiliation);
-            stateMachine.ChangeState(DamagedState);
+
+            if (stateMachine.CurrentState is not (States.AttackState or States.DamagedState or States.DeadState))
+            {
+                stateMachine.ChangeState(DamagedState);
+            }
         }
-        
+
+        /// <summary>
+        /// Deals damage to the given actor,
+        /// but only if the spider is in the <see cref="AttackState"/> and has not attacked yet
+        /// (in the current tact of <see cref="AttackState"/>).
+        /// </summary>
+        /// <param name="actor">Actor that the spider should deal damage to.</param>
         public void DealDamage(Actor actor)
         {
             if (stateMachine.CurrentState is AttackState && !AttackState.HasAttacked)
@@ -77,23 +84,42 @@ namespace Enemy.Spider
             }
         }
         
+        /// <summary>
+        /// Spawns the spider and makes it move to the specified position.
+        /// </summary>
+        /// <param name="position">Position for the spider to move to.</param>
         public void GetSpawned(Vector3 position)
         {
             SpawnedState = new SpawnedState(this, stateMachine, position);
             stateMachine.ChangeState(SpawnedState);
         }
 
+        /// <summary>
+        /// Sets the <see cref="area"/> variable
+        /// (if spider is spawned, it cannot be initialized in the editor as it is scene-specific).
+        /// </summary>
+        /// <param name="newArea">Area which the spider belongs to.</param>
         public void SetArea(CircleArea newArea)
-        {
-            area = newArea;
-        }
+            => area = newArea;
 
+        /// <summary>
+        /// Gets a new position in the <see cref="area"/>.
+        /// </summary>
+        /// <returns></returns>
         public Vector3 GetNewPositionInArea()
             => area.GetNewPosition();
 
+        /// <summary>
+        /// Gets a new position around the spider with the radius of lookRadius.
+        /// </summary>
+        /// <returns></returns>
         public Vector3 GetNewPositionInLocalArea()
-            => area.GetNewPosition(searchRadius);
+            => CircleArea.GetNewPosition(lookRadius, transform.position);
 
+        /// <summary>
+        /// Gets position of the player in the world.
+        /// </summary>
+        /// <returns></returns>
         public Vector3 GetActualPlayerPosition()
             => playerScriptableObject.GetActualPlayerPosition();
 

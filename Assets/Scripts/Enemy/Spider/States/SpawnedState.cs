@@ -2,6 +2,9 @@
 
 namespace Enemy.Spider.States
 {
+    /// <summary>
+    /// Slime that corresponds to the spider being just spawned.
+    /// </summary>
     public class SpawnedState : SpiderBaseState
     {
         private readonly Vector3 exitPosition;

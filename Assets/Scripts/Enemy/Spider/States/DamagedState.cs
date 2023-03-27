@@ -2,6 +2,9 @@
 
 namespace Enemy.Spider.States
 {
+    /// <summary>
+    /// State that corresponds to the spider being damaged.
+    /// </summary>
     public class DamagedState : SpiderBaseState
     {
         private static readonly int damageAnimationHash = Animator.StringToHash("Damage");

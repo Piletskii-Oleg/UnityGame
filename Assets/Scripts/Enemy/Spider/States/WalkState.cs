@@ -2,6 +2,9 @@
 
 namespace Enemy.Spider.States
 {
+    /// <summary>
+    /// Slime that corresponds to the spider walking.
+    /// </summary>
     public class WalkState : SpiderBaseState
     {
         private static readonly int doStep = Animator.StringToHash("DoStep");

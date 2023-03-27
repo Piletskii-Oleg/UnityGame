@@ -1,8 +1,6 @@
 ﻿namespace Enemy.Slime.States
 {
-    /// <summary>
-    /// State machine that changes slime's states.
-    /// </summary>
+    /// <inheritdoc/>
     public class SlimeStateMachine : BaseStateMachine
     {
     }

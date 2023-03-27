@@ -30,7 +30,7 @@ namespace Shared
             CurrentHealth -= damage;
             onHealthChangedEvent.Invoke(CurrentHealth / healthData.maxHealth);
 
-            if (CurrentHealth < 0)
+            if (CurrentHealth <= 0)
             {
                 CurrentHealth = 0;
                 onDeathEvent.Invoke();

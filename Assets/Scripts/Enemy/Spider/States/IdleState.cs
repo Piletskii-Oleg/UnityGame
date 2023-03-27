@@ -2,6 +2,9 @@
 
 namespace Enemy.Spider.States
 {
+    /// <summary>
+    /// Slime that corresponds to the spider being idle.
+    /// </summary>
     public class IdleState : SpiderBaseState
     {
         private float timePassed; 

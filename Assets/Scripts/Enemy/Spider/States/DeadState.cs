@@ -1,5 +1,8 @@
 ﻿namespace Enemy.Spider.States
 {
+    /// <summary>
+    /// Slime that corresponds to the spider being dead.
+    /// </summary>
     public class DeadState : SpiderBaseState
     {
         public DeadState(Spider spider, BaseStateMachine stateMachine)

@@ -2,6 +2,9 @@
 
 namespace Enemy.Spider.States
 {
+    /// <summary>
+    /// State that corresponds to the spider attacking the player.
+    /// </summary>
     public class AttackState : SpiderBaseState
     {
         private static readonly int attack = Animator.StringToHash("Attack");
@@ -90,7 +93,8 @@ namespace Enemy.Spider.States
             HasAttacked = false;
             spider.Agent.speed = runSpeed;
             timesPlayerIsNotFound = 0;
-            isPlayerReachable = Mathf.Abs(spider.GetActualPlayerPosition().y - spider.transform.position.y) < playerReachThreshold;
+            isPlayerReachable =
+                (spider.GetActualPlayerPosition() - spider.transform.position).magnitude < playerReachThreshold;
         }
 
         public override void Exit()

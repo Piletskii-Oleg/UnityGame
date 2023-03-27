@@ -17,41 +17,32 @@ namespace Enemy
         [SerializeField] private float playerViewRadius;
 
         /// <summary>
-        /// Gets next position that enemy will go to.
-        /// </summary>
-        /// <returns>A position that enemy will go to.</returns>
-        public Vector3 GetNewPosition()
-        {
-            float distance = enemyRoamRadius * Mathf.Sqrt(Random.value);
-            
-            float angle = Random.value * 2 * Mathf.PI;
-            
-            var position = transform.position;
-            
-            return new Vector3(position.x + distance * Mathf.Cos(angle), 
-                position.y, position.z + distance * Mathf.Sin(angle));
-        }
-        
-        /// <summary>
         /// Gets next position that enemy will go to (within a given radius).
         /// </summary>
         /// <returns>A position that enemy will go to.</returns>
-        public Vector3 GetNewPosition(float radius)
+        /// <param name="radius">Radius in which point is selected.</param>
+        /// <param name="centerPosition">A point around which the destination point is selected.</param>
+        public static Vector3 GetNewPosition(float radius, Vector3 centerPosition)
         {
             float distance = radius * Mathf.Sqrt(Random.value);
             
             float angle = Random.value * 2 * Mathf.PI;
-            
-            var position = transform.position;
-            
-            return new Vector3(position.x + distance * Mathf.Cos(angle), 
-                position.y, position.z + distance * Mathf.Sin(angle));
+
+            return new Vector3(centerPosition.x + distance * Mathf.Cos(angle), 
+                centerPosition.y, centerPosition.z + distance * Mathf.Sin(angle));
         }
+        
+        /// <summary>
+        /// Gets next position within the area that enemy will go to.
+        /// </summary>
+        /// <returns>A position that enemy will go to.</returns>
+        public Vector3 GetNewPosition()
+            => GetNewPosition(enemyRoamRadius, transform.position);
 
         /// <summary>
-        /// Tells if the specified position is contained in the sphere around 
+        /// Tells if the specified position is contained in the sphere of player visibility.
         /// </summary>
-        /// <param name="position"></param>
+        /// <param name="position">Position to check.</param>
         /// <returns></returns>
         public bool IsPositionInsideActiveRadius(Vector3 position)
             => (transform.position - position).magnitude < playerViewRadius;

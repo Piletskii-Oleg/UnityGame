@@ -3,6 +3,9 @@ using UnityEngine;
 
 namespace Enemy.Spider
 {
+    /// <summary>
+    /// Put on a game object that spawns spiders.
+    /// </summary>
     public class SpiderSpawner : MonoBehaviour
     {
         private readonly List<GameObject> spiders = new ();

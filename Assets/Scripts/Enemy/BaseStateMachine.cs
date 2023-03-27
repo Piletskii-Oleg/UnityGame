@@ -1,7 +1,8 @@
-﻿using Enemy.Slime.States;
-
-namespace Enemy
+﻿namespace Enemy
 {
+    /// <summary>
+    /// State machine for a simple <see cref="Enemy"/>.
+    /// </summary>
     public class BaseStateMachine
     {
         /// <summary>

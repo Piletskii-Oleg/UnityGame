@@ -23,7 +23,7 @@ namespace Enemy
         
         [Header("Attack State")]
         [Tooltip("Radius of a circle in which enemy will look for the player")]
-        [SerializeField] private float lookRadius;
+        [SerializeField] protected float lookRadius;
 
         [Tooltip("Angle of a segment of a circle in which enemy can see the player")]
         [SerializeField] private float lookAngle;
@@ -143,7 +143,9 @@ namespace Enemy
         private IEnumerator IdleForPeriodCoroutine(float period, BaseState idleState, BaseState state)
         {
             stateMachine.ChangeState(idleState);
+            
             yield return new WaitForSeconds(period);
+            
             if (stateMachine.CurrentState == idleState)
             {
                 stateMachine.ChangeState(state);

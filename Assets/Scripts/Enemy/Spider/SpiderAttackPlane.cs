@@ -3,6 +3,9 @@ using UnityEngine;
 
 namespace Enemy.Spider
 {
+    /// <summary>
+    /// Put on the plane that is used to deal damage by the spider.
+    /// </summary>
     public class SpiderAttackPlane : MonoBehaviour
     {
         [SerializeField] private Spider spider;

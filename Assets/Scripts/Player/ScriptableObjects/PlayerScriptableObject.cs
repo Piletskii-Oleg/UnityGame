@@ -10,22 +10,20 @@ namespace Player.ScriptableObjects
     public class PlayerScriptableObject : ScriptableObject
     {
         private GameObject player;
+        private Transform playerTransform;
 
         public Vector3 GetActualPlayerPosition()
-        {
-            return player.transform.position;
-        }
+            => playerTransform.position;
 
         public Transform GetActualPlayerTransform()
-        {
-            return player.transform;
-        }
+            => playerTransform;
 
         public void Initialize()
         {
             if (!player)
             {
                 player = GameObject.FindGameObjectWithTag("Player");
+                playerTransform = player.transform;
             }
         }
     }
