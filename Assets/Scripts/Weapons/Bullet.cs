@@ -45,7 +45,7 @@ namespace Weapons
         {
             if (collision.gameObject.TryGetComponent<Actor>(out var actor))
             {
-                actor.OnTakeDamage(damage, affiliation, collision.transform.position);
+                actor.OnTakeDamage(damage, affiliation);
             }
 
             Destroy(gameObject);

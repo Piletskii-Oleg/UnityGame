@@ -3087,7 +3087,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: 1956b30ec7f90ff49a62eeba03baefad, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
-  m_ApplyRootMotion: 0
+  m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_WarningMessage: 
@@ -3169,6 +3169,7 @@ MonoBehaviour:
   runSpeed: 5
   area: {fileID: 0}
   timeUntilDisappearing: 6
+  searchRadius: 10
 --- !u!114 &6115321469002705246
 MonoBehaviour:
   m_ObjectHideFlags: 0

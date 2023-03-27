@@ -18,7 +18,9 @@ namespace Enemy.Spider
         [SerializeField] private CircleArea area;
         
         [Tooltip("Time after which the spider disappears (applies after death)")]
-        [SerializeField] private float timeUntilDisappearing;
+        [SerializeField] private float timeUntilDisappearing; 
+        [Tooltip("Radius in which spider will roam around trying to find the player.")]
+        [SerializeField] private float searchRadius;
 
         /// <summary>
         /// Idle state of the spider.
@@ -83,8 +85,13 @@ namespace Enemy.Spider
         public void SetArea(CircleArea newArea)
         {
             area = newArea;
-            WalkState = new WalkState(this, stateMachine, area); // if this method is called then area is not defined yet
         }
+
+        public Vector3 GetNewPositionInArea()
+            => area.GetNewPosition();
+
+        public Vector3 GetNewPositionInLocalArea()
+            => area.GetNewPosition(searchRadius);
 
         public override void OnKill()
         {
@@ -107,7 +114,7 @@ namespace Enemy.Spider
         private void InitializeStates()
         {
             IdleState = new IdleState(this, stateMachine);
-            WalkState = new WalkState(this, stateMachine, area);
+            WalkState = new WalkState(this, stateMachine);
             DamagedState = new DamagedState(this, stateMachine);
             DeadState = new DeadState(this, stateMachine);
             AttackState = new AttackState(this, stateMachine, followTimeTact, timesPlayerIsSearched, walkSpeed,

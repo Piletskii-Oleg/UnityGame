@@ -4,22 +4,19 @@ namespace Enemy.Spider.States
 {
     public class WalkState : SpiderBaseState
     {
-        private readonly CircleArea area;
-        
-        public WalkState(Spider spider, BaseStateMachine stateMachine, CircleArea area)
-            : base(spider, stateMachine)
-        {
-            this.area = area;
-        }
-
         private static readonly int doStep = Animator.StringToHash("DoStep");
 
         private readonly float minIdleTime = 0.3f;
         private readonly float maxIdleTime = 5f;
+        
+        public WalkState(Spider spider, BaseStateMachine stateMachine)
+            : base(spider, stateMachine)
+        {
+        }
 
         public override void Enter()
         {
-            var destination = area.GetNewPosition();
+            var destination = spider.GetNewPositionInArea();
             spider.WalkToDestination(destination);
         }
 

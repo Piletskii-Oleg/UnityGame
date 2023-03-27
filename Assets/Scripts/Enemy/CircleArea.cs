@@ -31,6 +31,22 @@ namespace Enemy
             return new Vector3(position.x + distance * Mathf.Cos(angle), 
                 position.y, position.z + distance * Mathf.Sin(angle));
         }
+        
+        /// <summary>
+        /// Gets next position that enemy will go to (within a given radius).
+        /// </summary>
+        /// <returns>A position that enemy will go to.</returns>
+        public Vector3 GetNewPosition(float radius)
+        {
+            float distance = radius * Mathf.Sqrt(Random.value);
+            
+            float angle = Random.value * 2 * Mathf.PI;
+            
+            var position = transform.position;
+            
+            return new Vector3(position.x + distance * Mathf.Cos(angle), 
+                position.y, position.z + distance * Mathf.Sin(angle));
+        }
 
         /// <summary>
         /// Tells if the specified position is contained in the sphere around 

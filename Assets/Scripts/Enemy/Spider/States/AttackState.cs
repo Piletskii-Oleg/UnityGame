@@ -15,6 +15,9 @@ namespace Enemy.Spider.States
         private readonly float walkSpeed;
         private readonly float runSpeed;
 
+        private bool isPlayerReachable;
+        private readonly float playerReachThreshold = 5f;
+
         public bool HasAttacked { get; private set; }
 
         /// <summary>
@@ -31,15 +34,15 @@ namespace Enemy.Spider.States
             : base(spider, stateMachine)
         {
             this.followTimeTact = followTimeTact;
+            
             this.timesPlayerIsSearched = timesPlayerIsSearched;
+            
             this.walkSpeed = walkSpeed;
             this.runSpeed = runSpeed;
         }
 
         public override void Enter()
-        {
-            UpdateTact();
-        }
+            => UpdateTact();
 
         public override void Tick()
         {
@@ -47,13 +50,15 @@ namespace Enemy.Spider.States
             if (timePassed >= followTimeTact)
             {
                 UpdateTact();
+                return;
             }
 
-            if (spider.Agent.remainingDistance < spider.Agent.stoppingDistance)
+            if (spider.Agent.remainingDistance < spider.Agent.stoppingDistance && isPlayerReachable)
             {
                 Attack();
-                UpdateTact();
             }
+            
+            UpdateTact();
         }
 
         /// <summary>
@@ -66,9 +71,11 @@ namespace Enemy.Spider.States
             if (spider.LookForPlayer())
             {
                 spider.WalkToDestination(spider.PlayerPosition);
+                
             }
             else
             {
+                spider.WalkToDestination(spider.GetNewPositionInLocalArea());
                 timesPlayerIsNotFound++;
             }
 
@@ -84,6 +91,7 @@ namespace Enemy.Spider.States
             HasAttacked = false;
             spider.Agent.speed = runSpeed;
             timesPlayerIsNotFound = 0;
+            isPlayerReachable = Mathf.Abs(spider.PlayerPosition.y - spider.transform.position.y) < playerReachThreshold;
         }
 
         public override void Exit()

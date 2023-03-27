@@ -156,7 +156,7 @@ public class EnemyAi : MonoBehaviour
         if (message.Equals("AnimationDamageEnded"))
         {
             // When Animation ended check distance between current position and first position 
-            //if it > 1 AI will back to first position 
+            // if it > 1 AI will back to first position 
 
             float distanceOrg = Vector3.Distance(transform.position, originPos);
             if (distanceOrg > 1f)
