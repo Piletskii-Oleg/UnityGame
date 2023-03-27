@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using Enemy.Spider.States;
+using Player.ScriptableObjects;
 using Shared;
 using Shared.ScriptableObjects;
 using UnityEngine;
@@ -92,6 +93,9 @@ namespace Enemy.Spider
 
         public Vector3 GetNewPositionInLocalArea()
             => area.GetNewPosition(searchRadius);
+
+        public Vector3 GetActualPlayerPosition()
+            => playerScriptableObject.GetActualPlayerPosition();
 
         public override void OnKill()
         {

@@ -1,4 +1,4 @@
-﻿using System;
+﻿using Player.ScriptableObjects;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,6 +7,7 @@ namespace UI
     public class EnemyHealthBar : MonoBehaviour
     {
         [SerializeField] private Transform playerTransform;
+        [SerializeField] private PlayerScriptableObject playerScriptableObject;
         
         [SerializeField] private Slider slider;
         [SerializeField] [Range(0f, 75f)] private float maxDistance;
@@ -15,7 +16,7 @@ namespace UI
         {
             if (!playerTransform)
             {
-                playerTransform = GameObject.FindWithTag("Player").transform; // :(
+                playerTransform = playerScriptableObject.GetActualPlayerTransform();
             }
         }
 

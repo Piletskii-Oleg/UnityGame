@@ -56,9 +56,8 @@ namespace Enemy.Spider.States
             if (spider.Agent.remainingDistance < spider.Agent.stoppingDistance && isPlayerReachable)
             {
                 Attack();
+                UpdateTact();
             }
-            
-            UpdateTact();
         }
 
         /// <summary>
@@ -91,7 +90,7 @@ namespace Enemy.Spider.States
             HasAttacked = false;
             spider.Agent.speed = runSpeed;
             timesPlayerIsNotFound = 0;
-            isPlayerReachable = Mathf.Abs(spider.PlayerPosition.y - spider.transform.position.y) < playerReachThreshold;
+            isPlayerReachable = Mathf.Abs(spider.GetActualPlayerPosition().y - spider.transform.position.y) < playerReachThreshold;
         }
 
         public override void Exit()

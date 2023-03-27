@@ -763,6 +763,7 @@ GameObject:
   - component: {fileID: 111919190}
   - component: {fileID: 111919188}
   - component: {fileID: 1252321243630478479}
+  - component: {fileID: 1252321243630478485}
   m_Layer: 9
   m_Name: Player
   m_TagString: Player
@@ -778,7 +779,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 111919186}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 284.9, y: 10.392, z: 396.25}
+  m_LocalPosition: {x: 133.2, y: 10.392, z: 574.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4868,7 +4869,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 111919194}
         m_TargetAssemblyTypeName: Player.PlayerLook, Assembly-CSharp
-        m_MethodName: LoadOptionsFromFile
+        m_MethodName: OnLoad
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -13821,11 +13822,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 476988b23df942c2834378cb90190c36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxEnemiesAmount: 7
+  maxEnemiesAmount: 4
   spiderPrefab: {fileID: 6115321469002706592, guid: 6ad86db31c453714e8648dc3899f1c5e, type: 3}
   area: {fileID: 1835309612}
   exitTransform: {fileID: 256246343}
-  spawnCooldown: 10
+  spawnCooldown: 15
   playerTransform: {fileID: 111919187}
 --- !u!23 &1302815531
 MeshRenderer:
@@ -19396,6 +19397,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerTransform: {fileID: 111919187}
+  playerScriptableObject: {fileID: 11400000, guid: 203a95cfd29fdca4bbd08281315d3e08, type: 2}
   slider: {fileID: 548988234}
   maxDistance: 15
 --- !u!114 &2035527574
@@ -19490,6 +19492,7 @@ MonoBehaviour:
   timesPlayerIsSearched: 10
   damage: 9
   waitingTime: 1.04
+  playerScriptableObject: {fileID: 11400000, guid: 203a95cfd29fdca4bbd08281315d3e08, type: 2}
   walkSpeed: 3
   runSpeed: 5
   area: {fileID: 1835309612}
@@ -20976,6 +20979,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerTransform: {fileID: 111919187}
+  playerScriptableObject: {fileID: 0}
   slider: {fileID: 900690511}
   maxDistance: 12
 --- !u!82 &82346520985757415
@@ -22908,6 +22912,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponManager: {fileID: 11400000, guid: e89bbf54677811741bcf2548a831c9e1, type: 2}
   weaponHolder: {fileID: 225934353}
+--- !u!114 &1252321243630478485
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 111919186}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 701add85fc0c4f41adc9775027042f30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerScriptableObject: {fileID: 11400000, guid: 203a95cfd29fdca4bbd08281315d3e08, type: 2}
 --- !u!1001 &1914008324351486217
 PrefabInstance:
   m_ObjectHideFlags: 0

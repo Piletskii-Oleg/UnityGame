@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Player.ScriptableObjects;
 using Shared;
 using UnityEngine;
 using UnityEngine.AI;
@@ -17,6 +18,9 @@ namespace Enemy
         protected NavMeshAgent agent;
         protected Animator animator;
 
+        [Header("Player")]
+        [SerializeField] protected PlayerScriptableObject playerScriptableObject;
+        
         [Header("Attack State")]
         [Tooltip("Radius of a circle in which enemy will look for the player")]
         [SerializeField] private float lookRadius;
@@ -102,14 +106,11 @@ namespace Enemy
         /// <returns>True if player is found and false otherwise.</returns>
         public bool LookForPlayer()
         {
-            int found = Physics.OverlapSphereNonAlloc(transform.position, lookRadius, playerInRange, playerMask);
-            bool isFound = found == 1;
-            if (isFound)
-            {
-                PlayerPosition = playerInRange[0].transform.position;
-            }
+            PlayerPosition = playerScriptableObject.GetActualPlayerPosition();
             
-            return isFound;
+            int found = Physics.OverlapSphereNonAlloc(transform.position, lookRadius, playerInRange, playerMask);
+            
+            return found == 1;
         }
 
         /// <summary>

@@ -3165,6 +3165,7 @@ MonoBehaviour:
   timesPlayerIsSearched: 10
   damage: 9
   waitingTime: 1.04
+  playerScriptableObject: {fileID: 11400000, guid: 203a95cfd29fdca4bbd08281315d3e08, type: 2}
   walkSpeed: 3
   runSpeed: 5
   area: {fileID: 0}
@@ -3226,6 +3227,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerTransform: {fileID: 0}
+  playerScriptableObject: {fileID: 11400000, guid: 203a95cfd29fdca4bbd08281315d3e08, type: 2}
   slider: {fileID: 3191125859850352260}
   maxDistance: 15
 --- !u!1 &6183318297995836398

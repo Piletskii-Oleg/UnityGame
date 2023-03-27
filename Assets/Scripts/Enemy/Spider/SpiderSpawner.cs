@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace Enemy.Spider
@@ -28,24 +27,45 @@ namespace Enemy.Spider
         private void Update()
         {
             timePassed += Time.deltaTime;
-            if (!area.IsPositionInsideActiveRadius(playerTransform.position) || spiders.Count > maxEnemiesAmount)
+            if (spiders.Count > maxEnemiesAmount)
             {
+                return;
+            }
+            
+            if (!area.IsPositionInsideActiveRadius(playerTransform.position))
+            {
+                if (timePassed > spawnCooldown)
+                {
+                    timePassed = 0;
+                    RemoveLastSpider();
+                }
+
                 return;
             }
 
             if (timePassed > spawnCooldown)
             {
                 timePassed = 0;
-                
-                var spider = Instantiate(spiderPrefab, transform.position, Quaternion.identity);
-
-                spiders.Add(spider);
-
-                var spiderScript = spider.GetComponent<Spider>();
-
-                spiderScript.SetArea(area);
-                spiderScript.GetSpawned(exitTransform.position);
+                SpawnSpider();
             }
+        }
+
+        private void RemoveLastSpider()
+        {
+            Destroy(spiders[0]);
+            spiders.RemoveAt(0);
+        }
+
+        private void SpawnSpider()
+        {
+            var spider = Instantiate(spiderPrefab, transform.position, Quaternion.identity);
+
+            spiders.Add(spider);
+
+            var spiderScript = spider.GetComponent<Spider>();
+
+            spiderScript.SetArea(area);
+            spiderScript.GetSpawned(exitTransform.position);
         }
     }
 }
