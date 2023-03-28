@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using Sound;
@@ -33,28 +32,32 @@ namespace Weapons
 
         private WaitForSeconds reloadWait;
 
-        private bool reloading;
+        private bool isReloading;
 
         public void Shoot()
         {
-            if (gunData.currentAmmo > 0 && !reloading)
+            if (gunData.currentAmmo <= 0 || isReloading)
             {
-                audioSource.clip = shootClips[Random.Range(0, shootClips.Count - 1)];
-                audioSource.Play();
-                
-                var bulletAngle = Quaternion.Euler(transform.rotation.eulerAngles.x - 90,
-                    transform.rotation.eulerAngles.y, 0);
-                Instantiate(bullet, transform.position + transform.forward, bulletAngle);
-
-                gunData.currentAmmo--;
-
-                onShoot.Invoke();
+                return;
             }
+            
+            PlayShootSound();
+
+            var thisTransform = transform;
+            var rotation = thisTransform.rotation;
+            
+            var bulletAngle = Quaternion.Euler(rotation.eulerAngles.x - 90,
+                rotation.eulerAngles.y, 0);
+            Instantiate(bullet, thisTransform.position + thisTransform.forward, bulletAngle);
+
+            gunData.currentAmmo--;
+
+            onShoot.Invoke();
         }
 
         public void StartReload()
         {
-            if (!reloading)
+            if (!isReloading)
             {
                 StartCoroutine(Reload());
             }
@@ -67,27 +70,38 @@ namespace Weapons
         {
             onReloadStarted.Invoke();
             
-            audioSource.clip = reloadClip;
-            audioSource.Play();
-            
-            reloading = true;
+            PlayReloadSound();
+
+            isReloading = true;
 
             yield return reloadWait;
 
             gunData.currentAmmo = gunData.ammoCapacity;
 
-            reloading = false;
+            isReloading = false;
 
             onReloadFinished.Invoke();
         }
 
         private void OnDisable()
-            => reloading = false;
+            => isReloading = false;
 
         private void Awake()
         {
             reloadWait = new WaitForSeconds(gunData.reloadTime);
             audioSource = GetComponent<AudioSource>();
+        }
+        
+        private void PlayReloadSound()
+        {
+            audioSource.clip = reloadClip;
+            audioSource.Play();
+        }
+        
+        private void PlayShootSound()
+        {
+            audioSource.clip = shootClips[Random.Range(0, shootClips.Count - 1)];
+            audioSource.Play();
         }
     }
 }

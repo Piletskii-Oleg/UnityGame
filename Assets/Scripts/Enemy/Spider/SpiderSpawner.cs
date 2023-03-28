@@ -55,6 +55,11 @@ namespace Enemy.Spider
 
         private void RemoveLastSpider()
         {
+            if (spiders.Count == 0)
+            {
+                return;
+            }
+            
             Destroy(spiders[0]);
             spiders.RemoveAt(0);
         }

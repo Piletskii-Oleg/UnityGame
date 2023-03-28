@@ -49,7 +49,7 @@ namespace Enemy
 
         private void OnDrawGizmos()
         {
-            Gizmos.DrawWireSphere(transform.position, enemyRoamRadius);
+           // Gizmos.DrawWireSphere(transform.position, enemyRoamRadius);
         }
     }
 }
