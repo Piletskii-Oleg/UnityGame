@@ -6,7 +6,7 @@
     public class BaseStateMachine
     {
         /// <summary>
-        /// The state that the slime is currently in.
+        /// The state that the enemy is currently in.
         /// </summary>
         public BaseState CurrentState { get; private set; }
 
