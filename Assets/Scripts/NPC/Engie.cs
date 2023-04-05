@@ -1,6 +1,8 @@
 ﻿using System.Collections;
+using NPC.Dialogue;
 using Player.ScriptableObjects;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace NPC
 {
@@ -11,11 +13,15 @@ namespace NPC
         private Animator animator;
         private Coroutine turnHeadCoroutine;
 
-        [Header("Player Data")]
+        [Header("Data")]
         [SerializeField] private PlayerScriptableObject playerScriptableObject;
+        [SerializeField] private DialogueManager dialogueManager;
 
         [Header("Robot elements")]
         [SerializeField] private Transform headTransform;
+
+        [Header("Events")]
+        [SerializeField] private UnityEvent<DialogueManager> startConversationEvent;
         
         private void Start()
         {
@@ -24,6 +30,8 @@ namespace NPC
 
         public override void StartConversation()
         {
+            startConversationEvent.Invoke(dialogueManager);
+            
             TurnHead();
             WaveHand();
         }
