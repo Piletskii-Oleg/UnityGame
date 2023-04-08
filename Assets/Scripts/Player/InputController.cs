@@ -1,3 +1,4 @@
+using Player.ScriptableObjects;
 using UI;
 using UnityEngine;
 
@@ -21,7 +22,7 @@ namespace Player
         [SerializeField] private InventoryUI inventoryUI;
         [SerializeField] private PauseMenuUI pauseMenuUI;
 
-        private bool isUsingUI;
+        private int openMenusCount;
 
         private void Awake()
         {
@@ -34,6 +35,8 @@ namespace Player
             weaponController = GetComponent<WeaponController>();
             interact = GetComponent<PlayerInteract>();
             weaponZoom = GetComponentInChildren<WeaponZoom>();
+
+            openMenusCount = 0;
 
             SubscribeToEventsOnFoot();
             SubscribeToEventsUIActions();
@@ -87,27 +90,27 @@ namespace Player
             uiActions.OpenInventory.performed += _ =>
             {
                 inventoryUI.HandleInventory();
-                OnFootSwitch();
             };
             
             uiActions.Pause.performed += _ =>
             {
                 pauseMenuUI.HandlePauseMenu();
-                OnFootSwitch();
             };
         }
 
-        public void OnFootSwitch()
+        public void EnableOnFoot()
         {
-            isUsingUI = !isUsingUI;
-            if (isUsingUI)
-            {
-                onFoot.Disable();
-            }
-            else
+            openMenusCount--;
+            if (openMenusCount == 0)
             {
                 onFoot.Enable();
             }
+        }
+
+        public void DisableOnFoot()
+        {
+            onFoot.Disable();
+            openMenusCount++;
         }
     }
 }

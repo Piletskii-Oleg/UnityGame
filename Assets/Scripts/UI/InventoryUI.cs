@@ -1,5 +1,6 @@
 using Inventory.ScriptableObjects;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace UI
 {
@@ -15,6 +16,11 @@ namespace UI
         [SerializeField] private GameObject itemSlotPrefab;
         [SerializeField] private Transform parentObject;
         [SerializeField] private Transform bigInventory;
+
+        [Header("Events")]
+        [SerializeField] private UnityEvent onOpenInventory;
+
+        [SerializeField] private UnityEvent onCloseInventory;
 
         private bool isInventoryOpen;
 
@@ -33,17 +39,19 @@ namespace UI
         private void OpenInventory()
         {
             bigInventory.gameObject.SetActive(true);
-            Cursor.lockState = CursorLockMode.Confined;
 
             isInventoryOpen = true;
+            
+            onOpenInventory.Invoke();
         }
 
         private void CloseInventory()
         {
             bigInventory.gameObject.SetActive(false);
-            Cursor.lockState = CursorLockMode.Locked;
 
             isInventoryOpen = false;
+            
+            onCloseInventory.Invoke();
         }
 
         /// <summary>

@@ -1,10 +1,16 @@
 ﻿using UnityEngine;
+using UnityEngine.Events;
 
 namespace UI
 {
     public class PauseMenuUI : MonoBehaviour
     {
         [SerializeField] private GameObject pauseMenu;
+        
+        [Header("Events")]
+        [SerializeField] private UnityEvent onOpenMenu;
+
+        [SerializeField] private UnityEvent onCloseMenu;
 
         private bool isMenuOpen;
 
@@ -27,6 +33,8 @@ namespace UI
             pauseMenu.SetActive(true);
 
             isMenuOpen = true;
+            
+            onOpenMenu.Invoke();
         }
 
         public void CloseMenu()
@@ -36,6 +44,8 @@ namespace UI
             Cursor.lockState = CursorLockMode.Locked;
 
             isMenuOpen = false;
+            
+            onCloseMenu.Invoke();
         }
 
         public void Quit()

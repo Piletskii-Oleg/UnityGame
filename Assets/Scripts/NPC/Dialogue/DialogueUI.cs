@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 namespace NPC.Dialogue
@@ -16,6 +17,9 @@ namespace NPC.Dialogue
 
         [Header("Settings")]
         [SerializeField] private float textAppearingSpeed;
+
+        [Header("Events")]
+        [SerializeField] private UnityEvent onEnableDialogue;
 
         private List<string> optionsSentences;
         
@@ -32,6 +36,8 @@ namespace NPC.Dialogue
 
         public void InitiateDialogue(DialogueManager manager)
         {
+            onEnableDialogue.Invoke();
+            
             dialogueManager = manager;
 
             Cursor.lockState = CursorLockMode.Confined;

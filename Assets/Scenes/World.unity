@@ -5506,7 +5506,6 @@ GameObject:
   - component: {fileID: 604661545}
   - component: {fileID: 604661546}
   - component: {fileID: 604661547}
-  - component: {fileID: 604661548}
   - component: {fileID: 604661549}
   - component: {fileID: 604661550}
   m_Layer: 0
@@ -5643,34 +5642,6 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: Player.PlayerLook, Assembly-CSharp
         m_MethodName: OnSave
         m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &604661548
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 604661542}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2438166054fae9447beaa32edf8ea98f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameEvent: {fileID: 11400000, guid: 03de1a6b21c17fa48b524388c9c8ce66, type: 2}
-  response:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 111919197}
-        m_TargetAssemblyTypeName: Player.InputController, Assembly-CSharp
-        m_MethodName: OnFootSwitch
-        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -6710,6 +6681,36 @@ MonoBehaviour:
   itemSlotPrefab: {fileID: 5939314542359602631, guid: bf2fd90e54b3c5a43a14ef917b5ac739, type: 3}
   parentObject: {fileID: 1190868241}
   bigInventory: {fileID: 242582757}
+  onOpenInventory:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 11400000, guid: e5abe1326ebe6b44d9705029c57d9692, type: 2}
+        m_TargetAssemblyTypeName: Player.ScriptableObjects.InputManager, Assembly-CSharp
+        m_MethodName: LockInput
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onCloseInventory:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 11400000, guid: e5abe1326ebe6b44d9705029c57d9692, type: 2}
+        m_TargetAssemblyTypeName: Player.ScriptableObjects.InputManager, Assembly-CSharp
+        m_MethodName: EnableInput
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &697169964
 GameObject:
   m_ObjectHideFlags: 0
@@ -8984,6 +8985,10 @@ MonoBehaviour:
   - {fileID: 652086533}
   - {fileID: 1750180772}
   - {fileID: 1823848457}
+  textAppearingSpeed: 0
+  onEnableDialogue:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &869168930
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16266,10 +16271,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 11400000, guid: 03de1a6b21c17fa48b524388c9c8ce66, type: 2}
-        m_TargetAssemblyTypeName: EventListeners.GameEvents.GameEvent, Assembly-CSharp
-        m_MethodName: Raise
-        m_Mode: 1
+      - m_Target: {fileID: 242582756}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -16278,10 +16283,10 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 242582756}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 11400000, guid: e5abe1326ebe6b44d9705029c57d9692, type: 2}
+        m_TargetAssemblyTypeName: Player.ScriptableObjects.InputManager, Assembly-CSharp
+        m_MethodName: EnableInput
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -27821,6 +27826,36 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pauseMenu: {fileID: 1001888666721981}
+  onOpenMenu:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 11400000, guid: e5abe1326ebe6b44d9705029c57d9692, type: 2}
+        m_TargetAssemblyTypeName: Player.ScriptableObjects.InputManager, Assembly-CSharp
+        m_MethodName: LockInput
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onCloseMenu:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 11400000, guid: e5abe1326ebe6b44d9705029c57d9692, type: 2}
+        m_TargetAssemblyTypeName: Player.ScriptableObjects.InputManager, Assembly-CSharp
+        m_MethodName: EnableInput
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!224 &224104999356133119
 RectTransform:
   m_ObjectHideFlags: 0
@@ -28296,6 +28331,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerScriptableObject: {fileID: 11400000, guid: 203a95cfd29fdca4bbd08281315d3e08, type: 2}
+  inputManager: {fileID: 11400000, guid: e5abe1326ebe6b44d9705029c57d9692, type: 2}
 --- !u!1001 &1914008324351486217
 PrefabInstance:
   m_ObjectHideFlags: 0
