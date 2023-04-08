@@ -41,7 +41,10 @@ namespace Enemy
         [Tooltip("Amount of time which actor stays in damaged state for")]
         [SerializeField] [Range(0.0f, 3.0f)]
         protected float waitingTime;
-        
+
+        [Tooltip("Time after which the spider disappears (applies after death)")]
+        [SerializeField] private float timeUntilDisappearing;
+
         /// <summary>
         /// Position of the player calculated using <see cref="LookForPlayer"/> method.
         /// </summary>
@@ -150,6 +153,13 @@ namespace Enemy
             {
                 stateMachine.ChangeState(state);
             }
+        }
+
+        protected IEnumerator Disappear()
+        {
+            yield return new WaitForSeconds(timeUntilDisappearing);
+            
+            gameObject.SetActive(false);
         }
     }
 }

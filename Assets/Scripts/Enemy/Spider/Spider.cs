@@ -16,9 +16,6 @@ namespace Enemy.Spider
         [SerializeField] private float runSpeed;
         
         [SerializeField] private CircleArea area;
-        
-        [Tooltip("Time after which the spider disappears (applies after death)")]
-        [SerializeField] private float timeUntilDisappearing;
 
         /// <summary>
         /// Idle state of the spider.
@@ -40,10 +37,19 @@ namespace Enemy.Spider
         /// </summary>
         public AttackState AttackState { get; private set; }
         
+        /// <summary>
+        /// Dead state of the spider.
+        /// </summary>
         public DeadState DeadState { get; private set; }
         
+        /// <summary>
+        /// State of the spider when it just spawned.
+        /// </summary>
         public SpawnedState SpawnedState { get; private set; }
         
+        /// <summary>
+        /// The <see cref="NavMeshAgent"/> component of the spider.
+        /// </summary>
         public NavMeshAgent Agent => agent;
         
         private void Awake()
@@ -134,13 +140,6 @@ namespace Enemy.Spider
             StartCoroutine(Disappear());
         }
 
-        private IEnumerator Disappear()
-        {
-            yield return new WaitForSeconds(timeUntilDisappearing);
-            
-            gameObject.SetActive(false);
-        }
-        
         private void InitializeStates()
         {
             IdleState = new IdleState(this, stateMachine);
