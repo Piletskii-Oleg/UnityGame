@@ -1,4 +1,3 @@
-using Player.ScriptableObjects;
 using UI;
 using UnityEngine;
 
@@ -87,26 +86,28 @@ namespace Player
 
         private void SubscribeToEventsUIActions()
         {
-            uiActions.OpenInventory.performed += _ =>
-            {
-                inventoryUI.HandleInventory();
-            };
-            
-            uiActions.Pause.performed += _ =>
-            {
-                pauseMenuUI.HandlePauseMenu();
-            };
+            uiActions.OpenInventory.performed += _ => inventoryUI.HandleInventory();
+            uiActions.Pause.performed += _ => pauseMenuUI.HandlePauseMenu();
         }
 
-        public void EnableOnFoot()
+        /// <summary>
+        /// Attempts to enable onFoot input. Succeeds if no menus are open.
+        /// </summary>
+        /// <returns>True if enabling onFoot input succeeded, false otherwise.</returns>
+        public bool TryEnableOnFoot()
         {
             openMenusCount--;
             if (openMenusCount == 0)
             {
                 onFoot.Enable();
             }
+
+            return openMenusCount == 0;
         }
 
+        /// <summary>
+        /// Disables onFoot input.
+        /// </summary>
         public void DisableOnFoot()
         {
             onFoot.Disable();

@@ -24,6 +24,9 @@ namespace UI
 
         private bool isInventoryOpen;
 
+        /// <summary>
+        /// Opens or closes the inventory, based on its state.
+        /// </summary>
         public void HandleInventory()
         {
             if (isInventoryOpen)

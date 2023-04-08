@@ -16,6 +16,7 @@ namespace NPC.Dialogue
         [SerializeField] private List<TMP_Text> options;
 
         [Header("Settings")]
+        [Tooltip("Time in seconds that passes between each letter appearing on the screen.")]
         [SerializeField] private float textAppearingSpeed;
 
         [Header("Events")]
@@ -34,6 +35,10 @@ namespace NPC.Dialogue
             waitForSeconds = new WaitForSeconds(textAppearingSpeed);
         }
 
+        /// <summary>
+        /// Initiates the dialogue with the NPC specified by <paramref name="manager"/>.
+        /// </summary>
+        /// <param name="manager"><see cref="DialogueManager"/> of some NPC.</param>
         public void InitiateDialogue(DialogueManager manager)
         {
             onEnableDialogue.Invoke();
@@ -41,8 +46,7 @@ namespace NPC.Dialogue
             dialogueManager = manager;
 
             Cursor.lockState = CursorLockMode.Confined;
-
-            dialogueBox.SetActive(true);
+            
             personName.text = dialogueManager.NpcName;
             ShowNextDialogue();
         }
@@ -89,7 +93,7 @@ namespace NPC.Dialogue
                 button.onClick.RemoveAllListeners();
                 button.onClick.AddListener(() =>
                 {
-                    dialogueManager.ChangeCurrentDialogue(options[localI].text);
+                    dialogueManager.ChangeCurrentDialogueObject(options[localI].text);
                     ShowNextDialogue();
                 });
             }
