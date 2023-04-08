@@ -27,7 +27,7 @@ namespace NPC
         {
             animator = GetComponent<Animator>();
         }
-
+        
         public override void StartConversation()
         {
             startConversationEvent.Invoke(dialogueManager);
@@ -57,7 +57,8 @@ namespace NPC
             while (Vector3.Angle(-headTransform.position + headTransform.forward, headTransform.position - playerPosition) > 7f)
             {
                 var toRotation = Quaternion.FromToRotation(headTransform.position, direction);
-                headTransform.rotation = Quaternion.Lerp(headTransform.rotation, toRotation, smoothing * Time.deltaTime);
+                headTransform.rotation = Quaternion.Lerp(headTransform.rotation,
+                    toRotation, smoothing * Time.deltaTime);
 
                 yield return waitForSeconds;
             }

@@ -18,12 +18,18 @@ namespace Player.ScriptableObjects
 
         private InputController inputController;
 
+        /// <summary>
+        /// Initializes the fields (used in <see cref="PlayerController"/> on awake).
+        /// </summary>
         public void Initialize()
             => inputController = playerScriptableObject
                 .GetActualPlayerTransform()
                 .gameObject
                 .GetComponent<InputController>();
 
+        /// <summary>
+        /// Locks the player movement and shows the cursor on screen.
+        /// </summary>
         public void LockInput()
         {
             Cursor.lockState = CursorLockMode.Confined;
@@ -33,6 +39,9 @@ namespace Player.ScriptableObjects
             onEnableUI.Invoke();
         }
 
+        /// <summary>
+        /// If no menus are left open, unlocks the player movement and hides the cursor from the screen.
+        /// </summary>
         public void EnableInput()
         {
             if (inputController.TryEnableOnFoot())

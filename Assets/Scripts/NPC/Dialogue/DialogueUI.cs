@@ -36,7 +36,7 @@ namespace NPC.Dialogue
         }
 
         /// <summary>
-        /// Initiates the dialogue with the NPC specified by <paramref name="manager"/>.
+        /// Initiates the dialogue with the NPC specified by the <paramref name="manager"/>.
         /// </summary>
         /// <param name="manager"><see cref="DialogueManager"/> of some NPC.</param>
         public void InitiateDialogue(DialogueManager manager)
@@ -45,9 +45,8 @@ namespace NPC.Dialogue
             
             dialogueManager = manager;
 
-            Cursor.lockState = CursorLockMode.Confined;
-            
             personName.text = dialogueManager.NpcName;
+            
             ShowNextDialogue();
         }
 
@@ -70,6 +69,9 @@ namespace NPC.Dialogue
             FillDialogueBox();
         }
 
+        /// <summary>
+        /// Fills the entire dialogue box.
+        /// </summary>
         private void FillDialogueBox()
         {
             if (fillDialogueBoxCoroutine != null)
@@ -80,6 +82,9 @@ namespace NPC.Dialogue
             fillDialogueBoxCoroutine = StartCoroutine(FillDialogueBoxCoroutine());
         }
 
+        /// <summary>
+        /// Loads dialogue options from the <see cref="DialogueObject"/>.
+        /// </summary>
         private void LoadOptions()
         {
             for (int i = 0; i < dialogueManager.CurrentDialogue.NextDialogues.Count; i++)
@@ -99,6 +104,9 @@ namespace NPC.Dialogue
             }
         }
 
+        /// <summary>
+        /// Coroutine that fills the whole dialogue box.
+        /// </summary>
         private IEnumerator FillDialogueBoxCoroutine()
         {
             string dialogueText = dialogueManager.CurrentDialogue.Text;
@@ -111,6 +119,11 @@ namespace NPC.Dialogue
             }
         }
 
+        /// <summary>
+        /// Coroutine that fills the text box (either his speech or the dialogue options)
+        /// </summary>
+        /// <param name="text">Text that should be written.</param>
+        /// <param name="textField">Field that the text is written to.</param>
         private IEnumerator FillTextBox(string text, TMP_Text textField)
         {
             textField.text = "";

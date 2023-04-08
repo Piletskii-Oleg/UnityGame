@@ -14,11 +14,11 @@ namespace Shared
         [SerializeField] private UnityEvent<float> onHealthChangedEvent; // Returns value from 0 to 1 which is the ratio of current health to max health.
         [SerializeField] private UnityEvent onDeathEvent;
 
-        public float CurrentHealth { get; private set; }
+        private float currentHealth;
 
         private void Start()
         {
-            CurrentHealth = healthData.maxHealth;
+            currentHealth = healthData.maxHealth;
         }
 
         /// <summary>
@@ -27,16 +27,16 @@ namespace Shared
         /// <param name="damage">Damage taken.</param>
         public void TakeDamage(float damage)
         {
-            CurrentHealth -= damage;
-            onHealthChangedEvent.Invoke(CurrentHealth / healthData.maxHealth);
+            currentHealth -= damage;
+            onHealthChangedEvent.Invoke(currentHealth / healthData.maxHealth);
 
-            if (CurrentHealth <= 0)
+            if (currentHealth <= 0)
             {
-                CurrentHealth = 0;
+                currentHealth = 0;
                 onDeathEvent.Invoke();
             }
 
-            Debug.Log("Taken damage! " + gameObject.name + " - " + CurrentHealth);
+            Debug.Log("Taken damage! " + gameObject.name + " - " + currentHealth);
         }
 
         /// <summary>
@@ -45,13 +45,13 @@ namespace Shared
         /// <param name="healAmount">Amount of health to recover.</param>
         public void Heal(float healAmount)
         {
-            CurrentHealth += healAmount;
-            if (CurrentHealth > healthData.maxHealth)
+            currentHealth += healAmount;
+            if (currentHealth > healthData.maxHealth)
             {
-                CurrentHealth = healthData.maxHealth;
+                currentHealth = healthData.maxHealth;
             }
 
-            onHealthChangedEvent.Invoke(CurrentHealth / healthData.maxHealth);
+            onHealthChangedEvent.Invoke(currentHealth / healthData.maxHealth);
         }
     }
 }

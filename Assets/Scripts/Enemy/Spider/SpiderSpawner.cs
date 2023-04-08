@@ -15,12 +15,16 @@ namespace Enemy.Spider
         [Header("Spawner Stats")]
         [Tooltip("Max amount of enemies around the spawner")]
         [SerializeField] private int maxEnemiesAmount;
+        
         [Tooltip("Prefab that contains the spider")]
         [SerializeField] private GameObject spiderPrefab;
+        
         [Tooltip("Area that corresponds to that spawner")]
         [SerializeField] private CircleArea area;
+        
         [Tooltip("Object that spider should go to when spawned")]
         [SerializeField] private Transform exitTransform;
+        
         [Tooltip("Cooldown between spawns")]
         [SerializeField] private float spawnCooldown;
 
@@ -42,11 +46,8 @@ namespace Enemy.Spider
                     timePassed = 0;
                     RemoveLastSpider();
                 }
-
-                return;
             }
-
-            if (timePassed > spawnCooldown)
+            else if (timePassed > spawnCooldown)
             {
                 timePassed = 0;
                 SpawnSpider();

@@ -23,21 +23,7 @@ namespace Shared
         /// <param name="actorAffiliation">Affiliation of the actor that tries to inflict damage.</param>
         public virtual void OnTakeDamage(float damage, ActorAffiliation actorAffiliation)
         {
-            if (this.affiliation.enemyFractions.Contains(actorAffiliation))
-            {
-                onTakeDamage.Invoke(damage);
-            }
-        }
-
-        /// <summary>
-        /// Used when the actor takes damage.
-        /// </summary>
-        /// <param name="damage">Damage taken.</param>
-        /// <param name="actorAffiliation">Affiliation of the actor that tries to inflict damage.</param>
-        /// <param name="hitPosition">Position where actor was hit by another actor.</param>
-        public virtual void OnTakeDamage(float damage, ActorAffiliation actorAffiliation, Vector3 hitPosition)
-        {
-            if (this.affiliation.enemyFractions.Contains(actorAffiliation))
+            if (affiliation.enemyFractions.Contains(actorAffiliation))
             {
                 onTakeDamage.Invoke(damage);
             }

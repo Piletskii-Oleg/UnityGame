@@ -4,7 +4,7 @@ namespace Player.ScriptableObjects
 {
     /// <summary>
     /// Stores information about player that can be accessed by any prefab.
-    /// It receives information at runtime.
+    /// It receives information at runtime in Awake method of <see cref="PlayerController"/>.
     /// </summary>
     [CreateAssetMenu(menuName = "PlayerSO")]
     public class PlayerScriptableObject : ScriptableObject
@@ -14,6 +14,9 @@ namespace Player.ScriptableObjects
 
         private Camera camera;
 
+        /// <summary>
+        /// Initializes the fields (used in <see cref="PlayerController"/> on awake).
+        /// </summary>
         public void Initialize()
         {
             player = GameObject.FindGameObjectWithTag("Player");
@@ -22,12 +25,21 @@ namespace Player.ScriptableObjects
             camera = player.GetComponentInChildren<Camera>();
         }
         
+        /// <summary>
+        /// Gets the actual position of the player's camera.
+        /// </summary>
         public Vector3 GetActualCameraPosition()
             => camera.transform.position;
 
+        /// <summary>
+        /// Gets the actual position of the player.
+        /// </summary>
         public Vector3 GetActualPlayerPosition()
             => playerTransform.position;
 
+        /// <summary>
+        /// Gets the actual transform of the player.
+        /// </summary>
         public Transform GetActualPlayerTransform()
             => playerTransform;
     }

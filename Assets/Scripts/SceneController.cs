@@ -5,8 +5,11 @@ using UnityEngine.Serialization;
 
 public class SceneController : MonoBehaviour
 {
-    [FormerlySerializedAs("dataManager")] [SerializeField] private GameDataManager gameDataManager;
-    [FormerlySerializedAs("optionsManager")] [SerializeField] private OptionsDataManager optionsDataManager;
+    [FormerlySerializedAs("dataManager")]
+    [SerializeField] private GameDataManager gameDataManager;
+    
+    [FormerlySerializedAs("optionsManager")]
+    [SerializeField] private OptionsDataManager optionsDataManager;
 
     private void OnEnable()
     {
