@@ -48,7 +48,7 @@ namespace Enemy
         /// <summary>
         /// Position of the player calculated using <see cref="LookForPlayer"/> method.
         /// </summary>
-        public Vector3 PlayerPosition { get; private set; }
+        public Vector3 PlayerPosition { get; protected set; }
 
         private void Update()
             => stateMachine.CurrentState.Tick();
@@ -128,17 +128,20 @@ namespace Enemy
                 return false;
             }
 
-            var position = transform.position;
-            var directionToTarget = (position - PlayerPosition).normalized;
-            return (Vector3.Angle(position, directionToTarget) < lookAngle / 2);
+            var enemyTransform = transform;
+            var position = enemyTransform.position;
+            var directionToTarget = (PlayerPosition - position).normalized;
+
+            float angle = Vector3.Angle(enemyTransform.forward, directionToTarget);
+            return angle < lookAngle / 2;
         }
         
         /// <summary>
-        /// Changes slime's state to the <paramref name="idleState"/> for a <paramref name="period"/> seconds
+        /// Changes enemy's state to the <paramref name="idleState"/> for a <paramref name="period"/> seconds
         /// and then changes it to <paramref name="state"/>.
         /// </summary>
-        /// <param name="period">Time in seconds for which slime should idle.</param>
-        /// <param name="idleState">Slime's idle state.</param>
+        /// <param name="period">Time in seconds for which enemy should idle.</param>
+        /// <param name="idleState">Enemy's idle state.</param>
         /// <param name="state">New state, activated after <paramref name="period"/> seconds.</param>
         public void IdleForPeriod(float period, BaseState idleState, BaseState state)
             => StartCoroutine(IdleForPeriodCoroutine(period, idleState, state));

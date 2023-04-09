@@ -73,7 +73,6 @@ namespace Enemy.Spider.States
             if (spider.LookForPlayer())
             {
                 spider.WalkToDestination(spider.PlayerPosition);
-                
             }
             else
             {

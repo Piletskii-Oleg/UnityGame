@@ -259,7 +259,7 @@ namespace Player
         {
             isGrounded = false;
 
-            if (Physics.SphereCast(groundCheck.position, capsule.radius, Vector3.down, out RaycastHit hit,
+            if (Physics.SphereCast(groundCheck.position, capsule.radius, Vector3.down, out var hit,
                     groundDistance))
             {
                 if (Vector3.Angle(transform.up, hit.normal) <= slopeLimit)
