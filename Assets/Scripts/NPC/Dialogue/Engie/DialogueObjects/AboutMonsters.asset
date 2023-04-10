@@ -10,13 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0d1d9a844cfe4b9aac5e33d02deb5c38, type: 3}
-  m_Name: InitialDialogue
+  m_Name: AboutMonsters
   m_EditorClassIdentifier: 
-  dialogueOptionName: Start
-  dialogueText: Hi! My name is Engie! How can I be of help to you?
+  dialogueOptionName: Can you tell me about monsters?
+  dialogueText: 'Yeah! There are currently three types of monsters here: spiders,
+    golems and slimes. Very dangerous, I must say. You should not anger them!'
   nextDialogues:
-  - {fileID: 11400000, guid: 2d750a486036bac4eb585a97a7c3e8f1, type: 2}
-  - {fileID: 11400000, guid: c564e4cb04882af43b8ec16ed9af5a57, type: 2}
+  - {fileID: 11400000, guid: fb32299325972274fbb81c82e385f17e, type: 2}
+  - {fileID: 11400000, guid: 826035e8184ae98479107243e4a6a5aa, type: 2}
   - {fileID: 11400000, guid: b8593ea34bbdd6440aeeb50bc98a2f5e, type: 2}
   dialogueEvent:
     m_PersistentCalls:

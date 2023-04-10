@@ -11,7 +11,10 @@ namespace NPC.Dialogue
         [Tooltip("Name of the NPC that this dialogue manager belongs to.")]
         [field: SerializeField] public string NpcName { get; private set; }
         
-        [Tooltip("Dialogue object that is selected if the dialogue has ended or had never begun.")]
+        [Tooltip("Dialogue object that is selected if the dialogue had never begun.")]
+        [SerializeField] private DialogueObject firstDialogue;
+
+        [Tooltip("Dialogue object that is selected if the dialogue had ended.")]
         [SerializeField] private DialogueObject startingDialogue;
         
         [Tooltip("Dialogue object that is currently shown to the player.")]
@@ -24,7 +27,11 @@ namespace NPC.Dialogue
         {
             get
             {
-                if (!currentDialogue || currentDialogue.Name == "End")
+                if (!currentDialogue)
+                {
+                    return firstDialogue;
+                }
+                else if (currentDialogue.Name == "End")
                 {
                     return startingDialogue;
                 }

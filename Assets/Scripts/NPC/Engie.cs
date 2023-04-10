@@ -16,6 +16,9 @@ namespace NPC
         [Header("Data")]
         [SerializeField] private PlayerScriptableObject playerScriptableObject;
         [SerializeField] private DialogueManager dialogueManager;
+        
+        [Tooltip("Transform at which Engie looks after finishing conversation with the player")]
+        [SerializeField] private Transform lookAt;
 
         [Header("Robot elements")]
         [SerializeField] private Transform headTransform;
@@ -32,29 +35,30 @@ namespace NPC
         {
             startConversationEvent.Invoke(dialogueManager);
             
-            TurnHead();
+            TurnHead(playerScriptableObject.GetActualPlayerPosition());
             WaveHand();
         }
 
-        private void TurnHead()
+        private void TurnHead(Vector3 position)
         {
             if (turnHeadCoroutine != null)
             {
                 StopCoroutine(turnHeadCoroutine);
             }
 
-            turnHeadCoroutine = StartCoroutine(TurnHeadToPlayer(4f));
+            turnHeadCoroutine =
+                StartCoroutine(TurnHeadToPosition(4f, position));
         }
 
-        private IEnumerator TurnHeadToPlayer(float smoothing)
-        { 
-            var playerPosition = playerScriptableObject.GetActualCameraPosition();
+        private IEnumerator TurnHeadToPosition(float smoothing, Vector3 position)
+        {
             var headPosition = headTransform.position;
-            var direction = headPosition - playerPosition;
+            var direction = headPosition - position;
 
             var waitForSeconds = new WaitForSeconds(0.01f);
-            
-            while (Vector3.Angle(-headTransform.position + headTransform.forward, headTransform.position - playerPosition) > 7f)
+
+            while (Vector3.Angle(-headTransform.position + headTransform.forward, headTransform.position - position) >
+                   7f)
             {
                 var toRotation = Quaternion.FromToRotation(headTransform.position, direction);
                 headTransform.rotation = Quaternion.Lerp(headTransform.rotation,
@@ -68,12 +72,13 @@ namespace NPC
         /// Triggers an animation variable.
         /// </summary>
         /// <param name="animationHash">Hash that corresponds to some animation variable.</param>
-        public void TriggerAnimation(int animationHash)
+        private void TriggerAnimation(int animationHash)
             => animator.SetTrigger(animationHash);
 
+        public void OnEndConversation()
+            => TurnHead(lookAt.position);
+
         private void WaveHand()
-        {
-            TriggerAnimation(waveHand);
-        }
+            => TriggerAnimation(waveHand);
     }
 }

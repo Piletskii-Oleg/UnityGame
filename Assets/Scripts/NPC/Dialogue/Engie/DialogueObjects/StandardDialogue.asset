@@ -10,12 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0d1d9a844cfe4b9aac5e33d02deb5c38, type: 3}
-  m_Name: TellAboutMyMission
+  m_Name: StandardDialogue
   m_EditorClassIdentifier: 
-  dialogueOptionName: Can you tell me what I need to do?
-  dialogueText: I'm very glad you asked! Your mission on this planet is to ... idk
-    lol
-  nextDialogues: []
+  dialogueOptionName: I wanted something...
+  dialogueText: Something else you wanted to ask?
+  nextDialogues:
+  - {fileID: 11400000, guid: 2d750a486036bac4eb585a97a7c3e8f1, type: 2}
+  - {fileID: 11400000, guid: c564e4cb04882af43b8ec16ed9af5a57, type: 2}
+  - {fileID: 11400000, guid: b8593ea34bbdd6440aeeb50bc98a2f5e, type: 2}
   dialogueEvent:
     m_PersistentCalls:
       m_Calls: []
