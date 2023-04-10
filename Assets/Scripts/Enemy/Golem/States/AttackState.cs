@@ -20,14 +20,11 @@ namespace Enemy.Golem.States
 
         public override void Tick()
         {
-            
         }
 
         public override void Exit()
         {
             golem.SetAnimationValue(attackTypeHash, 0);
-            
-            
         }
     }
 }

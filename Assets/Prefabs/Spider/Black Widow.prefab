@@ -3158,19 +3158,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  affiliation: {fileID: 11400000, guid: 0f2dfe323f3b2b04888eb71b899885e4, type: 2}
+  actorData: {fileID: 11400000, guid: d3792514ea92f0948957aaf2050f94c7, type: 2}
+  playerScriptableObject: {fileID: 11400000, guid: 203a95cfd29fdca4bbd08281315d3e08, type: 2}
   lookRadius: 15
   lookAngle: 180
   followTimeTact: 2
   timesPlayerIsSearched: 10
-  damage: 9
   waitingTime: 1.04
-  playerScriptableObject: {fileID: 11400000, guid: 203a95cfd29fdca4bbd08281315d3e08, type: 2}
+  timeUntilDisappearing: 6
   walkSpeed: 3
   runSpeed: 5
   area: {fileID: 0}
-  timeUntilDisappearing: 6
-  searchRadius: 10
 --- !u!114 &6115321469002705246
 MonoBehaviour:
   m_ObjectHideFlags: 0

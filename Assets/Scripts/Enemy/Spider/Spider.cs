@@ -86,7 +86,7 @@ namespace Enemy.Spider
         {
             if (stateMachine.CurrentState is AttackState && !AttackState.HasAttacked)
             {
-                actor.OnTakeDamage(damage, affiliation);
+                actor.OnTakeDamage(actorData.damage, actorData.affiliation);
             }
         }
         

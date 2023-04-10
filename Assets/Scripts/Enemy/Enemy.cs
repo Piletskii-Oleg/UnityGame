@@ -28,21 +28,18 @@ namespace Enemy
         [Tooltip("Angle of a segment of a circle in which enemy can see the player")]
         [SerializeField] private float lookAngle;
 
-        [Tooltip("Time that should pass until enemy looks for the player again")]
+        [Tooltip("Time in seconds that should pass until enemy looks for the player again")]
         [SerializeField] protected float followTimeTact;
 
         [Tooltip("Amount of times that enemy will try to look for a player")]
         [SerializeField] protected int timesPlayerIsSearched;
-
-        [Tooltip("Damage dealt by that enemy")]
-        [SerializeField] protected float damage;
 
         [Header("Damaged State")]
         [Tooltip("Amount of time which actor stays in damaged state for")]
         [SerializeField] [Range(0.0f, 3.0f)]
         protected float waitingTime;
 
-        [Tooltip("Time after which the spider disappears (applies after death)")]
+        [Tooltip("Time in seconds after which the enemy disappears (applies after death)")]
         [SerializeField] private float timeUntilDisappearing;
 
         /// <summary>

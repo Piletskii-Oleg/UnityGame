@@ -5,18 +5,28 @@ namespace RuntimeSets
 {
     public abstract class RuntimeSet<T> : ScriptableObject
     {
-        public List<T> Items = new List<T>();
+        private readonly List<T> items = new ();
 
-        public void Add(T thing)
+        public virtual void Initialize()
+            => items.Clear();
+
+        public virtual T GetItem(int index)
+            => items[index];
+        
+        public virtual void Add(T thing)
         {
-            if (!Items.Contains(thing))
-                Items.Add(thing);
+            if (!items.Contains(thing))
+            {
+                items.Add(thing);
+            }
         }
 
-        public void Remove(T thing)
+        public virtual void Remove(T thing)
         {
-            if (Items.Contains(thing))
-                Items.Remove(thing);
+            if (items.Contains(thing))
+            {
+                items.Remove(thing);
+            }
         }
     }
 }

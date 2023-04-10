@@ -6,7 +6,7 @@ namespace UI
 {
     public class EnemyHealthBar : MonoBehaviour
     {
-        [SerializeField] private Transform playerTransform;
+        private Transform playerTransform;
         [SerializeField] private PlayerScriptableObject playerScriptableObject;
         
         [SerializeField] private Slider slider;

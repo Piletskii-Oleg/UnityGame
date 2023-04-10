@@ -90,7 +90,7 @@ namespace Enemy.Slime
             
             if (collision.gameObject.TryGetComponent<Actor>(out var actor))
             {
-                actor.OnTakeDamage(damage, affiliation);
+                actor.OnTakeDamage(actorData.damage, actorData.affiliation);
             }
         }
         

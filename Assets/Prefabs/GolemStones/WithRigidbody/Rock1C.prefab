@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7476469064571877775}
   - component: {fileID: 8026953619074409510}
   - component: {fileID: 6070631017818043624}
+  - component: {fileID: 8228282049037931204}
   m_Layer: 0
   m_Name: Rock1C
   m_TagString: Untagged
@@ -115,3 +116,18 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: d1edb567dd56f994cbb75a74e047b18a, type: 3}
+--- !u!114 &8228282049037931204
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7476469064574068559}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac1851d462384b268093ac7f71c24d39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxForce: 25
+  stoneData: {fileID: 11400000, guid: d795a7dd00817dd469e7ea7a57ebbe1b, type: 2}
+  runtimeSet: {fileID: 11400000, guid: eb1d060060e45a343bb8e19dfcc776ef, type: 2}

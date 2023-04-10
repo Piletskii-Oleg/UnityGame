@@ -1,6 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Enemy.Golem.ScriptableObjects;
 using Enemy.Golem.States;
+using Shared.ScriptableObjects;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -81,7 +82,9 @@ namespace Enemy.Golem
 
         public void SpawnStoneInHand()
         {
-            heldStone = StoneSpawner.Spawn(stonePrefabs, rightHand);
+            heldStone = GameObjectSpawner.Spawn(stonePrefabs, rightHand);
+            
+            // caches player position to then make golem throw the stone at him
             PlayerPosition = playerScriptableObject.GetActualPlayerPosition();
         }
 
@@ -91,17 +94,36 @@ namespace Enemy.Golem
             Destroy(heldStone);
             
             var position = rightHand.position;
-            var stoneToThrow = StoneSpawner.Spawn(stonePrefabsRigidbody, position, rotation);
-            var rigidBody = stoneToThrow.GetComponent<Rigidbody>();
+            var stoneToThrow = GameObjectSpawner.Spawn(stonePrefabsRigidbody, position, rotation);
 
-            var forceVector = (PlayerPosition - position).normalized * force + Vector3.up * (force * 0.28f);
+            var stoneScript = stoneToThrow.GetComponent<GolemStone>();
+            stoneScript.Initialize(actorData.damage, actorData.affiliation, force);
+            
+            var rigidBody = stoneToThrow.GetComponent<Rigidbody>();
+            var forceVector = (PlayerPosition - position).normalized * force;
             rigidBody.AddForce(forceVector, ForceMode.Impulse);
-            rigidBody.AddTorque(Vector3.up, ForceMode.Impulse);
+            rigidBody.AddTorque(GenerateRandomVector().normalized, ForceMode.Impulse);
+        }
+
+        private static Vector3 GenerateRandomVector(float minValue = 0f, float maxValue = 10f)
+        {
+            float valueX = Random.Range(minValue, maxValue);
+            float valueY = Random.Range(minValue, maxValue);
+            float valueZ = Random.Range(minValue, maxValue);
+            return new Vector3(valueX, valueY, valueZ);
         }
 
         public void ChangeToIdle()
+            => stateMachine.ChangeState(IdleState);
+
+        public override void OnTakeDamage(float damage, ActorAffiliation actorAffiliation)
         {
-            stateMachine.ChangeState(IdleState);
+            base.OnTakeDamage(damage, actorAffiliation);
+            
+            if (stateMachine.CurrentState is not (States.AttackState or States.DamagedState or States.DeadState))
+            {
+                stateMachine.ChangeState(DamagedState);
+            }
         }
 
         public Vector3 FindPlayer()

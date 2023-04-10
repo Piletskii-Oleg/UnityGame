@@ -13,8 +13,8 @@ namespace Shared
         [SerializeField] private UnityEvent<float> onTakeDamage;
         [SerializeField] private UnityEvent onKill;
         
-        [Header("Affiliation")]
-        [SerializeField] protected ActorAffiliation affiliation;
+        [Header("Data")]
+        [SerializeField] protected ActorData actorData;
 
         /// <summary>
         /// Used when the actor takes damage.
@@ -23,7 +23,7 @@ namespace Shared
         /// <param name="actorAffiliation">Affiliation of the actor that tries to inflict damage.</param>
         public virtual void OnTakeDamage(float damage, ActorAffiliation actorAffiliation)
         {
-            if (affiliation.enemyFractions.Contains(actorAffiliation))
+            if (actorData.affiliation.enemyFractions.Contains(actorAffiliation))
             {
                 onTakeDamage.Invoke(damage);
             }
