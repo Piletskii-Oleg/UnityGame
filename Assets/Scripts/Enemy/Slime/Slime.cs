@@ -35,6 +35,8 @@ namespace Enemy.Slime
         /// Attack state of the slime.
         /// </summary>
         public AttackState AttackState { get; private set; }
+        
+        public DeadState DeadState { get; private set; }
 
         [Header("Slime Information")]
         [Tooltip("GameObject that contains the actor model")]
@@ -61,18 +63,28 @@ namespace Enemy.Slime
             faceMaterial = slimeModel.GetComponent<Renderer>().materials[1];
 
             stateMachine = new SlimeStateMachine();
+            InitializeStates();
+
+            stateMachine.Initialize(this.IdleState);
+        }
+
+        private void InitializeStates()
+        {
             IdleState = new IdleState(this, stateMachine, facesList.idleFace);
             WalkState = new WalkState(this, stateMachine, facesList.walkFace, area);
             DamagedState = new DamagedState(this, stateMachine, facesList.damageFace, waitingTime);
             AttackState = new AttackState(this, stateMachine, facesList.attackFace, followTimeTact, timesPlayerIsSearched);
-
-            stateMachine.Initialize(this.IdleState);
+            DeadState = new DeadState(this, stateMachine, facesList.damageFace);
         }
 
         public override void OnTakeDamage(float damage, ActorAffiliation actorAffiliation)
         {
             base.OnTakeDamage(damage, actorAffiliation);
-            stateMachine.ChangeState(DamagedState);
+
+            if (stateMachine.CurrentState is not (States.DamagedState or States.AttackState or States.DeadState))
+            {
+                stateMachine.ChangeState(DamagedState);
+            }
         }
 
         /// <summary>
@@ -89,6 +101,15 @@ namespace Enemy.Slime
         /// <param name="newArea">Area which the spider belongs to.</param>
         public void SetArea(CircleArea newArea)
             => area = newArea;
+
+        public override void OnKill()
+        {
+            base.OnKill();
+            
+            stateMachine.ChangeState(DeadState);
+
+            StartCoroutine(Disappear());
+        }
 
         private void OnCollisionEnter(Collision collision)
         {

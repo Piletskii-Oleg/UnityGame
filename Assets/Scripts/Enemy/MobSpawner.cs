@@ -19,8 +19,9 @@ namespace Enemy
         [SerializeField]
         protected int maxEnemiesAmount;
 
-        [Tooltip("Prefab that contains the enemy")]
-        [SerializeField] private GameObject enemyPrefab;
+        [Tooltip("Min amount of enemies around the spawner")]
+        [SerializeField]
+        protected int minEnemiesAmount;
 
         [Tooltip("Area that corresponds to that spawner")]
         [SerializeField]
@@ -29,6 +30,9 @@ namespace Enemy
         [Tooltip("Cooldown between spawns")]
         [SerializeField]
         protected float spawnCooldown;
+
+        [Tooltip("Prefab that contains the enemy")]
+        [SerializeField] private GameObject enemyPrefab;
 
         private void Update()
         {
@@ -42,13 +46,13 @@ namespace Enemy
             if (timePassed > spawnCooldown)
             {
                 timePassed = 0;
-                if (!area.IsPositionInsideActiveRadius(playerScriptableObject.GetActualPlayerPosition()))
-                {
-                    RemoveLast();
-                }
-                else
+                if (area.IsPositionInsideActiveRadius(playerScriptableObject.GetActualPlayerPosition()))
                 {
                     SpawnEnemy();
+                }
+                else if (enemies.Count > minEnemiesAmount)
+                {
+                    RemoveLast();
                 }
             }
         }
