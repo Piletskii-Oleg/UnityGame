@@ -4133,6 +4133,11 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 5939314542359602628, guid: bf2fd90e54b3c5a43a14ef917b5ac739, type: 3}
   m_PrefabInstance: {fileID: 471134418}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &460518084 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4354033132205768165, guid: 6fb39a36ecf26d24487ca7b75cacbfe1, type: 3}
+  m_PrefabInstance: {fileID: 4354033133419057983}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &466391824
 GameObject:
   m_ObjectHideFlags: 0
@@ -16036,12 +16041,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 476988b23df942c2834378cb90190c36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerScriptableObject: {fileID: 11400000, guid: 203a95cfd29fdca4bbd08281315d3e08, type: 2}
   maxEnemiesAmount: 4
-  spiderPrefab: {fileID: 6115321469002706592, guid: 6ad86db31c453714e8648dc3899f1c5e, type: 3}
+  enemyPrefab: {fileID: 0}
   area: {fileID: 1835309612}
-  exitTransform: {fileID: 256246343}
   spawnCooldown: 15
-  playerTransform: {fileID: 111919187}
+  exitTransform: {fileID: 256246343}
 --- !u!23 &1302815531
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -16335,6 +16340,7 @@ GameObject:
   - component: {fileID: 1322306002}
   - component: {fileID: 1322306001}
   - component: {fileID: 1322306005}
+  - component: {fileID: 1322306006}
   m_Layer: 0
   m_Name: SlimeAreaCenter1
   m_TagString: Untagged
@@ -16438,6 +16444,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyRoamRadius: 42.02
   playerViewRadius: 60.8
+--- !u!114 &1322306006
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1322306000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42f5349d841949eea4f6976f37a09430, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerScriptableObject: {fileID: 11400000, guid: 203a95cfd29fdca4bbd08281315d3e08, type: 2}
+  maxEnemiesAmount: 9
+  enemyPrefab: {fileID: 460518084}
+  area: {fileID: 1322306005}
+  spawnCooldown: 10
+  slimePrefabs:
+  - {fileID: 4354033132205768165, guid: 6fb39a36ecf26d24487ca7b75cacbfe1, type: 3}
 --- !u!1001 &1330524280
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17067,6 +17092,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1320028350, guid: 54275488c8f60844cbdab896c0bcb82a, type: 3}
+      propertyPath: area
+      value: 
+      objectReference: {fileID: 1322306005}
     - target: {fileID: 1320028350, guid: 54275488c8f60844cbdab896c0bcb82a, type: 3}
       propertyPath: damage
       value: 5
@@ -18013,7 +18042,7 @@ MonoBehaviour:
   waitingTime: 1.39
   timeUntilDisappearing: 0
   slimeModel: {fileID: 697169964}
-  circleArea: {fileID: 1322306005}
+  area: {fileID: 1322306005}
   facesList: {fileID: 11400000, guid: bbeeefc44e9c6e64cafa7d65885e69ed, type: 2}
   <SlimeType>k__BackingField: 1
 --- !u!195 &1466025773
@@ -20211,7 +20240,7 @@ MonoBehaviour:
   waitingTime: 1.39
   timeUntilDisappearing: 0
   slimeModel: {fileID: 3499832423045889823}
-  circleArea: {fileID: 1322306005}
+  area: {fileID: 1322306005}
   facesList: {fileID: 11400000, guid: bbeeefc44e9c6e64cafa7d65885e69ed, type: 2}
   <SlimeType>k__BackingField: 1
 --- !u!95 &1711052430
@@ -20412,7 +20441,7 @@ MonoBehaviour:
   waitingTime: 1.39
   timeUntilDisappearing: 0
   slimeModel: {fileID: 1367826087}
-  circleArea: {fileID: 1322306005}
+  area: {fileID: 1322306005}
   facesList: {fileID: 11400000, guid: bbeeefc44e9c6e64cafa7d65885e69ed, type: 2}
   <SlimeType>k__BackingField: 1
 --- !u!195 &1729820438
@@ -25027,6 +25056,7 @@ GameObject:
   - component: {fileID: 95380086134955534}
   - component: {fileID: 95380086134955535}
   - component: {fileID: 95380086134955536}
+  - component: {fileID: 95380086134955537}
   m_Layer: 0
   m_Name: Golem
   m_TagString: Untagged
@@ -25060,7 +25090,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4413730982029574}
   - component: {fileID: 137931850034802248}
-  - component: {fileID: 137931850034802249}
   m_Layer: 0
   m_Name: RockGolemMesh
   m_TagString: Untagged
@@ -26214,9 +26243,10 @@ MonoBehaviour:
   followTimeTact: 1.29
   timesPlayerIsSearched: 6
   waitingTime: 1.53
-  timeUntilDisappearing: 2.35
+  timeUntilDisappearing: 15
   rightHand: {fileID: 4818362075372484}
   force: 25
+  throwAngle: 55.9
   stonePrefabs:
   - {fileID: 1394531515998760352, guid: 305fcbf285c32554295f22107317a116, type: 3}
   - {fileID: 4499961602586323585, guid: bfe8b54609528d74588b04273828d262, type: 3}
@@ -26238,7 +26268,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 1067925048240420}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
+  m_Radius: 1.68
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
@@ -26247,7 +26277,7 @@ NavMeshAgent:
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
-  m_Height: 2
+  m_Height: 3.93
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
@@ -26266,7 +26296,19 @@ MonoBehaviour:
   healthData: {fileID: 11400000, guid: 6920e76d2dfb2a3448c52a69d7a48adf, type: 2}
   onHealthChangedEvent:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 678678733}
+        m_TargetAssemblyTypeName: UnityEngine.UI.Slider, UnityEngine.UI
+        m_MethodName: set_value
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   onDeathEvent:
     m_PersistentCalls:
       m_Calls:
@@ -26297,6 +26339,20 @@ MonoBehaviour:
   playerScriptableObject: {fileID: 11400000, guid: 203a95cfd29fdca4bbd08281315d3e08, type: 2}
   slider: {fileID: 678678733}
   maxDistance: 26.1
+--- !u!136 &95380086134955537
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1067925048240420}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 1.76
+  m_Height: 6.8
+  m_Direction: 1
+  m_Center: {x: 0, y: 1.12, z: 0}
 --- !u!95 &95473614596407503
 Animator:
   serializedVersion: 5
@@ -27510,20 +27566,6 @@ SkinnedMeshRenderer:
     m_Center: {x: -80.1039, y: -2.447403, z: 17.706985}
     m_Extent: {x: 241.08421, y: 215.05971, z: 397.3723}
   m_DirtyAABB: 0
---- !u!136 &137931850034802249
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1124598207703974}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 144.8
-  m_Height: 524
-  m_Direction: 1
-  m_Center: {x: 18.4, y: 179.3, z: 11.5}
 --- !u!4 &160856494164785370
 Transform:
   m_ObjectHideFlags: 0
@@ -30794,6 +30836,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4354033132205768162, guid: 6fb39a36ecf26d24487ca7b75cacbfe1, type: 3}
+      propertyPath: area
+      value: 
+      objectReference: {fileID: 1322306005}
     - target: {fileID: 4354033132205768162, guid: 6fb39a36ecf26d24487ca7b75cacbfe1, type: 3}
       propertyPath: circleArea
       value: 

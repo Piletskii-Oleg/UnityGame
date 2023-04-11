@@ -26,7 +26,7 @@ namespace Enemy
         [SerializeField] protected float lookRadius;
 
         [Tooltip("Angle of a segment of a circle in which enemy can see the player")]
-        [SerializeField] private float lookAngle;
+        [SerializeField] protected float lookAngle;
 
         [Tooltip("Time in seconds that should pass until enemy looks for the player again")]
         [SerializeField] protected float followTimeTact;

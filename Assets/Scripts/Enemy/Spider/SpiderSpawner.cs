@@ -6,75 +6,19 @@ namespace Enemy.Spider
     /// <summary>
     /// Put on a game object that spawns spiders.
     /// </summary>
-    public class SpiderSpawner : MonoBehaviour
+    public class SpiderSpawner : MobSpawner
     {
-        private readonly List<GameObject> spiders = new ();
-
-        private float timePassed;
-        
-        [Header("Spawner Stats")]
-        [Tooltip("Max amount of enemies around the spawner")]
-        [SerializeField] private int maxEnemiesAmount;
-        
-        [Tooltip("Prefab that contains the spider")]
-        [SerializeField] private GameObject spiderPrefab;
-        
-        [Tooltip("Area that corresponds to that spawner")]
-        [SerializeField] private CircleArea area;
-        
+        [Header("Exit")]
         [Tooltip("Object that spider should go to when spawned")]
         [SerializeField] private Transform exitTransform;
-        
-        [Tooltip("Cooldown between spawns")]
-        [SerializeField] private float spawnCooldown;
 
-        [Header("Player")]
-        [SerializeField] private Transform playerTransform;
-
-        private void Update()
+        protected override void SpawnEnemy()
         {
-            timePassed += Time.deltaTime;
-            if (spiders.Count > maxEnemiesAmount)
-            {
-                return;
-            }
+            base.SpawnEnemy();
             
-            if (!area.IsPositionInsideActiveRadius(playerTransform.position))
-            {
-                if (timePassed > spawnCooldown)
-                {
-                    timePassed = 0;
-                    RemoveLastSpider();
-                }
-            }
-            else if (timePassed > spawnCooldown)
-            {
-                timePassed = 0;
-                SpawnSpider();
-            }
-        }
-
-        private void RemoveLastSpider()
-        {
-            if (spiders.Count == 0)
-            {
-                return;
-            }
-            
-            Destroy(spiders[0]);
-            spiders.RemoveAt(0);
-        }
-
-        private void SpawnSpider()
-        {
-            var spider = Instantiate(spiderPrefab, transform.position, Quaternion.identity);
-
-            spiders.Add(spider);
-
-            var spiderScript = spider.GetComponent<Spider>();
-
-            spiderScript.SetArea(area);
-            spiderScript.GetSpawned(exitTransform.position);
+            var enemyScript = enemies[^1].GetComponent<Spider>();
+            enemyScript.SetArea(area);
+            enemyScript.GetSpawned(exitTransform.position);
         }
     }
 }

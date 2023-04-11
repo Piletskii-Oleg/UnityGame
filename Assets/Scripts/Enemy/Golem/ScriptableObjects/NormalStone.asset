@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: NormalStone
   m_EditorClassIdentifier: 
   minimalVelocity: 6
-  timeUntilDisappearing: 2
+  timeUntilDisappearing: 6

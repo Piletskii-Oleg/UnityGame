@@ -9,17 +9,17 @@
 
         public override void Enter()
         {
-            throw new System.NotImplementedException();
+            golem.Stop();
         }
 
         public override void Tick()
         {
-            throw new System.NotImplementedException();
+            
         }
 
         public override void Exit()
         {
-            throw new System.NotImplementedException();
+            
         }
     }
 }

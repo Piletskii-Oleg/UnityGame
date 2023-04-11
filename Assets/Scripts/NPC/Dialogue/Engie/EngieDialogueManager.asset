@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <NpcName>k__BackingField: Engie
   firstDialogue: {fileID: 11400000, guid: ca0bd4f0098a9a14eb753f35f8b3a1b7, type: 2}
-  startingDialogue: {fileID: 11400000, guid: ca0bd4f0098a9a14eb753f35f8b3a1b7, type: 2}
-  currentDialogue: {fileID: 11400000, guid: b8593ea34bbdd6440aeeb50bc98a2f5e, type: 2}
+  startingDialogue: {fileID: 11400000, guid: fe15d3fb72a3bb3498607af59bd10743, type: 2}
+  currentDialogue: {fileID: 11400000, guid: 09095637b00b37e41bc861f24862a103, type: 2}

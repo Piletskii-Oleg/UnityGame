@@ -14,6 +14,10 @@ namespace Enemy.Golem
         [Header("Golem Stats")]
         [SerializeField] private Transform rightHand;
         [SerializeField] private float force;
+        
+        [Tooltip("Max angle at which golem can throw rocks (+angle and -angle from the forward vector)")]
+        [SerializeField, Range(0f, 90f)] private float throwAngle;
+        
         [SerializeField] private List<GameObject> stonePrefabs;
         [SerializeField] private List<GameObject> stonePrefabsRigidbody;
 
@@ -83,9 +87,6 @@ namespace Enemy.Golem
         public void SpawnStoneInHand()
         {
             heldStone = GameObjectSpawner.Spawn(stonePrefabs, rightHand);
-            
-            // caches player position to then make golem throw the stone at him
-            PlayerPosition = playerScriptableObject.GetActualPlayerPosition();
         }
 
         public void ThrowStone()
@@ -99,8 +100,22 @@ namespace Enemy.Golem
             var stoneScript = stoneToThrow.GetComponent<GolemStone>();
             stoneScript.Initialize(actorData.damage, actorData.affiliation, force);
             
+            ThrowFromPosition(stoneToThrow, position);
+        }
+
+        private void ThrowFromPosition(GameObject stoneToThrow, Vector3 position)
+        {
+            var playerPosition = playerScriptableObject.GetActualPlayerPosition();
             var rigidBody = stoneToThrow.GetComponent<Rigidbody>();
-            var forceVector = (PlayerPosition - position).normalized * force;
+
+            var forwardVector = position - transform.forward;
+            var forceVector = (playerPosition - position).normalized * force;
+            float angle = Vector3.Angle(forwardVector, forceVector);
+            if (angle > throwAngle / 2)
+            {
+                forceVector = Quaternion.Euler(0, angle - lookAngle / 2, 0) * forceVector;
+            }
+
             rigidBody.AddForce(forceVector, ForceMode.Impulse);
             rigidBody.AddTorque(GenerateRandomVector().normalized, ForceMode.Impulse);
         }
