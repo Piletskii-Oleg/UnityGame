@@ -990,8 +990,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eee5779cd9d48d24ca5a18abf6d0286f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventoryUI: {fileID: 693485555}
-  pauseMenuUI: {fileID: 224059238628070486}
+  onInventoryUI:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 11400000, guid: 1381c726533c69344b2fa268fcd43fc5, type: 2}
+        m_TargetAssemblyTypeName: Core.EventListeners.GameEvents.GameEvent, Core
+        m_MethodName: Raise
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onPauseMenuUI:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 11400000, guid: 4d6ff3dcf18cb9a44973f62641191148, type: 2}
+        m_TargetAssemblyTypeName: Core.EventListeners.GameEvents.GameEvent, Core
+        m_MethodName: Raise
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1001 &114041962
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6951,6 +6979,7 @@ GameObject:
   - component: {fileID: 693485553}
   - component: {fileID: 693485555}
   - component: {fileID: 693485554}
+  - component: {fileID: 693485556}
   m_Layer: 5
   m_Name: Inventory
   m_TagString: Untagged
@@ -7044,6 +7073,34 @@ MonoBehaviour:
       - m_Target: {fileID: 11400000, guid: e5abe1326ebe6b44d9705029c57d9692, type: 2}
         m_TargetAssemblyTypeName: Player.ScriptableObjects.InputManager, Assembly-CSharp
         m_MethodName: EnableInput
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &693485556
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 693485552}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2438166054fae9447beaa32edf8ea98f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: 1381c726533c69344b2fa268fcd43fc5, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 693485555}
+        m_TargetAssemblyTypeName: UI.InventoryUI, Scripts
+        m_MethodName: HandleInventory
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -25933,13 +25990,14 @@ GameObject:
   - component: {fileID: 114723697730068199}
   - component: {fileID: 82346520985757415}
   - component: {fileID: 224059238628070486}
+  - component: {fileID: 224059238628070487}
   m_Layer: 5
   m_Name: PauseMenuUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1038735313763936
 GameObject:
   m_ObjectHideFlags: 0
@@ -26429,7 +26487,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1777333057252109
 GameObject:
   m_ObjectHideFlags: 0
@@ -28733,7 +28791,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8b4f3764b1647f68be8346235e81a89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pauseMenu: {fileID: 1001888666721981}
+  pauseMenu: {fileID: 1756634043579849}
   onOpenMenu:
     m_PersistentCalls:
       m_Calls:
@@ -28755,6 +28813,34 @@ MonoBehaviour:
       - m_Target: {fileID: 11400000, guid: e5abe1326ebe6b44d9705029c57d9692, type: 2}
         m_TargetAssemblyTypeName: Player.ScriptableObjects.InputManager, Assembly-CSharp
         m_MethodName: EnableInput
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &224059238628070487
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1001888666721981}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2438166054fae9447beaa32edf8ea98f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: 4d6ff3dcf18cb9a44973f62641191148, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 224059238628070486}
+        m_TargetAssemblyTypeName: Functionality.UI.PauseMenuUI, Scripts
+        m_MethodName: HandlePauseMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

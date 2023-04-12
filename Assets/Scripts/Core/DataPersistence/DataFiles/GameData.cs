@@ -1,0 +1,35 @@
+﻿using System;
+using System.Collections.Generic;
+using Core.Inventory;
+using Core.Weapons;
+using UnityEngine;
+
+namespace Core.DataPersistence.DataFiles
+{
+    /// <summary>
+    /// C# class that contains all data that should be saved or loaded.
+    /// </summary>
+    [Serializable]
+    public class GameData
+    {
+        public List<InventoryItem> storedItems;
+        
+        public List<GunItem> storedWeapons;
+        public int currentWeaponIndex;
+
+        public Vector3 playerPosition;
+        public Quaternion playerRotation;
+        public Vector3 playerVelocity;
+
+        public Quaternion cameraRotation;
+        
+        /// <summary>
+        /// Initializes new instance of <see cref="GameData"/> class.
+        /// </summary>
+        public GameData()
+        {
+            storedItems = new();
+            storedWeapons = new();
+        }
+    }
+}
