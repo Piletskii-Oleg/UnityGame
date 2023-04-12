@@ -5,7 +5,8 @@ using UnityEngine.Events;
 namespace Shared
 {
     /// <summary>
-    /// Class for a common enemy <see cref="Actor"/> whose health should independent of <see cref="HealthData"/>.
+    /// Class for a common enemy <see cref="Actor"/>
+    /// whose current health should be independent of <see cref="HealthData"/>.
     /// </summary>
     public class CommonHealth : MonoBehaviour, IHealth
     {

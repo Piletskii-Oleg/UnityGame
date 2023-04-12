@@ -5,7 +5,7 @@ using Random = UnityEngine.Random;
 namespace Enemy
 {
     /// <summary>
-    /// Area in which an actor can operate.
+    /// Area in which an enemy can operate.
     /// </summary>
     public class CircleArea : MonoBehaviour
     {
