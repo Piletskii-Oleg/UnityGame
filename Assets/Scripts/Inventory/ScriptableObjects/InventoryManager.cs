@@ -24,7 +24,7 @@ namespace Inventory.ScriptableObjects
         /// <summary>
         /// Gets read-only copy of the list list of <see cref="InventoryItem"/> stored in the inventory.
         /// </summary>
-        public IReadOnlyList<InventoryItem> Items => items;
+        public IEnumerable<InventoryItem> Items => items;
 
         /// <summary>
         /// Updates item dictionary so that its contents are same as <see cref="Items"/>.

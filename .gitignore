@@ -73,3 +73,7 @@ crashlytics-build.properties
 
 # JetBrains Rider temporary files
 *.idea/
+
+# Ignore temporaries from GameCI
+/[Aa]rtifacts/
+/[Cc]odeCoverage/
