@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Enemy.Golem.ScriptableObjects;
 using Enemy.Golem.States;
 using Shared.ScriptableObjects;
 using UnityEngine;
 using UnityEngine.AI;
+using Random = UnityEngine.Random;
 
 namespace Enemy.Golem
 {
@@ -108,10 +110,13 @@ namespace Enemy.Golem
             var playerPosition = playerScriptableObject.GetActualPlayerPosition();
             var rigidBody = stoneToThrow.GetComponent<Rigidbody>();
 
-            var forwardVector = position - transform.forward;
+            var golemTransform = transform;
+            var golemPosition = golemTransform.position;
+            
+            var forwardVector = golemTransform.rotation * Vector3.forward + golemPosition - golemPosition; // + x - x is used to move vector to golem
             var forceVector = (playerPosition - position).normalized * force;
             float angle = Vector3.Angle(forwardVector, forceVector);
-            if (angle > throwAngle / 2)
+            if (angle > throwAngle)
             {
                 forceVector = Quaternion.Euler(0, angle - lookAngle / 2, 0) * forceVector;
             }
