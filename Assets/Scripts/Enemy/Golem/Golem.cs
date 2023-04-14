@@ -1,6 +1,5 @@
-﻿using System;
+﻿using System.Collections;
 using System.Collections.Generic;
-using Enemy.Golem.ScriptableObjects;
 using Enemy.Golem.States;
 using Shared.ScriptableObjects;
 using UnityEngine;
@@ -12,11 +11,16 @@ namespace Enemy.Golem
     public class Golem : Enemy
     {
         private static readonly int death = Animator.StringToHash("Die");
+        
+        [Header("Base Position")]
+        [SerializeField] private bool hasBasePoint;
+        [SerializeField] private Transform basePoint;
+        [SerializeField] private Quaternion baseRotation;
 
         [Header("Golem Stats")]
         [SerializeField] private Transform rightHand;
         [SerializeField] private float force;
-        
+
         [Tooltip("Max angle at which golem can throw rocks (+angle and -angle from the forward vector)")]
         [SerializeField, Range(0f, 90f)] private float throwAngle;
         
@@ -33,7 +37,7 @@ namespace Enemy.Golem
         /// <summary>
         /// Walk state of the golem.
         /// </summary>
-        public WalkState WalkState { get; private set; }
+        public ChasePlayerState ChasePlayerState { get; private set; }
 
         /// <summary>
         /// Damaged state of the golem.
@@ -49,6 +53,11 @@ namespace Enemy.Golem
         /// Dead state of the golem.
         /// </summary>
         public DeadState DeadState { get; private set; }
+        
+        /// <summary>
+        /// Dead state of the golem.
+        /// </summary>
+        public ReturnToBaseState ReturnToBaseState { get; private set; }
 
         public NavMeshAgent Agent => agent;
         
@@ -76,14 +85,19 @@ namespace Enemy.Golem
 
             StartCoroutine(Disappear());
         }
-        
+
         private void InitializeStates()
         {
-            IdleState = new IdleState(this, stateMachine, followTimeTact);
-            WalkState = new WalkState(this, stateMachine);
+            IdleState = new IdleState(this, stateMachine, followTimeTact, hasBasePoint);
+            ChasePlayerState = new ChasePlayerState(this, stateMachine);
             DamagedState = new DamagedState(this, stateMachine);
             DeadState = new DeadState(this, stateMachine);
             AttackState = new AttackState(this, stateMachine);
+
+            if (hasBasePoint)
+            {
+                ReturnToBaseState = new ReturnToBaseState(this, stateMachine, basePoint);
+            }
         }
 
         public void SpawnStoneInHand()
@@ -143,6 +157,23 @@ namespace Enemy.Golem
             if (stateMachine.CurrentState is not (States.AttackState or States.DamagedState or States.DeadState))
             {
                 stateMachine.ChangeState(DamagedState);
+            }
+        }
+
+        public bool CheckBasePosition(Transform pointTransform)
+            => transform.position == pointTransform.position;
+
+        public void TurnToBaseAngle()
+        {
+            StartCoroutine(TurnToBaseAngleCoroutine());
+        }
+
+        private IEnumerator TurnToBaseAngleCoroutine()
+        {
+            while (Quaternion.Angle(transform.rotation, baseRotation) > Mathf.Epsilon)
+            {
+                transform.rotation = Quaternion.Lerp(transform.rotation, baseRotation, 0.02f);
+                yield return null;
             }
         }
 
