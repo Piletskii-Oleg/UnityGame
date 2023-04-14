@@ -45,7 +45,7 @@ namespace Enemy
         /// <summary>
         /// Position of the player calculated using <see cref="LookForPlayer"/> method.
         /// </summary>
-        public Vector3 PlayerPosition { get; protected set; }
+        public Vector3 PlayerPosition { get; private set; }
 
         private void Update()
             => stateMachine.CurrentState.Tick();

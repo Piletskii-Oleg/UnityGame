@@ -1782,7 +1782,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!154 &195953083
 TerrainCollider:
   m_ObjectHideFlags: 0
@@ -1809,7 +1809,7 @@ Terrain:
   m_TreeCrossFadeLength: 5
   m_TreeMaximumFullLODCount: 49
   m_DetailObjectDistance: 200
-  m_DetailObjectDensity: 0.41
+  m_DetailObjectDensity: 0.876
   m_HeightmapPixelError: 5
   m_SplatMapDistance: 1000
   m_HeightmapMaximumLOD: 0
@@ -9577,7 +9577,7 @@ Terrain:
   m_TreeCrossFadeLength: 5
   m_TreeMaximumFullLODCount: 49
   m_DetailObjectDistance: 200
-  m_DetailObjectDensity: 0.778
+  m_DetailObjectDensity: 0.876
   m_HeightmapPixelError: 5
   m_SplatMapDistance: 1000
   m_HeightmapMaximumLOD: 0
@@ -17340,7 +17340,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!154 &1280958844
 TerrainCollider:
   m_ObjectHideFlags: 0
@@ -17367,7 +17367,7 @@ Terrain:
   m_TreeCrossFadeLength: 5
   m_TreeMaximumFullLODCount: 49
   m_DetailObjectDistance: 200
-  m_DetailObjectDensity: 0.41
+  m_DetailObjectDensity: 0.876
   m_HeightmapPixelError: 5
   m_SplatMapDistance: 1000
   m_HeightmapMaximumLOD: 0
@@ -23095,12 +23095,12 @@ Terrain:
   m_Enabled: 1
   serializedVersion: 6
   m_TerrainData: {fileID: 15600000, guid: fd32f4142d0de8e4888d43ac399b30a2, type: 2}
-  m_TreeDistance: 360
-  m_TreeBillboardDistance: 287
+  m_TreeDistance: 656
+  m_TreeBillboardDistance: 300
   m_TreeCrossFadeLength: 5
-  m_TreeMaximumFullLODCount: 757
-  m_DetailObjectDistance: 126
-  m_DetailObjectDensity: 1
+  m_TreeMaximumFullLODCount: 49
+  m_DetailObjectDistance: 200
+  m_DetailObjectDensity: 0.876
   m_HeightmapPixelError: 5
   m_SplatMapDistance: 1000
   m_HeightmapMaximumLOD: 0
@@ -24653,19 +24653,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   seed: 60712
   terrains:
+  - {fileID: 823416602}
   - {fileID: 1763349582}
   - {fileID: 195953084}
-  - {fileID: 823416602}
   - {fileID: 1280958845}
   treeTypes:
   - enabled: 1
     name: trees
-    seed: 15513
+    seed: 66127
     probability: 66.8
     collisionCheck: 0
     rejectUnderwater: 1
     heightRange: {x: 44.99176, y: 1000}
-    slopeRange: {x: 0, y: 50.581398}
+    slopeRange: {x: 0, y: 38.30866}
     curvatureRange: {x: 0, y: 0.8139535}
     layerMasks:
     - name: Ground
@@ -24673,8 +24673,11 @@ MonoBehaviour:
       threshold: 0.5
     - name: Ground_Layer_02
       layerID: 9
-      threshold: 0.608
-    instanceCount: 22473
+      threshold: 0.302
+    - name: Ground_Layer_02
+      layerID: 8
+      threshold: 0.482
+    instanceCount: 22579
     prefabs:
     - index: 0
       probability: 55
@@ -24692,7 +24695,7 @@ MonoBehaviour:
       probability: 57
       prefab: {fileID: 196434, guid: cfe0412d7fa12f243b181e3f547a2294, type: 3}
     distance: 7.3
-    scaleRange: {x: 0.8483006, y: 1.4307692}
+    scaleRange: {x: 0.8483006, y: 1.7034965}
     sinkAmount: 0
   - enabled: 1
     name: bushes
@@ -24710,7 +24713,10 @@ MonoBehaviour:
     - name: Ground_Layer_02
       layerID: 9
       threshold: 0.517
-    instanceCount: 10828
+    - name: Ground_Layer_02
+      layerID: 8
+      threshold: 0.489
+    instanceCount: 10853
     prefabs:
     - index: 5
       probability: 43
@@ -24741,7 +24747,7 @@ MonoBehaviour:
     - name: Ground_Layer_02
       layerID: 11
       threshold: 0
-    instanceCount: 316850
+    instanceCount: 316017
     index: 0
     type: 0
     renderAsBillboard: 0
@@ -24770,7 +24776,7 @@ MonoBehaviour:
     - name: Ground_Layer_02
       layerID: 11
       threshold: 0
-    instanceCount: 203864
+    instanceCount: 203351
     index: 1
     type: 0
     renderAsBillboard: 0
@@ -24799,7 +24805,7 @@ MonoBehaviour:
     - name: Ground_Layer_02
       layerID: 11
       threshold: 0
-    instanceCount: 110032
+    instanceCount: 109741
     index: 2
     type: 0
     renderAsBillboard: 0
@@ -24828,7 +24834,7 @@ MonoBehaviour:
     - name: Ground_Layer_02
       layerID: 11
       threshold: 0
-    instanceCount: 36539
+    instanceCount: 36430
     index: 3
     type: 0
     renderAsBillboard: 0
@@ -24854,7 +24860,10 @@ MonoBehaviour:
     - name: Ground_Layer_02
       layerID: 9
       threshold: 0.552
-    instanceCount: 10175
+    - name: Ground_Layer_02
+      layerID: 8
+      threshold: 0.406
+    instanceCount: 15089
     index: 4
     type: 0
     renderAsBillboard: 0
@@ -24880,7 +24889,10 @@ MonoBehaviour:
     - name: Ground_Layer_02
       layerID: 9
       threshold: 0.469
-    instanceCount: 10352
+    - name: Ground_Layer_02
+      layerID: 8
+      threshold: 0.434
+    instanceCount: 15226
     index: 5
     type: 0
     renderAsBillboard: 0
@@ -24905,8 +24917,11 @@ MonoBehaviour:
     layerMasks:
     - name: Ground_Layer_02
       layerID: 9
-      threshold: 0.503
-    instanceCount: 10274
+      threshold: 0.517
+    - name: Ground_Layer_02
+      layerID: 8
+      threshold: 0.357
+    instanceCount: 15205
     index: 6
     type: 0
     renderAsBillboard: 0
@@ -24927,8 +24942,8 @@ MonoBehaviour:
     billboardStart: 300
     maxMeshTrees: 49
     grassDistance: 200
-    grassDensity: 0.41
-    windStrength: 0.19
+    grassDensity: 0.876
+    windStrength: 0.461
     windSpeed: 0.61
     windFrequency: 1.7
     wintTint: {r: 1, g: 1, b: 1, a: 1}
@@ -24938,7 +24953,7 @@ MonoBehaviour:
   collisionLayerMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  terrainMinMaxHeight: {x: 44.99176, y: 4.9990845}
+  terrainMinMaxHeight: {x: 44.99176, y: 11.225052}
   detailResolution: 512
   detailResolutionIndex: 2
   grassPatchSize: 32
