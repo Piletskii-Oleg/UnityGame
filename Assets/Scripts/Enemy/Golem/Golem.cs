@@ -172,7 +172,7 @@ namespace Enemy.Golem
         {
             while (Quaternion.Angle(transform.rotation, baseRotation) > Mathf.Epsilon)
             {
-                transform.rotation = Quaternion.Lerp(transform.rotation, baseRotation, 0.02f);
+                transform.rotation = Quaternion.Lerp(transform.rotation, baseRotation, 0.02f * Time.deltaTime);
                 yield return null;
             }
         }

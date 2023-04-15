@@ -9,8 +9,6 @@ namespace Enemy.Slime.States
     {
         private static readonly int jumpAnimationHash = Animator.StringToHash("Jump");
 
-        private bool isJumping;
-
         /// <summary>
         /// Initializes new instance of <see cref="JumpState"/> class.
         /// </summary>
@@ -33,7 +31,6 @@ namespace Enemy.Slime.States
         public override void Enter()
         {
             base.Enter();
-            isJumping = true;
             Jump();
         }
 
@@ -43,7 +40,6 @@ namespace Enemy.Slime.States
 
         public override void Exit()
         {
-            isJumping = false;
             stateMachine.ChangeState(slime.IdleState);
         }
     }

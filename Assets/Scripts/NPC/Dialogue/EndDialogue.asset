@@ -13,8 +13,13 @@ MonoBehaviour:
   m_Name: EndDialogue
   m_EditorClassIdentifier: 
   dialogueOptionName: End
-  dialogueText: This is a placeholder for the finished dialogue. Every dialogue should
-    end with this. This is not shown to the player.
+  dialogueText: 'This is a placeholder for the finished dialogue. Every dialogue
+    should end with this. This is not shown to the player.
+
+
+    You should call
+    OnEndConversation and Player Input Manager events on the dialogue before this
+    (Raise and EnableInput).'
   nextDialogues: []
   dialogueEvent:
     m_PersistentCalls:

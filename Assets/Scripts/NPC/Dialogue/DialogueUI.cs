@@ -10,7 +10,6 @@ namespace NPC.Dialogue
     public class DialogueUI : MonoBehaviour
     {
         [Header("Canvas Objects")]
-        [SerializeField] private GameObject dialogueBox;
         [SerializeField] private TMP_Text personName;
         [SerializeField] private TMP_Text dialogue;
         [SerializeField] private List<TMP_Text> options;
