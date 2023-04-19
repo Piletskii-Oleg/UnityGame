@@ -10,12 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0d1d9a844cfe4b9aac5e33d02deb5c38, type: 3}
-  m_Name: DragonInitial
+  m_Name: CameHere
   m_EditorClassIdentifier: 
-  dialogueOptionName: Initial
-  dialogueText: Hey? What the hell are you?!
+  dialogueOptionName: I've come to this cave, and there you are...
+  dialogueText: This cave? Yeah, found this place some time ago. Really cozy, if
+    you ask me. No treasures to share, though, like they tell in your tales or something.
+    Oh, and by the way...
   nextDialogues:
-  - {fileID: 11400000, guid: 464fc839494cb364290f32a52b9ff945, type: 2}
+  - {fileID: 11400000, guid: 1524448ea82eed248a2aee66a703fea4, type: 2}
   dialogueEvent:
     m_PersistentCalls:
       m_Calls: []

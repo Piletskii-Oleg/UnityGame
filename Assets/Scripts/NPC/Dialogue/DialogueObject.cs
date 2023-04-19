@@ -14,7 +14,7 @@ namespace NPC.Dialogue
         [SerializeField] private string dialogueOptionName;
         
         [Tooltip("Text that pops up when player chooses this dialogue object.")]
-        [TextArea(7, 10), SerializeField] private string dialogueText;
+        [TextArea(9, 13), SerializeField] private string dialogueText;
 
         [Tooltip("Dialogue objects that this object leads to.")]
         [SerializeField] private List<DialogueObject> nextDialogues;

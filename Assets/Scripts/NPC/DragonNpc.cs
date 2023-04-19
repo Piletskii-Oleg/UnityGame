@@ -14,19 +14,5 @@ namespace NPC
         {
             animator = GetComponent<Animator>();
         }
-
-        public override void StartConversation()
-        {
-            base.StartConversation();
-            
-            TriggerAnimation(startTalk);
-            
-            TurnTransform(transform, playerScriptableObject.GetActualPlayerPosition());
-        }
-
-        public void StopConversation()
-        {
-            TriggerAnimation(endTalk);
-        }
     }
 }

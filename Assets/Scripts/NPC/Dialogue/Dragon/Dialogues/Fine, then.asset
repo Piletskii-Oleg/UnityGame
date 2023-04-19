@@ -10,12 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0d1d9a844cfe4b9aac5e33d02deb5c38, type: 3}
-  m_Name: DragonInitial
+  m_Name: Fine, then
   m_EditorClassIdentifier: 
-  dialogueOptionName: Initial
-  dialogueText: Hey? What the hell are you?!
+  dialogueOptionName: Fine, then.
+  dialogueText: 'You will do that? Cool. But beware, he is really strong and dangerous,
+    you better suit up or something. '
   nextDialogues:
-  - {fileID: 11400000, guid: 464fc839494cb364290f32a52b9ff945, type: 2}
+  - {fileID: 11400000, guid: d78107f886a7ec74b921834bea9fc529, type: 2}
   dialogueEvent:
     m_PersistentCalls:
       m_Calls: []

@@ -10,12 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0d1d9a844cfe4b9aac5e33d02deb5c38, type: 3}
-  m_Name: DragonInitial
+  m_Name: Request
   m_EditorClassIdentifier: 
-  dialogueOptionName: Initial
-  dialogueText: Hey? What the hell are you?!
+  dialogueOptionName: What request?
+  dialogueText: So, the thing is... I want you to take my posessions back! I've seen
+    you doing good with these shooting things, so I guess you can handle the guy.
+    I think his scales are a bit weaker than mine, so you should be able to take
+    him down.
   nextDialogues:
-  - {fileID: 11400000, guid: 464fc839494cb364290f32a52b9ff945, type: 2}
+  - {fileID: 11400000, guid: e1fa7217045eb5e409c8f3b0578121a5, type: 2}
   dialogueEvent:
     m_PersistentCalls:
       m_Calls: []

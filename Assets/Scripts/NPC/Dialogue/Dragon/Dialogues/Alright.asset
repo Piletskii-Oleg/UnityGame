@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0d1d9a844cfe4b9aac5e33d02deb5c38, type: 3}
-  m_Name: DragonInitial
+  m_Name: Alright
   m_EditorClassIdentifier: 
-  dialogueOptionName: Initial
-  dialogueText: Hey? What the hell are you?!
+  dialogueOptionName: Alright, boss.
+  dialogueText: Anything else you wanted to ask?
   nextDialogues:
-  - {fileID: 11400000, guid: 464fc839494cb364290f32a52b9ff945, type: 2}
+  - {fileID: 11400000, guid: 98b471038b3e084479914599bc25b4fd, type: 2}
   dialogueEvent:
     m_PersistentCalls:
       m_Calls: []

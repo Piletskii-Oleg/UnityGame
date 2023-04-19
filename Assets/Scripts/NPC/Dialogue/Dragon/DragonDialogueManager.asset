@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f9aac38b92a465fbf042326a0b70152, type: 3}
   m_Name: DragonDialogueManager
   m_EditorClassIdentifier: 
-  <NpcName>k__BackingField: Bob
+  <NpcName>k__BackingField: Scary Dragon
   firstDialogue: {fileID: 11400000, guid: 94ec3a594279ac845acea0bc39780dd5, type: 2}
-  startingDialogue: {fileID: 11400000, guid: 94ec3a594279ac845acea0bc39780dd5, type: 2}
+  startingDialogue: {fileID: 11400000, guid: ea5ea67bd96114648870d992e6ad5171, type: 2}
   currentDialogue: {fileID: 11400000, guid: 09095637b00b37e41bc861f24862a103, type: 2}

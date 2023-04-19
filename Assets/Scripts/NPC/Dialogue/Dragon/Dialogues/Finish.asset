@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d1d9a844cfe4b9aac5e33d02deb5c38, type: 3}
   m_Name: Finish
   m_EditorClassIdentifier: 
-  dialogueOptionName: Nah bye bro
-  dialogueText: Bye bye!!!
+  dialogueOptionName: Nothing. Bye!
+  dialogueText: See you again!
   nextDialogues:
   - {fileID: 11400000, guid: 09095637b00b37e41bc861f24862a103, type: 2}
   dialogueEvent:

@@ -10,12 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0d1d9a844cfe4b9aac5e33d02deb5c38, type: 3}
-  m_Name: DragonInitial
+  m_Name: Why would I
   m_EditorClassIdentifier: 
-  dialogueOptionName: Initial
-  dialogueText: Hey? What the hell are you?!
+  dialogueOptionName: Why would I do that for you?
+  dialogueText: Well, I can eviscerate you right here if you refuse... Just kidding!
+    The thing is, I've gotten quite lazy over the years... So I don't really care
+    about those posessions anymore. You can have them if you can take him down, I
+    don't care. Although our rivalry goes a while back...
   nextDialogues:
-  - {fileID: 11400000, guid: 464fc839494cb364290f32a52b9ff945, type: 2}
+  - {fileID: 11400000, guid: 9b6072b472df7aa4ab5308ac6afff4c3, type: 2}
   dialogueEvent:
     m_PersistentCalls:
       m_Calls: []
