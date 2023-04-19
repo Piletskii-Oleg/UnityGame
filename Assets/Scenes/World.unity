@@ -8093,9 +8093,9 @@ RectTransform:
   m_Father: {fileID: 93588350}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 50, y: -25}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &652086533
@@ -27254,9 +27254,9 @@ RectTransform:
   m_Father: {fileID: 93588350}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 50, y: -82.93}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1750180772
@@ -28066,9 +28066,9 @@ RectTransform:
   m_Father: {fileID: 93588350}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 50, y: -140.86}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1823848457
@@ -29169,6 +29169,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1897257837}
   - component: {fileID: 1897257839}
+  - component: {fileID: 1897257840}
   m_Layer: 7
   m_Name: SleepingCollider
   m_TagString: Untagged
@@ -29206,6 +29207,54 @@ CapsuleCollider:
   m_Height: 10.41
   m_Direction: 0
   m_Center: {x: 0, y: 0.78, z: -0.65}
+--- !u!114 &1897257840
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1897257836}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb82862378844c91a5fac52cdcc48d9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onTakeDamage:
+    m_PersistentCalls:
+      m_Calls: []
+  onKill:
+    m_PersistentCalls:
+      m_Calls: []
+  actorData: {fileID: 0}
+  onDamaged:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 11400000, guid: 10c6655ac8aa0bf4a8ca544244512b10, type: 2}
+        m_TargetAssemblyTypeName: NPC.Dialogue.DialogueManager, Scripts
+        m_MethodName: SetCurrentDialogueObject
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 11400000, guid: 38e0e644d716d574e9905bafd35ed96b, type: 2}
+          m_ObjectArgumentAssemblyTypeName: NPC.Dialogue.DialogueObject, Scripts
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 11400000, guid: ef58eb8bc319827468663ffe779146f6, type: 2}
+        m_TargetAssemblyTypeName: EventListeners.GameEvents.BaseGameEvent`1[[NPC.Dialogue.DialogueManager,
+          Scripts
+        m_MethodName: Raise
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 11400000, guid: 10c6655ac8aa0bf4a8ca544244512b10, type: 2}
+          m_ObjectArgumentAssemblyTypeName: NPC.Dialogue.DialogueManager, Scripts
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  player: {fileID: 11400000, guid: 203a95cfd29fdca4bbd08281315d3e08, type: 2}
 --- !u!4 &1901460915 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8312992151372342535, guid: 1f19f5192b34e8340a73d0fd11b47328, type: 3}
@@ -29918,7 +29967,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1944577934
 RectTransform:
   m_ObjectHideFlags: 0
@@ -41278,6 +41327,7 @@ GameObject:
   - component: {fileID: 3503166599081152563}
   - component: {fileID: 3503166599088307635}
   - component: {fileID: 3503166599088307636}
+  - component: {fileID: 3503166599088307637}
   m_Layer: 7
   m_Name: DragonNPC
   m_TagString: Untagged
@@ -43849,6 +43899,54 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   headTransform: {fileID: 3503166599081162523}
+--- !u!114 &3503166599088307637
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3503166599080941911}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb82862378844c91a5fac52cdcc48d9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onTakeDamage:
+    m_PersistentCalls:
+      m_Calls: []
+  onKill:
+    m_PersistentCalls:
+      m_Calls: []
+  actorData: {fileID: 0}
+  onDamaged:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 11400000, guid: 10c6655ac8aa0bf4a8ca544244512b10, type: 2}
+        m_TargetAssemblyTypeName: NPC.Dialogue.DialogueManager, Scripts
+        m_MethodName: SetCurrentDialogueObject
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 11400000, guid: 38e0e644d716d574e9905bafd35ed96b, type: 2}
+          m_ObjectArgumentAssemblyTypeName: NPC.Dialogue.DialogueObject, Scripts
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 11400000, guid: ef58eb8bc319827468663ffe779146f6, type: 2}
+        m_TargetAssemblyTypeName: EventListeners.GameEvents.BaseGameEvent`1[[NPC.Dialogue.DialogueManager,
+          Scripts
+        m_MethodName: Raise
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 11400000, guid: 10c6655ac8aa0bf4a8ca544244512b10, type: 2}
+          m_ObjectArgumentAssemblyTypeName: NPC.Dialogue.DialogueManager, Scripts
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  player: {fileID: 0}
 --- !u!137 &3503166599092477423
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 0

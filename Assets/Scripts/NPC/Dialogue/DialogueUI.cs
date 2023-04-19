@@ -27,6 +27,7 @@ namespace NPC.Dialogue
 
         private WaitForSeconds waitForSeconds;
         private Coroutine fillDialogueBoxCoroutine;
+        private Coroutine fillTextBoxCoroutine;
 
         private void Start()
         {
@@ -69,7 +70,7 @@ namespace NPC.Dialogue
         }
 
         /// <summary>
-        /// Fills the entire dialogue box.
+        /// Fills the entire dialogue box, writing one letter at a moment.
         /// </summary>
         private void FillDialogueBox()
         {
@@ -109,12 +110,22 @@ namespace NPC.Dialogue
         private IEnumerator FillDialogueBoxCoroutine()
         {
             string dialogueText = dialogueManager.CurrentDialogue.Text;
-            yield return StartCoroutine(FillTextBox(dialogueText, dialogue));
+            if (fillTextBoxCoroutine != null)
+            {
+                StopCoroutine(fillTextBoxCoroutine);
+            }
+            
+            yield return fillTextBoxCoroutine = StartCoroutine(FillTextBox(dialogueText, dialogue));
 
             for (int i = 0; i < dialogueManager.CurrentDialogue.NextDialogues.Count; i++)
             {
                 string optionText = optionsSentences[i];
-                yield return StartCoroutine(FillTextBox(optionText, options[i]));
+                if (fillTextBoxCoroutine != null)
+                {
+                    StopCoroutine(fillTextBoxCoroutine);
+                }
+                
+                yield return fillTextBoxCoroutine = StartCoroutine(FillTextBox(optionText, options[i]));
             }
         }
 

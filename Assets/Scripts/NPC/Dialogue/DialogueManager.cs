@@ -50,5 +50,8 @@ namespace NPC.Dialogue
         /// Can be accessed via <see cref="DialogueObject.Name"/>.</param>
         public void ChangeCurrentDialogueObject(string dialogueName)
             => CurrentDialogue = CurrentDialogue.ChangeDialogue(dialogueName);
+
+        public void SetCurrentDialogueObject(DialogueObject dialogueObject)
+            => CurrentDialogue = dialogueObject;
     }
 }
