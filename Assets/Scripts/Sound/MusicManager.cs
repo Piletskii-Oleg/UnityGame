@@ -23,6 +23,8 @@ namespace Sound
         {
             MusicVolume = data.musicVolume;
             SoundVolume = data.soundVolume;
+            
+            onSoundVolumeChanged.Invoke(SoundVolume);
         }
 
         public override void SaveData(OptionsData data)

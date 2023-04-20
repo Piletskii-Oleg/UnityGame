@@ -26,8 +26,9 @@ namespace UI.MainMenu
         {
             musicSlider.value = musicManager.MusicVolume;
             soundSlider.value = musicManager.SoundVolume;
-        
-            sensitivityPlaceholder.GetComponent<TextMeshProUGUI>().text = optionsDataManager.MouseSensitivity.ToString();
+
+            var textField = sensitivityPlaceholder.GetComponent<TextMeshProUGUI>();
+            textField.text = optionsDataManager.MouseSensitivity.ToString();
         }
     }
 }

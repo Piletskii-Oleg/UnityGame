@@ -12,12 +12,9 @@ namespace Sound
     
         private AudioSource audioSource;
 
-        private WaitForEndOfFrame waitForEndOfFrame;
-    
         private void Awake()
         {
             audioSource = GetComponent<AudioSource>();
-            waitForEndOfFrame = new WaitForEndOfFrame();
             PlayBackgroundMusic();
         }
 
@@ -34,7 +31,7 @@ namespace Sound
             while (audioSource.volume < manager.MusicVolume)
             {
                 audioSource.volume += 0.002f;
-                yield return waitForEndOfFrame;
+                yield return null;
             }
         }
     }
