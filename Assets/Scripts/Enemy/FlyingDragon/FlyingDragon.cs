@@ -14,15 +14,15 @@ namespace Enemy.FlyingDragon
         [Tooltip("Points around which dragon will float, high above the ground")]
         [SerializeField] private Transform[] pointsAbove;
 
-        public FlyToPointState FlyToPointState { get; set; }
+        public FlyToPointState FlyToPointState { get; private set; }
         
-        public StandState StandState { get; set; }
+        public StandState StandState { get; private set; }
         
-        public FlyAroundState FlyAroundState { get; set; }
+        public FlyAroundState FlyAroundState { get; private set; }
         
-        public TakeOffState TakeOffState { get; set; }
+        public TakeOffState TakeOffState { get; private set; }
         
-        public LandingState LandingState { get; set; }
+        public LandingState LandingState { get; private set; }
 
         public float Speed => speed;
 
@@ -30,11 +30,10 @@ namespace Enemy.FlyingDragon
         {
             animator = GetComponent<Animator>();
             stateMachine = new FlyingStateMachine();
-            var clips = animator.runtimeAnimatorController.animationClips;
-            
+
             FlyToPointState = new FlyToPointState(this, stateMachine, pointsTo);
             StandState = new StandState(this, stateMachine);
-            FlyAroundState = new FlyAroundState(this, stateMachine, pointsAbove);
+            FlyAroundState = new FlyAroundState(this, stateMachine, pointsAbove, pointsTo);
             TakeOffState = new TakeOffState(this, stateMachine);
             LandingState = new LandingState(this, stateMachine);
             
