@@ -23,7 +23,7 @@ namespace Enemy.FlyingDragon.States
             if (timePassed > takeOffTime)
             {
                 //int random = Random.Range(0, 2);
-                int random = 0;
+                int random = 1;
                 if (random == 0)
                 {
                     stateMachine.ChangeState(dragon.FlyToPointState);
