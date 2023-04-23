@@ -13,14 +13,14 @@ namespace Enemy.FlyingDragon.States
 
         private readonly Transform dragonTransform;
 
-        private List<Vector3> nextPoints; 
-        
+        private List<Vector3> nextPoints;
+
         public FlyAroundState(FlyingDragon dragon, BaseStateMachine stateMachine,
-            Transform[] highPoints, Transform[] standPoints)
+            IEnumerable<Transform> highPoints, IEnumerable<Transform> standPoints)
             : base(dragon, stateMachine)
         {
             nextPoints = new List<Vector3>();
-            
+
             this.highPoints = highPoints.Select(point => point.position).ToArray();
             this.standPoints = standPoints.Select(point => point.position).ToArray();
 

@@ -261,12 +261,15 @@ MonoBehaviour:
       m_Calls: []
   actorData: {fileID: 11400000, guid: f9e04a42bfcc7e84cbab7b8908551242, type: 2}
   playerScriptableObject: {fileID: 11400000, guid: 203a95cfd29fdca4bbd08281315d3e08, type: 2}
-  lookRadius: 16
+  lookRadius: 35
   lookAngle: 150
   followTimeTact: 1.29
   timesPlayerIsSearched: 6
   waitingTime: 1.53
   timeUntilDisappearing: 15
+  hasBasePoint: 0
+  basePoint: {fileID: 0}
+  baseRotation: {x: 0, y: 0, z: 0, w: 0}
   rightHand: {fileID: 246498962676599103}
   force: 25
   throwAngle: 55.9
