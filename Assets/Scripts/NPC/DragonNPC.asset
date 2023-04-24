@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: DragonNPC
   m_EditorClassIdentifier: 
   damage: 0
-  affiliation: {fileID: 0}
+  affiliation: {fileID: 11400000, guid: b4b3b0405a3ddc54eb62ddb377020f40, type: 2}

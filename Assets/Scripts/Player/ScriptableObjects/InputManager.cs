@@ -30,11 +30,11 @@ namespace Player.ScriptableObjects
         /// <summary>
         /// Locks the player movement and shows the cursor on screen.
         /// </summary>
-        public void LockInput()
+        public void LockInput(GameObject lockObject)
         {
             Cursor.lockState = CursorLockMode.Confined;
             
-            inputController.DisableOnFoot();
+            inputController.DisableOnFoot(lockObject);
             
             onEnableUI.Invoke();
         }
@@ -42,9 +42,9 @@ namespace Player.ScriptableObjects
         /// <summary>
         /// If no menus are left open, unlocks the player movement and hides the cursor from the screen.
         /// </summary>
-        public void EnableInput()
+        public void EnableInput(GameObject lockObject)
         {
-            if (inputController.TryEnableOnFoot())
+            if (inputController.TryEnableOnFoot(lockObject))
             {
                 Cursor.lockState = CursorLockMode.Locked;
                 
