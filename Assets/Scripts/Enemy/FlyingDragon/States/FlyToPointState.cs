@@ -1,18 +1,19 @@
-﻿using UnityEngine;
+﻿using System.Linq;
+using UnityEngine;
 using DG.Tweening;
 
 namespace Enemy.FlyingDragon.States
 {
     public class FlyToPointState : FlyingBaseState
     {
-        private readonly Transform[] points;
+        private readonly Vector3[] points;
 
         private int currentPointNumber;
         
         public FlyToPointState(FlyingDragon dragon, BaseStateMachine stateMachine, Transform[] points)
             : base(dragon, stateMachine)
         {
-            this.points = points;
+            this.points = points.Select(point => point.position).ToArray();
             currentPointNumber = -1;
         }
 
@@ -30,15 +31,14 @@ namespace Enemy.FlyingDragon.States
 
         private Vector3 DetermineNextPoint()
         {
-            var nextPointNumber = Random.Range(0, points.Length);
+            int nextPointNumber = Random.Range(0, points.Length);
             while (nextPointNumber == currentPointNumber)
             {
                 nextPointNumber = Random.Range(0, points.Length);
             }
 
             currentPointNumber = nextPointNumber;
-            var nextPoint = points[nextPointNumber].position;
-            return nextPoint;
+            return points[nextPointNumber];
         }
 
         public override void Tick()

@@ -1,4 +1,6 @@
-﻿using Enemy.FlyingDragon.States;
+﻿using System;
+using System.Collections;
+using Enemy.FlyingDragon.States;
 using UnityEngine;
 
 namespace Enemy.FlyingDragon
@@ -31,41 +33,22 @@ namespace Enemy.FlyingDragon
             animator = GetComponent<Animator>();
             stateMachine = new FlyingStateMachine();
 
+            InitializeStates();
+
+            stateMachine.Initialize(StandState);
+        }
+
+        private void InitializeStates()
+        {
             FlyToPointState = new FlyToPointState(this, stateMachine, pointsTo);
             StandState = new StandState(this, stateMachine);
             FlyAroundState = new FlyAroundState(this, stateMachine, pointsAbove, pointsTo);
             TakeOffState = new TakeOffState(this, stateMachine);
             LandingState = new LandingState(this, stateMachine);
-            
-            stateMachine.Initialize(StandState);
         }
-        
+
         private void Update()
             => stateMachine.CurrentState.Tick();
-        
-        /// <summary>
-        /// Sets a value of an animation variable.
-        /// </summary>
-        /// <param name="animationHash">Hash that corresponds to some animation variable.</param>
-        /// <param name="value">Value to set.</param>
-        public void SetAnimationValue(int animationHash, float value)
-            => animator.SetFloat(animationHash, value);
-
-        /// <summary>
-        /// Sets a value of an animation variable.
-        /// </summary>
-        /// <param name="animationHash">Hash that corresponds to some animation variable.</param>
-        /// <param name="value">Value to set.</param>
-        public void SetAnimationValue(int animationHash, bool value)
-            => animator.SetBool(animationHash, value);
-
-        /// <summary>
-        /// Sets a value of an animation variable.
-        /// </summary>
-        /// <param name="animationHash">Hash that corresponds to some animation variable.</param>
-        /// <param name="value">Value to set.</param>
-        public void SetAnimationValue(int animationHash, int value)
-            => animator.SetInteger(animationHash, value);
 
         /// <summary>
         /// Triggers an animation variable.
@@ -73,5 +56,20 @@ namespace Enemy.FlyingDragon
         /// <param name="animationHash">Hash that corresponds to some animation variable.</param>
         public void TriggerAnimation(int animationHash)
             => animator.SetTrigger(animationHash);
+        
+        public void InvokeAfterSeconds<T>(Func<T> function, float seconds)
+            => StartCoroutine(InvokeAfterSecondsCoroutine(function, seconds));
+
+        private static IEnumerator InvokeAfterSecondsCoroutine<T>(Func<T> function, float seconds)
+        {
+            float timePassed = 0;
+            while (timePassed < seconds)
+            {
+                timePassed += Time.deltaTime;
+                yield return null;
+            }
+
+            function.Invoke();
+        }
     }
 }

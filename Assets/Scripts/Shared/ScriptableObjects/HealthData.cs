@@ -17,9 +17,5 @@ namespace Shared.ScriptableObjects
 
         [Header("Invulnerability")]
         public bool isInvincible;
-
-        [Header("Miscellaneous")]
-        [Tooltip("Health ratio at which the critical health vignette starts appearing")]
-        public float criticalHealthRatio; // currently unused
     }
 }

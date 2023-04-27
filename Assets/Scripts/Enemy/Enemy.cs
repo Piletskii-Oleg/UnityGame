@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using Player.ScriptableObjects;
 using Shared;
 using UnityEngine;
@@ -16,7 +17,6 @@ namespace Enemy
         protected Collider[] playerInRange;
         
         protected NavMeshAgent agent;
-        protected Animator animator;
 
         [Header("Player")]
         [SerializeField] protected PlayerScriptableObject playerScriptableObject;
@@ -39,6 +39,7 @@ namespace Enemy
         [SerializeField] [Range(0.0f, 3.0f)]
         protected float waitingTime;
 
+        [Header("Dead State")]
         [Tooltip("Time in seconds after which the enemy disappears (applies after death)")]
         [SerializeField] private float timeUntilDisappearing;
 
@@ -49,37 +50,6 @@ namespace Enemy
 
         private void Update()
             => stateMachine.CurrentState.Tick();
-        
-        /// <summary>
-        /// Sets a value of an animation variable.
-        /// </summary>
-        /// <param name="animationHash">Hash that corresponds to some animation variable.</param>
-        /// <param name="value">Value to set.</param>
-        public void SetAnimationValue(int animationHash, float value)
-            => animator.SetFloat(animationHash, value);
-
-        /// <summary>
-        /// Sets a value of an animation variable.
-        /// </summary>
-        /// <param name="animationHash">Hash that corresponds to some animation variable.</param>
-        /// <param name="value">Value to set.</param>
-        public void SetAnimationValue(int animationHash, bool value)
-            => animator.SetBool(animationHash, value);
-
-        /// <summary>
-        /// Sets a value of an animation variable.
-        /// </summary>
-        /// <param name="animationHash">Hash that corresponds to some animation variable.</param>
-        /// <param name="value">Value to set.</param>
-        public void SetAnimationValue(int animationHash, int value)
-            => animator.SetInteger(animationHash, value);
-
-        /// <summary>
-        /// Triggers an animation variable.
-        /// </summary>
-        /// <param name="animationHash">Hash that corresponds to some animation variable.</param>
-        public void TriggerAnimation(int animationHash)
-            => animator.SetTrigger(animationHash);
 
         /// <summary>
         /// Activates the walk animation and makes actor move towards its next destination.

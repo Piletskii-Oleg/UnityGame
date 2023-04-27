@@ -2,8 +2,8 @@
 {
     public abstract class DragonBaseState : BaseState
     {
-        private readonly Dragon dragon;
-        private readonly BaseStateMachine stateMachine;
+        protected readonly Dragon dragon;
+        protected readonly BaseStateMachine stateMachine;
 
         protected DragonBaseState(BaseStateMachine stateMachine, Dragon dragon)
         {

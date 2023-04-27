@@ -4,7 +4,7 @@ namespace Enemy.FlyingDragon.States
 {
     public class TakeOffState : FlyingBaseState
     {
-        private const float takeOffTime = 4f;
+        private const float takeOffTime = 4f; // length of the TakeOff animation
         private float timePassed;
         
         public TakeOffState(FlyingDragon dragon, BaseStateMachine stateMachine)
@@ -22,8 +22,7 @@ namespace Enemy.FlyingDragon.States
             timePassed += Time.deltaTime;
             if (timePassed > takeOffTime)
             {
-                //int random = Random.Range(0, 2);
-                int random = 1;
+                int random = Random.Range(0, 2);
                 if (random == 0)
                 {
                     stateMachine.ChangeState(dragon.FlyToPointState);

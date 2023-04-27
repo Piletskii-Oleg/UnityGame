@@ -24,7 +24,6 @@ namespace Player
         [SerializeField] private PauseMenuUI pauseMenuUI;
 
         private Dictionary<GameObject, int> openMenus;
-        private int openMenusCount;
 
         private void Awake()
         {
@@ -39,7 +38,6 @@ namespace Player
             weaponZoom = GetComponentInChildren<WeaponZoom>();
 
             openMenus = new Dictionary<GameObject, int>();
-            openMenusCount = 0;
 
             SubscribeToEventsOnFoot();
             SubscribeToEventsUIActions();

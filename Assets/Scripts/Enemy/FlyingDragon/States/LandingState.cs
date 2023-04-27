@@ -6,7 +6,7 @@ namespace Enemy.FlyingDragon.States
     {
         private static readonly int landing = Animator.StringToHash("Land");
         
-        private const float landingTime = 4f;
+        private const float landingTime = 4f; // length of the landing animation
         private float timePassed;
         
         public LandingState(FlyingDragon dragon, BaseStateMachine stateMachine)

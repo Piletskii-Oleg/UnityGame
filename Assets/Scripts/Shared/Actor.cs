@@ -1,3 +1,5 @@
+using System;
+using System.Collections;
 using Shared.ScriptableObjects;
 using UnityEngine;
 using UnityEngine.Events;
@@ -9,6 +11,8 @@ namespace Shared
     /// </summary>
     public class Actor : MonoBehaviour // abstract
     {
+        protected Animator animator;
+        
         [Header("Events")]
         [SerializeField] private UnityEvent<float> onTakeDamage;
         [SerializeField] private UnityEvent onKill;
@@ -35,6 +39,52 @@ namespace Shared
         public virtual void OnKill()
         {
             onKill.Invoke();
+        }
+
+        /// <summary>
+        /// Sets a value of an animation variable.
+        /// </summary>
+        /// <param name="animationHash">Hash that corresponds to some animation variable.</param>
+        /// <param name="value">Value to set.</param>
+        public void SetAnimationValue(int animationHash, float value)
+            => animator.SetFloat(animationHash, value);
+
+        /// <summary>
+        /// Sets a value of an animation variable.
+        /// </summary>
+        /// <param name="animationHash">Hash that corresponds to some animation variable.</param>
+        /// <param name="value">Value to set.</param>
+        public void SetAnimationValue(int animationHash, bool value)
+            => animator.SetBool(animationHash, value);
+
+        /// <summary>
+        /// Sets a value of an animation variable.
+        /// </summary>
+        /// <param name="animationHash">Hash that corresponds to some animation variable.</param>
+        /// <param name="value">Value to set.</param>
+        public void SetAnimationValue(int animationHash, int value)
+            => animator.SetInteger(animationHash, value);
+
+        /// <summary>
+        /// Triggers an animation variable.
+        /// </summary>
+        /// <param name="animationHash">Hash that corresponds to some animation variable.</param>
+        public void TriggerAnimation(int animationHash)
+            => animator.SetTrigger(animationHash);
+        
+        public void InvokeAfterSeconds<T>(Func<T> function, float seconds)
+            => StartCoroutine(InvokeAfterSecondsCoroutine(function, seconds));
+
+        private static IEnumerator InvokeAfterSecondsCoroutine<T>(Func<T> function, float seconds)
+        {
+            float timePassed = 0;
+            while (timePassed < seconds)
+            {
+                timePassed += Time.deltaTime;
+                yield return null;
+            }
+
+            function.Invoke();
         }
     }
 }
