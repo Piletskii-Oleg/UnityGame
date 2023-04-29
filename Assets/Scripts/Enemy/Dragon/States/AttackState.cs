@@ -13,7 +13,7 @@ namespace Enemy.Dragon.States
 
         public override void Enter()
         {
-            throw new System.NotImplementedException();
+            dragon.SetAnimationValue(fire, true);
         }
 
         public override void Tick()

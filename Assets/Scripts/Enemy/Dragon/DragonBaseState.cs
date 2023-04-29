@@ -1,4 +1,4 @@
-﻿namespace Enemy.Dragon.States
+﻿namespace Enemy.Dragon
 {
     public abstract class DragonBaseState : BaseState
     {

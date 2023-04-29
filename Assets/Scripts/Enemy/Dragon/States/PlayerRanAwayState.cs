@@ -1,10 +1,13 @@
-﻿using UnityEngine;
+﻿using DG.Tweening;
+using UnityEngine;
 
 namespace Enemy.Dragon.States
 {
     public class PlayerRanAwayState : DragonBaseState
     {
         private static readonly int doFly = Animator.StringToHash("DoFly");
+
+        private readonly Vector3 runawayPoint;
         
         public PlayerRanAwayState(BaseStateMachine stateMachine, Dragon dragon)
             : base(stateMachine, dragon)
@@ -13,17 +16,26 @@ namespace Enemy.Dragon.States
 
         public override void Enter()
         {
-            throw new System.NotImplementedException();
+            var transform = dragon.transform;
+            
+            dragon.SetAnimationValue(doFly, true);
+            
+            transform.DOLookAt(runawayPoint, 1.2f);
+
+            float distance = (runawayPoint - transform.position).magnitude;
+            transform
+                .DOMove(runawayPoint, distance / dragon.FlySpeed)
+                .SetEase(Ease.InSine)
+                .OnKill(() => stateMachine.ChangeState(dragon.DeadState));
         }
 
         public override void Tick()
         {
-            throw new System.NotImplementedException();
         }
 
         public override void Exit()
         {
-            throw new System.NotImplementedException();
+            dragon.SetAnimationValue(doFly, false);
         }
     }
 }

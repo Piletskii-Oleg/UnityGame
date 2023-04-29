@@ -24,7 +24,7 @@
         /// Changes state of the <see cref="BaseStateMachine"/> to <paramref name="newState"/>.
         /// </summary>
         /// <param name="newState">State to change <see cref="BaseStateMachine"/> into.</param>
-        public void ChangeState(BaseState newState)
+        public virtual void ChangeState(BaseState newState)
         {
             CurrentState.Exit();
 

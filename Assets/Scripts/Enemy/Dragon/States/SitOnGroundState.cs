@@ -7,6 +7,9 @@ namespace Enemy.Dragon.States
         private static readonly int scream = Animator.StringToHash("Scream");
         private static readonly int defend = Animator.StringToHash("Defend");
         private static readonly int eruptFlames = Animator.StringToHash("EruptFlames");
+
+        private const float sitTime = 5.0f;
+        private float timePassed;
         
         public SitOnGroundState(BaseStateMachine stateMachine, Dragon dragon)
             : base(stateMachine, dragon)
@@ -15,17 +18,33 @@ namespace Enemy.Dragon.States
 
         public override void Enter()
         {
-            throw new System.NotImplementedException();
+            bool doEruptFlames = Random.Range(0, 2) != 0;
+            if (doEruptFlames)
+            {
+                dragon.SetAnimationValue(eruptFlames, true);
+                dragon.EruptFlamesGround();
+            }
+            else
+            {
+                dragon.SetAnimationValue(defend, true);
+            }
+
+            timePassed = 0;
         }
 
         public override void Tick()
         {
-            throw new System.NotImplementedException();
+            timePassed += Time.deltaTime;
+            if (timePassed > sitTime)
+            {
+                stateMachine.ChangeState(dragon.FlyState);
+            }
         }
 
         public override void Exit()
         {
-            throw new System.NotImplementedException();
+            dragon.SetAnimationValue(defend, false);
+            dragon.SetAnimationValue(eruptFlames, false);
         }
     }
 }
