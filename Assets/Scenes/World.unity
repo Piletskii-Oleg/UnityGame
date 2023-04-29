@@ -59434,9 +59434,10 @@ MonoBehaviour:
   actorData: {fileID: 11400000, guid: 1f6da4f997346244189c1176a6f3da67, type: 2}
   playerScriptableObject: {fileID: 11400000, guid: 203a95cfd29fdca4bbd08281315d3e08, type: 2}
   firePrefab: {fileID: 1725317912486240, guid: 0efdfd8f60827f04ba06c9ef8a58a9ff, type: 3}
-  mouth: {fileID: 4535078106727407948}
-  fireSpeed: 19
-  fireDelay: 0.05
+  groundMouth: {fileID: 4535078106727645578}
+  flyMouth: {fileID: 4535078106727624542}
+  fireSpeed: 26
+  fireDelay: 0.04
   area: {fileID: 747354212}
   health: {fileID: 11400000, guid: 53358c41919951b459a17ec361e104bd, type: 2}
   circlePointsCount: 12
