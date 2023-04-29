@@ -15,10 +15,18 @@ namespace Enemy.Dragon
         [Header("Player")]
         [SerializeField] private PlayerScriptableObject playerScriptableObject;
 
+        [Header("Fire Data")]
+        [SerializeField] private GameObject firePrefab;
+        [SerializeField] private Transform groundMouth;
+        [SerializeField] private Transform flyMouth;
+
+        [Header("Fire Stats")]
+        [SerializeField] private float fireSpeed;
+        [SerializeField] private float fireDelay;
+
         [Header("Dragon Data")]
         [SerializeField] private CircleArea area;
         [SerializeField] private HealthData health;
-        [SerializeField] private Transform[] points;
         [SerializeField] private int circlePointsCount;
 
         private Vector3[] nextPoints;
@@ -113,7 +121,6 @@ namespace Enemy.Dragon
         /// </summary>
         public void TryStopBattle()
         {
-            Debug.Log("stop");
             stopBattleCoroutine = StartCoroutine(StopBattle());
         }
         
@@ -126,24 +133,55 @@ namespace Enemy.Dragon
                 yield return null;
             }
             
-            Debug.Log("Changing staet");
             stateMachine.ChangeState(PlayerRanAwayState);
             hasBattleStarted = false;
         }
 
         public void EruptFlamesGround()
         {
+            StartCoroutine(EruptFlamesFromMouth(groundMouth,1.7f, 1.6f));
+        }
+
+        private IEnumerator EruptFlamesFromMouth(Transform mouth, float animationTime, float waitTime)
+        {
+            yield return new WaitForSeconds(waitTime);
             
+            float time = 0;
+            
+            var waitForSeconds = new WaitForSeconds(fireDelay);
+            
+            while (time < animationTime)
+            {
+                time += fireDelay;
+                var mouthTransform = mouth.transform;
+                var fire = Instantiate(firePrefab, mouthTransform.position, mouthTransform.localRotation);
+                StartCoroutine(MoveFire(fire));
+                yield return waitForSeconds;
+            }
+        }
+
+        private IEnumerator MoveFire(GameObject fire)
+        {
+            float groundLevel = 50;
+            while (fire.transform.position.y - groundLevel > Mathf.Epsilon)
+            {
+                fire.transform.Translate(fire.transform.rotation * Vector3.right * (Time.deltaTime * fireSpeed));
+                yield return null;
+            }
         }
         
         public void EruptFlamesFlying()
         {
-            
+            StartCoroutine(EruptFlamesFlyingCoroutine());
         }
 
-        public void Scream()
+        private IEnumerator EruptFlamesFlyingCoroutine()
         {
-            
+            while (stateMachine.CurrentState is FlyAroundState)
+            {
+                yield return StartCoroutine(EruptFlamesFromMouth(flyMouth, 3f, 1f));
+                yield return new WaitForSeconds(1.67f);
+            }
         }
 
         public float DistanceTo(Vector3 point)
@@ -153,12 +191,6 @@ namespace Enemy.Dragon
         {
             
         }
-
-        public DragonBaseState ChooseNextState()
-            => Random.Range(0, 5) switch
-            {
-                _ => AttackState,
-            };
 
         public Vector3[] GetPointsAround()
         {

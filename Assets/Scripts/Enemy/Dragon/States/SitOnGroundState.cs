@@ -18,7 +18,8 @@ namespace Enemy.Dragon.States
 
         public override void Enter()
         {
-            bool doEruptFlames = Random.Range(0, 2) != 0;
+            //bool doEruptFlames = Random.Range(0, 2) != 0;
+            bool doEruptFlames = true;
             if (doEruptFlames)
             {
                 dragon.SetAnimationValue(eruptFlames, true);

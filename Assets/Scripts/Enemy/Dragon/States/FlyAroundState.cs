@@ -21,8 +21,9 @@ namespace Enemy.Dragon.States
             
             dragon.SetAnimationValue(doFly, true);
             
-            bool doEruptFlames = Random.Range(0, 2) != 0;
+            // bool doEruptFlames = Random.Range(0, 2) != 0;
 
+            bool doEruptFlames = true;
             if (doEruptFlames)
             {
                 dragon.SetAnimationValue(eruptFlames, true);
@@ -31,7 +32,7 @@ namespace Enemy.Dragon.States
 
             DOTween.Sequence()
                 .Append(dragon.transform
-                    .DOPath(points, points.Length * 50 / dragon.FlySpeed, PathType.CatmullRom)
+                    .DOPath(points, points.Length * 15 / dragon.FlySpeed, PathType.CatmullRom)
                     .OnWaypointChange(i =>
                     {
                         if (i < points.Length)
@@ -39,7 +40,7 @@ namespace Enemy.Dragon.States
                             dragon.transform.DOLookAt(points[i], 0.5f);
                         }
                     })
-                    .SetEase(Ease.Unset))
+                    .SetEase(Ease.InOutSine))
                 .Append(dragon.transform.DOLookAt(dragon.PlayerPosition, 0.7f))
                 .OnKill(() => stateMachine.ChangeState(dragon.SitOnGroundState));
         }
