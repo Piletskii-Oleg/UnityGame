@@ -63,6 +63,8 @@ namespace Enemy.Dragon
         public PeekState PeekState { get; private set; }
         
         public FlyAroundState FlyAroundState { get; private set; }
+        
+        public RamState RamState { get; private set; }
 
         public Vector3 PlayerPosition => playerScriptableObject.GetActualPlayerPosition();
         
@@ -88,6 +90,7 @@ namespace Enemy.Dragon
             SitOnGroundState = new SitOnGroundState(stateMachine, this);
             PeekState = new PeekState(stateMachine, this);
             FlyAroundState = new FlyAroundState(stateMachine, this);
+            RamState = new RamState(stateMachine, this);
         }
 
         private void Update()

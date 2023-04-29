@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using DG.Tweening;
+﻿using DG.Tweening;
 using UnityEngine;
 
 namespace Enemy.Dragon.States
@@ -8,7 +6,6 @@ namespace Enemy.Dragon.States
     public class FlyAroundState : DragonBaseState
     {
         private static readonly int doFly = Animator.StringToHash("DoFly");
-        private static readonly int eruptFlames = Animator.StringToHash("EruptFlames");
 
         public FlyAroundState(BaseStateMachine stateMachine, Dragon dragon)
             : base(stateMachine, dragon)
@@ -20,19 +17,10 @@ namespace Enemy.Dragon.States
             var points = dragon.GetPointsAround();
             
             dragon.SetAnimationValue(doFly, true);
-            
-            // bool doEruptFlames = Random.Range(0, 2) != 0;
-
-            bool doEruptFlames = true;
-            if (doEruptFlames)
-            {
-                dragon.SetAnimationValue(eruptFlames, true);
-                dragon.EruptFlamesFlying();
-            }
 
             DOTween.Sequence()
                 .Append(dragon.transform
-                    .DOPath(points, points.Length * 15 / dragon.FlySpeed, PathType.CatmullRom)
+                    .DOPath(points, points.Length * 11 / dragon.FlySpeed, PathType.CatmullRom)
                     .OnWaypointChange(i =>
                     {
                         if (i < points.Length)
@@ -42,7 +30,7 @@ namespace Enemy.Dragon.States
                     })
                     .SetEase(Ease.InOutSine))
                 .Append(dragon.transform.DOLookAt(dragon.PlayerPosition, 0.7f))
-                .OnKill(() => stateMachine.ChangeState(dragon.SitOnGroundState));
+                .OnKill(() => stateMachine.ChangeState(dragon.RamState));
         }
 
         public override void Tick()
@@ -51,8 +39,6 @@ namespace Enemy.Dragon.States
 
         public override void Exit()
         {
-            dragon.SetAnimationValue(doFly, false);
-            dragon.SetAnimationValue(eruptFlames, false);
         }
     }
 }

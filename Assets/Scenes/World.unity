@@ -59441,7 +59441,7 @@ MonoBehaviour:
   area: {fileID: 747354212}
   health: {fileID: 11400000, guid: 53358c41919951b459a17ec361e104bd, type: 2}
   circlePointsCount: 12
-  stayTime: 10
+  stayTime: 15
   ramSpeed: 15
   peekSpeed: 25
   flyAroundSpeed: 10
