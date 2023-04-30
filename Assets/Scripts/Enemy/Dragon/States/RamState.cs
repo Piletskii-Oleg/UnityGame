@@ -25,9 +25,10 @@ namespace Enemy.Dragon.States
 
             var center = dragon.Center.position;
             DOTween.Sequence()
-                .Append(dragonTransform.DOMoveY(position.y - 15, 0.4f))
+                .Append(dragonTransform.DOMoveY(position.y - 15, 0.7f))
+                .Append(dragonTransform.DOLookAt(resultPoint, 0.8f))
                 .Append(dragonTransform
-                        .DOMove(resultPoint, dragon.DistanceTo(resultPoint) / 20 / dragon.RamSpeed))
+                        .DOMove(resultPoint, dragon.DistanceTo(resultPoint) / 10 / dragon.RamSpeed))
                 .Append(dragonTransform.DOLookAt(center, 0.9f))
                 .Append(dragonTransform.DOMove(center, 4f))
                 .OnKill(() => stateMachine.ChangeState(dragon.SitOnGroundState));

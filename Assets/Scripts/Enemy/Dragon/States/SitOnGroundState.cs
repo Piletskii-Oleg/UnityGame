@@ -8,7 +8,7 @@ namespace Enemy.Dragon.States
         private static readonly int defend = Animator.StringToHash("Defend");
         private static readonly int eruptFlames = Animator.StringToHash("EruptFlames");
 
-        private const float sitTime = 5.0f;
+        private const float sitTime = 25.0f;
         private float timePassed;
         
         public SitOnGroundState(BaseStateMachine stateMachine, Dragon dragon)
@@ -18,17 +18,9 @@ namespace Enemy.Dragon.States
 
         public override void Enter()
         {
-            //bool doEruptFlames = Random.Range(0, 2) != 0;
-            bool doEruptFlames = true;
-            if (doEruptFlames)
-            {
-                dragon.SetAnimationValue(eruptFlames, true);
-                dragon.EruptFlamesGround();
-            }
-            else
-            {
-                dragon.SetAnimationValue(defend, true);
-            }
+            bool doEruptFlames = Random.Range(0, 2) != 0;
+            
+            dragon.SetAnimationValue(doEruptFlames ? eruptFlames : defend, true);
 
             timePassed = 0;
         }

@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using DG.Tweening;
 using Enemy.Dragon.States;
 using Player.ScriptableObjects;
 using Shared;
@@ -23,6 +24,9 @@ namespace Enemy.Dragon
         [Header("Fire Stats")]
         [SerializeField] private float fireSpeed;
         [SerializeField] private float fireDelay;
+        [SerializeField] private float fireFallSpeed;
+
+        private Coroutine eruptFlamesCoroutine;
 
         [Header("Dragon Data")]
         [SerializeField] private CircleArea area;
@@ -141,23 +145,23 @@ namespace Enemy.Dragon
         }
 
         public void EruptFlamesGround()
+            => eruptFlamesCoroutine = StartCoroutine(EruptFlamesFromMouth(groundMouth));
+
+        public void StopEruptingFlames()
         {
-            StartCoroutine(EruptFlamesFromMouth(groundMouth,1.7f, 1.6f));
+            if (eruptFlamesCoroutine != null)
+            {
+                StopCoroutine(eruptFlamesCoroutine);
+            }
         }
 
-        private IEnumerator EruptFlamesFromMouth(Transform mouth, float animationTime, float waitTime)
+        private IEnumerator EruptFlamesFromMouth(Transform mouth)
         {
-            yield return new WaitForSeconds(waitTime);
-            
-            float time = 0;
-            
             var waitForSeconds = new WaitForSeconds(fireDelay);
             
-            while (time < animationTime)
+            while (true)
             {
-                time += fireDelay;
-                var mouthTransform = mouth.transform;
-                var fire = Instantiate(firePrefab, mouthTransform.position, mouthTransform.localRotation);
+                var fire = Instantiate(firePrefab, mouth.position, mouth.rotation);
                 StartCoroutine(MoveFire(fire));
                 yield return waitForSeconds;
             }
@@ -166,26 +170,18 @@ namespace Enemy.Dragon
         private IEnumerator MoveFire(GameObject fire)
         {
             float groundLevel = 50;
+            var fireTransform = fire.transform;
             while (fire.transform.position.y - groundLevel > Mathf.Epsilon)
             {
-                fire.transform.Translate(fire.transform.rotation * Vector3.right * (Time.deltaTime * fireSpeed));
+                fireTransform.Translate(fireTransform.rotation * fireTransform.forward * -(1
+                                         * Time.deltaTime * fireSpeed));
+                fireTransform.DOMoveY(fireTransform.position.y - fireFallSpeed * Time.deltaTime, Time.deltaTime);
                 yield return null;
             }
         }
         
         public void EruptFlamesFlying()
-        {
-            StartCoroutine(EruptFlamesFlyingCoroutine());
-        }
-
-        private IEnumerator EruptFlamesFlyingCoroutine()
-        {
-            while (stateMachine.CurrentState is FlyAroundState)
-            {
-                yield return StartCoroutine(EruptFlamesFromMouth(flyMouth, 3f, 1f));
-                yield return new WaitForSeconds(1.67f);
-            }
-        }
+            => eruptFlamesCoroutine = StartCoroutine(EruptFlamesFromMouth(flyMouth));
 
         public float DistanceTo(Vector3 point)
             => (transform.position - point).magnitude;
@@ -200,7 +196,7 @@ namespace Enemy.Dragon
             float offset = Random.Range(0f, 360f);
             for (int i = 0; i < nextPoints.Length; i++)
             {
-                float angle = offset + nextPoints.Length * (i + 1);
+                float angle = offset + nextPoints.Length * (i + 1); // 12 -> one full circle
                 nextPoints[i] = area.GetPositionOnCircle(angle);
             }
 

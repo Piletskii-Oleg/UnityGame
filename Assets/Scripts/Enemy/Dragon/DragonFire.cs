@@ -1,4 +1,5 @@
-﻿using Shared;
+﻿using DG.Tweening;
+using Shared;
 using Shared.ScriptableObjects;
 using UnityEngine;
 
@@ -12,7 +13,7 @@ namespace Enemy.Dragon
 
         private float overallTimePassed;
         private float timePassed;
-        
+
         private void Update()
         {
             timePassed += Time.deltaTime;

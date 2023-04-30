@@ -11,6 +11,8 @@
         
         public override void ChangeState(BaseState newState)
         {
+            dragon.StopEruptingFlames();
+            
             if (CurrentState != dragon.PlayerRanAwayState)
             {
                 base.ChangeState(newState);
