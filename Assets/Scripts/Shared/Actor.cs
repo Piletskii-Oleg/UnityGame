@@ -20,6 +20,8 @@ namespace Shared
         [Header("Data")]
         [SerializeField] protected ActorData actorData;
 
+        public string Name => actorData.name;
+
         /// <summary>
         /// Used when the actor takes damage.
         /// </summary>

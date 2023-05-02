@@ -8,7 +8,7 @@ namespace Enemy.Dragon.States
         private static readonly int defend = Animator.StringToHash("Defend");
         private static readonly int eruptFlames = Animator.StringToHash("EruptFlames");
 
-        private const float sitTime = 25.0f;
+        private const float sitTime = 8.0f;
         private float timePassed;
         
         public SitOnGroundState(BaseStateMachine stateMachine, Dragon dragon)

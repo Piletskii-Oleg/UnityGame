@@ -12,6 +12,9 @@ namespace Enemy.Dragon
     public class Dragon : Actor
     {
         private BaseStateMachine stateMachine;
+        
+        private LayerMask playerMask;
+        private Collider[] playerInRange;
 
         [Header("Player")]
         [SerializeField] private PlayerScriptableObject playerScriptableObject;
@@ -22,16 +25,25 @@ namespace Enemy.Dragon
         [SerializeField] private Transform flyMouth;
 
         [Header("Fire Stats")]
+        [SerializeField] private DragonFireSet fireSet;
         [SerializeField] private float fireSpeed;
         [SerializeField] private float fireDelay;
         [SerializeField] private float fireFallSpeed;
+        [SerializeField] private float fireDamageDelay;
+        [SerializeField] private float fireDamage;
+        [SerializeField] private float fireNotTouchTime;
 
+        private bool hasPlayerTouchedFire;
+        
         private Coroutine eruptFlamesCoroutine;
+        private Coroutine dealFireDamageCoroutine;
+        private Coroutine tryStopDealingFireDamageCoroutine;
 
         [Header("Dragon Data")]
         [SerializeField] private CircleArea area;
         [SerializeField] private HealthData health;
         [SerializeField] private int circlePointsCount;
+        [SerializeField] private Transform areaPlane;
 
         private Vector3[] nextPoints;
 
@@ -45,6 +57,8 @@ namespace Enemy.Dragon
         [SerializeField] private float ramSpeed;
         [SerializeField] private float peekSpeed;
         [SerializeField] private float flyAroundSpeed;
+        [SerializeField] private float smashDamage;
+        [SerializeField] private float ramDamage;
 
         public Transform Center => area.transform;
         
@@ -53,9 +67,7 @@ namespace Enemy.Dragon
         public float PeekSpeed => peekSpeed;
 
         public float FlySpeed => flyAroundSpeed;
-        
-        public AttackState AttackState { get; private set; }
-        
+
         public FlyState FlyState { get; private set; }
         
         public DeadState DeadState { get; private set; }
@@ -69,8 +81,11 @@ namespace Enemy.Dragon
         public FlyAroundState FlyAroundState { get; private set; }
         
         public RamState RamState { get; private set; }
+        
+        public NotInFightState NotInFightState { get; private set; }
 
-        public Vector3 PlayerPosition => playerScriptableObject.GetActualPlayerPosition();
+        public Vector3 GetPlayerPosition()
+            => playerScriptableObject.GetActualPlayerPosition();
         
         private void Awake()
         {
@@ -82,12 +97,16 @@ namespace Enemy.Dragon
             
             InitializeStates();
             
-            stateMachine.Initialize(SitOnGroundState);
+            stateMachine.Initialize(PeekState);
+            
+            playerMask = 1 << LayerMask.NameToLayer("Player");
+            playerInRange = new Collider[1];
+            
+            fireSet.Initialize(this);
         }
 
         private void InitializeStates()
         {
-            AttackState = new AttackState(stateMachine, this);
             FlyState = new FlyState(stateMachine, this);
             DeadState = new DeadState(stateMachine, this);
             PlayerRanAwayState = new PlayerRanAwayState(stateMachine, this);
@@ -95,6 +114,7 @@ namespace Enemy.Dragon
             PeekState = new PeekState(stateMachine, this);
             FlyAroundState = new FlyAroundState(stateMachine, this);
             RamState = new RamState(stateMachine, this);
+            NotInFightState = new NotInFightState(stateMachine, this);
         }
 
         private void Update()
@@ -118,7 +138,6 @@ namespace Enemy.Dragon
         {
             if (stopBattleCoroutine != null)
             {
-                Debug.Log("Enter Area");
                 StopCoroutine(stopBattleCoroutine);
             }
         } 
@@ -169,7 +188,7 @@ namespace Enemy.Dragon
 
         private IEnumerator MoveFire(GameObject fire)
         {
-            float groundLevel = 50;
+            const float groundLevel = 51;
             var fireTransform = fire.transform;
             while (fire.transform.position.y - groundLevel > Mathf.Epsilon)
             {
@@ -188,7 +207,12 @@ namespace Enemy.Dragon
 
         public void SmashGround()
         {
-            
+            var explosionPoint = transform.position;
+            explosionPoint.y = BaseHeight;
+            playerScriptableObject.PlayerRigidbody.AddExplosionForce(400f, explosionPoint, 30f, 5.0f);
+
+            playerScriptableObject.PlayerActor.OnTakeDamage(smashDamage, actorData.affiliation);
+
         }
 
         public Vector3[] GetPointsAround()
@@ -202,5 +226,51 @@ namespace Enemy.Dragon
 
             return nextPoints;
         }
+
+        public Vector3 GetPointInArea()
+            => area.GetNewPosition();
+
+        public void StartDealingFireDamage(Actor actor)
+        {
+            if (!hasPlayerTouchedFire)
+            {
+                dealFireDamageCoroutine = StartCoroutine(DealFireDamage(actor));
+            }
+
+            if (tryStopDealingFireDamageCoroutine != null)
+            {
+                StopCoroutine(tryStopDealingFireDamageCoroutine);
+            }
+        }
+
+        public void StopDealingFireDamage()
+        {
+            tryStopDealingFireDamageCoroutine = StartCoroutine(TryStopFireDamage());
+        }
+
+        private IEnumerator DealFireDamage(Actor actor)
+        {
+            hasPlayerTouchedFire = true;
+            
+            var wait = new WaitForSeconds(fireDamageDelay);
+
+            while (true)
+            {
+                actor.OnTakeDamage(fireDamage, actorData.affiliation);
+
+                yield return wait;
+            }
+        }
+
+        private IEnumerator TryStopFireDamage()
+        {
+            var wait = new WaitForSeconds(fireNotTouchTime);
+            yield return wait;
+
+            hasPlayerTouchedFire = false;
+            StopCoroutine(dealFireDamageCoroutine);
+        }
+
+        public float BaseHeight => areaPlane.position.y;
     }
 }

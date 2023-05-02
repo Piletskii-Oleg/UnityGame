@@ -9,9 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 58e0bb5d48a74b9fb92c608d620770c7, type: 3}
-  m_Name: PlayerActor
+  m_Script: {fileID: 11500000, guid: ca4fc874585d42439e33459a4fa2c6fd, type: 3}
+  m_Name: DragonFireSet
   m_EditorClassIdentifier: 
-  actorName: Player
-  damage: 10
-  affiliation: {fileID: 11400000, guid: 651805666d24202448b2be0d66239556, type: 2}

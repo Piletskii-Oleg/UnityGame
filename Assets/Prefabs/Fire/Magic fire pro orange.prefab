@@ -24138,8 +24138,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2342e2996664225bbc21b474c0aea6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  actorData: {fileID: 11400000, guid: 1f6da4f997346244189c1176a6f3da67, type: 2}
-  damageCooldown: 0.5
+  fireSet: {fileID: 11400000, guid: 3e5f74144ffbe7a43a96c091a935efbe, type: 2}
   fireStayTime: 15
 --- !u!136 &4790631904562139957
 CapsuleCollider:

@@ -6,8 +6,7 @@ namespace Enemy.Dragon.States
     public class PeekState : DragonBaseState
     {
         private static readonly int doFly = Animator.StringToHash("DoFly");
-
-        private readonly Vector3 pointInSky;
+        
         private readonly Transform dragonTransform;
         
         public PeekState(BaseStateMachine stateMachine, Dragon dragon)
@@ -18,16 +17,21 @@ namespace Enemy.Dragon.States
 
         public override void Enter()
         {
+            var pointInSky = dragon.GetPointInArea();
+            pointInSky.y += 150;
+            
             DOTween.Sequence()
-                .Append(dragonTransform.DOLookAt(pointInSky, 0.9f))
-                .Append(dragonTransform.DOMove(pointInSky,
-                    dragon.DistanceTo(dragon.PlayerPosition) / dragon.FlySpeed))
-                .Append(dragonTransform.DOLookAt(dragon.PlayerPosition, 0.9f))
-                .Append(dragonTransform.DOMove(dragon.PlayerPosition,
-                    dragon.DistanceTo(dragon.PlayerPosition) / dragon.PeekSpeed)
+                .Append(dragonTransform.DOLookAt(pointInSky, 0.6f))
+                .Append(dragonTransform
+                    .DOMove(pointInSky, dragon.DistanceTo(dragon.GetPlayerPosition()) / dragon.FlySpeed)
+                    .SetEase(Ease.OutCubic))
+                .Append(dragonTransform.DOLookAt(dragon.GetPlayerPosition(), 0.6f))
+                .Append(dragonTransform.DOMove(dragon.GetPlayerPosition(),
+                    dragon.DistanceTo(dragon.GetPlayerPosition()) / 5 / dragon.PeekSpeed)
                     .SetEase(Ease.InQuad)
-                    .OnKill(() => dragon.SmashGround()))
-                .Append(dragonTransform.DOLookAt(dragon.PlayerPosition, 0.5f))
+                    .OnComplete(() => dragon.SmashGround()))
+                .Append(dragonTransform.DOLookAt(dragon.GetPlayerPosition(), 0.5f))
+                .Append(dragonTransform.DOMoveY(dragon.BaseHeight, 0.3f))
                 .OnKill(() => stateMachine.ChangeState(dragon.SitOnGroundState));
         }
 
@@ -37,6 +41,7 @@ namespace Enemy.Dragon.States
 
         public override void Exit()
         {
+            dragon.SetAnimationValue(doFly, false);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Shared;
+using UnityEngine;
 
 namespace Player.ScriptableObjects
 {
@@ -14,6 +15,9 @@ namespace Player.ScriptableObjects
 
         private Camera camera;
 
+        private Rigidbody rigidbody;
+        private Actor actor;
+
         /// <summary>
         /// Initializes the fields (used in <see cref="PlayerController"/> on awake).
         /// </summary>
@@ -23,6 +27,8 @@ namespace Player.ScriptableObjects
             playerTransform = player.transform;
 
             camera = player.GetComponentInChildren<Camera>();
+            rigidbody = player.GetComponent<Rigidbody>();
+            actor = player.GetComponent<Actor>();
         }
         
         /// <summary>
@@ -30,6 +36,10 @@ namespace Player.ScriptableObjects
         /// </summary>
         public Vector3 GetActualCameraPosition()
             => camera.transform.position;
+
+        public Rigidbody PlayerRigidbody => rigidbody;
+
+        public Actor PlayerActor => actor;
 
         /// <summary>
         /// Gets the actual position of the player.
