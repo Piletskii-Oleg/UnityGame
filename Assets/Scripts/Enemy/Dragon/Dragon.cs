@@ -26,9 +26,7 @@ namespace Enemy.Dragon
 
         [Header("Fire Stats")]
         [SerializeField] private DragonFireSet fireSet;
-        [SerializeField] private float fireSpeed;
         [SerializeField] private float fireDelay;
-        [SerializeField] private float fireFallSpeed;
         [SerializeField] private float fireDamageDelay;
         [SerializeField] private float fireDamage;
         [SerializeField] private float fireNotTouchTime;
@@ -97,7 +95,7 @@ namespace Enemy.Dragon
             
             InitializeStates();
             
-            stateMachine.Initialize(PeekState);
+            stateMachine.Initialize(SitOnGroundState);
             
             playerMask = 1 << LayerMask.NameToLayer("Player");
             playerInRange = new Collider[1];
@@ -180,25 +178,11 @@ namespace Enemy.Dragon
             
             while (true)
             {
-                var fire = Instantiate(firePrefab, mouth.position, mouth.rotation);
-                StartCoroutine(MoveFire(fire));
+                Instantiate(firePrefab, mouth.position, mouth.rotation);
                 yield return waitForSeconds;
             }
         }
 
-        private IEnumerator MoveFire(GameObject fire)
-        {
-            const float groundLevel = 51;
-            var fireTransform = fire.transform;
-            while (fire.transform.position.y - groundLevel > Mathf.Epsilon)
-            {
-                fireTransform.Translate(fireTransform.rotation * fireTransform.forward * -(1
-                                         * Time.deltaTime * fireSpeed));
-                fireTransform.DOMoveY(fireTransform.position.y - fireFallSpeed * Time.deltaTime, Time.deltaTime);
-                yield return null;
-            }
-        }
-        
         public void EruptFlamesFlying()
             => eruptFlamesCoroutine = StartCoroutine(EruptFlamesFromMouth(flyMouth));
 
@@ -209,10 +193,9 @@ namespace Enemy.Dragon
         {
             var explosionPoint = transform.position;
             explosionPoint.y = BaseHeight;
-            playerScriptableObject.PlayerRigidbody.AddExplosionForce(400f, explosionPoint, 30f, 5.0f);
+            playerScriptableObject.PlayerRigidbody.AddExplosionForce(1000f, explosionPoint, 30f, 6.0f);
 
             playerScriptableObject.PlayerActor.OnTakeDamage(smashDamage, actorData.affiliation);
-
         }
 
         public Vector3[] GetPointsAround()

@@ -58347,11 +58347,9 @@ MonoBehaviour:
   groundMouth: {fileID: 4535078106727648278}
   flyMouth: {fileID: 4535078106727624542}
   fireSet: {fileID: 11400000, guid: 3e5f74144ffbe7a43a96c091a935efbe, type: 2}
-  fireSpeed: 26
   fireDelay: 0.04
-  fireFallSpeed: 16.15
   fireDamageDelay: 1.03
-  fireDamage: 10.79
+  fireDamage: 3
   fireNotTouchTime: 1.59
   area: {fileID: 747354212}
   health: {fileID: 11400000, guid: 53358c41919951b459a17ec361e104bd, type: 2}
@@ -58359,7 +58357,7 @@ MonoBehaviour:
   areaPlane: {fileID: 92997777}
   stayTime: 15
   ramSpeed: 15
-  peekSpeed: 25
+  peekSpeed: 35.9
   flyAroundSpeed: 10
   smashDamage: 12.94
   ramDamage: 5.13

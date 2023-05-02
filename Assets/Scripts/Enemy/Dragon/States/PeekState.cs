@@ -27,8 +27,8 @@ namespace Enemy.Dragon.States
                     .SetEase(Ease.OutCubic))
                 .Append(dragonTransform.DOLookAt(dragon.GetPlayerPosition(), 0.6f))
                 .Append(dragonTransform.DOMove(dragon.GetPlayerPosition(),
-                    dragon.DistanceTo(dragon.GetPlayerPosition()) / 5 / dragon.PeekSpeed)
-                    .SetEase(Ease.InQuad)
+                    dragon.DistanceTo(dragon.GetPlayerPosition()) / dragon.PeekSpeed)
+                    .SetEase(Ease.InCubic)
                     .OnComplete(() => dragon.SmashGround()))
                 .Append(dragonTransform.DOLookAt(dragon.GetPlayerPosition(), 0.5f))
                 .Append(dragonTransform.DOMoveY(dragon.BaseHeight, 0.3f))
