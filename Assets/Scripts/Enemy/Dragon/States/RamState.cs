@@ -10,10 +10,13 @@ namespace Enemy.Dragon.States
 
         private readonly Transform dragonTransform;
         
+        private Sequence sequence;
+        
         public RamState(BaseStateMachine stateMachine, Dragon dragon)
             : base(stateMachine, dragon)
         {
             dragonTransform = dragon.transform;
+            dragon.AddState(this);
         }
 
         public override void Enter()
@@ -25,7 +28,7 @@ namespace Enemy.Dragon.States
             resultPoint.y -= 15;
             
             var sitPoint = dragon.GetPointInArea();
-            DOTween.Sequence()
+            sequence = DOTween.Sequence()
                 .Append(dragonTransform.DOMoveY(position.y - 15, 0.7f))
                 .Append(dragonTransform.DOLookAt(resultPoint, 0.8f))
                 .Append(dragonTransform
@@ -43,6 +46,11 @@ namespace Enemy.Dragon.States
         {
             dragon.SetAnimationValue(doFly, false);
             dragon.SetAnimationValue(glide, false);
+        }
+
+        public override void KillSequences()
+        {
+            sequence.Kill();
         }
     }
 }

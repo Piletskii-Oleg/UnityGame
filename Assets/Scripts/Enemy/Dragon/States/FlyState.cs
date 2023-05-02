@@ -12,6 +12,7 @@ namespace Enemy.Dragon.States
         public FlyState(BaseStateMachine stateMachine, Dragon dragon)
             : base(stateMachine, dragon)
         {
+            dragon.AddState(this);
         }
 
         public override void Enter()
@@ -28,6 +29,10 @@ namespace Enemy.Dragon.States
         public override void Exit()
         {
             
+        }
+
+        public override void KillSequences()
+        {
         }
     }
 }

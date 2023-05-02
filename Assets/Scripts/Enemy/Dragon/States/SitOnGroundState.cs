@@ -8,12 +8,13 @@ namespace Enemy.Dragon.States
         private static readonly int defend = Animator.StringToHash("Defend");
         private static readonly int eruptFlames = Animator.StringToHash("EruptFlames");
 
-        private const float sitTime = 8.0f;
+        private const float sitTime = 6.0f;
         private float timePassed;
         
         public SitOnGroundState(BaseStateMachine stateMachine, Dragon dragon)
             : base(stateMachine, dragon)
         {
+            dragon.AddState(this);
         }
 
         public override void Enter()
@@ -38,6 +39,10 @@ namespace Enemy.Dragon.States
         {
             dragon.SetAnimationValue(defend, false);
             dragon.SetAnimationValue(eruptFlames, false);
+        }
+
+        public override void KillSequences()
+        {
         }
     }
 }

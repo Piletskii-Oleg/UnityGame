@@ -9,9 +9,12 @@ namespace Enemy.Dragon.States
 
         private readonly Vector3 runawayPoint;
         
+        private Sequence sequence;
+        
         public PlayerRanAwayState(BaseStateMachine stateMachine, Dragon dragon)
             : base(stateMachine, dragon)
         {
+            dragon.AddState(this);
         }
 
         public override void Enter()
@@ -36,6 +39,10 @@ namespace Enemy.Dragon.States
         public override void Exit()
         {
             dragon.SetAnimationValue(doFly, false);
+        }
+
+        public override void KillSequences()
+        {
         }
     }
 }

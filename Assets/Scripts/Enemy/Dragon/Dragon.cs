@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using DG.Tweening;
 using Enemy.Dragon.States;
 using Player.ScriptableObjects;
@@ -12,9 +13,6 @@ namespace Enemy.Dragon
     public class Dragon : Actor
     {
         private BaseStateMachine stateMachine;
-        
-        private LayerMask playerMask;
-        private Collider[] playerInRange;
 
         [Header("Player")]
         [SerializeField] private PlayerScriptableObject playerScriptableObject;
@@ -50,7 +48,7 @@ namespace Enemy.Dragon
         
         private Coroutine stopBattleCoroutine;
         private bool hasBattleStarted;
-        
+
         [Header("Dragon Stats")]
         [SerializeField] private float ramSpeed;
         [SerializeField] private float peekSpeed;
@@ -82,6 +80,8 @@ namespace Enemy.Dragon
         
         public NotInFightState NotInFightState { get; private set; }
 
+        private List<DragonBaseState> states;
+
         public Vector3 GetPlayerPosition()
             => playerScriptableObject.GetActualPlayerPosition();
         
@@ -96,15 +96,13 @@ namespace Enemy.Dragon
             InitializeStates();
             
             stateMachine.Initialize(SitOnGroundState);
-            
-            playerMask = 1 << LayerMask.NameToLayer("Player");
-            playerInRange = new Collider[1];
-            
+
             fireSet.Initialize(this);
         }
 
         private void InitializeStates()
         {
+            states = new();
             FlyState = new FlyState(stateMachine, this);
             DeadState = new DeadState(stateMachine, this);
             PlayerRanAwayState = new PlayerRanAwayState(stateMachine, this);
@@ -120,7 +118,7 @@ namespace Enemy.Dragon
 
         public void InitiateBattle()
         {
-            if (hasBattleStarted)
+            if (hasBattleStarted || stateMachine.CurrentState is DeadState)
             {
                 return;
             }
@@ -255,5 +253,21 @@ namespace Enemy.Dragon
         }
 
         public float BaseHeight => areaPlane.position.y;
+
+        public override void OnKill()
+        {
+            StopAllCoroutines();
+
+            DOTween.Kill(transform);
+            StopAllSequences();
+
+            stateMachine.ChangeState(DeadState);
+        }
+
+        public void AddState(DragonBaseState state)
+            => states.Add(state);
+
+        private void StopAllSequences()
+            => states.ForEach(state => state.KillSequences());
     }
 }

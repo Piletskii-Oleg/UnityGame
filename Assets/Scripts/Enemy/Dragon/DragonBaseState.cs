@@ -10,5 +10,7 @@
             this.stateMachine = stateMachine;
             this.dragon = dragon;
         }
+
+        public abstract void KillSequences();
     }
 }

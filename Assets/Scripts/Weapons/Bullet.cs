@@ -20,6 +20,7 @@ namespace Weapons
         private ActorAffiliation affiliation;
 
         private float timeSinceCreation;
+        
         [Tooltip("Max time that a bullet can exist for.")]
         [SerializeField] private float maxTime;
 
@@ -46,6 +47,10 @@ namespace Weapons
             if (collision.gameObject.TryGetComponent<Actor>(out var actor))
             {
                 actor.OnTakeDamage(damage, affiliation);
+            }
+            else if (collision.gameObject.TryGetComponent<HealthSurrogate>(out var health))
+            {
+                health.OnTakeDamage(damage, affiliation);
             }
 
             Destroy(gameObject);

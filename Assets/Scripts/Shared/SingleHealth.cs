@@ -11,7 +11,7 @@ namespace Shared
     {
         [SerializeField] private HealthData healthData;
 
-        [SerializeField] private UnityEvent onHealthChangedEvent;
+        [SerializeField] private UnityEvent<float> onHealthChangedEvent;
         [SerializeField] private UnityEvent onDeathEvent;
 
         private void Start()
@@ -26,7 +26,7 @@ namespace Shared
         public void TakeDamage(float damage)
         {
             healthData.currentHealth -= damage;
-            onHealthChangedEvent.Invoke();
+            onHealthChangedEvent.Invoke(healthData.currentHealth / healthData.maxHealth);
 
             if (healthData.currentHealth < 0)
             {
@@ -49,7 +49,7 @@ namespace Shared
                 healthData.currentHealth = healthData.maxHealth;
             }
 
-            onHealthChangedEvent.Invoke();
+            onHealthChangedEvent.Invoke(healthData.currentHealth / healthData.maxHealth);
         }
     }
 }

@@ -9,9 +9,12 @@ namespace Enemy.Dragon.States
         private static readonly int glide = Animator.StringToHash("Glide");
         private static readonly int eruptFlames = Animator.StringToHash("EruptFlames");
 
+        private Sequence sequence;
+        
         public FlyAroundState(BaseStateMachine stateMachine, Dragon dragon)
             : base(stateMachine, dragon)
         {
+            dragon.AddState(this);
         }
 
         public override void Enter()
@@ -27,7 +30,7 @@ namespace Enemy.Dragon.States
                 dragon.SetAnimationValue(eruptFlames, true);
             }
 
-            DOTween.Sequence()
+            sequence = DOTween.Sequence()
                 .Append(dragon.transform
                     .DOPath(points, points.Length * 11 / dragon.FlySpeed, PathType.CatmullRom)
                     .OnWaypointChange(i =>
@@ -39,11 +42,17 @@ namespace Enemy.Dragon.States
                     })
                     .SetEase(Ease.InOutSine))
                 .Append(dragon.transform.DOLookAt(dragon.GetPlayerPosition(), 0.7f))
-                .OnKill(() => stateMachine.ChangeState(/*Random.Range(0, 2) == 0 ? dragon.RamState :*/ dragon.PeekState));
+                .OnKill(() => stateMachine.ChangeState(/*Random.Range(0, 2) == 0 ? dragon.PeekState :*/ dragon.RamState));
+            
         }
 
         public override void Tick()
         {
+        }
+
+        public override void KillSequences()
+        {
+            sequence.Kill();
         }
 
         public override void Exit()
