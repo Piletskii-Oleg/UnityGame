@@ -1552,6 +1552,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52cd8444777b8b240b3e287f67669118, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  actorData: {fileID: 11400000, guid: 02d3476ea4eca2d4a84bf78e808c0693, type: 2}
   onTakeDamage:
     m_PersistentCalls:
       m_Calls:
@@ -1570,7 +1571,6 @@ MonoBehaviour:
   onKill:
     m_PersistentCalls:
       m_Calls: []
-  actorData: {fileID: 11400000, guid: 02d3476ea4eca2d4a84bf78e808c0693, type: 2}
 --- !u!114 &111919190
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3570,6 +3570,7 @@ GameObject:
   - component: {fileID: 222315784}
   - component: {fileID: 222315785}
   - component: {fileID: 222315786}
+  - component: {fileID: 222315787}
   m_Layer: 0
   m_Name: BGMController
   m_TagString: Untagged
@@ -3588,7 +3589,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1117030075}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3603,7 +3605,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 5b59cce20f4d42a48b3069957f936fe4, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 1
@@ -3701,6 +3703,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   manager: {fileID: 11400000, guid: 7223651e7996ed34881561188b2fe158, type: 2}
+  volumeDelta: 0.002
 --- !u!114 &222315786
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3715,6 +3718,34 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameDataManager: {fileID: 11400000, guid: b95eb12bd5ac9704a87bb9861742978a, type: 2}
   optionsDataManager: {fileID: 11400000, guid: 53b4588eed76ae84f9c69d8c5b25c606, type: 2}
+--- !u!114 &222315787
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 222315782}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a1115a9071a4ac981676371af010711, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: dc7c90763d6a6df4da9f14d44a05dbf3, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 222315785}
+        m_TargetAssemblyTypeName: Sound.BGMController, Scripts
+        m_MethodName: PlayBackgroundMusic
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!4 &225500011 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8312992151372342535, guid: 1f19f5192b34e8340a73d0fd11b47328, type: 3}
@@ -20636,6 +20667,95 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 4, y: 0.19608502, z: 4}
   m_Center: {x: 0, y: 0.0940137, z: 0}
+--- !u!1 &1117030074
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1117030075}
+  - component: {fileID: 1117030077}
+  - component: {fileID: 1117030076}
+  m_Layer: 0
+  m_Name: Event Listeners
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1117030075
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1117030074}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 222315783}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1117030076
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1117030074}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2438166054fae9447beaa32edf8ea98f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: d96742bacd2c5d146ad643ef7faf696b, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 222315785}
+        m_TargetAssemblyTypeName: Sound.BGMController, Scripts
+        m_MethodName: PlayBackgroundMusic
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 8300000, guid: 5b59cce20f4d42a48b3069957f936fe4, type: 3}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1117030077
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1117030074}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2438166054fae9447beaa32edf8ea98f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: 2030e0bc469b0cb468126c0a702b591d, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 222315785}
+        m_TargetAssemblyTypeName: Sound.BGMController, Scripts
+        m_MethodName: PlayBackgroundMusic
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 8300000, guid: 14a1cf915de1c2448b200ab123c01445, type: 3}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1118968057
 GameObject:
   m_ObjectHideFlags: 0
@@ -26928,6 +27048,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f173a2cd15534ca8b13615331c79d942, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  actorData: {fileID: 11400000, guid: ad938875fc52b354a9f71d9b0ebb9bb8, type: 2}
   onTakeDamage:
     m_PersistentCalls:
       m_Calls:
@@ -26946,7 +27067,6 @@ MonoBehaviour:
   onKill:
     m_PersistentCalls:
       m_Calls: []
-  actorData: {fileID: 11400000, guid: ad938875fc52b354a9f71d9b0ebb9bb8, type: 2}
   playerScriptableObject: {fileID: 11400000, guid: 203a95cfd29fdca4bbd08281315d3e08, type: 2}
   lookRadius: 12
   lookAngle: 120
@@ -30921,6 +31041,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f173a2cd15534ca8b13615331c79d942, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  actorData: {fileID: 11400000, guid: ad938875fc52b354a9f71d9b0ebb9bb8, type: 2}
   onTakeDamage:
     m_PersistentCalls:
       m_Calls:
@@ -30939,7 +31060,6 @@ MonoBehaviour:
   onKill:
     m_PersistentCalls:
       m_Calls: []
-  actorData: {fileID: 11400000, guid: ad938875fc52b354a9f71d9b0ebb9bb8, type: 2}
   playerScriptableObject: {fileID: 11400000, guid: 203a95cfd29fdca4bbd08281315d3e08, type: 2}
   lookRadius: 12
   lookAngle: 120
@@ -31265,6 +31385,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f173a2cd15534ca8b13615331c79d942, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  actorData: {fileID: 11400000, guid: ad938875fc52b354a9f71d9b0ebb9bb8, type: 2}
   onTakeDamage:
     m_PersistentCalls:
       m_Calls:
@@ -31283,7 +31404,6 @@ MonoBehaviour:
   onKill:
     m_PersistentCalls:
       m_Calls: []
-  actorData: {fileID: 11400000, guid: ad938875fc52b354a9f71d9b0ebb9bb8, type: 2}
   playerScriptableObject: {fileID: 11400000, guid: 203a95cfd29fdca4bbd08281315d3e08, type: 2}
   lookRadius: 12
   lookAngle: 120
@@ -38161,13 +38281,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb82862378844c91a5fac52cdcc48d9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  actorData: {fileID: 11400000, guid: 3758cdafed9d33c45a71a7f11cdcc656, type: 2}
   onTakeDamage:
     m_PersistentCalls:
       m_Calls: []
   onKill:
     m_PersistentCalls:
       m_Calls: []
-  actorData: {fileID: 11400000, guid: 3758cdafed9d33c45a71a7f11cdcc656, type: 2}
   onDamaged:
     m_PersistentCalls:
       m_Calls:
@@ -40644,6 +40764,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fb4b466cd6a42509a0838a222d17a99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  actorData: {fileID: 11400000, guid: d3792514ea92f0948957aaf2050f94c7, type: 2}
   onTakeDamage:
     m_PersistentCalls:
       m_Calls:
@@ -40674,7 +40795,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  actorData: {fileID: 11400000, guid: d3792514ea92f0948957aaf2050f94c7, type: 2}
   playerScriptableObject: {fileID: 11400000, guid: 203a95cfd29fdca4bbd08281315d3e08, type: 2}
   lookRadius: 15
   lookAngle: 180
@@ -44295,6 +44415,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db8d3889b692443d856196557b1abacd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  actorData: {fileID: 11400000, guid: f9e04a42bfcc7e84cbab7b8908551242, type: 2}
   onTakeDamage:
     m_PersistentCalls:
       m_Calls:
@@ -44313,7 +44434,6 @@ MonoBehaviour:
   onKill:
     m_PersistentCalls:
       m_Calls: []
-  actorData: {fileID: 11400000, guid: f9e04a42bfcc7e84cbab7b8908551242, type: 2}
   playerScriptableObject: {fileID: 11400000, guid: 203a95cfd29fdca4bbd08281315d3e08, type: 2}
   lookRadius: 16
   lookAngle: 210
@@ -44530,6 +44650,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db8d3889b692443d856196557b1abacd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  actorData: {fileID: 11400000, guid: f9e04a42bfcc7e84cbab7b8908551242, type: 2}
   onTakeDamage:
     m_PersistentCalls:
       m_Calls:
@@ -44548,7 +44669,6 @@ MonoBehaviour:
   onKill:
     m_PersistentCalls:
       m_Calls: []
-  actorData: {fileID: 11400000, guid: f9e04a42bfcc7e84cbab7b8908551242, type: 2}
   playerScriptableObject: {fileID: 11400000, guid: 203a95cfd29fdca4bbd08281315d3e08, type: 2}
   lookRadius: 16
   lookAngle: 210
@@ -56013,6 +56133,7 @@ GameObject:
   - component: {fileID: 4535078106736627742}
   - component: {fileID: 4535078106736627743}
   - component: {fileID: 4535078106736627744}
+  - component: {fileID: 4535078106736627745}
   m_Layer: 0
   m_Name: DragonBoss
   m_TagString: Untagged
@@ -58785,6 +58906,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e01577c01df5456db8c4478a81b96965, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  actorData: {fileID: 11400000, guid: 1f6da4f997346244189c1176a6f3da67, type: 2}
   onTakeDamage:
     m_PersistentCalls:
       m_Calls:
@@ -58802,8 +58924,34 @@ MonoBehaviour:
         m_CallState: 2
   onKill:
     m_PersistentCalls:
-      m_Calls: []
-  actorData: {fileID: 11400000, guid: 1f6da4f997346244189c1176a6f3da67, type: 2}
+      m_Calls:
+      - m_Target: {fileID: 11400000, guid: 5e28eee16a671324787ba43903cca7c6, type: 2}
+        m_TargetAssemblyTypeName: EventListeners.GameEvents.GameEvent, Scripts
+        m_MethodName: Raise
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onStopBattle:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 11400000, guid: d96742bacd2c5d146ad643ef7faf696b, type: 2}
+        m_TargetAssemblyTypeName: EventListeners.GameEvents.GameEvent, Scripts
+        m_MethodName: Raise
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   playerScriptableObject: {fileID: 11400000, guid: 203a95cfd29fdca4bbd08281315d3e08, type: 2}
   firePrefab: {fileID: 1725317912486240, guid: 0efdfd8f60827f04ba06c9ef8a58a9ff, type: 3}
   groundMouth: {fileID: 4535078106727648278}
@@ -58857,6 +59005,34 @@ MonoBehaviour:
       - m_Target: {fileID: 4535078106736627743}
         m_TargetAssemblyTypeName: Enemy.Dragon.Dragon, Scripts
         m_MethodName: OnKill
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &4535078106736627745
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4535078106727409824}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2438166054fae9447beaa32edf8ea98f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: 2030e0bc469b0cb468126c0a702b591d, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4535078106736627743}
+        m_TargetAssemblyTypeName: Enemy.Dragon.Dragon, Scripts
+        m_MethodName: InitiateBattle
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -59532,9 +59708,9 @@ MonoBehaviour:
   onPress:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4535078106736627743}
-        m_TargetAssemblyTypeName: Enemy.Dragon.Dragon, Scripts
-        m_MethodName: InitiateBattle
+      - m_Target: {fileID: 11400000, guid: 2030e0bc469b0cb468126c0a702b591d, type: 2}
+        m_TargetAssemblyTypeName: EventListeners.GameEvents.GameEvent, Scripts
+        m_MethodName: Raise
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

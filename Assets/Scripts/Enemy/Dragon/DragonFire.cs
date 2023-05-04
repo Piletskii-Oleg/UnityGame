@@ -12,6 +12,7 @@ namespace Enemy.Dragon
         [SerializeField] private float fireStayTime;
         [SerializeField] private float fireSpeed;
         [SerializeField] private float fireFallSpeed;
+        
         private float overallTimePassed;
 
         private void Start()

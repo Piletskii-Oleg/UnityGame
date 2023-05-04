@@ -15,6 +15,7 @@ namespace Enemy.Dragon.States
             : base(stateMachine, dragon)
         {
             dragonTransform = dragon.transform;
+            
             dragon.AddState(this);
         }
 

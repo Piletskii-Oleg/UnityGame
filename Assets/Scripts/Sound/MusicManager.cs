@@ -18,7 +18,7 @@ namespace Sound
         [field:SerializeField] public float SoundVolume { get; set; }
 
         [SerializeField] private UnityEvent<float> onSoundVolumeChanged;
-        
+
         public override void LoadData(OptionsData data)
         {
             MusicVolume = data.musicVolume;

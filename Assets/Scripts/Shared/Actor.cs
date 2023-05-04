@@ -13,12 +13,12 @@ namespace Shared
     {
         protected Animator animator;
         
+        [Header("Data")]
+        [SerializeField] protected ActorData actorData;
+        
         [Header("Events")]
         [SerializeField] private UnityEvent<float> onTakeDamage;
         [SerializeField] private UnityEvent onKill;
-        
-        [Header("Data")]
-        [SerializeField] protected ActorData actorData;
 
         public string Name => actorData.name;
 

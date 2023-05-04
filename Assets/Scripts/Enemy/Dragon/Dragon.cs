@@ -6,6 +6,7 @@ using Player.ScriptableObjects;
 using Shared;
 using Shared.ScriptableObjects;
 using UnityEngine;
+using UnityEngine.Events;
 using Random = UnityEngine.Random;
 
 namespace Enemy.Dragon
@@ -13,6 +14,8 @@ namespace Enemy.Dragon
     public class Dragon : Actor
     {
         private BaseStateMachine stateMachine;
+
+        [SerializeField] private UnityEvent onStopBattle;
 
         [Header("Player")]
         [SerializeField] private PlayerScriptableObject playerScriptableObject;
@@ -102,7 +105,7 @@ namespace Enemy.Dragon
 
         private void InitializeStates()
         {
-            states = new();
+            states = new List<DragonBaseState>();
             FlyState = new FlyState(stateMachine, this);
             DeadState = new DeadState(stateMachine, this);
             PlayerRanAwayState = new PlayerRanAwayState(stateMachine, this);
@@ -157,6 +160,8 @@ namespace Enemy.Dragon
             
             stateMachine.ChangeState(PlayerRanAwayState);
             hasBattleStarted = false;
+            
+            onStopBattle.Invoke();
         }
 
         public void EruptFlamesGround()
@@ -256,6 +261,10 @@ namespace Enemy.Dragon
 
         public override void OnKill()
         {
+            base.OnKill();
+            
+            onStopBattle.Invoke();
+            
             StopAllCoroutines();
 
             DOTween.Kill(transform);
