@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using EventListeners;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -42,7 +41,7 @@ namespace EventListeners.GameEvents
         /// <summary>
         /// Removes listener if it has been added.
         /// </summary>
-        /// <param name="listener"><see cref="IEventListener"/> put on a <see cref="GameObject"/> in the world.</param>
+        /// <param name="listener"><see cref="IEventListener{T}"/> put on a <see cref="GameObject"/> in the world.</param>
         public void UnregisterListener(IEventListener<T> listener)
         {
             if (listeners.Contains(listener))

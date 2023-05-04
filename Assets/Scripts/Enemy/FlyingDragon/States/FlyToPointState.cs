@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using DG.Tweening;
 
@@ -10,7 +11,7 @@ namespace Enemy.FlyingDragon.States
 
         private int currentPointNumber;
         
-        public FlyToPointState(FlyingDragon dragon, BaseStateMachine stateMachine, Transform[] points)
+        public FlyToPointState(FlyingDragon dragon, BaseStateMachine stateMachine, IEnumerable<Transform> points)
             : base(dragon, stateMachine)
         {
             this.points = points.Select(point => point.position).ToArray();

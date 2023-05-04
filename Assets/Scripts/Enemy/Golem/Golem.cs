@@ -72,7 +72,7 @@ namespace Enemy.Golem
             stateMachine = new GolemStateMachine();
             InitializeStates();
 
-            stateMachine.Initialize(this.IdleState);
+            stateMachine.Initialize(IdleState);
         }
         
         public override void OnKill()

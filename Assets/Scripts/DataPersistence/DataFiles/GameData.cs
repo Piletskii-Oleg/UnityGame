@@ -28,8 +28,8 @@ namespace DataPersistence.DataFiles
         /// </summary>
         public GameData()
         {
-            storedItems = new();
-            storedWeapons = new();
+            storedItems = new List<InventoryItem>();
+            storedWeapons = new List<GunItem>();
         }
     }
 }

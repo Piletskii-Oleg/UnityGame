@@ -15,9 +15,6 @@ namespace Player.ScriptableObjects
 
         private Camera camera;
 
-        private Rigidbody rigidbody;
-        private Actor actor;
-
         /// <summary>
         /// Initializes the fields (used in <see cref="PlayerController"/> on awake).
         /// </summary>
@@ -27,8 +24,8 @@ namespace Player.ScriptableObjects
             playerTransform = player.transform;
 
             camera = player.GetComponentInChildren<Camera>();
-            rigidbody = player.GetComponent<Rigidbody>();
-            actor = player.GetComponent<Actor>();
+            PlayerRigidbody = player.GetComponent<Rigidbody>();
+            PlayerActor = player.GetComponent<Actor>();
         }
         
         /// <summary>
@@ -37,9 +34,9 @@ namespace Player.ScriptableObjects
         public Vector3 GetActualCameraPosition()
             => camera.transform.position;
 
-        public Rigidbody PlayerRigidbody => rigidbody;
+        public Rigidbody PlayerRigidbody { get; private set; }
 
-        public Actor PlayerActor => actor;
+        public Actor PlayerActor { get; private set; }
 
         /// <summary>
         /// Gets the actual position of the player.

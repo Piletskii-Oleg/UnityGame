@@ -41,10 +41,7 @@ namespace Enemy.Slime
         [Header("Slime Information")]
         [Tooltip("GameObject that contains the actor model")]
         [SerializeField] private GameObject slimeModel;
-        [FormerlySerializedAs("circleArea")]
-        [FormerlySerializedAs("slimeArea")]
-        [Tooltip("An object around which actor can roam freely")]
-        [SerializeField] private CircleArea area;
+
         [Tooltip("Scriptable object that contains all slime faces")]
         [SerializeField] private SlimeFacesList facesList;
 
@@ -65,7 +62,7 @@ namespace Enemy.Slime
             stateMachine = new SlimeStateMachine();
             InitializeStates();
 
-            stateMachine.Initialize(this.IdleState);
+            stateMachine.Initialize(IdleState);
         }
 
         private void InitializeStates()
@@ -93,14 +90,6 @@ namespace Enemy.Slime
         /// <param name="texture">Face to set.</param>
         public void SetFace(Texture texture)
             => faceMaterial.SetTexture(mainTex, texture);
-        
-        /// <summary>
-        /// Sets the <see cref="area"/> variable
-        /// (if spider is spawned, it cannot be initialized in the editor as it is scene-specific).
-        /// </summary>
-        /// <param name="newArea">Area which the spider belongs to.</param>
-        public void SetArea(CircleArea newArea)
-            => area = newArea;
 
         public override void OnKill()
         {

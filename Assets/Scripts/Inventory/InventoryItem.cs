@@ -29,7 +29,7 @@ namespace Inventory
         
         public void SetData(InventoryItemData data)
         {
-            this.Data = data;
+            Data = data;
         }
 
         /// <summary>

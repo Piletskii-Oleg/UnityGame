@@ -19,7 +19,7 @@ namespace Player
 
         private void Start()
         {
-            this.ChangeWeapon(weaponManager.CurrentIndex);
+            ChangeWeapon(weaponManager.CurrentIndex);
         }
 
         /// <summary>
@@ -87,10 +87,7 @@ namespace Player
         /// </summary>
         public void StartReload()
         {
-            if (currentWeapon != null)
-            {
-                currentWeapon.StartReload();
-            }
+            currentWeapon?.StartReload();
         }
 
         /// <summary>
@@ -150,7 +147,7 @@ namespace Player
         }
 
         public void OnLoad(GameData data)
-            => this.ChangeWeapon(data.currentWeaponIndex + 1);
+            => ChangeWeapon(data.currentWeaponIndex + 1);
 
         private void InstantiateWeapon()
         {

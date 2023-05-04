@@ -41,7 +41,7 @@ namespace NPC
                 StartCoroutine(TurnHeadToPosition(transformToTurn, position, 4f));
         }
 
-        private IEnumerator TurnHeadToPosition(Transform transformToTurn, Vector3 position, float smoothing)
+        private static IEnumerator TurnHeadToPosition(Transform transformToTurn, Vector3 position, float smoothing)
         {
             var initialPosition = transformToTurn.position;
             

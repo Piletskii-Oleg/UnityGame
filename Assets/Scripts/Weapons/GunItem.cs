@@ -39,7 +39,7 @@ namespace Weapons
 
         public void SetData(GunData data)
         {
-            this.Data = data;
+            Data = data;
         }
 
         /// <summary>

@@ -18,7 +18,7 @@ namespace Inventory
         /// </summary>
         public void Interact()
         {
-            var stackSize = inventoryManager.GetStackSize(inventoryItemData);
+            int stackSize = inventoryManager.GetStackSize(inventoryItemData);
 
             if (stackSize < inventoryItemData.maxAmount)
             {

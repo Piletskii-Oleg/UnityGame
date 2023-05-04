@@ -31,14 +31,8 @@ namespace NPC.Dialogue
                 {
                     return firstDialogue;
                 }
-                else if (currentDialogue.Name == "End")
-                {
-                    return startingDialogue;
-                }
-                else
-                {
-                    return currentDialogue;
-                }
+                
+                return currentDialogue.Name == "End" ? startingDialogue : currentDialogue;
             }
             private set => currentDialogue = value;
         }

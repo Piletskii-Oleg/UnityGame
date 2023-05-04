@@ -9,7 +9,6 @@ namespace Enemy.Slime
     public class SlimeFacesList : ScriptableObject
     {
         public Texture idleFace;
-        public Texture jumpFace;
         public Texture walkFace;
         public Texture attackFace;
         public Texture damageFace;

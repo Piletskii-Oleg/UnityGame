@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using Interactable;
 using UnityEngine.Events;
@@ -16,13 +17,20 @@ namespace Player
         [SerializeField] private UnityEvent<string> onSeeInteractable;
         [SerializeField] private UnityEvent onLookAwayFromInteractable;
 
+        private Transform camTransform;
+
+        private void Start()
+        {
+            camTransform = cam.transform;
+        }
+
         /// <summary>
         /// Called when the player wants to interact with something.
         /// </summary>
         public void Interact()
         {
-            var ray = new Ray(cam.transform.position, cam.transform.forward);
-            if (Physics.Raycast(ray, out RaycastHit hitInfo, rayDistance, layerMask))
+            var ray = new Ray(camTransform.position, camTransform.forward);
+            if (Physics.Raycast(ray, out var hitInfo, rayDistance, layerMask))
             {
                 if (hitInfo.collider.TryGetComponent<IInteractable>(out var interactable))
                 {
@@ -33,8 +41,8 @@ namespace Player
 
         private void Update()
         {
-            var ray = new Ray(cam.transform.position, cam.transform.forward);
-            if (Physics.Raycast(ray, out RaycastHit hitInfo, rayDistance, layerMask))
+            var ray = new Ray(camTransform.position, camTransform.forward);
+            if (Physics.Raycast(ray, out var hitInfo, rayDistance, layerMask))
             {
                 if (hitInfo.collider.TryGetComponent<IInteractable>(out var interactable))
                 {

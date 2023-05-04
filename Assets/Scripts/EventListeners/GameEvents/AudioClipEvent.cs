@@ -1,5 +1,4 @@
-﻿using NPC.Dialogue;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace EventListeners.GameEvents
 {

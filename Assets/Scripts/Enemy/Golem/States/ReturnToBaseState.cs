@@ -8,7 +8,7 @@ namespace Enemy.Golem.States
         private readonly Transform golemTransform;
 
         private const float basePointStoppingDistance = 2.0f;
-        private float agentStoppingDistance;
+        private readonly float agentStoppingDistance;
         public ReturnToBaseState(Golem golem, BaseStateMachine stateMachine, Transform basePoint)
             : base(golem, stateMachine)
         {

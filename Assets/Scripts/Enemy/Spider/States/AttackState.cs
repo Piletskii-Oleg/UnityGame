@@ -19,7 +19,7 @@ namespace Enemy.Spider.States
         private readonly float runSpeed;
 
         private bool isPlayerReachable;
-        private readonly float playerReachThreshold = 5f;
+        private const float playerReachThreshold = 5f;
 
         public bool HasAttacked { get; private set; }
 

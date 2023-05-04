@@ -17,7 +17,7 @@ namespace DataPersistence
         /// <exception cref="FileNotFoundException">Throws if file was not found.</exception>
         public static TData Load<TData>(string directory, string dataFileName)
         {
-            var fullPath = Path.Combine(directory, dataFileName);
+            string fullPath = Path.Combine(directory, dataFileName);
             if (!File.Exists(fullPath))
             {
                 throw new FileNotFoundException();
@@ -25,7 +25,7 @@ namespace DataPersistence
             
             using var stream = new FileStream(fullPath, FileMode.Open);
             using var reader = new StreamReader(stream);
-            var dataToLoad = reader.ReadToEnd();
+            string dataToLoad = reader.ReadToEnd();
 
             return JsonUtility.FromJson<TData>(dataToLoad);
         }
@@ -38,14 +38,14 @@ namespace DataPersistence
         /// <param name="dataFileName">Name of the save file.</param>
         public static void Save<TData>(TData data, string directory, string dataFileName)
         {
-            var fullPath = Path.Combine(directory, dataFileName);
+            string fullPath = Path.Combine(directory, dataFileName);
 
             if (!Directory.Exists(fullPath))
             {
                 Directory.CreateDirectory(Path.GetDirectoryName(fullPath));
             }
 
-            var dataToStore = JsonUtility.ToJson(data, true);
+            string dataToStore = JsonUtility.ToJson(data, true);
             using var stream = new FileStream(fullPath, FileMode.Create);
             using var writer = new StreamWriter(stream);
             writer.Write(dataToStore);

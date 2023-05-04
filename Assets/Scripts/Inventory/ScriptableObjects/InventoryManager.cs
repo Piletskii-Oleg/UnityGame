@@ -95,12 +95,9 @@ namespace Inventory.ScriptableObjects
         /// </returns>
         public InventoryItem GetItem(InventoryItemData inventoryItemData)
         {
-            if (itemDictionary.TryGetValue(inventoryItemData, out var inventoryItem))
-            {
-                return inventoryItem;
-            }
-
-            return null;
+            return itemDictionary.TryGetValue(inventoryItemData, out var inventoryItem)
+                ? inventoryItem
+                : null;
         }
 
         /// <summary>
@@ -110,12 +107,9 @@ namespace Inventory.ScriptableObjects
         /// <returns>Amount of said item in the inventory.</returns>
         public int GetStackSize(InventoryItemData inventoryItemData)
         {
-            if (itemDictionary.TryGetValue(inventoryItemData, out var inventoryItem))
-            {
-                return inventoryItem.StackSize;
-            }
-
-            return 0;
+            return itemDictionary.TryGetValue(inventoryItemData, out var inventoryItem)
+                ? inventoryItem.StackSize
+                : 0;
         }
 
         public override void SaveData(GameData data)
@@ -130,7 +124,7 @@ namespace Inventory.ScriptableObjects
                 item.SetData(foundData);
             }
             
-            this.UpdateItemsList();
+            UpdateItemsList();
         }
     }
 }

@@ -142,8 +142,9 @@ namespace Player
         
         public void OnLoad(GameData data)
         {
-            rigidBody.transform.position = data.playerPosition;
-            rigidBody.transform.rotation = data.playerRotation;
+            var playerTransform = transform;
+            playerTransform.position = data.playerPosition;
+            playerTransform.rotation = data.playerRotation;
             rigidBody.velocity = data.playerVelocity;
         }
         
@@ -185,8 +186,8 @@ namespace Player
             
             var direction = (target - source).normalized * pullSpeed;
 
-            var timePassed = 0f;
-            var pullTime = Vector3.Distance(source, target) / pullSpeed;
+            float timePassed = 0f;
+            float pullTime = Vector3.Distance(source, target) / pullSpeed;
             while (timePassed < pullTime)
             {
                 rigidBody.velocity = direction;
@@ -196,48 +197,6 @@ namespace Player
 
             CanMove = true;
             rigidBody.useGravity = true;
-        }
-
-        /// <summary>
-        /// Makes the player character jump to the <paramref name="targetPosition"/>
-        /// with the max height of the jump being <paramref name="trajectoryHeight"/>.
-        /// </summary>
-        /// <param name="targetPosition">The position player character has to jump to.</param>
-        /// <param name="trajectoryHeight">Maximum height of the trajectory.</param>
-        public IEnumerator JumpToPosition(Vector3 targetPosition, float trajectoryHeight)
-        {
-            CanMove = false;
-            
-            rigidBody.AddForce(CalculateJumpVelocity(transform.position, targetPosition, trajectoryHeight), ForceMode.VelocityChange);
-
-            yield return new WaitForSeconds(CalculateJumpTime(transform.position, targetPosition, trajectoryHeight));
-
-            CanMove = true;
-        }
-
-        private Vector3 CalculateJumpVelocity(Vector3 startPoint, Vector3 endPoint, float trajectoryHeight)
-        {
-            var gravity = Physics.gravity.y;
-            var displacementY = endPoint.y - startPoint.y;
-            var displacementXZ = new Vector3(endPoint.x - startPoint.x, 0, endPoint.z - startPoint.z);
-
-            var velocityY = Vector3.up * Mathf.Sqrt(-2 * gravity * trajectoryHeight);
-            var velocityXZ = displacementXZ / (Mathf.Sqrt(-2 * trajectoryHeight / gravity) +
-                             Mathf.Sqrt(-2 * Mathf.Abs(displacementY - trajectoryHeight) / gravity));
-
-            return velocityXZ + velocityY;
-        }
-
-        private float CalculateJumpTime(Vector3 startPoint, Vector3 endPoint, float trajectoryHeight)
-        {
-            var gravity = Physics.gravity.y;
-            var displacementY = endPoint.y - startPoint.y;
-            var displacementXZ = new Vector3(endPoint.x - startPoint.x, 0, endPoint.z - startPoint.z);
-            
-            var velocityXZ = displacementXZ / (Mathf.Sqrt(-2 * trajectoryHeight / gravity) +
-                                               Mathf.Sqrt(-2 * Mathf.Abs(displacementY - trajectoryHeight) / gravity));
-
-            return displacementXZ.magnitude / velocityXZ.magnitude;
         }
 
         private IEnumerator WaitTillLanded(float speed)

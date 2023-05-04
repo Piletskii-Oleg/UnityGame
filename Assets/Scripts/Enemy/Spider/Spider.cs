@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using Enemy.Spider.States;
+﻿using Enemy.Spider.States;
 using Shared;
 using Shared.ScriptableObjects;
 using UnityEngine;
@@ -14,8 +13,6 @@ namespace Enemy.Spider
         [Header("Spider Stats")]
         [SerializeField] private float walkSpeed;
         [SerializeField] private float runSpeed;
-        
-        [SerializeField] private CircleArea area;
 
         /// <summary>
         /// Idle state of the spider.
@@ -63,7 +60,7 @@ namespace Enemy.Spider
             stateMachine = new SpiderStateMachine();
             InitializeStates();
 
-            stateMachine.Initialize(this.IdleState);
+            stateMachine.Initialize(IdleState);
         }
 
         public override void OnTakeDamage(float damage, ActorAffiliation actorAffiliation)
@@ -89,24 +86,6 @@ namespace Enemy.Spider
                 actor.OnTakeDamage(actorData.damage, actorData.affiliation);
             }
         }
-        
-        /// <summary>
-        /// Spawns the spider and makes it move to the specified position.
-        /// </summary>
-        /// <param name="position">Position for the spider to move to.</param>
-        public void GetSpawned(Vector3 position)
-        {
-            SpawnedState = new SpawnedState(this, stateMachine, position);
-            stateMachine.ChangeState(SpawnedState);
-        }
-
-        /// <summary>
-        /// Sets the <see cref="area"/> variable
-        /// (if spider is spawned, it cannot be initialized in the editor as it is scene-specific).
-        /// </summary>
-        /// <param name="newArea">Area which the spider belongs to.</param>
-        public void SetArea(CircleArea newArea)
-            => area = newArea;
 
         /// <summary>
         /// Gets a new position in the <see cref="area"/>.
@@ -120,7 +99,7 @@ namespace Enemy.Spider
         /// </summary>
         /// <returns></returns>
         public Vector3 GetNewPositionInLocalArea()
-            => CircleArea.GetNewPosition(lookRadius, transform.position);
+            => CircleAreaBase.GetNewPosition(lookRadius, transform.position);
 
         /// <summary>
         /// Gets position of the player in the world.

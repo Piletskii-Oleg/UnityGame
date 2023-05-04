@@ -8,14 +8,8 @@ namespace Shared.ScriptableObjects
     [CreateAssetMenu(menuName = "Data/Health Data")]
     public class HealthData : ScriptableObject
     {
-        [Header("Info")]
-        public new string name;
-
         [Header("Health parameters")]
         public float maxHealth;
         public float currentHealth;
-
-        [Header("Invulnerability")]
-        public bool isInvincible;
     }
 }

@@ -43,12 +43,12 @@ namespace Player
 
         private IEnumerator ZoomAnimation(bool zoomIn)
         {
-            if (weaponAnimator == null)
+            if (!weaponAnimator)
             {
                 weaponAnimator = GetComponentInChildren<WeaponAnimator>();
             }
 
-            if (weaponAnimator != null)
+            if (!weaponAnimator)
             {
                 weaponAnimator.Zoom(zoomIn);
                 animationTime = weaponAnimator.ZoomAnimationTime;

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using Player.ScriptableObjects;
 using Shared;
 using UnityEngine;
@@ -18,8 +17,11 @@ namespace Enemy
         
         protected NavMeshAgent agent;
 
-        [Header("Player")]
+        [Header("Data")]
         [SerializeField] protected PlayerScriptableObject playerScriptableObject;
+        
+        [Tooltip("An object around which actor can roam freely")]
+        [SerializeField] protected MobArea area;
         
         [Header("Attack State")]
         [Tooltip("Radius of a circle in which enemy will look for the player")]
@@ -102,6 +104,14 @@ namespace Enemy
             float angle = Vector3.Angle(enemyTransform.forward, directionToTarget);
             return angle < lookAngle / 2;
         }
+        
+        /// <summary>
+        /// Sets the <see cref="area"/> variable
+        /// (if enemy is spawned, area cannot be initialized in the editor as it is scene-specific).
+        /// </summary>
+        /// <param name="newArea">Area which the spider belongs to.</param>
+        public void SetArea(MobArea newArea)
+            => area = newArea;
         
         /// <summary>
         /// Changes enemy's state to the <paramref name="idleState"/> for a <paramref name="period"/> seconds

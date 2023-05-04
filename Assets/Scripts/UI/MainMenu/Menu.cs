@@ -7,8 +7,6 @@ namespace UI.MainMenu
 {
     public class Menu : MonoBehaviour
     {
-        [FormerlySerializedAs("dataManager")]
-        [SerializeField] private GameDataManager gameDataManager;
         [FormerlySerializedAs("optionsManager")]
         [SerializeField] private OptionsDataManager optionsDataManager;
         

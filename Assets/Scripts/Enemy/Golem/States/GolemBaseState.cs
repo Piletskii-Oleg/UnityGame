@@ -2,8 +2,8 @@
 {
     public abstract class GolemBaseState : BaseState
     {
-        protected Golem golem;
-        protected BaseStateMachine stateMachine;
+        protected readonly Golem golem;
+        protected readonly BaseStateMachine stateMachine;
         
         protected GolemBaseState(Golem golem, BaseStateMachine stateMachine)
         {

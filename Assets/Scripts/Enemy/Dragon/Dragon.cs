@@ -39,7 +39,7 @@ namespace Enemy.Dragon
         private Coroutine tryStopDealingFireDamageCoroutine;
 
         [Header("Dragon Data")]
-        [SerializeField] private CircleArea area;
+        [SerializeField] private MobArea area;
         [SerializeField] private HealthData health;
         [SerializeField] private int circlePointsCount;
         [SerializeField] private Transform areaPlane;

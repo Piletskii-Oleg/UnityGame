@@ -36,8 +36,8 @@ namespace Player
         /// <param name="input">Mouse input from <see cref="InputController"/></param>
         public void ProcessLook(Vector2 input)
         {
-            var mouseX = input.x;
-            var mouseY = input.y;
+            float mouseX = input.x;
+            float mouseY = input.y;
 
             verticalRotation -= mouseY * sensitivity;
             verticalRotation = Mathf.Clamp(verticalRotation, -90f, 90f);
