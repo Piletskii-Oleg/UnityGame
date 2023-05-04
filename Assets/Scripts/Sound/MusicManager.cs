@@ -17,14 +17,16 @@ namespace Sound
         [field: Range(0, 1f)]
         [field:SerializeField] public float SoundVolume { get; set; }
 
-        [SerializeField] private UnityEvent<float> onSoundVolumeChanged;
+        [SerializeField] private UnityEvent onMusicVolumeChanged;
+        [SerializeField] private UnityEvent onSoundVolumeChanged;
 
         public override void LoadData(OptionsData data)
         {
             MusicVolume = data.musicVolume;
             SoundVolume = data.soundVolume;
             
-            onSoundVolumeChanged.Invoke(SoundVolume);
+            onMusicVolumeChanged.Invoke();
+            onSoundVolumeChanged.Invoke();
         }
 
         public override void SaveData(OptionsData data)

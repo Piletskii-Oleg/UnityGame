@@ -1,5 +1,5 @@
+using System.Globalization;
 using DataPersistence;
-using DataPersistence.DataFiles;
 using Sound;
 using TMPro;
 using UnityEngine;
@@ -28,7 +28,7 @@ namespace UI.MainMenu
             soundSlider.value = musicManager.SoundVolume;
 
             var textField = sensitivityPlaceholder.GetComponent<TextMeshProUGUI>();
-            textField.text = optionsDataManager.MouseSensitivity.ToString();
+            textField.text = optionsDataManager.MouseSensitivity.ToString(CultureInfo.InvariantCulture);
         }
     }
 }

@@ -207,6 +207,7 @@ GameObject:
   - component: {fileID: 7392202060230719879}
   - component: {fileID: 3522188424027165507}
   - component: {fileID: 7297194079914107129}
+  - component: {fileID: 1892475600013719112}
   m_Layer: 8
   m_Name: GrappleGun
   m_TagString: Untagged
@@ -244,6 +245,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gunData: {fileID: 11400000, guid: 9914abf8621a5ea43ac64d310fb218bb, type: 2}
+  musicManager: {fileID: 11400000, guid: 7223651e7996ed34881561188b2fe158, type: 2}
   onShoot:
     m_PersistentCalls:
       m_Calls:
@@ -292,21 +294,6 @@ MonoBehaviour:
   grappleDelay: 0.1
   gunTip: {fileID: 3959647884140587458}
   pullSpeed: 15
-  onStartPulling:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 11400000, guid: 178ec88e50cdcb24ba9a64c2758bb107, type: 2}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
   onStopPulling:
     m_PersistentCalls:
       m_Calls:
@@ -517,6 +504,34 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1892475600013719112
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5240370350804615422}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2438166054fae9447beaa32edf8ea98f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: 95807b4399a93144abb03f2fcba1fd98, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7392202060230719879}
+        m_TargetAssemblyTypeName: Weapons.GrapplingGun, Scripts
+        m_MethodName: ChangeVolume
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &5508781378890118919
 GameObject:
   m_ObjectHideFlags: 0

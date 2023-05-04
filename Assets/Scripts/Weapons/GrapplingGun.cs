@@ -14,6 +14,7 @@ namespace Weapons
     {
         [Header("Gun Info")]
         [SerializeField] private GunData gunData;
+        [SerializeField] private MusicManager musicManager;
         [SerializeField] private UnityEvent onShoot;
         [SerializeField] private UnityEvent onReloadStarted;
         [SerializeField] private UnityEvent onReloadFinished;
@@ -53,6 +54,8 @@ namespace Weapons
             audioSource = GetComponent<AudioSource>();
             
             playerMovement = GetComponentInParent<PlayerMovement>();
+            
+            audioSource.volume = musicManager.SoundVolume;
         }
         
         private void LateUpdate()
@@ -79,8 +82,8 @@ namespace Weapons
             }
         }
 
-        public void ChangeVolume(float volume)
-            => audioSource.volume = volume;
+        public void ChangeVolume()
+            => audioSource.volume = musicManager.SoundVolume;
 
         public void StartReload()
         {

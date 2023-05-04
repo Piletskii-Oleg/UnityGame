@@ -1,6 +1,7 @@
 using Shared;
 using Shared.ScriptableObjects;
 using UnityEngine;
+using Weapons.ScriptableObjects;
 
 namespace Weapons
 {
@@ -9,12 +10,13 @@ namespace Weapons
     /// </summary>
     public class Bullet : MonoBehaviour
     {
+        private float damage;
+        
+        [SerializeField] private WeaponManager weaponManager;
+        
         [Tooltip("Speed with which bullet is shot.")]
         [SerializeField] private float thrust;
         
-        [Tooltip("Damage that bullet deals.")]
-        [SerializeField] private int damage;
-
         [Tooltip("Affiliation of the actor who shot the bullet")]
         [SerializeField]
         private ActorAffiliation affiliation;
@@ -28,6 +30,7 @@ namespace Weapons
 
         private void Start()
         {
+            damage = weaponManager.CurrentGunData.damage;
             rigidBody = GetComponent<Rigidbody>();
         }
 

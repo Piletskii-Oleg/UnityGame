@@ -13,9 +13,11 @@ namespace Weapons
     /// </summary>
     public class Gun : MonoBehaviour, IWeapon, IVolume
     {
-        [Header("Gun Data")]
+        [Header("Data")]
         [Tooltip("Scriptable Object with the gun data.")]
         [SerializeField] private GunData gunData;
+
+        [SerializeField] private MusicManager musicManager;
 
         [Tooltip("Bullet shot.")]
         [SerializeField] private GameObject bullet;
@@ -57,14 +59,14 @@ namespace Weapons
 
         public void StartReload()
         {
-            if (!isReloading)
+            if (!isReloading && gunData.currentAmmo != gunData.ammoCapacity)
             {
                 StartCoroutine(Reload());
             }
         }
 
-        public void ChangeVolume(float volume)
-            => audioSource.volume = volume;
+        public void ChangeVolume()
+            => audioSource.volume = musicManager.SoundVolume;
 
         private IEnumerator Reload()
         {
@@ -89,7 +91,10 @@ namespace Weapons
         private void Awake()
         {
             reloadWait = new WaitForSeconds(gunData.reloadTime);
+            
             audioSource = GetComponent<AudioSource>();
+            
+            audioSource.volume = musicManager.SoundVolume;
         }
         
         private void PlayReloadSound()

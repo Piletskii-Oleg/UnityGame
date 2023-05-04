@@ -1,5 +1,4 @@
 using System.Collections;
-using DataPersistence;
 using DataPersistence.DataFiles;
 using UnityEngine;
 using Weapons;
@@ -45,6 +44,16 @@ namespace Player
                 {
                     StartCoroutine(ShootOnce());
                 }
+            }
+        }
+        
+        private IEnumerator ShootRepeatedly()
+        {
+            while (isShootingRepeatedly)
+            {
+                currentWeapon.Shoot();
+                
+                yield return fireDelay;
             }
         }
 
@@ -142,17 +151,7 @@ namespace Player
 
         public void OnLoad(GameData data)
             => this.ChangeWeapon(data.currentWeaponIndex + 1);
-        
-        private IEnumerator ShootRepeatedly()
-        {
-            while (isShootingRepeatedly)
-            {
-                currentWeapon.Shoot();
-                
-                yield return fireDelay;
-            }
-        }
-        
+
         private void InstantiateWeapon()
         {
             foreach (Transform t in weaponHolder)

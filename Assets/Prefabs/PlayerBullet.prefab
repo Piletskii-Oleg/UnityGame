@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 8607660422395017678}
   - component: {fileID: 4374342376966558943}
   m_Layer: 0
-  m_Name: Bullet
+  m_Name: PlayerBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -128,7 +128,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6be96ac1a3e59f4db865f922e4f56b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponManager: {fileID: 11400000, guid: e89bbf54677811741bcf2548a831c9e1, type: 2}
   thrust: 800
-  damage: 34
   affiliation: {fileID: 11400000, guid: 651805666d24202448b2be0d66239556, type: 2}
   maxTime: 10

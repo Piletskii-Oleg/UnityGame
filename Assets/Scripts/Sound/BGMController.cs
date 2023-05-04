@@ -20,6 +20,9 @@ namespace Sound
             PlayBackgroundMusic(audioSource.clip);
         }
 
+        public void UpdateVolume()
+            => audioSource.volume = manager.MusicVolume;
+        
         /// <summary>
         /// Starts playing background music fading in (and fades out already playing music).
         /// </summary>

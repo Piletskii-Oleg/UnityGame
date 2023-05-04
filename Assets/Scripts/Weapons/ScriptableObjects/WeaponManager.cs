@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using DataPersistence;
 using DataPersistence.DataFiles;
@@ -18,7 +17,7 @@ namespace Weapons.ScriptableObjects
         [SerializeField] private UnityEvent onChangeWeapon;
 
         [SerializeField] private WeaponDataList allWeaponsData;
-
+        
         /// <summary>
         /// Gets index of the weapon currently held by the player.
         /// </summary>
@@ -69,7 +68,7 @@ namespace Weapons.ScriptableObjects
         /// <param name="weaponName">Name of the weapon in the list.</param>
         public bool ChangeTo(string weaponName) // makes weapon selectable, maybe fix?
         {
-            var newIndex = weapons.FindIndex(item => item.Data.showName == weaponName);
+            int newIndex = weapons.FindIndex(item => item.Data.showName == weaponName);
             if (newIndex == -1)
             {
                 return false;
@@ -101,6 +100,11 @@ namespace Weapons.ScriptableObjects
             }
             
             CurrentIndex = data.currentWeaponIndex;
+
+            foreach (var item in weapons)
+            {
+                item.HasShot = false;
+            }
         }
     }
 }

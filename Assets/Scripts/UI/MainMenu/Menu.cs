@@ -1,5 +1,4 @@
-﻿using System;
-using DataPersistence;
+﻿using DataPersistence;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
