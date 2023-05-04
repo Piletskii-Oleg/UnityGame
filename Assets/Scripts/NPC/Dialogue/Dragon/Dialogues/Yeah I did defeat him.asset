@@ -10,17 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0d1d9a844cfe4b9aac5e33d02deb5c38, type: 3}
-  m_Name: EndDialogue
+  m_Name: Yeah I did defeat him
   m_EditorClassIdentifier: 
-  dialogueOptionName: End
-  dialogueText: 'This is a placeholder for the finished dialogue. Every dialogue
-    should end with this. This is not shown to the player.
-
-
-    You should call
-    OnEndConversation and On[npc]EndConversation events on the dialogue before this
-    (Raise and EnableInput).'
-  nextDialogues: []
+  dialogueOptionName: Yeah, I did that.
+  dialogueText: Dude, that's so cool! I don't think anyone was able to do that before!
+    And you did that with just those small weapons of yours! Incredible.
+  nextDialogues:
+  - {fileID: 11400000, guid: b06d43439355227469110b04bb3c13da, type: 2}
   dialogueEvent:
     m_PersistentCalls:
       m_Calls: []

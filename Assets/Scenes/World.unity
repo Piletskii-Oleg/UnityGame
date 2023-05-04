@@ -58937,6 +58937,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 11400000, guid: 10c6655ac8aa0bf4a8ca544244512b10, type: 2}
+        m_TargetAssemblyTypeName: NPC.Dialogue.DialogueManager, Scripts
+        m_MethodName: SetCurrentDialogueObject
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 11400000, guid: 01b6a4a06ebc8ec4c8d612e0d46aad49, type: 2}
+          m_ObjectArgumentAssemblyTypeName: NPC.Dialogue.DialogueObject, Scripts
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   onStopBattle:
     m_PersistentCalls:
       m_Calls:

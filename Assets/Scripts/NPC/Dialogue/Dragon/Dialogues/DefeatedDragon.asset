@@ -10,17 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0d1d9a844cfe4b9aac5e33d02deb5c38, type: 3}
-  m_Name: EndDialogue
+  m_Name: DefeatedDragon
   m_EditorClassIdentifier: 
-  dialogueOptionName: End
-  dialogueText: 'This is a placeholder for the finished dialogue. Every dialogue
-    should end with this. This is not shown to the player.
-
-
-    You should call
-    OnEndConversation and On[npc]EndConversation events on the dialogue before this
-    (Raise and EnableInput).'
-  nextDialogues: []
+  dialogueOptionName: not shown
+  dialogueText: No way! You have actually defeated this bastard! Congrats my friend!!!
+  nextDialogues:
+  - {fileID: 11400000, guid: 629ae505ff5ab914291c2f9c52c24134, type: 2}
   dialogueEvent:
     m_PersistentCalls:
       m_Calls: []
