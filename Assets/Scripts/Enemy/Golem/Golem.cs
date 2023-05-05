@@ -139,14 +139,6 @@ namespace Enemy.Golem
             rigidBody.AddTorque(GenerateRandomVector().normalized, ForceMode.Impulse);
         }
 
-        private static Vector3 GenerateRandomVector(float minValue = 0f, float maxValue = 10f)
-        {
-            float valueX = Random.Range(minValue, maxValue);
-            float valueY = Random.Range(minValue, maxValue);
-            float valueZ = Random.Range(minValue, maxValue);
-            return new Vector3(valueX, valueY, valueZ);
-        }
-
         public void ChangeToIdle()
             => stateMachine.ChangeState(IdleState);
 

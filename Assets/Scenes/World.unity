@@ -2142,7 +2142,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 111919186}
   m_LocalRotation: {x: -0, y: 0.99998873, z: -0, w: 0.004752765}
-  m_LocalPosition: {x: 277.7, y: 50.893, z: 191.1}
+  m_LocalPosition: {x: 277.7, y: 54.93, z: 191.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -71745,6 +71745,13 @@ MonoBehaviour:
   smashDamage: 12.94
   ramDamage: 16.2
   defenseMultiplier: 0.696
+  spawnablePickups:
+  - {fileID: 4012916391147975764, guid: 23cf374ef8f558a4e82b589076e1a5ce, type: 3}
+  - {fileID: 4909131616041170863, guid: 0a754ab1cde996a49b3f1e7461adda54, type: 3}
+  - {fileID: 47754969692419323, guid: 498ada8285b8df943855a86af9d7ed41, type: 3}
+  - {fileID: 6378809977361207575, guid: b12566d3baab2b64e81abdceee3febc0, type: 3}
+  - {fileID: 7245848731168292616, guid: e9960ab83f7e0d8468c7e62554e90747, type: 3}
+  objectsSpawned: 7
 --- !u!114 &4535078106736627744
 MonoBehaviour:
   m_ObjectHideFlags: 0

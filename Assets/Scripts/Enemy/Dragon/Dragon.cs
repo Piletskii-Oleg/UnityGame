@@ -62,6 +62,10 @@ namespace Enemy.Dragon
         [Range(0, 1)]
         [Tooltip("How much damage is actually received when the dragon is defending")]
         [SerializeField] private float defenseMultiplier;
+
+        [Header("Additional Data")]
+        [SerializeField] private List<GameObject> spawnablePickups;
+        [SerializeField] private int objectsSpawned;
         
         public bool IsDefending { get; set; }
 
@@ -205,6 +209,25 @@ namespace Enemy.Dragon
             playerScriptableObject.PlayerRigidbody.AddExplosionForce(1000f, explosionPoint, 30f, 6.0f);
 
             playerScriptableObject.PlayerActor.OnTakeDamage(smashDamage, actorData.affiliation);
+            
+            SpawnPickups();
+        }
+
+        private void SpawnPickups()
+        {
+            for (int i = 0; i < objectsSpawned; i++)
+            {
+                var obj = spawnablePickups[Random.Range(0, spawnablePickups.Count)];
+                
+                var spawnPosition = transform.position;
+                spawnPosition.y = Center.transform.position.y;
+                var gameObj = Instantiate(obj, spawnPosition, obj.transform.rotation);
+                
+                var randomVector = GenerateRandomVector(-12f, 12f);
+                randomVector.y = 1f;
+                
+                gameObj.transform.DOJump(spawnPosition + randomVector, 4, 1, 1f);
+            }
         }
 
         public Vector3[] GetPointsAround()

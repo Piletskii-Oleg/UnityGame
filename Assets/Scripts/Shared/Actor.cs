@@ -3,6 +3,7 @@ using System.Collections;
 using Shared.ScriptableObjects;
 using UnityEngine;
 using UnityEngine.Events;
+using Random = UnityEngine.Random;
 
 namespace Shared
 {
@@ -87,6 +88,14 @@ namespace Shared
             }
 
             function.Invoke();
+        }
+        
+        protected static Vector3 GenerateRandomVector(float minValue = 0f, float maxValue = 10f)
+        {
+            float valueX = Random.Range(minValue, maxValue);
+            float valueY = Random.Range(minValue, maxValue);
+            float valueZ = Random.Range(minValue, maxValue);
+            return new Vector3(valueX, valueY, valueZ);
         }
     }
 }
