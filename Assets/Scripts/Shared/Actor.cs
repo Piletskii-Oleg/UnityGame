@@ -22,6 +22,8 @@ namespace Shared
         [SerializeField] private UnityEvent onKill;
 
         public string Name => actorData.name;
+        
+        protected bool isKilled;
 
         /// <summary>
         /// Used when the actor takes damage.
@@ -41,7 +43,12 @@ namespace Shared
         /// </summary>
         public virtual void OnKill()
         {
-            onKill.Invoke();
+            if (!isKilled)
+            {
+                onKill.Invoke();
+
+                isKilled = true;
+            }
         }
 
         /// <summary>

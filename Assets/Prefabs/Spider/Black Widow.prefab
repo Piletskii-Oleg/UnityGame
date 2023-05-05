@@ -3128,6 +3128,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fb4b466cd6a42509a0838a222d17a99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  actorData: {fileID: 11400000, guid: d3792514ea92f0948957aaf2050f94c7, type: 2}
   onTakeDamage:
     m_PersistentCalls:
       m_Calls:
@@ -3158,17 +3159,22 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  actorData: {fileID: 11400000, guid: d3792514ea92f0948957aaf2050f94c7, type: 2}
   playerScriptableObject: {fileID: 11400000, guid: 203a95cfd29fdca4bbd08281315d3e08, type: 2}
+  area: {fileID: 0}
   lookRadius: 15
   lookAngle: 180
   followTimeTact: 2
   timesPlayerIsSearched: 10
   waitingTime: 1.04
   timeUntilDisappearing: 6
+  spawnedObjects:
+  - {fileID: 4909131616041170863, guid: 0a754ab1cde996a49b3f1e7461adda54, type: 3}
+  - {fileID: 47754969692419323, guid: 498ada8285b8df943855a86af9d7ed41, type: 3}
+  - {fileID: 6378809977361207575, guid: b12566d3baab2b64e81abdceee3febc0, type: 3}
+  - {fileID: 7245848731168292616, guid: e9960ab83f7e0d8468c7e62554e90747, type: 3}
+  spawnedObjectsCount: 4
   walkSpeed: 3
   runSpeed: 5
-  area: {fileID: 0}
 --- !u!114 &6115321469002705246
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3224,7 +3230,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54a6f1aead9a4dd9b6e6075c68f010d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerTransform: {fileID: 0}
   playerScriptableObject: {fileID: 11400000, guid: 203a95cfd29fdca4bbd08281315d3e08, type: 2}
   slider: {fileID: 3191125859850352260}
   maxDistance: 15

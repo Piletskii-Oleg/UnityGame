@@ -290,16 +290,19 @@ namespace Enemy.Dragon
 
         public override void OnKill()
         {
-            base.OnKill();
-            
-            onStopBattle.Invoke();
-            
-            StopAllCoroutines();
+            if (!isKilled)
+            {
+                base.OnKill();
 
-            DOTween.Kill(transform);
-            StopAllSequences();
+                onStopBattle.Invoke();
 
-            stateMachine.ChangeState(DeadState);
+                StopAllCoroutines();
+
+                DOTween.Kill(transform);
+                StopAllSequences();
+
+                stateMachine.ChangeState(DeadState);
+            }
         }
 
         public void OnCollide(Collision other)

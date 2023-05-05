@@ -318,6 +318,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f173a2cd15534ca8b13615331c79d942, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  actorData: {fileID: 11400000, guid: ad938875fc52b354a9f71d9b0ebb9bb8, type: 2}
   onTakeDamage:
     m_PersistentCalls:
       m_Calls:
@@ -336,16 +337,20 @@ MonoBehaviour:
   onKill:
     m_PersistentCalls:
       m_Calls: []
-  actorData: {fileID: 11400000, guid: ad938875fc52b354a9f71d9b0ebb9bb8, type: 2}
   playerScriptableObject: {fileID: 11400000, guid: 203a95cfd29fdca4bbd08281315d3e08, type: 2}
+  area: {fileID: 0}
   lookRadius: 12
   lookAngle: 120
   followTimeTact: 0.5
   timesPlayerIsSearched: 8
   waitingTime: 1.39
   timeUntilDisappearing: 5
+  spawnedObjects:
+  - {fileID: 47754969692419323, guid: 498ada8285b8df943855a86af9d7ed41, type: 3}
+  - {fileID: 6378809977361207575, guid: b12566d3baab2b64e81abdceee3febc0, type: 3}
+  - {fileID: 7245848731168292616, guid: e9960ab83f7e0d8468c7e62554e90747, type: 3}
+  spawnedObjectsCount: 1
   slimeModel: {fileID: 4354033131568120920}
-  area: {fileID: 0}
   facesList: {fileID: 11400000, guid: bbeeefc44e9c6e64cafa7d65885e69ed, type: 2}
   <SlimeType>k__BackingField: 1
 --- !u!114 &4354033132205768163

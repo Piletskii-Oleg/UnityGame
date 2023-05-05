@@ -41,6 +41,7 @@ namespace Enemy
             if (timePassed > spawnCooldown)
             {
                 TrySpawn();
+                timePassed = 0;
             }
         }
         

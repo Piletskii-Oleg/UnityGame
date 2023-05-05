@@ -93,11 +93,14 @@ namespace Enemy.Slime
 
         public override void OnKill()
         {
-            base.OnKill();
-            
-            stateMachine.ChangeState(DeadState);
+            if (!isKilled)
+            {
+                base.OnKill();
 
-            StartCoroutine(Disappear());
+                stateMachine.ChangeState(DeadState);
+
+                StartCoroutine(Disappear());
+            }
         }
 
         private void OnCollisionEnter(Collision collision)

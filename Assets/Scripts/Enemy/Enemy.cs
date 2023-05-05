@@ -1,8 +1,12 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using DG.Tweening;
 using Player.ScriptableObjects;
 using Shared;
 using UnityEngine;
 using UnityEngine.AI;
+using Random = UnityEngine.Random;
 
 namespace Enemy
 {
@@ -16,6 +20,8 @@ namespace Enemy
         protected Collider[] playerInRange;
         
         protected NavMeshAgent agent;
+
+        private LayerMask groundMask;
 
         [Header("Data")]
         [SerializeField] protected PlayerScriptableObject playerScriptableObject;
@@ -45,10 +51,20 @@ namespace Enemy
         [Tooltip("Time in seconds after which the enemy disappears (applies after death)")]
         [SerializeField] private float timeUntilDisappearing;
 
+        [Header("Spawned Objects")]
+        [SerializeField] private List<GameObject> spawnedObjects;
+
+        [SerializeField] private int spawnedObjectsCount;
+
         /// <summary>
         /// Position of the player calculated using <see cref="LookForPlayer"/> method.
         /// </summary>
         public Vector3 PlayerPosition { get; private set; }
+
+        protected virtual void Awake()
+        {
+            groundMask = 1 << LayerMask.NameToLayer("Ground");
+        }
 
         private void Update()
             => stateMachine.CurrentState.Tick();
@@ -104,7 +120,55 @@ namespace Enemy
             float angle = Vector3.Angle(enemyTransform.forward, directionToTarget);
             return angle < lookAngle / 2;
         }
-        
+
+        public override void OnKill()
+        {
+            if (!isKilled)
+            {
+                base.OnKill();
+
+                SpawnObjects();
+            }
+        }
+
+        private void SpawnObjects()
+        {
+            for (int i = 0; i < spawnedObjectsCount; i++)
+            {
+                var obj = spawnedObjects[Random.Range(0, spawnedObjects.Count)];
+
+                var position = transform.position;
+                var spawnPosition = position;
+                spawnPosition.y = position.y;
+                
+                var resultVector = GetResultPosition(spawnPosition);
+                
+                var gameObj = Instantiate(obj, spawnPosition, obj.transform.rotation);
+                gameObj.transform.DOJump(resultVector, 2, 1, 1f);
+            }
+        }
+
+        private Vector3 GetResultPosition(Vector3 spawnPosition)
+        {
+            var randomVector = GenerateRandomVector(-5f, 5f);
+            randomVector.y = 0f;
+
+            var resultVector = spawnPosition + randomVector;
+            
+            var lowPoint = resultVector;
+            lowPoint.y -= 30;
+            
+            var highPoint = resultVector;
+            highPoint.y += 30;
+
+            if (Physics.Linecast(lowPoint, highPoint, out var info, groundMask))
+            {
+                resultVector.y = info.transform.position.y;
+            }
+
+            return resultVector;
+        }
+
         /// <summary>
         /// Sets the <see cref="area"/> variable
         /// (if enemy is spawned, area cannot be initialized in the editor as it is scene-specific).

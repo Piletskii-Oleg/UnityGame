@@ -61,8 +61,10 @@ namespace Enemy.Golem
 
         public NavMeshAgent Agent => agent;
         
-        private void Awake()
+        protected override void Awake()
         {
+            base.Awake();
+            
             animator = GetComponent<Animator>();
             agent = GetComponent<NavMeshAgent>();
             
@@ -74,16 +76,19 @@ namespace Enemy.Golem
 
             stateMachine.Initialize(IdleState);
         }
-        
+
         public override void OnKill()
         {
-            base.OnKill();
-            
-            stateMachine.ChangeState(DeadState);
-            
-            TriggerAnimation(death);
+            if (!isKilled)
+            {
+                base.OnKill();
 
-            StartCoroutine(Disappear());
+                stateMachine.ChangeState(DeadState);
+
+                TriggerAnimation(death);
+
+                StartCoroutine(Disappear());
+            }
         }
 
         private void InitializeStates()
