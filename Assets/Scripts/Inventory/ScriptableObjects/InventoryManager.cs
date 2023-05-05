@@ -3,6 +3,7 @@ using DataPersistence;
 using DataPersistence.DataFiles;
 using UnityEngine;
 using UnityEngine.Events;
+using Weapons.ScriptableObjects;
 
 namespace Inventory.ScriptableObjects
 {
@@ -20,7 +21,7 @@ namespace Inventory.ScriptableObjects
         [SerializeField] private List<InventoryItem> items = new ();
 
         [SerializeField] private InventoryItemDataList allItemsList;
-        
+
         /// <summary>
         /// Gets read-only copy of the list list of <see cref="InventoryItem"/> stored in the inventory.
         /// </summary>
@@ -44,15 +45,16 @@ namespace Inventory.ScriptableObjects
         /// Adds an item to the inventory using <paramref name="inventoryItemData"/>.
         /// </summary>
         /// <param name="inventoryItemData"><see cref="ScriptableObject"/> data that corresponds to the item.</param>
-        public void Add(InventoryItemData inventoryItemData)
+        /// <param name="count">Amount of the item.</param>
+        public void Add(InventoryItemData inventoryItemData, int count = 1)
         {
             if (itemDictionary.TryGetValue(inventoryItemData, out var value))
             {
-                value.AddToStack();
+                value.AddToStack(count);
             }
             else
             {
-                var newItem = new InventoryItem(inventoryItemData);
+                var newItem = new InventoryItem(inventoryItemData, count);
                 items.Add(newItem);
                 itemDictionary.Add(inventoryItemData, newItem);
 

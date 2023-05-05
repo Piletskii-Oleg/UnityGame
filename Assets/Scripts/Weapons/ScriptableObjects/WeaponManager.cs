@@ -43,6 +43,9 @@ namespace Weapons.ScriptableObjects
         /// </summary>
         public int WeaponCount => weapons.Count;
 
+        public GunItem GetWeaponItem(string weaponName)
+            => weapons.Find(weapon => weapon.Name == weaponName);
+
         /// <summary>
         /// Used to change the current index of the <see cref="weapons"/>.
         /// </summary>
@@ -107,7 +110,7 @@ namespace Weapons.ScriptableObjects
             }
         }
 
-        public bool TryPickUp(GunData gunData, int ammoCount) =>
+        public bool TryPickUpAmmo(GunData gunData, int ammoCount) =>
             weapons
                 .Find(x => x.Data == gunData)
                 .TryAddAmmo(ammoCount);

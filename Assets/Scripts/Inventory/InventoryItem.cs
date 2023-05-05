@@ -20,17 +20,16 @@ namespace Inventory
         /// Initializes a new instance of the <see cref="InventoryItem"/> class.
         /// </summary>
         /// <param name="data"><see cref="InventoryItemData"/> to wrap around.</param>
-        public InventoryItem(InventoryItemData data)
+        /// <param name="count">Initial count of the item.</param>
+        public InventoryItem(InventoryItemData data, int count = 1)
         {
             Data = data;
             Name = data.name;
-            AddToStack();
+            StackSize = count;
         }
         
         public void SetData(InventoryItemData data)
-        {
-            Data = data;
-        }
+            => Data = data;
 
         /// <summary>
         /// Increases amount by 1.
@@ -43,5 +42,11 @@ namespace Inventory
         /// </summary>
         public void RemoveFromStack()
             => StackSize--;
+
+        public void AddToStack(int amount)
+            => StackSize += amount;
+
+        public void SetStackSize(int size)
+            => StackSize = size;
     }
 }

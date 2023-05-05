@@ -1,4 +1,5 @@
-﻿using Player;
+﻿using Inventory.ScriptableObjects;
+using Player;
 using UnityEngine;
 using UnityEngine.Events;
 using Weapons.ScriptableObjects;
@@ -7,6 +8,10 @@ namespace Weapons
 {
     public class AmmoPack : MonoBehaviour
     {
+        [Header("Inventory Info")]
+        [SerializeField] private InventoryItemData itemData;
+        [SerializeField] private InventoryManager inventoryManager;
+
         [Header("Weapon Info")]
         [SerializeField] private GunData gunData;
         [SerializeField] private WeaponManager weaponManager;
@@ -21,8 +26,21 @@ namespace Weapons
         {
             if (other.gameObject.TryGetComponent<PlayerController>(out _))
             {
-                if (weaponManager.TryPickUp(gunData, ammoCount))
+                if (weaponManager.TryPickUpAmmo(gunData, ammoCount))
                 {
+                    var item = inventoryManager.GetItem(itemData);
+                    
+                    if (item == null)
+                    {
+                        inventoryManager.Add(itemData, gunData.currentTotalAmmo);
+                    }
+                    else
+                    {
+                        item.SetStackSize(gunData.currentTotalAmmo);
+                        
+                        inventoryManager.UpdateItemsList();
+                    }
+
                     onPickUp.Invoke();
                     
                     Destroy(gameObject);

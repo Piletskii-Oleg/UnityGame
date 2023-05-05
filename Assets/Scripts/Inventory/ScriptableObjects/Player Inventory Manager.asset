@@ -52,4 +52,10 @@ MonoBehaviour:
   - <Name>k__BackingField: SMG
     <Data>k__BackingField: {fileID: 11400000, guid: b17aa45fc4b1c2f4980aad4044735aca, type: 2}
     <StackSize>k__BackingField: 1
+  - <Name>k__BackingField: PistolAmmo
+    <Data>k__BackingField: {fileID: 11400000, guid: c152c74328a2b674680f2f05598d214f, type: 2}
+    <StackSize>k__BackingField: 120
+  - <Name>k__BackingField: SMGAmmo
+    <Data>k__BackingField: {fileID: 11400000, guid: ce7f7ab2eb8f98f418fc1e7ab7a61eb3, type: 2}
+    <StackSize>k__BackingField: 395
   allItemsList: {fileID: 11400000, guid: a7dd26d29b84cd5438577477ed6161be, type: 2}
