@@ -24141,7 +24141,7 @@ MonoBehaviour:
   fireSet: {fileID: 11400000, guid: 3e5f74144ffbe7a43a96c091a935efbe, type: 2}
   fireStayTime: 30
   fireSpeed: 26
-  fireFallSpeed: 15
+  fireFallSpeed: 12.51
 --- !u!136 &4790631904562139957
 CapsuleCollider:
   m_ObjectHideFlags: 0

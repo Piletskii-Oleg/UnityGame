@@ -60,5 +60,10 @@ namespace Enemy
         /// <returns>A position that enemy will go to.</returns>
         public Vector3 GetNewPosition()
             => GetNewPosition(enemyRoamRadius, transform.position);
+        
+        private void OnDrawGizmos()
+        {
+            Gizmos.DrawWireSphere(transform.position, enemyRoamRadius);
+        }
     }
 }

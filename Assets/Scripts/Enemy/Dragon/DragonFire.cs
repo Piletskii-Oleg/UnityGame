@@ -8,16 +8,22 @@ namespace Enemy.Dragon
     public class DragonFire : MonoBehaviour
     {
         [SerializeField] private DragonFireSet fireSet;
-        
+
         [SerializeField] private float fireStayTime;
         [SerializeField] private float fireSpeed;
         [SerializeField] private float fireFallSpeed;
-        
+
         private float overallTimePassed;
+
+        private LayerMask groundMask;
+        private Collider[] collisions;
 
         private void Start()
         {
             StartCoroutine(MoveFire());
+            
+            collisions = new Collider[10];
+            groundMask = 1 << LayerMask.NameToLayer("Ground");
         }
 
         private void Update()
@@ -45,13 +51,14 @@ namespace Enemy.Dragon
 
         private IEnumerator MoveFire()
         {
-            const float groundLevel = 51;
             var fireTransform = transform;
-            while (fireTransform.position.y - groundLevel > Mathf.Epsilon)
+            while (Physics.OverlapSphereNonAlloc(fireTransform.position, 0.2f, collisions, groundMask) == 0)
             {
                 fireTransform.Translate(fireTransform.rotation * fireTransform.forward * -(1
                     * Time.deltaTime * fireSpeed));
-                fireTransform.DOMoveY(fireTransform.position.y - fireFallSpeed * Time.deltaTime, Time.deltaTime);
+
+                fireTransform.Translate(Vector3.down * (Time.deltaTime * fireFallSpeed), Space.World);
+
                 yield return null;
             }
         }

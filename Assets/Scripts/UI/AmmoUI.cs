@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 using Weapons.ScriptableObjects;
@@ -23,6 +24,9 @@ namespace UI
         /// Updates ammo counter on the UI when the weapon is changed.
         /// </summary>
         public void UpdateWeapon()
+            => UpdateAmmo();
+
+        private void Awake()
             => UpdateAmmo();
     }
 }

@@ -42,7 +42,7 @@ namespace Enemy.Dragon.States
                     })
                     .SetEase(Ease.InOutSine))
                 .Append(dragon.transform.DOLookAt(dragon.GetPlayerPosition(), 0.7f))
-                .OnKill(() => stateMachine.ChangeState(/*Random.Range(0, 2) == 0 ? dragon.PeekState :*/ dragon.RamState));
+                .OnKill(() => stateMachine.ChangeState(Random.Range(0, 2) == 0 ? dragon.PeekState : dragon.RamState));
             
         }
 

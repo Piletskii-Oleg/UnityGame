@@ -106,5 +106,10 @@ namespace Weapons.ScriptableObjects
                 item.HasShot = false;
             }
         }
+
+        public bool TryPickUp(GunData gunData, int ammoCount) =>
+            weapons
+                .Find(x => x.Data == gunData)
+                .TryAddAmmo(ammoCount);
     }
 }

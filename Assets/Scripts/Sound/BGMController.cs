@@ -13,6 +13,8 @@ namespace Sound
 
         private AudioSource audioSource;
 
+        private Coroutine playMusic;
+
         private void Awake()
         {
             audioSource = GetComponent<AudioSource>();
@@ -26,7 +28,14 @@ namespace Sound
         /// Starts playing background music fading in (and fades out already playing music).
         /// </summary>
         public void PlayBackgroundMusic(AudioClip clip)
-            => StartCoroutine(StartBGM(clip));
+        {
+            if (playMusic != null)
+            {
+                StopCoroutine(playMusic);
+            }
+            
+            playMusic = StartCoroutine(StartBGM(clip));
+        }
 
         private IEnumerator StartBGM(AudioClip clip)
         {

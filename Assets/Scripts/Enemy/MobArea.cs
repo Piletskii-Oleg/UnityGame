@@ -90,10 +90,5 @@ namespace Enemy
             var enemyScript = enemy.GetComponent<Enemy>();
             enemyScript.SetArea(this);
         }
-
-        private void OnDrawGizmos()
-        {
-            // Gizmos.DrawWireSphere(transform.position, enemyRoamRadius);
-        }
     }
 }

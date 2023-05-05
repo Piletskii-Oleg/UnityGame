@@ -17,7 +17,7 @@ namespace Shared
         [SerializeField] protected ActorData actorData;
         
         [Header("Events")]
-        [SerializeField] private UnityEvent<float> onTakeDamage;
+        [SerializeField] protected UnityEvent<float> onTakeDamage;
         [SerializeField] private UnityEvent onKill;
 
         public string Name => actorData.name;

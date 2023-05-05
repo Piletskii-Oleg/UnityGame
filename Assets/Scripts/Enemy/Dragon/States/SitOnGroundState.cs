@@ -23,6 +23,11 @@ namespace Enemy.Dragon.States
             
             dragon.SetAnimationValue(doEruptFlames ? eruptFlames : defend, true);
 
+            if (!doEruptFlames)
+            {
+                dragon.IsDefending = true;
+            }
+            
             timePassed = 0;
         }
 
@@ -38,7 +43,10 @@ namespace Enemy.Dragon.States
         public override void Exit()
         {
             dragon.SetAnimationValue(defend, false);
+            
             dragon.SetAnimationValue(eruptFlames, false);
+            
+            dragon.IsDefending = false;
         }
 
         public override void KillSequences()

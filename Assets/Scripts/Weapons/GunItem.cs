@@ -47,5 +47,21 @@ namespace Weapons
         /// </summary>
         public void ObtainItem()
             => IsObtained = true;
+
+        public bool TryAddAmmo(int ammoCount)
+        {
+            if (Data.currentTotalAmmo < Data.totalAmmo)
+            {
+                Data.currentTotalAmmo += ammoCount;
+                if (Data.currentTotalAmmo > Data.totalAmmo)
+                {
+                    Data.currentTotalAmmo = Data.totalAmmo;
+                }
+                
+                return true;
+            }
+
+            return false;
+        }
     }
 }

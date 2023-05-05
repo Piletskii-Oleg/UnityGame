@@ -15,7 +15,13 @@ namespace Weapons.ScriptableObjects
         public float damage;
         public float maxDistance;
         public bool canAutoShoot;
-        
+
+        [Header("Total count")]
+        [Tooltip("Total amount of ammo that the player is carrying")]
+        public int currentTotalAmmo;
+        [Tooltip("Total amount of ammo that the player can carry")]
+        public int totalAmmo;
+
         [Header("Reloading")]
         public int currentAmmo;
         [Tooltip("The amount of ammo held in a single ammo magazine.")]

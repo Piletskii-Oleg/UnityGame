@@ -32,9 +32,11 @@ namespace Enemy.Dragon.States
                 .Append(dragonTransform.DOMoveY(position.y - 15, 0.7f))
                 .Append(dragonTransform.DOLookAt(resultPoint, 0.8f))
                 .Append(dragonTransform
-                        .DOMove(resultPoint, dragon.DistanceTo(resultPoint) / 10 / dragon.RamSpeed))
+                        .DOMove(resultPoint, dragon.DistanceTo(resultPoint) / dragon.RamSpeed)
+                        .SetEase(Ease.OutCubic))
                 .Append(dragonTransform.DOLookAt(sitPoint, 0.9f))
                 .Append(dragonTransform.DOMove(sitPoint, 4f))
+                .Append(dragonTransform.DOLookAt(dragon.GetPlayerPosition(), 0.6f))
                 .OnKill(() => stateMachine.ChangeState(dragon.SitOnGroundState));
         }
 

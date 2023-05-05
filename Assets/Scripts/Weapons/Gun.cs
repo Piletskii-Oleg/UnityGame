@@ -59,11 +59,16 @@ namespace Weapons
 
         public void StartReload()
         {
-            if (!isReloading && gunData.currentAmmo != gunData.ammoCapacity)
+            if (CanReload())
             {
                 StartCoroutine(Reload());
             }
         }
+
+        private bool CanReload()
+            => !isReloading
+               && gunData.currentAmmo != gunData.ammoCapacity
+               && gunData.currentTotalAmmo - (gunData.ammoCapacity - gunData.currentAmmo) >= 0;
 
         public void ChangeVolume()
             => audioSource.volume = musicManager.SoundVolume;
@@ -78,6 +83,7 @@ namespace Weapons
 
             yield return reloadWait;
 
+            gunData.currentTotalAmmo -= (gunData.ammoCapacity - gunData.currentAmmo);
             gunData.currentAmmo = gunData.ammoCapacity;
 
             isReloading = false;

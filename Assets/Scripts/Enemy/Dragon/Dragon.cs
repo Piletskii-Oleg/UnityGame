@@ -39,7 +39,7 @@ namespace Enemy.Dragon
         private Coroutine tryStopDealingFireDamageCoroutine;
 
         [Header("Dragon Data")]
-        [SerializeField] private MobArea area;
+        [SerializeField] private BossArea area;
         [SerializeField] private HealthData health;
         [SerializeField] private int circlePointsCount;
         [SerializeField] private Transform areaPlane;
@@ -58,6 +58,12 @@ namespace Enemy.Dragon
         [SerializeField] private float flyAroundSpeed;
         [SerializeField] private float smashDamage;
         [SerializeField] private float ramDamage;
+        
+        [Range(0, 1)]
+        [Tooltip("How much damage is actually received when the dragon is defending")]
+        [SerializeField] private float defenseMultiplier;
+        
+        public bool IsDefending { get; set; }
 
         public Transform Center => area.transform;
         
@@ -98,7 +104,7 @@ namespace Enemy.Dragon
             
             InitializeStates();
             
-            stateMachine.Initialize(SitOnGroundState);
+            stateMachine.Initialize(NotInFightState);
 
             fireSet.Initialize(this);
         }
@@ -271,6 +277,35 @@ namespace Enemy.Dragon
             StopAllSequences();
 
             stateMachine.ChangeState(DeadState);
+        }
+
+        public void OnCollide(Collision other)
+        {
+            if (other.gameObject.TryGetComponent<Actor>(out var actor))
+            {
+                switch (stateMachine.CurrentState)
+                {
+                    case States.RamState:
+                        actor.OnTakeDamage(ramDamage, actorData.affiliation);
+                        break;
+                    case States.PeekState:
+                        actor.OnTakeDamage(smashDamage, actorData.affiliation);
+                        break;
+                }
+            }
+        }
+        
+        public override void OnTakeDamage(float damage, ActorAffiliation actorAffiliation)
+        {
+            if (actorData.affiliation.enemyFractions.Contains(actorAffiliation))
+            {
+                if (IsDefending)
+                {
+                    damage *= defenseMultiplier;
+                }
+                
+                onTakeDamage.Invoke(damage);
+            }
         }
 
         public void AddState(DragonBaseState state)
