@@ -69,5 +69,8 @@ namespace Enemy.FlyingDragon
             
             stateMachine.ChangeState(StandState);
         }
+
+        public void Stop()
+            => transform.position = Vector3.zero;
     }
 }
