@@ -36,7 +36,7 @@ namespace Enemy.Dragon.States
             timePassed += Time.deltaTime;
             if (timePassed > sitTime)
             {
-                stateMachine.ChangeState(dragon.FlyState);
+                stateMachine.ChangeState(dragon.FlyAroundState);
             }
         }
 

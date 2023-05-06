@@ -21,6 +21,8 @@ namespace Enemy.Dragon.States
 
         public override void Enter()
         {
+            dragon.SetAnimationValue(doFly, true);
+            
             var pointInSky = dragon.GetPointInArea();
             pointInSky.y += 150;
             

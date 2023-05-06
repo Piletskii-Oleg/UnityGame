@@ -1,4 +1,5 @@
-﻿using DG.Tweening;
+﻿using System.Linq;
+using DG.Tweening;
 using UnityEngine;
 
 namespace Enemy.Dragon.States
@@ -7,29 +8,40 @@ namespace Enemy.Dragon.States
     {
         private static readonly int doFly = Animator.StringToHash("DoFly");
 
-        private readonly Vector3 runawayPoint;
+        private readonly Vector3[] runawayPath;
         
         private Sequence sequence;
         
-        public PlayerRanAwayState(BaseStateMachine stateMachine, Dragon dragon)
+        public PlayerRanAwayState(BaseStateMachine stateMachine, Dragon dragon, Transform[] runawayPath)
             : base(stateMachine, dragon)
         {
             dragon.AddState(this);
+
+            this.runawayPath =
+                runawayPath
+                .Select(value => value.position)
+                .Reverse()
+                .ToArray();
         }
 
         public override void Enter()
         {
-            var transform = dragon.transform;
-            
             dragon.SetAnimationValue(doFly, true);
             
-            transform.DOLookAt(runawayPoint, 1.2f);
-
-            float distance = (runawayPoint - transform.position).magnitude;
-            transform
-                .DOMove(runawayPoint, distance / dragon.FlySpeed)
-                .SetEase(Ease.InSine)
-                .OnKill(() => stateMachine.ChangeState(dragon.DeadState));
+            dragon.transform
+                .DOPath(runawayPath, 8f, PathType.CatmullRom)
+                .OnWaypointChange(i =>
+                {
+                    if (i < runawayPath.Length)
+                    {
+                        dragon.transform.DOLookAt(runawayPath[i], 0.5f);
+                    }
+                })
+                .OnKill(() =>
+                {
+                    stateMachine.ChangeState(dragon.NotInFightState);
+                    dragon.gameObject.SetActive(false);
+                });
         }
 
         public override void Tick()

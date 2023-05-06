@@ -5,6 +5,7 @@ namespace Enemy.Dragon.States
 {
     public class RamState : DragonBaseState
     {
+        private static readonly LayerMask groundMask = 1 << LayerMask.NameToLayer("Ground");
         private static readonly int doFly = Animator.StringToHash("DoFly");
         private static readonly int glide = Animator.StringToHash("Glide");
 
@@ -27,6 +28,11 @@ namespace Enemy.Dragon.States
             var resultPoint = position + 2 * (dragon.GetPlayerPosition() - position);
             resultPoint.y -= 15;
             
+            if (Physics.Linecast(position, resultPoint, out var info, groundMask))
+            {
+                resultPoint = info.transform.position;
+            }
+
             var sitPoint = dragon.GetPointInArea();
             sequence = DOTween.Sequence()
                 .Append(dragonTransform.DOMoveY(position.y - 15, 0.7f))
@@ -37,7 +43,10 @@ namespace Enemy.Dragon.States
                 .Append(dragonTransform.DOLookAt(sitPoint, 0.9f))
                 .Append(dragonTransform.DOMove(sitPoint, 2.1f))
                 .Append(dragonTransform.DOLookAt(dragon.GetPlayerPosition(), 0.6f))
-                .OnKill(() => stateMachine.ChangeState(dragon.SitOnGroundState));
+                .OnKill(() =>
+                {
+                    stateMachine.ChangeState(Random.Range(0.0f, 10.0f) >= 3 ? dragon.SitOnGroundState : dragon.PeekState);
+                });
         }
 
         public override void Tick()

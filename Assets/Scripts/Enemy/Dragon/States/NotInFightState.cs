@@ -5,7 +5,6 @@
         public NotInFightState(BaseStateMachine stateMachine, Dragon dragon)
             : base(stateMachine, dragon)
         {
-            dragon.AddState(this);
         }
 
         public override void Enter()

@@ -43,6 +43,7 @@ namespace Enemy.Dragon
         [SerializeField] private HealthData health;
         [SerializeField] private int circlePointsCount;
         [SerializeField] private Transform areaPlane;
+        [SerializeField] private Transform[] initialPath;
 
         private Vector3[] nextPoints;
 
@@ -67,6 +68,8 @@ namespace Enemy.Dragon
         [SerializeField] private List<GameObject> spawnablePickups;
         [SerializeField] private int objectsSpawned;
         
+        private LayerMask groundMask;
+        
         public bool IsDefending { get; set; }
 
         public Transform Center => area.transform;
@@ -77,8 +80,6 @@ namespace Enemy.Dragon
 
         public float FlySpeed => flyAroundSpeed;
 
-        public FlyState FlyState { get; private set; }
-        
         public DeadState DeadState { get; private set; }
         
         public PlayerRanAwayState PlayerRanAwayState { get; private set; }
@@ -92,6 +93,8 @@ namespace Enemy.Dragon
         public RamState RamState { get; private set; }
         
         public NotInFightState NotInFightState { get; private set; }
+        
+        public InitiateBattleState InitiateBattleState { get; private set; }
 
         private List<DragonBaseState> states;
 
@@ -110,20 +113,26 @@ namespace Enemy.Dragon
             
             stateMachine.Initialize(NotInFightState);
 
+            groundMask = 1 << LayerMask.NameToLayer("Ground");
+            
             fireSet.Initialize(this);
         }
 
         private void InitializeStates()
         {
             states = new List<DragonBaseState>();
-            FlyState = new FlyState(stateMachine, this);
+
             DeadState = new DeadState(stateMachine, this);
-            PlayerRanAwayState = new PlayerRanAwayState(stateMachine, this);
+            PlayerRanAwayState = new PlayerRanAwayState(stateMachine, this, initialPath);
+            
             SitOnGroundState = new SitOnGroundState(stateMachine, this);
+            
             PeekState = new PeekState(stateMachine, this);
             FlyAroundState = new FlyAroundState(stateMachine, this);
             RamState = new RamState(stateMachine, this);
+            
             NotInFightState = new NotInFightState(stateMachine, this);
+            InitiateBattleState = new InitiateBattleState(stateMachine, this, initialPath);
         }
 
         private void Update()
@@ -135,12 +144,12 @@ namespace Enemy.Dragon
             {
                 return;
             }
-            
+
             hasBattleStarted = true;
                 
             health.currentHealth = health.maxHealth;
 
-            stateMachine.ChangeState(FlyState);
+            stateMachine.ChangeState(InitiateBattleState);
         }
 
         public void EnterArea()
@@ -169,8 +178,9 @@ namespace Enemy.Dragon
             }
             
             stateMachine.ChangeState(PlayerRanAwayState);
-            hasBattleStarted = false;
             
+            hasBattleStarted = false;
+
             onStopBattle.Invoke();
         }
 
@@ -206,7 +216,7 @@ namespace Enemy.Dragon
         {
             var explosionPoint = transform.position;
             explosionPoint.y = BaseHeight;
-            playerScriptableObject.PlayerRigidbody.AddExplosionForce(1000f, explosionPoint, 30f, 6.0f);
+            playerScriptableObject.PlayerRigidbody.AddExplosionForce(600f, explosionPoint, 30f, 6.0f);
 
             playerScriptableObject.PlayerActor.OnTakeDamage(smashDamage, actorData.affiliation);
             
@@ -224,9 +234,9 @@ namespace Enemy.Dragon
                 var gameObj = Instantiate(obj, spawnPosition, obj.transform.rotation);
                 
                 var randomVector = GenerateRandomVector(-12f, 12f);
-                randomVector.y = 1f;
+                randomVector.y = 0.7f;
                 
-                gameObj.transform.DOJump(spawnPosition + randomVector, 4, 1, 1f);
+                gameObj.transform.DOJump(spawnPosition + randomVector, 8, 1, 1f);
             }
         }
 
@@ -243,8 +253,22 @@ namespace Enemy.Dragon
         }
 
         public Vector3 GetPointInArea()
-            => area.GetNewPosition();
+        {
+            var position = area.GetNewPosition();
+            
+            var lowPoint = position;
+            lowPoint.y -= 30;
+            
+            var highPoint = position;
+            highPoint.y += 30;
 
+            if (Physics.Linecast(lowPoint, highPoint, out var info, groundMask))
+            {
+                position.y = info.transform.position.y;
+            }
+
+            return position;
+        }
         public void StartDealingFireDamage(Actor actor)
         {
             if (!hasPlayerTouchedFire)
@@ -290,19 +314,21 @@ namespace Enemy.Dragon
 
         public override void OnKill()
         {
-            if (!isKilled)
+            if (!hasBattleStarted || isKilled)
             {
-                base.OnKill();
-
-                onStopBattle.Invoke();
-
-                StopAllCoroutines();
-
-                DOTween.Kill(transform);
-                StopAllSequences();
-
-                stateMachine.ChangeState(DeadState);
+                return;
             }
+
+            base.OnKill();
+
+            onStopBattle.Invoke();
+
+            StopAllCoroutines();
+
+            DOTween.Kill(transform);
+            StopAllSequences();
+
+            stateMachine.ChangeState(DeadState);
         }
 
         public void OnCollide(Collision other)

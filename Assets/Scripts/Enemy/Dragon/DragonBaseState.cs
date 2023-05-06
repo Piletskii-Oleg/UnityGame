@@ -11,6 +11,9 @@
             this.dragon = dragon;
         }
 
+        /// <summary>
+        /// Used to stop DOTween sequences running on each state.
+        /// </summary>
         public abstract void KillSequences();
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections;
 using Enemy.FlyingDragon.States;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Enemy.FlyingDragon
 {
@@ -56,5 +57,17 @@ namespace Enemy.FlyingDragon
         /// <param name="animationHash">Hash that corresponds to some animation variable.</param>
         public void TriggerAnimation(int animationHash)
             => animator.SetTrigger(animationHash);
+
+        public void Kill()
+            => Destroy(gameObject);
+
+        public void Respawn()
+        {
+            transform.position = pointsTo[Random.Range(0, pointsTo.Length)].position;
+            
+            gameObject.SetActive(true);
+            
+            stateMachine.ChangeState(StandState);
+        }
     }
 }
