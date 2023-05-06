@@ -10,5 +10,9 @@
             this.dragon = dragon;
             this.stateMachine = stateMachine;
         }
+
+        public virtual void KillSequences()
+        {
+        }
     }
 }

@@ -15,6 +15,8 @@ namespace Enemy.FlyingDragon.States
 
         private List<Vector3> nextPoints;
 
+        private Sequence sequence;
+        
         public FlyAroundState(FlyingDragon dragon, BaseStateMachine stateMachine,
             IEnumerable<Transform> highPoints, IEnumerable<Transform> standPoints)
             : base(dragon, stateMachine)
@@ -39,12 +41,12 @@ namespace Enemy.FlyingDragon.States
             float distance = CountAverageDistance();
 
             float pathDuration = distance / dragon.Speed;
-            
+
             var standPoint = standPoints[Random.Range(0, standPoints.Length)];
 
             float landDuration = (nextPoints[^1] - standPoint).magnitude / dragon.Speed;
-                                 
-            DOTween.Sequence()
+
+            sequence = DOTween.Sequence()
                 .Append(
                     dragonTransform
                         .DOPath(nextPoints.ToArray(), pathDuration, PathType.CatmullRom)
@@ -93,6 +95,11 @@ namespace Enemy.FlyingDragon.States
 
         public override void Exit()
         {
+        }
+
+        public override void KillSequences()
+        {
+            sequence.Kill();
         }
     }
 }

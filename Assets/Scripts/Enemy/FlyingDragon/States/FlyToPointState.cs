@@ -10,6 +10,8 @@ namespace Enemy.FlyingDragon.States
         private readonly Vector3[] points;
 
         private int currentPointNumber;
+
+        private Sequence sequence;
         
         public FlyToPointState(FlyingDragon dragon, BaseStateMachine stateMachine, IEnumerable<Transform> points)
             : base(dragon, stateMachine)
@@ -24,7 +26,7 @@ namespace Enemy.FlyingDragon.States
             float distance = (dragon.transform.position - nextPoint).magnitude;
             float duration = distance / dragon.Speed;
 
-            DOTween.Sequence()
+            sequence = DOTween.Sequence()
                 .Append(dragon.transform.DOLookAt(nextPoint, 0.3f))
                 .Append(dragon.transform.DOMove(nextPoint, duration).SetEase(Ease.InOutSine))
                 .OnKill(() => stateMachine.ChangeState(dragon.LandingState));
@@ -50,6 +52,11 @@ namespace Enemy.FlyingDragon.States
         public override void Exit()
         {
             
+        }
+
+        public override void KillSequences()
+        {
+            sequence.Kill();
         }
     }
 }

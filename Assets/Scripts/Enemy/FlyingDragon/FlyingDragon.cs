@@ -71,6 +71,10 @@ namespace Enemy.FlyingDragon
         }
 
         public void Stop()
-            => transform.position = Vector3.zero;
+        {
+            stateMachine.KillSequence();
+            
+            transform.position = Vector3.zero;
+        }
     }
 }
