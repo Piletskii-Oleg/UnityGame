@@ -36,7 +36,7 @@ namespace Weapons
 
         private void FixedUpdate()
         {
-            rigidBody.AddForce(-thrust * Time.fixedDeltaTime * transform.up, ForceMode.VelocityChange); // thrust is negative because otherwise bullet is shot at player and not forward.
+            rigidBody.AddForce(thrust * Time.fixedDeltaTime * transform.up, ForceMode.VelocityChange);
             timeSinceCreation += Time.fixedDeltaTime;
 
             if (timeSinceCreation > maxTime)

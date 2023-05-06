@@ -48,7 +48,7 @@ namespace Weapons
             var thisTransform = transform;
             var rotation = thisTransform.rotation;
             
-            var bulletAngle = Quaternion.Euler(rotation.eulerAngles.x - 90,
+            var bulletAngle = Quaternion.Euler(rotation.eulerAngles.x + 90,
                 rotation.eulerAngles.y, 0);
             Instantiate(bullet, thisTransform.position + thisTransform.forward, bulletAngle);
 
