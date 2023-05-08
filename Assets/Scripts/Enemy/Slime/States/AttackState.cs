@@ -33,7 +33,10 @@ namespace Enemy.Slime.States
         public override void Enter()
         {
             base.Enter();
+            
             timesPlayerIsNotFound = 0;
+            
+            UpdateTact();
         }
 
         public override void Tick()

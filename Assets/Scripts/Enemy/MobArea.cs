@@ -83,7 +83,7 @@ namespace Enemy
 
         private void SpawnEnemy()
         {
-            var spawner = spawnPoints[Random.Range(0, spawnPoints.Count)];
+            var spawner = spawnPoints[Random.Range(0, spawnPoints.Count - 1)];
             var enemy = GameObjectSpawner.Spawn(enemyPrefabs, spawner.position, Quaternion.identity);
 
             enemies.Add(enemy);

@@ -1,6 +1,7 @@
 ﻿using Enemy.Slime.States;
 using Shared;
 using Shared.ScriptableObjects;
+using Sound;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Serialization;
@@ -10,7 +11,7 @@ namespace Enemy.Slime
     /// <summary>
     /// A slime enemy actor.
     /// </summary>
-    public class Slime : Enemy
+    public class Slime : Enemy, IVolume
     {
         private static readonly int mainTex = Shader.PropertyToID("_MainTex");
 
@@ -48,12 +49,18 @@ namespace Enemy.Slime
         [Tooltip("Is the slime passive, neutral or aggressive towards player?")]
         [field: SerializeField] public SlimeType SlimeType { get; private set; }
 
+        [Header("Sound")]
+        [SerializeField] private MusicManager musicManager;
+        private AudioSource audioSource;
+
         public NavMeshAgent Agent => agent;
 
         private void Start()
         {
             playerMask = 1 << LayerMask.NameToLayer("Player");
             playerInRange = new Collider[1];
+
+            audioSource = GetComponent<AudioSource>();
             
             agent = GetComponent<NavMeshAgent>();
             animator = GetComponent<Animator>();
@@ -125,6 +132,16 @@ namespace Enemy.Slime
             
             enemyTransform.position = position;
             agent.nextPosition = enemyTransform.position;
+        }
+
+        public void PlaySound()
+        {
+            audioSource.Play();
+        }
+
+        public void ChangeVolume()
+        {
+            audioSource.volume = musicManager.SoundVolume;
         }
     }
 }

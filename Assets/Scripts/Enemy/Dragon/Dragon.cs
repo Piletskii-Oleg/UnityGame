@@ -67,6 +67,9 @@ namespace Enemy.Dragon
         [Header("Additional Data")]
         [SerializeField] private List<GameObject> spawnablePickups;
         [SerializeField] private int objectsSpawned;
+
+        private LayerMask playerMask;
+        private Collider[] playerCollider;
         
         private LayerMask groundMask;
         
@@ -113,6 +116,9 @@ namespace Enemy.Dragon
             
             stateMachine.Initialize(NotInFightState);
 
+            playerMask = 1 << LayerMask.NameToLayer("Player");
+            playerCollider = new Collider[1];
+            
             groundMask = 1 << LayerMask.NameToLayer("Ground");
             
             fireSet.Initialize(this);
@@ -214,13 +220,16 @@ namespace Enemy.Dragon
 
         public void SmashGround()
         {
+            SpawnPickups();
+            
             var explosionPoint = transform.position;
             explosionPoint.y = BaseHeight;
-            playerScriptableObject.PlayerRigidbody.AddExplosionForce(600f, explosionPoint, 30f, 6.0f);
+            if (Physics.OverlapSphereNonAlloc(transform.position, 30f, playerCollider, playerMask) == 1)
+            {
+                playerScriptableObject.PlayerRigidbody.AddExplosionForce(600f, explosionPoint, 30f, 6.0f);
 
-            playerScriptableObject.PlayerActor.OnTakeDamage(smashDamage, actorData.affiliation);
-            
-            SpawnPickups();
+                playerScriptableObject.PlayerActor.OnTakeDamage(smashDamage, actorData.affiliation);
+            }
         }
 
         private void SpawnPickups()

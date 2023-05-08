@@ -22,7 +22,8 @@ namespace Enemy.Dragon.States
             var position = dragon.Center.position;
 
             sequence = DOTween.Sequence()
-                .Append(dragon.transform.DOMove(position, dragon.DistanceTo(position) / dragon.FlySpeed))
+                .Append(dragon.transform.DOLookAt(position, 0.3f))
+                .Append(dragon.transform.DOMove(position, dragon.DistanceTo(position) / dragon.RamSpeed))
                 .OnComplete(Die);
         }
 
