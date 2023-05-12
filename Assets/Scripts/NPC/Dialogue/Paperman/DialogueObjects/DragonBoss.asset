@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d1d9a844cfe4b9aac5e33d02deb5c38, type: 3}
+  m_Name: DragonBoss
+  m_EditorClassIdentifier: 
+  dialogueOptionName: Big dragon?
+  dialogueText: The deadly monster that can easily overwhelm you if you are not ready
+    for battle. Better take that SMG from the table somewhere around this base. Don't
+    remember where I put it, to be honest.
+  nextDialogues:
+  - {fileID: 11400000, guid: d6f677db27dc5e84099c23a155caab02, type: 2}
+  dialogueEvent:
+    m_PersistentCalls:
+      m_Calls: []

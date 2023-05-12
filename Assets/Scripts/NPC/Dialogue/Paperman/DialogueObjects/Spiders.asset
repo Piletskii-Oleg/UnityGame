@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d1d9a844cfe4b9aac5e33d02deb5c38, type: 3}
+  m_Name: Spiders
+  m_EditorClassIdentifier: 
+  dialogueOptionName: Those spiders...
+  dialogueText: The spiders are just horrible, they look so scary. Oh, and by the
+    way, there is a dragon spawning stone just over those hills, if you want some
+    challenge. I think you can handle him.
+  nextDialogues:
+  - {fileID: 11400000, guid: 95f042254677913478387c03020f8556, type: 2}
+  dialogueEvent:
+    m_PersistentCalls:
+      m_Calls: []
