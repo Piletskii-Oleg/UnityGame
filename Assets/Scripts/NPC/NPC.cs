@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using DG.Tweening;
 using NPC.Dialogue;
 using Player.ScriptableObjects;
 using UnityEngine;
@@ -17,9 +18,7 @@ namespace NPC
         
         [Header("Events")]
         [SerializeField] private UnityEvent<DialogueManager> startConversationEvent;
-                
-        private Coroutine turnHeadCoroutine;
-        
+
         protected Animator animator;
 
         /// <summary>
@@ -29,35 +28,7 @@ namespace NPC
         {
             startConversationEvent.Invoke(dialogueManager);
         }
-        
-        protected void TurnTransform(Transform transformToTurn, Vector3 position)
-        {
-            if (turnHeadCoroutine != null)
-            {
-                StopCoroutine(turnHeadCoroutine);
-            }
 
-            turnHeadCoroutine =
-                StartCoroutine(TurnHeadToPosition(transformToTurn, position, 4f));
-        }
-
-        private static IEnumerator TurnHeadToPosition(Transform transformToTurn, Vector3 position, float smoothing)
-        {
-            var initialPosition = transformToTurn.position;
-            
-            var direction = position - initialPosition;
-            var forwardVector = transformToTurn.rotation * Vector3.forward + initialPosition - initialPosition;
-            
-            var toRotation = Quaternion.FromToRotation(- forwardVector, direction);
-            while (Vector3.Angle(forwardVector, direction) > 7f)
-            {
-                transformToTurn.rotation = 
-                    Quaternion.RotateTowards(transformToTurn.rotation, toRotation, smoothing);
-
-                yield return null;
-            }
-        }
-        
         /// <summary>
         /// Triggers an animation variable.
         /// </summary>

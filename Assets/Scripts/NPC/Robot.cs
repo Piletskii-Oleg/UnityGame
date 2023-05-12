@@ -1,34 +1,34 @@
-﻿using UnityEngine;
+﻿using DG.Tweening;
+using UnityEngine;
 
 namespace NPC
 {
     public class Robot : NPC
     {
-        private static readonly int waveHand = Animator.StringToHash("WaveHand");
-
-        [Tooltip("Transform at which Robot looks after finishing conversation with the player")]
+        [Tooltip("Transform at which Engie looks after finishing conversation with the player")]
         [SerializeField] private Transform lookAt;
 
-        [Header("Robot elements")]
+        [Header("Engie elements")]
         [SerializeField] private Transform headTransform;
 
         private void Start()
         {
             animator = GetComponent<Animator>();
         }
-        
+
         public override void StartConversation()
         {
             base.StartConversation();
-            
-            TurnTransform(headTransform, playerScriptableObject.GetActualPlayerPosition());
-            WaveHand();
+
+            var newPosition = CalculateReversePosition(playerScriptableObject.GetActualPlayerPosition());
+
+            headTransform.DOLookAt(newPosition, 1f);
         }
 
-        public void OnEndConversation()
-            => TurnTransform(headTransform, lookAt.position);
+        private Vector3 CalculateReversePosition(Vector3 position) // this is required because robots' heads are reversed
+            => position - 2 * (position - headTransform.position);
 
-        private void WaveHand()
-            => TriggerAnimation(waveHand);
+        public void OnEndConversation()
+            => headTransform.DOLookAt(CalculateReversePosition(lookAt.position), 1f);
     }
 }

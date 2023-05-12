@@ -15,7 +15,7 @@ MonoBehaviour:
   dialogueOptionName: did you want to ask something?
   dialogueText: Did you want to ask something?
   nextDialogues:
-  - {fileID: 11400000, guid: 09095637b00b37e41bc861f24862a103, type: 2}
+  - {fileID: 11400000, guid: d7d0183ef16bf5d48bfcb54b5bfb06b5, type: 2}
   dialogueEvent:
     m_PersistentCalls:
       m_Calls: []

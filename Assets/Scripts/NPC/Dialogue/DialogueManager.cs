@@ -47,5 +47,8 @@ namespace NPC.Dialogue
 
         public void SetCurrentDialogueObject(DialogueObject dialogueObject)
             => CurrentDialogue = dialogueObject;
+
+        public void ResetDialogue()
+            => currentDialogue = null;
     }
 }

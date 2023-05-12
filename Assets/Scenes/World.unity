@@ -2181,8 +2181,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 111919186}
-  m_LocalRotation: {x: -0, y: -0.8747591, z: -0, w: 0.4845582}
-  m_LocalPosition: {x: 127.5, y: 55.9, z: -209.3}
+  m_LocalRotation: {x: -0, y: 0.35249272, z: -0, w: 0.93581456}
+  m_LocalPosition: {x: 134.33, y: 52.15, z: -204.33}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2192,7 +2192,7 @@ Transform:
   - {fileID: 658986975}
   m_Father: {fileID: 0}
   m_RootOrder: 14
-  m_LocalEulerAnglesHint: {x: 0, y: 597.967, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 761.28, z: 0}
 --- !u!114 &111919188
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25499,7 +25499,7 @@ GameObject:
   - component: {fileID: 1052063245}
   - component: {fileID: 1052063244}
   m_Layer: 7
-  m_Name: Collider (1)
+  m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -89194,6 +89194,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9079627881896622684}
   - component: {fileID: 9079627881896622685}
+  - component: {fileID: 9079627881896622686}
   m_Layer: 0
   m_Name: Paperman
   m_TagString: Untagged
@@ -90130,7 +90131,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8451710447565824230}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be1e630da4874ceba03730d1bad9253d, type: 3}
+  m_Script: {fileID: 11500000, guid: 75a6418c085c4c669e39ab787ccb72ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   playerScriptableObject: {fileID: 11400000, guid: 203a95cfd29fdca4bbd08281315d3e08, type: 2}
@@ -90153,6 +90154,34 @@ MonoBehaviour:
         m_CallState: 2
   lookAt: {fileID: 2099872036}
   headTransform: {fileID: 1848383888477330352}
+--- !u!114 &9079627881896622686
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8451710447565824230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2438166054fae9447beaa32edf8ea98f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: c5d682b845b51bc4f9d44ed82a4314a9, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 9079627881896622685}
+        m_TargetAssemblyTypeName: NPC.Robot, Scripts
+        m_MethodName: OnEndConversation
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!4 &9104361707007820812
 Transform:
   m_ObjectHideFlags: 0
