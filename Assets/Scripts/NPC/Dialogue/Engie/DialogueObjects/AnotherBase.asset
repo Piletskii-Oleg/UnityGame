@@ -10,15 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0d1d9a844cfe4b9aac5e33d02deb5c38, type: 3}
-  m_Name: StandardDialogue
+  m_Name: AnotherBase
   m_EditorClassIdentifier: 
-  dialogueOptionName: I wanted something...
-  dialogueText: Something else you wanted to ask?
+  dialogueOptionName: Is there another base somewhere?
+  dialogueText: Yes, there is, on the other side of the river. You can get there
+    by going up the hills and then back down, there should be a bridge somewhere.
+    But be careful and don't step into dragon's territory!
   nextDialogues:
-  - {fileID: 11400000, guid: 2d750a486036bac4eb585a97a7c3e8f1, type: 2}
-  - {fileID: 11400000, guid: c564e4cb04882af43b8ec16ed9af5a57, type: 2}
-  - {fileID: 11400000, guid: c8f6022d28705a1478fd45be28c754ed, type: 2}
-  - {fileID: 11400000, guid: b8593ea34bbdd6440aeeb50bc98a2f5e, type: 2}
+  - {fileID: 11400000, guid: 07f66abc82f3d2d4095f769a7eaabc64, type: 2}
   dialogueEvent:
     m_PersistentCalls:
       m_Calls: []

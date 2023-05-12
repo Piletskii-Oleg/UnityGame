@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: AboutMyMission
   m_EditorClassIdentifier: 
   dialogueOptionName: Can you tell me what I need to do?
-  dialogueText: I'm very glad you asked! Your mission on this planet is to ... idk
-    lol
+  dialogueText: I'm very glad you asked! Your mission on this planet is to explore,
+    defeat monsters and find another base! There's this guy called Paperman, you
+    should talk to him.
   nextDialogues:
   - {fileID: 11400000, guid: 826035e8184ae98479107243e4a6a5aa, type: 2}
   - {fileID: 11400000, guid: b8593ea34bbdd6440aeeb50bc98a2f5e, type: 2}

@@ -10,15 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0d1d9a844cfe4b9aac5e33d02deb5c38, type: 3}
-  m_Name: StandardDialogue
+  m_Name: DragonQuestionMark
   m_EditorClassIdentifier: 
-  dialogueOptionName: I wanted something...
-  dialogueText: Something else you wanted to ask?
+  dialogueOptionName: Dragon's territory?
+  dialogueText: There's this area, deprived of any plants with only some stones left
+    standing. At the center is the monument with which you can summon the powerful
+    dragon. I don't think you can defeat him with just the pistol I gave you.
   nextDialogues:
-  - {fileID: 11400000, guid: 2d750a486036bac4eb585a97a7c3e8f1, type: 2}
-  - {fileID: 11400000, guid: c564e4cb04882af43b8ec16ed9af5a57, type: 2}
-  - {fileID: 11400000, guid: c8f6022d28705a1478fd45be28c754ed, type: 2}
-  - {fileID: 11400000, guid: b8593ea34bbdd6440aeeb50bc98a2f5e, type: 2}
+  - {fileID: 11400000, guid: 2a5a499cc7fd79545b3e20b5ba170ec9, type: 2}
   dialogueEvent:
     m_PersistentCalls:
       m_Calls: []
