@@ -10,18 +10,25 @@ namespace Enemy.Dragon.States
         private static readonly int glide = Animator.StringToHash("Glide");
 
         private readonly Transform dragonTransform;
+
+        private readonly GameObject ramCollider;
         
         private Sequence sequence;
         
-        public RamState(BaseStateMachine stateMachine, Dragon dragon)
+        public RamState(BaseStateMachine stateMachine, Dragon dragon, GameObject ramCollider)
             : base(stateMachine, dragon)
         {
             dragonTransform = dragon.transform;
+            
             dragon.AddState(this);
+            
+            this.ramCollider = ramCollider;
         }
 
         public override void Enter()
         {
+            ramCollider.SetActive(true);
+            
             dragon.SetAnimationValue(glide, true);
             
             var position = dragonTransform.position;
@@ -55,6 +62,8 @@ namespace Enemy.Dragon.States
 
         public override void Exit()
         {
+            ramCollider.SetActive(false);
+            
             dragon.SetAnimationValue(doFly, false);
             dragon.SetAnimationValue(glide, false);
         }

@@ -45,6 +45,10 @@ namespace Enemy.Dragon
         [SerializeField] private Transform areaPlane;
         [SerializeField] private Transform[] initialPath;
 
+        [Header("Colliders")]
+        [SerializeField] private GameObject normalCollider;
+        [SerializeField] private GameObject ramCollider;
+
         private Vector3[] nextPoints;
 
         [Tooltip("Time which player can stay outside of the area for until the dragon goes away")]
@@ -135,7 +139,7 @@ namespace Enemy.Dragon
             
             PeekState = new PeekState(stateMachine, this);
             FlyAroundState = new FlyAroundState(stateMachine, this);
-            RamState = new RamState(stateMachine, this);
+            RamState = new RamState(stateMachine, this, ramCollider);
             
             NotInFightState = new NotInFightState(stateMachine, this);
             InitiateBattleState = new InitiateBattleState(stateMachine, this, initialPath);
