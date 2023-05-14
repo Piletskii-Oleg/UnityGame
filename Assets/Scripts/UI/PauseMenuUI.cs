@@ -28,7 +28,6 @@ namespace UI
         
         private void OpenMenu()
         {
-            Cursor.lockState = CursorLockMode.Confined;
             Time.timeScale = 0f;
             pauseMenu.SetActive(true);
 
@@ -41,7 +40,6 @@ namespace UI
         {
             pauseMenu.SetActive(false);
             Time.timeScale = 1f;
-            Cursor.lockState = CursorLockMode.Locked;
 
             isMenuOpen = false;
             
