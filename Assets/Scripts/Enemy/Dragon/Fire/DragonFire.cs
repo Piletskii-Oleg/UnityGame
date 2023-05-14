@@ -1,8 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using Shared;
 using UnityEngine;
 
-namespace Enemy.Dragon
+namespace Enemy.Dragon.Fire
 {
     public class DragonFire : MonoBehaviour
     {
@@ -12,6 +13,8 @@ namespace Enemy.Dragon
         [SerializeField] private float fireSpeed;
         [SerializeField] private float fireFallSpeed;
 
+        private bool isTouching;
+        
         private float overallTimePassed;
 
         private LayerMask groundMask;
@@ -39,13 +42,18 @@ namespace Enemy.Dragon
         {
             if (other.gameObject.TryGetComponent<Actor>(out var actor))
             {
+                isTouching = true;
                 fireSet.StepInFire(actor);
             }
         }
 
         private void OnTriggerExit(Collider other)
         {
-            fireSet.StepOutOfFire();
+            if (isTouching)
+            {
+                fireSet.StepOutOfFire();
+                isTouching = false;
+            }
         }
 
         private IEnumerator MoveFire()
@@ -59,6 +67,15 @@ namespace Enemy.Dragon
                 fireTransform.Translate(Vector3.down * (Time.deltaTime * fireFallSpeed), Space.World);
 
                 yield return null;
+            }
+        }
+
+        private void OnDisable()
+        {
+            if (isTouching)
+            {
+                fireSet.StepOutOfFire();
+                isTouching = false;
             }
         }
     }

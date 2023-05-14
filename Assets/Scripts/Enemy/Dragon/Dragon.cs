@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using Enemy.Dragon.Fire;
 using Enemy.Dragon.States;
 using Player.ScriptableObjects;
 using Shared;
@@ -20,18 +21,6 @@ namespace Enemy.Dragon
         [Header("Player")]
         [SerializeField] private PlayerScriptableObject playerScriptableObject;
 
-        [Header("Fire Data")]
-        [SerializeField] private GameObject firePrefab;
-        [SerializeField] private Transform groundMouth;
-        [SerializeField] private Transform flyMouth;
-
-        [Header("Fire Stats")]
-        [SerializeField] private DragonFireSet fireSet;
-        [SerializeField] private float fireDelay;
-        [SerializeField] private float fireDamageDelay;
-        [SerializeField] private float fireDamage;
-        [SerializeField] private float fireNotTouchTime;
-
         private bool hasPlayerTouchedFire;
         
         private Coroutine eruptFlamesCoroutine;
@@ -39,6 +28,7 @@ namespace Enemy.Dragon
         private Coroutine tryStopDealingFireDamageCoroutine;
 
         [Header("Dragon Data")]
+        [SerializeField] private FireController fireController;
         [SerializeField] private BossArea area;
         [SerializeField] private HealthData health;
         [SerializeField] private int circlePointsCount;
@@ -46,7 +36,6 @@ namespace Enemy.Dragon
         [SerializeField] private Transform[] initialPath;
 
         [Header("Colliders")]
-        [SerializeField] private GameObject normalCollider;
         [SerializeField] private GameObject ramCollider;
 
         private Vector3[] nextPoints;
@@ -55,7 +44,6 @@ namespace Enemy.Dragon
         [SerializeField] private float stayTime;
         
         private Coroutine stopBattleCoroutine;
-        private bool hasBattleStarted;
 
         [Header("Dragon Stats")]
         [SerializeField] private float ramSpeed;
@@ -72,10 +60,9 @@ namespace Enemy.Dragon
         [SerializeField] private List<GameObject> spawnablePickups;
         [SerializeField] private int objectsSpawned;
 
-        private LayerMask playerMask;
-        private Collider[] playerCollider;
-        
         private LayerMask groundMask;
+        
+        public bool HasBattleStarted { get; set; }
         
         public bool IsDefending { get; set; }
 
@@ -112,7 +99,7 @@ namespace Enemy.Dragon
         {
             animator = GetComponent<Animator>();
 
-            stateMachine = new DragonStateMachine(this);
+            stateMachine = new DragonStateMachine(fireController);
 
             nextPoints = new Vector3[circlePointsCount];
             
@@ -120,12 +107,7 @@ namespace Enemy.Dragon
             
             stateMachine.Initialize(NotInFightState);
 
-            playerMask = 1 << LayerMask.NameToLayer("Player");
-            playerCollider = new Collider[1];
-            
             groundMask = 1 << LayerMask.NameToLayer("Ground");
-            
-            fireSet.Initialize(this);
         }
 
         private void InitializeStates()
@@ -150,12 +132,12 @@ namespace Enemy.Dragon
 
         public void InitiateBattle()
         {
-            if (hasBattleStarted || stateMachine.CurrentState is DeadState)
+            if (HasBattleStarted || stateMachine.CurrentState is DeadState)
             {
                 return;
             }
 
-            hasBattleStarted = true;
+            HasBattleStarted = true;
                 
             health.currentHealth = health.maxHealth;
 
@@ -188,36 +170,9 @@ namespace Enemy.Dragon
             }
             
             stateMachine.ChangeState(PlayerRanAwayState);
-            
-            hasBattleStarted = false;
 
             onStopBattle.Invoke();
         }
-
-        public void EruptFlamesGround()
-            => eruptFlamesCoroutine = StartCoroutine(EruptFlamesFromMouth(groundMouth));
-
-        public void StopEruptingFlames()
-        {
-            if (eruptFlamesCoroutine != null)
-            {
-                StopCoroutine(eruptFlamesCoroutine);
-            }
-        }
-
-        private IEnumerator EruptFlamesFromMouth(Transform mouth)
-        {
-            var waitForSeconds = new WaitForSeconds(fireDelay);
-            
-            while (true)
-            {
-                Instantiate(firePrefab, mouth.position, mouth.rotation);
-                yield return waitForSeconds;
-            }
-        }
-
-        public void EruptFlamesFlying()
-            => eruptFlamesCoroutine = StartCoroutine(EruptFlamesFromMouth(flyMouth));
 
         public float DistanceTo(Vector3 point)
             => (transform.position - point).magnitude;
@@ -228,7 +183,7 @@ namespace Enemy.Dragon
             
             var explosionPoint = transform.position;
             explosionPoint.y = BaseHeight;
-            if (Physics.OverlapSphereNonAlloc(transform.position, 30f, playerCollider, playerMask) == 1)
+            if (Vector3.Distance(transform.position, playerScriptableObject.GetActualPlayerPosition()) < 30f)
             {
                 playerScriptableObject.PlayerRigidbody.AddExplosionForce(600f, explosionPoint, 30f, 6.0f);
 
@@ -282,52 +237,12 @@ namespace Enemy.Dragon
 
             return position;
         }
-        public void StartDealingFireDamage(Actor actor)
-        {
-            if (!hasPlayerTouchedFire)
-            {
-                dealFireDamageCoroutine = StartCoroutine(DealFireDamage(actor));
-            }
-
-            if (tryStopDealingFireDamageCoroutine != null)
-            {
-                StopCoroutine(tryStopDealingFireDamageCoroutine);
-            }
-        }
-
-        public void StopDealingFireDamage()
-        {
-            tryStopDealingFireDamageCoroutine = StartCoroutine(TryStopFireDamage());
-        }
-
-        private IEnumerator DealFireDamage(Actor actor)
-        {
-            hasPlayerTouchedFire = true;
-            
-            var wait = new WaitForSeconds(fireDamageDelay);
-
-            while (true)
-            {
-                actor.OnTakeDamage(fireDamage, actorData.affiliation);
-
-                yield return wait;
-            }
-        }
-
-        private IEnumerator TryStopFireDamage()
-        {
-            var wait = new WaitForSeconds(fireNotTouchTime);
-            yield return wait;
-
-            hasPlayerTouchedFire = false;
-            StopCoroutine(dealFireDamageCoroutine);
-        }
 
         public float BaseHeight => areaPlane.position.y;
 
         public override void OnKill()
         {
-            if (!hasBattleStarted || isKilled)
+            if (!HasBattleStarted || isKilled)
             {
                 return;
             }

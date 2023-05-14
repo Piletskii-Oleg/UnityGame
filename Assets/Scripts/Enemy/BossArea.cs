@@ -3,7 +3,7 @@ using UnityEngine.Events;
 
 namespace Enemy
 {
-    public class BossArea : CircleAreaBase
+    public class BossArea : CircleArea
     {
         private SphereCollider sphereCollider;
         
@@ -21,7 +21,6 @@ namespace Enemy
         {
             if (other.gameObject.CompareTag("Player"))
             {
-                Debug.Log("exit");
                 onAreaExit.Invoke();
             }
         }
@@ -30,7 +29,6 @@ namespace Enemy
         {
             if (other.gameObject.CompareTag("Player"))
             {
-                Debug.Log("enter");
                 onAreaEnter.Invoke();
             }
         }

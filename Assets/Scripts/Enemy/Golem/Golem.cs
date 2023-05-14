@@ -1,17 +1,14 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using DG.Tweening;
 using Enemy.Golem.States;
 using Shared.ScriptableObjects;
 using UnityEngine;
 using UnityEngine.AI;
-using Random = UnityEngine.Random;
 
 namespace Enemy.Golem
 {
     public class Golem : Enemy
     {
-        private static readonly int death = Animator.StringToHash("Die");
-        
         [Header("Base Position")]
         [SerializeField] private bool hasBasePoint;
         [SerializeField] private Transform basePoint;
@@ -67,9 +64,6 @@ namespace Enemy.Golem
             
             animator = GetComponent<Animator>();
             agent = GetComponent<NavMeshAgent>();
-            
-            playerMask = 1 << LayerMask.NameToLayer("Player");
-            playerInRange = new Collider[1];
 
             stateMachine = new GolemStateMachine();
             InitializeStates();
@@ -84,8 +78,6 @@ namespace Enemy.Golem
                 base.OnKill();
 
                 stateMachine.ChangeState(DeadState);
-
-                TriggerAnimation(death);
 
                 StartCoroutine(Disappear());
             }
@@ -158,20 +150,11 @@ namespace Enemy.Golem
         }
 
         public bool CheckBasePosition(Transform pointTransform)
-            => transform.position == pointTransform.position;
+            => Vector3.Distance(transform.position,pointTransform.position) < Mathf.Epsilon;
 
         public void TurnToBaseAngle()
         {
-            StartCoroutine(TurnToBaseAngleCoroutine());
-        }
-
-        private IEnumerator TurnToBaseAngleCoroutine()
-        {
-            while (Quaternion.Angle(transform.rotation, baseRotation) > Mathf.Epsilon)
-            {
-                transform.rotation = Quaternion.Lerp(transform.rotation, baseRotation, 0.02f * Time.deltaTime);
-                yield return null;
-            }
+            transform.DORotateQuaternion(baseRotation, 0.7f);
         }
 
         public Vector3 FindPlayer()

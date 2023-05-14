@@ -3,7 +3,7 @@ using UnityEngine.Serialization;
 
 namespace Enemy
 {
-    public class CircleAreaBase : MonoBehaviour
+    public class CircleArea : MonoBehaviour
     {
         [FormerlySerializedAs("radius")]
         [Tooltip("Radius of a circle in which enemy can roam freely")]
@@ -63,7 +63,7 @@ namespace Enemy
         
         private void OnDrawGizmos()
         {
-            Gizmos.DrawWireSphere(transform.position, enemyRoamRadius);
+            // Gizmos.DrawWireSphere(transform.position, enemyRoamRadius);
         }
     }
 }

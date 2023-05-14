@@ -81,22 +81,7 @@ namespace Shared
         /// <param name="animationHash">Hash that corresponds to some animation variable.</param>
         public void TriggerAnimation(int animationHash)
             => animator.SetTrigger(animationHash);
-        
-        public void InvokeAfterSeconds<T>(Func<T> function, float seconds)
-            => StartCoroutine(InvokeAfterSecondsCoroutine(function, seconds));
 
-        private static IEnumerator InvokeAfterSecondsCoroutine<T>(Func<T> function, float seconds)
-        {
-            float timePassed = 0;
-            while (timePassed < seconds)
-            {
-                timePassed += Time.deltaTime;
-                yield return null;
-            }
-
-            function.Invoke();
-        }
-        
         protected static Vector3 GenerateRandomVector(float minValue = 0f, float maxValue = 10f)
         {
             float valueX = Random.Range(minValue, maxValue);

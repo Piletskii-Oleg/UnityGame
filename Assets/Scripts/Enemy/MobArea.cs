@@ -7,7 +7,7 @@ namespace Enemy
     /// <summary>
     /// Area in which an enemy can operate.
     /// </summary>
-    public class MobArea : CircleAreaBase
+    public class MobArea : CircleArea
     {
         private readonly List<GameObject> enemies = new();
 

@@ -1,18 +1,18 @@
 ﻿using Shared;
 using UnityEngine;
 
-namespace Enemy.Dragon
+namespace Enemy.Dragon.Fire
 {
     [CreateAssetMenu(menuName = "Actor/Dragon/DragonFireSet", order = 0)]
     public class DragonFireSet : ScriptableObject
     {
         private int fireCount;
-        private Dragon dragon;
+        private FireController fireController;
 
-        public void Initialize(Dragon dragon)
+        public void Initialize(FireController fireController)
         {
             fireCount = 0;
-            this.dragon = dragon;
+            this.fireController = fireController;
         }
         
         public void StepInFire(Actor actor)
@@ -26,7 +26,7 @@ namespace Enemy.Dragon
 
             if (fireCount == 1)
             {
-                dragon.StartDealingFireDamage(actor);
+                fireController.StartDealingFireDamage(actor);
             }
         }
 
@@ -36,7 +36,7 @@ namespace Enemy.Dragon
 
             if (fireCount == 0)
             {
-                dragon.StopDealingFireDamage();
+                fireController.StopDealingFireDamage();
             }
         }
     }

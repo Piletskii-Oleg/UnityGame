@@ -10,6 +10,7 @@ namespace Shared.ScriptableObjects
     {
         [Header("Health parameters")]
         public float maxHealth;
+        
         public float currentHealth;
     }
 }

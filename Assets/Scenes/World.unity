@@ -2273,7 +2273,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 111919186}
   m_LocalRotation: {x: -0, y: 0.35249272, z: -0, w: 0.93581456}
-  m_LocalPosition: {x: 134.33, y: 52.15, z: -204.33}
+  m_LocalPosition: {x: 252.7, y: 52.15, z: 169.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -80901,6 +80901,7 @@ GameObject:
   - component: {fileID: 4535078106736627743}
   - component: {fileID: 4535078106736627744}
   - component: {fileID: 4535078106736627745}
+  - component: {fileID: 4535078106736627746}
   m_Layer: 0
   m_Name: DragonBoss
   m_TagString: Untagged
@@ -83772,14 +83773,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   playerScriptableObject: {fileID: 11400000, guid: 203a95cfd29fdca4bbd08281315d3e08, type: 2}
-  firePrefab: {fileID: 1725317912486240, guid: 0efdfd8f60827f04ba06c9ef8a58a9ff, type: 3}
-  groundMouth: {fileID: 4535078106727648278}
-  flyMouth: {fileID: 4535078106727624542}
-  fireSet: {fileID: 11400000, guid: 3e5f74144ffbe7a43a96c091a935efbe, type: 2}
-  fireDelay: 0.01
-  fireDamageDelay: 1.03
-  fireDamage: 3
-  fireNotTouchTime: 1.59
+  fireController: {fileID: 4535078106736627746}
   area: {fileID: 747354217}
   health: {fileID: 11400000, guid: 53358c41919951b459a17ec361e104bd, type: 2}
   circlePointsCount: 12
@@ -83788,7 +83782,6 @@ MonoBehaviour:
   - {fileID: 981240616}
   - {fileID: 1565642968}
   - {fileID: 1127676877}
-  normalCollider: {fileID: 0}
   ramCollider: {fileID: 933806843}
   stayTime: 15
   ramSpeed: 77.2
@@ -83875,6 +83868,27 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &4535078106736627746
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4535078106727409824}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 379973ddefdb47478be6db5bf3ec6367, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  firePrefab: {fileID: 1725317912486240, guid: 0efdfd8f60827f04ba06c9ef8a58a9ff, type: 3}
+  groundMouth: {fileID: 4535078106727648278}
+  flyMouth: {fileID: 4535078106727624542}
+  actorData: {fileID: 11400000, guid: 1f6da4f997346244189c1176a6f3da67, type: 2}
+  fireSet: {fileID: 11400000, guid: 3e5f74144ffbe7a43a96c091a935efbe, type: 2}
+  fireDelay: 0.01
+  fireDamageDelay: 0.8
+  fireDamage: 3
+  fireNotTouchTime: 1.5
 --- !u!137 &4535078106740874896
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 0

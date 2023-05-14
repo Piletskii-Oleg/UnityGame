@@ -44,7 +44,6 @@ namespace Enemy.Slime.States
             timePassed += Time.deltaTime;
             if (timePassed >= followTimeTact)
             {
-                timePassed = 0f;
                 UpdateTact();
             }
 
@@ -61,6 +60,8 @@ namespace Enemy.Slime.States
         /// </summary>
         private void UpdateTact()
         {
+            timePassed = 0f;
+            
             if (slime.LookForPlayer())
             {
                 slime.WalkToDestination(slime.PlayerPosition);

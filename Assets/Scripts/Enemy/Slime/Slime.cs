@@ -4,7 +4,6 @@ using Shared.ScriptableObjects;
 using Sound;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.Serialization;
 
 namespace Enemy.Slime
 {
@@ -57,9 +56,6 @@ namespace Enemy.Slime
 
         private void Start()
         {
-            playerMask = 1 << LayerMask.NameToLayer("Player");
-            playerInRange = new Collider[1];
-
             audioSource = GetComponent<AudioSource>();
             
             agent = GetComponent<NavMeshAgent>();

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace NPC.Dialogue
@@ -14,9 +15,10 @@ namespace NPC.Dialogue
         [SerializeField] private TMP_Text dialogue;
         [SerializeField] private List<TMP_Text> options;
 
+        [FormerlySerializedAs("textAppearingSpeed")]
         [Header("Settings")]
         [Tooltip("Time in seconds that passes between each letter appearing on the screen.")]
-        [SerializeField] private float textAppearingSpeed;
+        [SerializeField] private float textAppearingDelay;
 
         [Header("Events")]
         [SerializeField] private UnityEvent onEnableDialogue;
@@ -32,7 +34,7 @@ namespace NPC.Dialogue
         private void Start()
         {
             optionsSentences = new List<string>();
-            waitForSeconds = new WaitForSeconds(textAppearingSpeed);
+            waitForSeconds = new WaitForSeconds(textAppearingDelay);
         }
 
         /// <summary>

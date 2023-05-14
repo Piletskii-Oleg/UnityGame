@@ -40,6 +40,9 @@ namespace Enemy.Dragon.States
                 .OnKill(() =>
                 {
                     stateMachine.ChangeState(dragon.NotInFightState);
+                    
+                    dragon.HasBattleStarted = false;
+                    
                     dragon.gameObject.SetActive(false);
                 });
         }

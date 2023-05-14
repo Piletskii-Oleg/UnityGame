@@ -1,19 +1,22 @@
-﻿namespace Enemy.Dragon
+﻿using Enemy.Dragon.Fire;
+using Enemy.Dragon.States;
+
+namespace Enemy.Dragon
 {
     public class DragonStateMachine : BaseStateMachine
     {
-        private readonly Dragon dragon;
+        private readonly FireController fireController;
 
-        public DragonStateMachine(Dragon dragon)
+        public DragonStateMachine(FireController fireController)
         {
-            this.dragon = dragon;
+            this.fireController = fireController;
         }
         
         public override void ChangeState(BaseState newState)
         {
-            dragon.StopEruptingFlames();
+            fireController.StopEruptingFlames();
             
-            if (CurrentState != dragon.PlayerRanAwayState)
+            if (CurrentState.GetType() != typeof(PlayerRanAwayState))
             {
                 base.ChangeState(newState);
             }

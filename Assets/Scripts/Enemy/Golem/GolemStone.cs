@@ -20,9 +20,7 @@ namespace Enemy.Golem
         private bool hasHit;
 
         private void Start()
-        {
-            rigidBody = GetComponent<Rigidbody>();
-        }
+            => rigidBody = GetComponent<Rigidbody>();
 
         /// <summary>
         /// Initializes values that are received from Golem.
@@ -63,10 +61,8 @@ namespace Enemy.Golem
         private IEnumerator Disappear()
         {
             yield return new WaitForSeconds(stoneData.timeUntilDisappearing);
-
-            var stone = gameObject;
-            stone.SetActive(false);
-            Destroy(stone);
+            
+            Destroy(gameObject);
         }
     }
 }

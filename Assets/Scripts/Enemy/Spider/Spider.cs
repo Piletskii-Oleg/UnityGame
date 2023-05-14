@@ -38,12 +38,7 @@ namespace Enemy.Spider
         /// Dead state of the spider.
         /// </summary>
         public DeadState DeadState { get; private set; }
-        
-        /// <summary>
-        /// State of the spider when it just spawned.
-        /// </summary>
-        public SpawnedState SpawnedState { get; private set; }
-        
+
         /// <summary>
         /// The <see cref="NavMeshAgent"/> component of the spider.
         /// </summary>
@@ -55,9 +50,6 @@ namespace Enemy.Spider
             
             animator = GetComponent<Animator>();
             agent = GetComponent<NavMeshAgent>();
-            
-            playerMask = 1 << LayerMask.NameToLayer("Player");
-            playerInRange = new Collider[1];
 
             stateMachine = new SpiderStateMachine();
             InitializeStates();
@@ -101,7 +93,7 @@ namespace Enemy.Spider
         /// </summary>
         /// <returns></returns>
         public Vector3 GetNewPositionInLocalArea()
-            => CircleAreaBase.GetNewPosition(lookRadius, transform.position);
+            => CircleArea.GetNewPosition(lookRadius, transform.position);
 
         /// <summary>
         /// Gets position of the player in the world.

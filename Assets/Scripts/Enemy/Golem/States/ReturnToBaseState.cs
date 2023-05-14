@@ -9,6 +9,7 @@ namespace Enemy.Golem.States
 
         private const float basePointStoppingDistance = 2.0f;
         private readonly float agentStoppingDistance;
+        
         public ReturnToBaseState(Golem golem, BaseStateMachine stateMachine, Transform basePoint)
             : base(golem, stateMachine)
         {
@@ -45,6 +46,6 @@ namespace Enemy.Golem.States
         }
         
         private bool IsFarFromBase()
-            => (golemTransform.position - basePosition).magnitude > basePointStoppingDistance;
+            => Vector3.Distance(golemTransform.position, basePosition) > basePointStoppingDistance;
     }
 }

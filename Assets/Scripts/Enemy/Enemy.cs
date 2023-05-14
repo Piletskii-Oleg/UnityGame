@@ -15,10 +15,7 @@ namespace Enemy
         private static readonly int doStep = Animator.StringToHash("DoStep");
         
         protected BaseStateMachine stateMachine;
-        
-        protected LayerMask playerMask;
-        protected Collider[] playerInRange;
-        
+
         protected NavMeshAgent agent;
 
         private LayerMask groundMask;
@@ -96,9 +93,7 @@ namespace Enemy
         {
             PlayerPosition = playerScriptableObject.GetActualPlayerPosition();
             
-            int found = Physics.OverlapSphereNonAlloc(transform.position, lookRadius, playerInRange, playerMask);
-            
-            return found == 1;
+            return Vector3.Distance(PlayerPosition, transform.position) < lookRadius;
         }
 
         /// <summary>

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using Enemy.FlyingDragon.States;
+﻿using Enemy.FlyingDragon.States;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -26,6 +24,8 @@ namespace Enemy.FlyingDragon
         public TakeOffState TakeOffState { get; private set; }
         
         public LandingState LandingState { get; private set; }
+        
+        public HiddenState HiddenState { get; private set; }
 
         public float Speed => speed;
 
@@ -46,6 +46,7 @@ namespace Enemy.FlyingDragon
             FlyAroundState = new FlyAroundState(this, stateMachine, pointsAbove, pointsTo);
             TakeOffState = new TakeOffState(this, stateMachine);
             LandingState = new LandingState(this, stateMachine);
+            HiddenState = new HiddenState(this, stateMachine);
         }
 
         private void Update()
@@ -73,6 +74,8 @@ namespace Enemy.FlyingDragon
         public void Stop()
         {
             stateMachine.KillSequence();
+            
+            stateMachine.ChangeState(HiddenState);
             
             transform.position = Vector3.zero;
         }
