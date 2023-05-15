@@ -89,6 +89,11 @@ namespace Weapons.ScriptableObjects
 
         public override void SaveData(GameData data)
         {
+            foreach (var item in weapons)
+            {
+                item.SaveData();
+            }
+            
             data.currentWeaponIndex = CurrentIndex;
             data.storedWeapons = weapons;
         }
@@ -100,6 +105,8 @@ namespace Weapons.ScriptableObjects
             {
                 var foundData = allWeaponsData.weapons.Find(value => value.showName == item.Name);
                 item.SetData(foundData);
+                
+                item.LoadData();
             }
             
             CurrentIndex = data.currentWeaponIndex;

@@ -16,9 +16,9 @@ MonoBehaviour:
   damage: 0
   maxDistance: 30
   canAutoShoot: 0
-  totalAmmo: 0
   currentTotalAmmo: 0
-  currentAmmo: 3
+  totalAmmo: 0
+  currentAmmo: 0
   ammoCapacity: 3
   fireRate: 15
   reloadTime: 10

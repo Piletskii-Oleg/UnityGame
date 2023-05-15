@@ -27,6 +27,10 @@ namespace Weapons
         /// </summary>
         [field:SerializeField] public bool HasShot { get; set; }
 
+        public int currentTotalAmmo;
+
+        public int currentAmmo;
+
         /// <summary>
         /// Initializes new instance of an <see cref="GunItem"/> class.
         /// </summary>
@@ -62,6 +66,18 @@ namespace Weapons
             }
 
             return false;
+        }
+
+        public void SaveData()
+        {
+            currentTotalAmmo = Data.currentTotalAmmo;
+            currentAmmo = Data.currentAmmo;
+        }
+        
+        public void LoadData()
+        {
+            Data.currentTotalAmmo = currentTotalAmmo;
+            Data.currentAmmo = currentAmmo;
         }
     }
 }

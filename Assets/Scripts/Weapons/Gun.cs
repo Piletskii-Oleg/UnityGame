@@ -82,7 +82,7 @@ namespace Weapons
             isReloading = true;
 
             yield return reloadWait;
-
+            
             gunData.currentTotalAmmo -= (gunData.ammoCapacity - gunData.currentAmmo);
             gunData.currentAmmo = gunData.ammoCapacity;
 
