@@ -35,14 +35,17 @@ namespace DataPersistence
 
             FileDataHandler.Save(storedData, Application.persistentDataPath, fileName);
         }
-        
+
+        public virtual void Load()
+            => LoadFrom(FileDataHandler.Load<TData>(Application.persistentDataPath, fileName));
+
         /// <summary>
         /// Invokes OnLoadGame event on all <see cref="MonoBehaviour"/>s it is attached to
         /// and loads stored data to all <see cref="DataManager{TData}"/>.
         /// </summary>
-        public virtual void Load()
+        protected void LoadFrom(TData data)
         {
-            storedData = FileDataHandler.Load<TData>(Application.persistentDataPath, fileName);
+            storedData = data;
             
             foreach (var obj in dataManagers)
             {

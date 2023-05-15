@@ -8,11 +8,12 @@ namespace UI.MainMenu
     public class Menu : MonoBehaviour
     {
         [FormerlySerializedAs("optionsManager")]
+        [SerializeField] private GameDataManager gameDataManager;
         [SerializeField] private OptionsDataManager optionsDataManager;
         
         public void StartNewGame()
         {
-           // gameDataManager.NewGame();
+            gameDataManager.NewGame();
             SceneManager.LoadScene("World");
         }
 

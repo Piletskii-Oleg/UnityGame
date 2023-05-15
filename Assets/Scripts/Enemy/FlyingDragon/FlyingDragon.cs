@@ -59,9 +59,15 @@ namespace Enemy.FlyingDragon
         public void TriggerAnimation(int animationHash)
             => animator.SetTrigger(animationHash);
 
+        /// <summary>
+        /// Destroys the dragon. Used when the dragon boss is killed.
+        /// </summary>
         public void Kill()
             => Destroy(gameObject);
 
+        /// <summary>
+        /// Respawns the flying dragon. Used when the dragon boss fight had been initiated but not finished.
+        /// </summary>
         public void Respawn()
         {
             transform.position = pointsTo[Random.Range(0, pointsTo.Length)].position;
@@ -71,6 +77,9 @@ namespace Enemy.FlyingDragon
             stateMachine.ChangeState(StandState);
         }
 
+        /// <summary>
+        /// Stops the flying dragon and hides it. Used when the dragon boss fight is initiated.
+        /// </summary>
         public void Stop()
         {
             stateMachine.KillSequence();

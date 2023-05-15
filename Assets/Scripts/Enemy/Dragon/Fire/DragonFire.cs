@@ -9,8 +9,13 @@ namespace Enemy.Dragon.Fire
     {
         [SerializeField] private DragonFireSet fireSet;
 
+        [Tooltip("Time in seconds after which the fire disappears")]
         [SerializeField] private float fireStayTime;
+        
+        [Tooltip("Speed at which fire will move forward relative to the dragon")]
         [SerializeField] private float fireSpeed;
+        
+        [Tooltip("Speed at which fire will fall at the ground")]
         [SerializeField] private float fireFallSpeed;
 
         private bool isTouching;

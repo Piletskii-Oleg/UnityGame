@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0e583f8ea7041ea89302a261700d1de, type: 3}
   m_Name: DataPersistenceManager
   m_EditorClassIdentifier: 
-  fileName: gamedata.json
   dataManagers:
   - {fileID: 11400000, guid: 96eacc446dde72e4994671b6b1edd0b1, type: 2}
   - {fileID: 11400000, guid: e89bbf54677811741bcf2548a831c9e1, type: 2}
+  fileName: gamedata.json
   onSaveGame:
     m_PersistentCalls:
       m_Calls:
@@ -48,3 +48,25 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  baseRotation: {x: 0, y: -0.67559016, z: 0, w: 0.7372773}
+  basePosition: {x: 207.667, y: 50.95, z: 442.784}
+  startingWeapons:
+  - <Name>k__BackingField: Pistol
+    <Data>k__BackingField: {fileID: 11400000, guid: bbd04348bcf88dc4d8984840f80df4ff, type: 2}
+    <IsObtained>k__BackingField: 0
+    <HasShot>k__BackingField: 0
+    currentTotalAmmo: 120
+    currentAmmo: 10
+  - <Name>k__BackingField: SMG
+    <Data>k__BackingField: {fileID: 11400000, guid: 2f76d0ffa1a936a4abaa8f78021d941c, type: 2}
+    <IsObtained>k__BackingField: 0
+    <HasShot>k__BackingField: 0
+    currentTotalAmmo: 200
+    currentAmmo: 40
+  - <Name>k__BackingField: Grapple Gun
+    <Data>k__BackingField: {fileID: 11400000, guid: 9914abf8621a5ea43ac64d310fb218bb, type: 2}
+    <IsObtained>k__BackingField: 0
+    <HasShot>k__BackingField: 0
+    currentTotalAmmo: 0
+    currentAmmo: 3
+  startingItems: []

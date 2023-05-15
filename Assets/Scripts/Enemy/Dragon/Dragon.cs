@@ -33,6 +33,8 @@ namespace Enemy.Dragon
         [SerializeField] private HealthData health;
         [SerializeField] private int circlePointsCount;
         [SerializeField] private Transform areaPlane;
+        
+        [Tooltip("Path which the dragon will use to come to arena.")]
         [SerializeField] private Transform[] initialPath;
 
         [Header("Colliders")]
@@ -130,6 +132,10 @@ namespace Enemy.Dragon
         private void Update()
             => stateMachine.CurrentState?.Tick();
 
+        /// <summary>
+        /// Tries to initiate battle with the dragon. Does nothing if the dragon is dead
+        /// or the battle had already begun.
+        /// </summary>
         public void InitiateBattle()
         {
             if (HasBattleStarted || stateMachine.CurrentState is DeadState)
@@ -144,6 +150,9 @@ namespace Enemy.Dragon
             stateMachine.ChangeState(InitiateBattleState);
         }
 
+        /// <summary>
+        /// Called when the player enters the boss area.
+        /// </summary>
         public void EnterArea()
         {
             if (stopBattleCoroutine != null)
@@ -174,9 +183,17 @@ namespace Enemy.Dragon
             onStopBattle.Invoke();
         }
 
+        /// <summary>
+        /// Calculates distance from the dragon to <see cref="point"/>.
+        /// </summary>
+        /// <param name="point">Point to calculate distance to.</param>
+        /// <returns>Distance between the dragon and the <see cref="point"/>.</returns>
         public float DistanceTo(Vector3 point)
             => (transform.position - point).magnitude;
 
+        /// <summary>
+        /// Called when the dragon smashes the ground.
+        /// </summary>
         public void SmashGround()
         {
             SpawnPickups();
@@ -208,6 +225,10 @@ namespace Enemy.Dragon
             }
         }
 
+        /// <summary>
+        /// Gets array of points, located on a circle on a distance of 360 / <see cref="nextPoints"/>.Length.
+        /// </summary>
+        /// <returns>Array of points on a circle.</returns>
         public Vector3[] GetPointsAround()
         {
             float offset = Random.Range(0f, 360f);
@@ -220,6 +241,10 @@ namespace Enemy.Dragon
             return nextPoints;
         }
 
+        /// <summary>
+        /// Gets a point in the area with the height adjusted to match the ground or any objects located on it.
+        /// </summary>
+        /// <returns></returns>
         public Vector3 GetPointInArea()
         {
             var position = area.GetNewPosition();
@@ -238,6 +263,9 @@ namespace Enemy.Dragon
             return position;
         }
 
+        /// <summary>
+        /// Base height of the area.
+        /// </summary>
         public float BaseHeight => areaPlane.position.y;
 
         public override void OnKill()

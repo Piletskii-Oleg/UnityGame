@@ -2,6 +2,9 @@
 
 namespace Enemy.FlyingDragon.States
 {
+    /// <summary>
+    /// State that corresponds to the dragon landing to the ground.
+    /// </summary>
     public class LandingState : FlyingBaseState
     {
         private static readonly int landing = Animator.StringToHash("Land");

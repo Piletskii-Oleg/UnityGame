@@ -10,6 +10,9 @@ using Random = UnityEngine.Random;
 
 namespace Enemy
 {
+    /// <summary>
+    /// Base class for a basic enemy.
+    /// </summary>
     public class Enemy : Actor
     {
         private static readonly int doStep = Animator.StringToHash("DoStep");
@@ -49,6 +52,7 @@ namespace Enemy
         [SerializeField] private float timeUntilDisappearing;
 
         [Header("Spawned Objects")]
+        [Tooltip("Objects that are spawned after enemy's death")]
         [SerializeField] private List<GameObject> spawnedObjects;
 
         [SerializeField] private int spawnedObjectsCount;

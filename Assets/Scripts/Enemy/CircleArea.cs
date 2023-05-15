@@ -3,6 +3,9 @@ using UnityEngine.Serialization;
 
 namespace Enemy
 {
+    /// <summary>
+    /// Component for an area in which enemies can operate.
+    /// </summary>
     public class CircleArea : MonoBehaviour
     {
         [FormerlySerializedAs("radius")]

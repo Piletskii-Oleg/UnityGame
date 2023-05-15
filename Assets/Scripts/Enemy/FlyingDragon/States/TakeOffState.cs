@@ -2,6 +2,9 @@
 
 namespace Enemy.FlyingDragon.States
 {
+    /// <summary>
+    /// State that corresponds to the dragon taking off the ground.
+    /// </summary>
     public class TakeOffState : FlyingBaseState
     {
         private const float takeOffTime = 4f; // length of the TakeOff animation

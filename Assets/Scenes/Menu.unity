@@ -1493,6 +1493,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76d4f414618948af9424bd5ef8e0c2c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameDataManager: {fileID: 11400000, guid: b95eb12bd5ac9704a87bb9861742978a, type: 2}
   optionsDataManager: {fileID: 11400000, guid: 53b4588eed76ae84f9c69d8c5b25c606, type: 2}
 --- !u!1001 &377560606
 PrefabInstance:

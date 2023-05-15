@@ -6,6 +6,9 @@ using UnityEngine;
 
 namespace Enemy.Golem
 {
+    /// <summary>
+    /// Component for a stone that is thrown by the golem.
+    /// </summary>
     public class GolemStone : MonoBehaviour
     {
         [SerializeField] private GolemStoneData stoneData;

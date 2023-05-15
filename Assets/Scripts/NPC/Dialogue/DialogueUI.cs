@@ -65,9 +65,7 @@ namespace NPC.Dialogue
         private void ShowNextDialogue()
         {
             DeactivateOldOptions();
-            
-            LoadOptions();
-            
+
             FillDialogueBox();
         }
 
@@ -84,26 +82,20 @@ namespace NPC.Dialogue
             fillDialogueBoxCoroutine = StartCoroutine(FillDialogueBoxCoroutine());
         }
 
-        /// <summary>
-        /// Loads dialogue options from the <see cref="DialogueObject"/>.
-        /// </summary>
-        private void LoadOptions()
+        private void LoadOption(int index)
         {
-            for (int i = 0; i < dialogueManager.CurrentDialogue.NextDialogues.Count; i++)
+            options[index].gameObject.SetActive(true);
+
+            optionsSentences.Add(dialogueManager.CurrentDialogue.NextDialogues[index].Name);
+
+            int localI = index;
+            var button = options[index].gameObject.GetComponent<Button>();
+            button.onClick.RemoveAllListeners();
+            button.onClick.AddListener(() =>
             {
-                options[i].gameObject.SetActive(true);
-
-                optionsSentences.Add(dialogueManager.CurrentDialogue.NextDialogues[i].Name);
-
-                int localI = i;
-                var button = options[i].gameObject.GetComponent<Button>();
-                button.onClick.RemoveAllListeners();
-                button.onClick.AddListener(() =>
-                {
-                    dialogueManager.ChangeCurrentDialogueObject(options[localI].text);
-                    ShowNextDialogue();
-                });
-            }
+                dialogueManager.ChangeCurrentDialogueObject(optionsSentences[localI]);
+                ShowNextDialogue();
+            });
         }
 
         /// <summary>
@@ -121,7 +113,9 @@ namespace NPC.Dialogue
 
             for (int i = 0; i < dialogueManager.CurrentDialogue.NextDialogues.Count; i++)
             {
+                LoadOption(i);
                 string optionText = optionsSentences[i];
+                
                 if (fillTextBoxCoroutine != null)
                 {
                     StopCoroutine(fillTextBoxCoroutine);

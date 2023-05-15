@@ -29,6 +29,11 @@ namespace Sound
         /// </summary>
         public void PlayBackgroundMusic(AudioClip clip)
         {
+            if (clip == audioSource.clip)
+            {
+                return;
+            }
+            
             if (playMusic != null)
             {
                 StopCoroutine(playMusic);

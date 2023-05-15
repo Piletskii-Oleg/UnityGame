@@ -30,6 +30,7 @@ namespace Enemy
         [Tooltip("Prefab that contains the enemy")]
         [SerializeField] private List<GameObject> enemyPrefabs;
 
+        [Tooltip("Points at which enemies can spawn")]
         [SerializeField] private List<Transform> spawnPoints;
 
         private float timePassed;

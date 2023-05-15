@@ -2,6 +2,9 @@
 
 namespace Enemy.FlyingDragon.States
 {
+    /// <summary>
+    /// State that corresponds to the dragon standing on the ground and waiting.
+    /// </summary>
     public class StandState : FlyingBaseState
     {
         private const float idleTime = 3.2f;

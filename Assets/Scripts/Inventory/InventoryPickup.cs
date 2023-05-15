@@ -10,8 +10,8 @@ namespace Inventory
     public class InventoryPickup : MonoBehaviour, IInteractable
     {
         [SerializeField] private string promptMessage;
-        [SerializeField] private InventoryManager inventoryManager;
-        [SerializeField] private InventoryItemData inventoryItemData;
+        [SerializeField] protected InventoryManager inventoryManager;
+        [SerializeField] protected InventoryItemData inventoryItemData;
 
         /// <summary>
         /// Adds the object to the player's inventory and removes it from the world.

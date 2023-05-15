@@ -3,6 +3,9 @@ using UnityEngine.Events;
 
 namespace Enemy
 {
+    /// <summary>
+    /// Component for an area in which boss can operate.
+    /// </summary>
     public class BossArea : CircleArea
     {
         private SphereCollider sphereCollider;

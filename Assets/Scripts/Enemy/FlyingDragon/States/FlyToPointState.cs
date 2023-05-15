@@ -5,6 +5,9 @@ using DG.Tweening;
 
 namespace Enemy.FlyingDragon.States
 {
+    /// <summary>
+    /// State that corresponds to the dragon flying to a randomly chosen point on the map.
+    /// </summary>
     public class FlyToPointState : FlyingBaseState
     {
         private readonly Vector3[] points;

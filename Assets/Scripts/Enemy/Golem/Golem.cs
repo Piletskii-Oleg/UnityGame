@@ -16,12 +16,16 @@ namespace Enemy.Golem
 
         [Header("Golem Stats")]
         [SerializeField] private Transform rightHand;
+        
+        [Tooltip("Force with which golem will throw rocks")]
         [SerializeField] private float force;
 
         [Tooltip("Max angle at which golem can throw rocks (+angle and -angle from the forward vector)")]
         [SerializeField, Range(0f, 90f)] private float throwAngle;
         
+        [Tooltip("Stones that golem will spawn in its hand")]
         [SerializeField] private List<GameObject> stonePrefabs;
+        [Tooltip("Stones that will actually be thrown at player")]
         [SerializeField] private List<GameObject> stonePrefabsRigidbody;
 
         private GameObject heldStone;
@@ -52,7 +56,7 @@ namespace Enemy.Golem
         public DeadState DeadState { get; private set; }
         
         /// <summary>
-        /// Dead state of the golem.
+        /// State of the golem in which it returns to its base position.
         /// </summary>
         public ReturnToBaseState ReturnToBaseState { get; private set; }
 
@@ -97,11 +101,17 @@ namespace Enemy.Golem
             }
         }
 
+        /// <summary>
+        /// Spawns a stone in golem's hand.
+        /// </summary>
         public void SpawnStoneInHand()
         {
             heldStone = GameObjectSpawner.Spawn(stonePrefabs, rightHand);
         }
 
+        /// <summary>
+        /// Makes the golem throw a stone at player.
+        /// </summary>
         public void ThrowStone()
         {
             var rotation = heldStone.transform.rotation;

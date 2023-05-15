@@ -6,6 +6,9 @@ using Random = UnityEngine.Random;
 
 namespace Enemy.FlyingDragon.States
 {
+    /// <summary>
+    /// State that corresponds to the dragon flying around the map above the ground.
+    /// </summary>
     public class FlyAroundState : FlyingBaseState
     {
         private readonly Vector3[] highPoints;
