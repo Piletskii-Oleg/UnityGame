@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: SMGAmmo
   m_EditorClassIdentifier: 
   displayName: SMGAmmo
-  itemSprite: {fileID: 21300000, guid: 3bba7d673ff44e14c8d4977f17ad2514, type: 3}
+  itemSprite: {fileID: 21300000, guid: 42e02976bf42a5e488c63d8334d0d4dd, type: 3}
   canHandle: 0
   maxAmount: 600

@@ -48,6 +48,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  dialogueManagers: []
   baseRotation: {x: 0, y: -0.67559016, z: 0, w: 0.7372773}
   basePosition: {x: 207.667, y: 50.95, z: 442.784}
   startingWeapons:
@@ -63,7 +64,7 @@ MonoBehaviour:
     <HasShot>k__BackingField: 0
     currentTotalAmmo: 200
     currentAmmo: 40
-  - <Name>k__BackingField: Grapple Gun
+  - <Name>k__BackingField: GrappleGun
     <Data>k__BackingField: {fileID: 11400000, guid: 9914abf8621a5ea43ac64d310fb218bb, type: 2}
     <IsObtained>k__BackingField: 0
     <HasShot>k__BackingField: 0

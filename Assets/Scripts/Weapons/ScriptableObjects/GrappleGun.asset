@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7144a1b992746314eb1cf729446c6878, type: 3}
   m_Name: GrappleGun
   m_EditorClassIdentifier: 
-  showName: Grapple Gun
+  showName: GrappleGun
   damage: 0
   maxDistance: 30
   canAutoShoot: 0

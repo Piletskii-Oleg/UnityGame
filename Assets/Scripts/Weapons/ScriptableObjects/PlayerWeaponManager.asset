@@ -17,14 +17,20 @@ MonoBehaviour:
     <Data>k__BackingField: {fileID: 11400000, guid: bbd04348bcf88dc4d8984840f80df4ff, type: 2}
     <IsObtained>k__BackingField: 1
     <HasShot>k__BackingField: 0
+    currentTotalAmmo: 110
+    currentAmmo: 9
   - <Name>k__BackingField: SMG
     <Data>k__BackingField: {fileID: 11400000, guid: 2f76d0ffa1a936a4abaa8f78021d941c, type: 2}
     <IsObtained>k__BackingField: 1
     <HasShot>k__BackingField: 0
-  - <Name>k__BackingField: Grapple Gun
+    currentTotalAmmo: 8
+    currentAmmo: 37
+  - <Name>k__BackingField: GrappleGun
     <Data>k__BackingField: {fileID: 11400000, guid: 9914abf8621a5ea43ac64d310fb218bb, type: 2}
     <IsObtained>k__BackingField: 1
     <HasShot>k__BackingField: 0
+    currentTotalAmmo: 0
+    currentAmmo: 3
   onChangeWeapon:
     m_PersistentCalls:
       m_Calls:
