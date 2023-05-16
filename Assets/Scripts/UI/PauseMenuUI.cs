@@ -9,7 +9,6 @@ namespace UI
         
         [Header("Events")]
         [SerializeField] private UnityEvent onOpenMenu;
-
         [SerializeField] private UnityEvent onCloseMenu;
 
         private bool isMenuOpen;
@@ -28,8 +27,11 @@ namespace UI
         
         private void OpenMenu()
         {
-            Time.timeScale = 0f;
             pauseMenu.SetActive(true);
+            if (pauseMenu.activeInHierarchy)
+            {
+                Time.timeScale = 0f;
+            }
 
             isMenuOpen = true;
             
@@ -38,8 +40,12 @@ namespace UI
 
         public void CloseMenu()
         {
+            if (pauseMenu.activeInHierarchy)
+            {
+                Time.timeScale = 1f;
+            }
+            
             pauseMenu.SetActive(false);
-            Time.timeScale = 1f;
 
             isMenuOpen = false;
             

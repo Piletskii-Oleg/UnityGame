@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using DataPersistence.DataFiles;
 using Inventory;
+using NPC.Dialogue;
 using UnityEngine;
 using Weapons;
 
@@ -12,6 +13,8 @@ namespace DataPersistence
     [CreateAssetMenu(menuName = "Managers/Game Data Manager")]
     public class GameDataManager : BaseDataManager<GameData, DataManager<GameData>>
     {
+        [Header("Dialogue Managers")]
+        [SerializeField] private DialogueManager[] dialogueManagers;
         [Header("New Game Data")]
         [SerializeField] private Quaternion baseRotation;
         [SerializeField] private Vector3 basePosition;
@@ -28,6 +31,11 @@ namespace DataPersistence
                 playerPosition = basePosition,
                 playerRotation = baseRotation,
             };
+
+            foreach (var dialogueManager in dialogueManagers)
+            {
+                dialogueManager.ResetDialogue();
+            }
             
             LoadFrom(data);
             Save();

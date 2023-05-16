@@ -54,7 +54,7 @@ namespace Enemy.Slime
 
         public NavMeshAgent Agent => agent;
 
-        private void Start()
+        protected override void Awake()
         {
             audioSource = GetComponent<AudioSource>();
             
