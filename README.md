@@ -1,28 +1,13 @@
 # How to open
-1. Download latest version of Unity Editor
-2. Open the project's folder using Unity Editor
-3. Wait for the project to load
-4. Press File > Build and Run
+1. Download Unity Hub from the [official site](https://unity.com/download)
+2. Open the project's folder using Unity Hub
+3. Find folder `Assets/Scenes` and open the required scene.
+    - Main menu is on the scene `Menu`
+    - Game world is on the scene `World`
+    - `IconGenerationScene` is a helper scene that is used to make inventory item sprites
 
-# Used assets
-## Unity Technologies
-* Input System
-* TextMeshPro
-* Terrain Tools
-* Terrain Sample Asset Pack
-
-## Other
-
-* Skybox Series Free by Avionx
-* Sci-Fi Styled Modular Pack by karboosx
-* Crosshairs Plus by AssetBag
-* Sci-Fi Handgun by Life Hacker
-* Technology Menu UI by SlimUI
-* 3D Modern Menu UI by SlimUI
-* Free Orchestral Music Pack by Joe Gallagher
-* Free Sound Effects Pack by Olivier Girardot
-* Sci-fi Guns SFX Pack by Mikael Vanninen
-* Plasma Guns Set Lite (SMG) by Pirrateam
-* Hand Painted Nature Kit LITE by Silver Cats
-* Nature Starter Kit 2 by Shapes
-* Vegetation Spawner by Staggart Creations
+# How to build
+1. Select `File` > `Build Settings`
+2. Add scenes `World` and `Menu`
+3. (IMPORTANT) Place scene `Menu` above the scene `World`
+4. Press `Build and Run` and select the destination folder

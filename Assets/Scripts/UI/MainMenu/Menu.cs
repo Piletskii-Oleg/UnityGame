@@ -34,6 +34,9 @@ namespace UI.MainMenu
             }
         }
 
+        public void Quit()
+            => Application.Quit();
+
         private void OnEnable()
         {
             optionsDataManager.Load();
