@@ -6478,7 +6478,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 222315782}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c6764f96c2cb4b6284ac7bb56a75bd50, type: 3}
   m_Name: 
@@ -44798,7 +44798,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1438508569
 RectTransform:
   m_ObjectHideFlags: 0
@@ -65925,7 +65925,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2438166054fae9447beaa32edf8ea98f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameEvent: {fileID: 11400000, guid: e9cd4e2060db638499e3c82498043159, type: 2}
+  gameEvent: {fileID: 11400000, guid: 74d41876efe9c4544bedf9a3c1657f8e, type: 2}
   response:
     m_PersistentCalls:
       m_Calls:
@@ -65939,7 +65939,7 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 0
+          m_BoolArgument: 1
         m_CallState: 2
 --- !u!1001 &1985962413
 PrefabInstance:
@@ -77186,7 +77186,7 @@ MonoBehaviour:
   groundDistance: 0.5
   slopeLimit: 45
   moveSpeed: 4
-  runSpeed: 20
+  runSpeed: 8
   groundDrag: 2
   jumpForce: 6
   airMultiplier: 1.1
@@ -92591,11 +92591,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6012344493103962179, guid: 29623665f1bec4c45b18c3c85c512838, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6012344493103962179, guid: 29623665f1bec4c45b18c3c85c512838, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6012344494313852586, guid: 29623665f1bec4c45b18c3c85c512838, type: 3}
       propertyPath: m_Name
