@@ -71,7 +71,7 @@ namespace Enemy.Slime
         private void InitializeStates()
         {
             IdleState = new IdleState(this, stateMachine, facesList.idleFace);
-            WalkState = new WalkState(this, stateMachine, facesList.walkFace, area);
+            WalkState = new WalkState(this, stateMachine, facesList.walkFace);
             DamagedState = new DamagedState(this, stateMachine, facesList.damageFace, waitingTime);
             AttackState = new AttackState(this, stateMachine, facesList.attackFace, followTimeTact, timesPlayerIsSearched);
             DeadState = new DeadState(this, stateMachine, facesList.damageFace);
@@ -94,6 +94,9 @@ namespace Enemy.Slime
         public void SetFace(Texture texture)
             => faceMaterial.SetTexture(mainTex, texture);
 
+        public Vector3 GetNewPosition()
+            => area.GetNewPosition();
+        
         public override void OnKill()
         {
             if (!isKilled)

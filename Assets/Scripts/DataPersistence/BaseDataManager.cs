@@ -51,8 +51,18 @@ namespace DataPersistence
             {
                 obj.LoadData(storedData);
             }
+            
+            LoadMiscellaneous();
 
             onLoadGame.Invoke(storedData); // for MonoBehaviours
+        }
+
+        /// <summary>
+        /// A helper method to load something before applying it to the scene objects
+        /// which happens on invocation of <see cref="onLoadGame"/>.
+        /// </summary>
+        protected virtual void LoadMiscellaneous()
+        {
         }
     }
 }

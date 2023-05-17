@@ -22,6 +22,8 @@ namespace DataPersistence.DataFiles
         public Vector3 playerVelocity;
 
         public Quaternion cameraRotation;
+
+        public float health;
         
         /// <summary>
         /// Initializes new instance of <see cref="GameData"/> class.

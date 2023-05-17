@@ -14,6 +14,8 @@ namespace Shared
         [SerializeField] private UnityEvent<float> onHealthChangedEvent;
         [SerializeField] private UnityEvent onDeathEvent;
 
+        private bool isDead;
+
         private void Start()
         {
             healthData.currentHealth = healthData.maxHealth;
@@ -28,10 +30,14 @@ namespace Shared
             healthData.currentHealth -= damage;
             onHealthChangedEvent.Invoke(healthData.currentHealth / healthData.maxHealth);
 
-            if (healthData.currentHealth < 0)
+            if (healthData.currentHealth <= 0)
             {
                 healthData.currentHealth = 0;
-                onDeathEvent.Invoke();
+                if (!isDead)
+                {
+                    isDead = true;
+                    onDeathEvent.Invoke();
+                }
             }
 
             Debug.Log("Taken damage! " + gameObject.name + " - " + healthData.currentHealth);

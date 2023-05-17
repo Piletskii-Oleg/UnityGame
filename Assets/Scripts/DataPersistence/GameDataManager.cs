@@ -2,6 +2,7 @@
 using DataPersistence.DataFiles;
 using Inventory;
 using NPC.Dialogue;
+using Shared.ScriptableObjects;
 using UnityEngine;
 using Weapons;
 
@@ -15,13 +16,29 @@ namespace DataPersistence
     {
         [Header("Dialogue Managers")]
         [SerializeField] private DialogueManager[] dialogueManagers;
+
+        [Header("Health Data")]
+        [SerializeField] private HealthData healthData;
+        
         [Header("New Game Data")]
         [SerializeField] private Quaternion baseRotation;
         [SerializeField] private Vector3 basePosition;
 
         [SerializeField] private List<GunItem> startingWeapons;
         [SerializeField] private List<InventoryItem> startingItems;
-        
+
+        public override void Save()
+        {
+            storedData.health = healthData.currentHealth;
+            
+            base.Save();
+        }
+
+        protected override void LoadMiscellaneous()
+        {
+            healthData.currentHealth = storedData.health;
+        }
+
         public void NewGame()
         {
             var data = new GameData
@@ -30,13 +47,14 @@ namespace DataPersistence
                 storedItems = startingItems,
                 playerPosition = basePosition,
                 playerRotation = baseRotation,
+                health = 100,
             };
 
             foreach (var dialogueManager in dialogueManagers)
             {
                 dialogueManager.ResetDialogue();
             }
-            
+
             LoadFrom(data);
             Save();
         }

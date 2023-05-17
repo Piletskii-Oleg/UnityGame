@@ -48,7 +48,23 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  dialogueManagers: []
+      - m_Target: {fileID: 11400000, guid: 176c7f446ab7fbf4199f26c31cb460cd, type: 2}
+        m_TargetAssemblyTypeName: EventListeners.GameEvents.GameEvent, Scripts
+        m_MethodName: Raise
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  dialogueManagers:
+  - {fileID: 11400000, guid: 10c6655ac8aa0bf4a8ca544244512b10, type: 2}
+  - {fileID: 11400000, guid: 6949dea926a440345b01c9e2ba7ccd41, type: 2}
+  - {fileID: 11400000, guid: 31deddc5560cdb041b81ca51708dd2e3, type: 2}
+  healthData: {fileID: 11400000, guid: f86043b350c7f8846a1a5b2cf940e5eb, type: 2}
   baseRotation: {x: 0, y: -0.67559016, z: 0, w: 0.7372773}
   basePosition: {x: 207.667, y: 50.95, z: 442.784}
   startingWeapons:
