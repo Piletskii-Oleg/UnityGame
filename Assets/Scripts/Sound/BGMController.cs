@@ -11,6 +11,8 @@ namespace Sound
         [SerializeField] private MusicManager manager;
         [SerializeField] private float volumeDelta;
 
+        [SerializeField] private AudioClip defaultBGM;
+
         private AudioSource audioSource;
 
         private Coroutine playMusic;
@@ -18,7 +20,8 @@ namespace Sound
         private void Awake()
         {
             audioSource = GetComponent<AudioSource>();
-            PlayBackgroundMusic(audioSource.clip);
+
+            PlayBackgroundMusic(defaultBGM);
         }
 
         public void UpdateVolume()

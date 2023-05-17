@@ -24,5 +24,18 @@ namespace DataPersistence
 
         public void SetMouseSensitivity(string sensitivity)
             => MouseSensitivity = float.Parse(sensitivity);
+
+        public void CreateNewConfig()
+        {
+            var data = new OptionsData
+            {
+                musicVolume = 0.5f,
+                soundVolume = 0.5f,
+                mouseSensitivity = 0.12f,
+            };
+            
+            LoadFrom(data);
+            Save();
+        }
     }
 }

@@ -57,5 +57,11 @@ namespace Shared
 
             onHealthChangedEvent.Invoke(healthData.currentHealth / healthData.maxHealth);
         }
+        
+        /// <summary>
+        /// Makes it possible to kill the actor again.
+        /// </summary>
+        public void Revive()
+            => isDead = false;
     }
 }

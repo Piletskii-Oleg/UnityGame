@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
+using DG.Tweening.Plugins.Core.PathCore;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Windows;
 
 namespace DataPersistence
 {
@@ -63,6 +65,16 @@ namespace DataPersistence
         /// </summary>
         protected virtual void LoadMiscellaneous()
         {
+        }
+        
+        public bool CheckForSave()
+        {
+            if (System.IO.File.Exists(System.IO.Path.Combine(Application.persistentDataPath, fileName)))
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using DataPersistence;
+﻿using System;
+using DataPersistence;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
@@ -10,7 +11,15 @@ namespace UI.MainMenu
         [FormerlySerializedAs("optionsManager")]
         [SerializeField] private GameDataManager gameDataManager;
         [SerializeField] private OptionsDataManager optionsDataManager;
-        
+
+        private void Awake()
+        {
+            if (!optionsDataManager.CheckForSave())
+            {
+                optionsDataManager.CreateNewConfig();
+            }
+        }
+
         public void StartNewGame()
         {
             gameDataManager.NewGame();
@@ -19,7 +28,10 @@ namespace UI.MainMenu
 
         public void Continue()
         {
-            SceneManager.LoadScene("World", LoadSceneMode.Single);
+            if (gameDataManager.CheckForSave())
+            {
+                SceneManager.LoadScene("World", LoadSceneMode.Single);
+            }
         }
 
         private void OnEnable()
