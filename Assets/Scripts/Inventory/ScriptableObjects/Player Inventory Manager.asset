@@ -43,19 +43,13 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   items:
-  - <Name>k__BackingField: Ball
-    <Data>k__BackingField: {fileID: 11400000, guid: 8133ebe1e2c15fa40be4c7bb574b57e3, type: 2}
-    <StackSize>k__BackingField: 7
   - <Name>k__BackingField: Pistol
     <Data>k__BackingField: {fileID: 11400000, guid: e76d9089b9799b946855f053fa1507e3, type: 2}
     <StackSize>k__BackingField: 1
-  - <Name>k__BackingField: SMG
-    <Data>k__BackingField: {fileID: 11400000, guid: b17aa45fc4b1c2f4980aad4044735aca, type: 2}
-    <StackSize>k__BackingField: 1
   - <Name>k__BackingField: PistolAmmo
     <Data>k__BackingField: {fileID: 11400000, guid: c152c74328a2b674680f2f05598d214f, type: 2}
-    <StackSize>k__BackingField: 120
-  - <Name>k__BackingField: SMGAmmo
-    <Data>k__BackingField: {fileID: 11400000, guid: ce7f7ab2eb8f98f418fc1e7ab7a61eb3, type: 2}
-    <StackSize>k__BackingField: 395
+    <StackSize>k__BackingField: 107
+  - <Name>k__BackingField: GrappleGun
+    <Data>k__BackingField: {fileID: 11400000, guid: 05ad4a300a276594eb1bad2b7709dc57, type: 2}
+    <StackSize>k__BackingField: 1
   allItemsList: {fileID: 11400000, guid: a7dd26d29b84cd5438577477ed6161be, type: 2}

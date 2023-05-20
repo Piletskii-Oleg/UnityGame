@@ -24,7 +24,7 @@ namespace Inventory
         public InventoryItem(InventoryItemData data, int count = 1)
         {
             Data = data;
-            Name = data.name;
+            Name = data.displayName;
             StackSize = count;
         }
         
