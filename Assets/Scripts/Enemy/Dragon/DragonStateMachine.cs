@@ -11,15 +11,12 @@ namespace Enemy.Dragon
         {
             this.fireController = fireController;
         }
-        
+
         public override void ChangeState(BaseState newState)
         {
             fireController.StopEruptingFlames();
-            
-            if (CurrentState.GetType() != typeof(PlayerRanAwayState))
-            {
-                base.ChangeState(newState);
-            }
+
+            base.ChangeState(newState);
         }
     }
 }
