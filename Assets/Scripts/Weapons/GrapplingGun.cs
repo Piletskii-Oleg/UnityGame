@@ -12,6 +12,8 @@ namespace Weapons
     /// </summary>
     public class GrapplingGun : MonoBehaviour, IWeapon, IVolume
     {
+        private LayerMask touchableMask;
+        
         [Header("Gun Info")]
         [SerializeField] private GunData gunData;
         [SerializeField] private MusicManager musicManager;
@@ -43,6 +45,9 @@ namespace Weapons
 
         private void Awake()
         {
+            touchableMask = LayerMask.GetMask("InvisibleWalls");
+            touchableMask = ~touchableMask; // get all other layers
+            
             cam = Camera.main.transform;
             
             lineRenderer = GetComponent<LineRenderer>();
@@ -112,7 +117,7 @@ namespace Weapons
         {
             audioSource.Play();
             
-            if (Physics.Raycast(cam.position, cam.forward, out var hit, gunData.maxDistance))
+            if (Physics.Raycast(cam.position, cam.forward, out var hit, Mathf.Infinity, touchableMask))
             {
                 grapplingPoint = hit.point;
                 
